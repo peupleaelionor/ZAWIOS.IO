@@ -52,6 +52,7 @@ export function calculateAccuracy(correct: number, total: number): number {
 export function getInitials(name: string): string {
   return name
     .split(' ')
+    .filter((word) => word.length > 0)
     .map((word) => word[0])
     .join('')
     .toUpperCase()
