@@ -7,6 +7,9 @@ const footerLinks = {
     { href: '/leaderboard', label: 'Leaderboard' },
     { href: '/insights', label: 'Insights' },
     { href: '/pricing', label: 'Pricing' },
+    { href: '/premium', label: 'Premium' },
+    { href: '/creator', label: 'Creator' },
+    { href: '/business', label: 'Business' },
   ],
   Company: [
     { href: '/about', label: 'About' },

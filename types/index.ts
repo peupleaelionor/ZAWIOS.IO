@@ -14,6 +14,50 @@ export type PredictionStatus = 'open' | 'in_progress' | 'resolved' | 'archived'
 
 export type BadgeTier = 'bronze' | 'silver' | 'gold' | 'platinum'
 
+export type PlanTier = 'free' | 'premium' | 'creator' | 'business'
+
+export type BillingCycle = 'monthly' | 'annual'
+
+export type AddOnSlug =
+  | 'insight-pack'
+  | 'report-pack'
+  | 'trend-alerts'
+  | 'advanced-filters'
+  | 'reputation-boost'
+  | 'creator-badge'
+  | 'verified-analyst'
+  | 'team-workspace'
+  | 'private-dashboard'
+  | 'api-access'
+
+export interface PlanFeature {
+  label: string
+  included: boolean
+  highlight?: boolean
+}
+
+export interface Plan {
+  tier: PlanTier
+  name: string
+  tagline: string
+  monthlyPrice: number
+  annualPrice: number
+  cta: string
+  href: string
+  featured: boolean
+  features: PlanFeature[]
+}
+
+export interface AddOn {
+  slug: AddOnSlug
+  name: string
+  description: string
+  price: string
+  frequency: string
+  icon: string
+  availableFor: PlanTier[]
+}
+
 export interface User {
   id: string
   email: string
@@ -35,6 +79,7 @@ export interface Profile {
   location?: string
   website?: string
   is_premium: boolean
+  plan: PlanTier
   created_at: string
   updated_at: string
 }
@@ -170,4 +215,17 @@ export interface ApiError {
   message: string
   code?: string
   details?: unknown
+}
+
+export interface AnalyticsEvent {
+  event: string
+  properties?: Record<string, string | number | boolean>
+  timestamp?: string
+}
+
+export interface ConversionEvent {
+  from: PlanTier
+  to: PlanTier
+  source: string
+  timestamp: string
 }
