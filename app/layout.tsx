@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -46,6 +47,11 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+        <Script
+          data-domain="zawios.netlify.app"
+          src="https://plausible.io/js/script.js"
+          strategy="afterInteractive"
+        />
         {children}
       </body>
     </html>
