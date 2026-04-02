@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Menu, X, TrendingUp } from 'lucide-react'
+import { IconLogo } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
@@ -17,15 +17,13 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 w-full glass" style={{ borderBottom: '1px solid var(--border)' }}>
       <nav className="container">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-bold text-lg">
-            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-zinc-900 dark:text-white">ZAWIOS</span>
+          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg">
+            <IconLogo size={32} />
+            <span className="gradient-text tracking-tight" style={{ fontFamily: 'var(--font)', fontWeight: 700 }}>ZAWIOS</span>
           </Link>
 
           {/* Desktop nav */}
@@ -34,7 +32,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+                className="px-3 py-2 text-sm font-medium text-[var(--text2)] hover:text-[var(--text)] rounded-lg hover:bg-white/[0.04] transition-colors"
               >
                 {link.label}
               </Link>
@@ -55,11 +53,15 @@ export function Navbar() {
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden p-2 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            className="md:hidden p-2 rounded-lg hover:bg-white/[0.04] transition-colors text-[var(--text2)]"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isOpen ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>
+            )}
           </button>
         </div>
 
@@ -75,13 +77,13 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2.5 text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 rounded-lg hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                className="px-3 py-2.5 text-sm font-medium text-[var(--text2)] hover:text-[var(--text)] rounded-lg hover:bg-white/[0.04]"
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="flex gap-2 mt-2 pt-2 border-t border-zinc-100 dark:border-zinc-800">
+            <div className="flex gap-2 mt-2 pt-2" style={{ borderTop: '1px solid var(--border)' }}>
               <Link href="/auth/login" className="flex-1">
                 <Button variant="outline" size="sm" className="w-full">
                   Sign in

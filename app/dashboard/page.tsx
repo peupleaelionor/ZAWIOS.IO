@@ -3,47 +3,107 @@ import { StatCard } from '@/components/ui/stat-card'
 import { PredictionCard } from '@/components/predictions/prediction-card'
 import { Badge } from '@/components/ui/badge'
 import { mockPredictions, mockLeaderboard } from '@/lib/mock-data'
-import { Award, Target, TrendingUp, Users } from 'lucide-react'
+import { IconTrophy, IconTarget, IconTrending, IconUsers, IconArrows, IconUpvote, IconComment } from '@/components/ui/icons'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
+import { Avatar } from '@/components/ui/avatar'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Dashboard',
 }
 
+const recentActivity = [
+  { icon: IconUpvote, text: 'You voted Yes on "Will AI surpass human benchmarks by end 2025?"', time: '2 min ago', color: 'var(--teal)' },
+  { icon: IconTrending, text: 'Your prediction on Bitcoin is trending — 9.2K votes', time: '1 hour ago', color: 'var(--accent)' },
+  { icon: IconTrophy, text: 'You moved up to rank #24 on the global leaderboard', time: '3 hours ago', color: 'var(--amber)' },
+  { icon: IconComment, text: 'New comment on your Fed Funds Rate prediction', time: '5 hours ago', color: 'var(--accent2)' },
+  { icon: IconTarget, text: '"UK general election" resolved — your prediction was correct', time: 'Yesterday', color: 'var(--teal)' },
+]
+
 export default function DashboardPage() {
   const trendingPredictions = mockPredictions.filter((p) => p.featured).slice(0, 3)
-  const activePredictions = mockPredictions.filter((p) => p.status === 'open').slice(0, 3)
   const topPredictor = mockLeaderboard[0]
 
   return (
     <DashboardLayout>
       {/* Greeting */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">Good morning 👋</h1>
-        <p className="text-zinc-500 dark:text-zinc-400 mt-1">Here&apos;s what&apos;s happening on ZAWIOS today.</p>
+        <h1 className="text-2xl font-bold text-[var(--text)]">Good morning</h1>
+        <p className="text-[var(--text2)] mt-1">Here&apos;s what&apos;s happening on ZAWIOS today.</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard label="Your score" value={4218} icon={Award} trend={12} />
-        <StatCard label="Accuracy rate" value="67%" icon={Target} />
-        <StatCard label="Predictions" value={42} icon={TrendingUp} trend={3} />
-        <StatCard label="Global rank" value="#24" icon={Users} />
+        <StatCard label="Your score" value={4218} icon={IconTrophy} trend={12} />
+        <StatCard label="Accuracy rate" value="67%" icon={IconTarget} />
+        <StatCard label="Predictions" value={42} icon={IconTrending} trend={3} />
+        <StatCard label="Global rank" value="#24" icon={IconUsers} />
+      </div>
+
+      <div className="grid lg:grid-cols-3 gap-6 mb-8">
+        {/* Recent activity */}
+        <div className="lg:col-span-2">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-[var(--text)]">Recent activity</h2>
+            <span className="badge-mono" style={{ color: 'var(--teal)' }}>
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[var(--teal)] mr-1.5" style={{ animation: 'pulse-dot 2s ease-in-out infinite' }} />
+              Live
+            </span>
+          </div>
+          <div className="surface rounded-2xl divide-y divide-[var(--border)]">
+            {recentActivity.map((item, i) => (
+              <div key={i} className="flex items-start gap-3 p-4">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: `color-mix(in srgb, ${item.color} 15%, transparent)`, color: item.color }}
+                >
+                  <item.icon className="w-4 h-4" size={16} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm text-[var(--text2)] leading-relaxed">{item.text}</p>
+                  <p className="text-xs text-[var(--text3)] mt-0.5" style={{ fontFamily: 'var(--mono)' }}>{item.time}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Quick stats + top predictor */}
+        <div className="space-y-4">
+          <div className="surface rounded-2xl p-6">
+            <p className="text-sm text-[var(--text3)] mb-1">New predictions today</p>
+            <p className="text-3xl font-bold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>23</p>
+            <Badge variant="success" className="mt-2">+8 today</Badge>
+          </div>
+          <div className="surface rounded-2xl p-6">
+            <p className="text-sm text-[var(--text3)] mb-1">Total votes today</p>
+            <p className="text-3xl font-bold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>1,847</p>
+            <Badge variant="success" className="mt-2">+12% vs yesterday</Badge>
+          </div>
+          <div className="surface rounded-2xl p-6">
+            <p className="text-sm text-[var(--text3)] mb-3">Top predictor today</p>
+            <div className="flex items-center gap-3">
+              <Avatar src={topPredictor.user.avatar_url} name={topPredictor.user.full_name} size="sm" />
+              <div>
+                <p className="text-sm font-semibold text-[var(--text)]">{topPredictor.user.full_name}</p>
+                <p className="text-xs text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>{topPredictor.accuracy_rate}% accuracy</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Trending */}
-      <section className="mb-8">
+      <section>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">Trending predictions</h2>
-            <p className="text-sm text-zinc-500">Most active in the last 24 hours</p>
+            <h2 className="text-lg font-semibold text-[var(--text)]">Trending predictions</h2>
+            <p className="text-sm text-[var(--text3)]">Most active in the last 24 hours</p>
           </div>
           <Link href="/predictions">
             <Button variant="ghost" size="sm" className="gap-1">
-              View all <ArrowRight className="w-3.5 h-3.5" />
+              View all <IconArrows className="w-3.5 h-3.5" size={14} />
             </Button>
           </Link>
         </div>
@@ -51,45 +111,6 @@ export default function DashboardPage() {
           {trendingPredictions.map((p) => (
             <PredictionCard key={p.id} prediction={p} compact />
           ))}
-        </div>
-      </section>
-
-      {/* Active predictions */}
-      <section className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div>
-            <h2 className="text-lg font-semibold text-zinc-900 dark:text-white">Open predictions</h2>
-            <p className="text-sm text-zinc-500">Questions still accepting votes</p>
-          </div>
-        </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          {activePredictions.map((p) => (
-            <PredictionCard key={p.id} prediction={p} compact />
-          ))}
-        </div>
-      </section>
-
-      {/* Platform activity */}
-      <section>
-        <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-4">Platform today</h2>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
-            <p className="text-sm text-zinc-500 mb-1">New predictions</p>
-            <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">23</p>
-            <Badge variant="success" className="mt-2">+8 today</Badge>
-          </div>
-          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
-            <p className="text-sm text-zinc-500 mb-1">Total votes today</p>
-            <p className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">1,847</p>
-            <Badge variant="success" className="mt-2">+12% vs yesterday</Badge>
-          </div>
-          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
-            <p className="text-sm text-zinc-500 mb-1">Top predictor today</p>
-            <div className="flex items-center gap-2 mt-2">
-              <span className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">{topPredictor.user.full_name}</span>
-              <Badge variant="default">{topPredictor.accuracy_rate}%</Badge>
-            </div>
-          </div>
         </div>
       </section>
     </DashboardLayout>

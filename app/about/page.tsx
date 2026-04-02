@@ -1,9 +1,9 @@
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { GridBackground, Orb } from '@/components/ui/effects'
+import { IconGlobe, IconTarget, IconTrending, IconArrows, IconShield, IconUsers, IconCheck } from '@/components/ui/icons'
 import Link from 'next/link'
-import { ArrowRight, Globe, Target, TrendingUp } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -13,17 +13,19 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="py-20 bg-gradient-to-br from-zinc-50 to-white dark:from-zinc-900 dark:to-zinc-950">
-          <div className="container max-w-3xl">
-            <Badge variant="outline" className="mb-4">Our mission</Badge>
-            <h1 className="text-4xl font-bold text-zinc-900 dark:text-white mb-6">
+        <section className="relative py-20 overflow-hidden">
+          <GridBackground />
+          <Orb color="var(--accent)" size={350} top="-10%" left="10%" />
+          <div className="container max-w-3xl relative">
+            <p className="section-label">Our mission</p>
+            <h1 className="text-4xl font-bold text-[var(--text)] mb-6">
               Intelligence is collective. <br />Reputation should be verifiable.
             </h1>
-            <p className="text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <p className="text-lg text-[var(--text2)] leading-relaxed">
               ZAWIOS was built on a simple premise: the best information about the future comes from aggregating
               many perspectives, not from a single analyst. We built the infrastructure to make that signal accessible
               — and to reward the people who get it right.
@@ -32,32 +34,35 @@ export default function AboutPage() {
         </section>
 
         {/* Values */}
-        <section className="py-16 bg-white dark:bg-zinc-950">
+        <section className="py-16 bg-[var(--bg2)]">
           <div className="container">
             <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               {[
                 {
-                  icon: Globe,
+                  icon: <IconGlobe className="w-6 h-6" size={24} />,
                   title: 'Open & Global',
                   description: 'No gatekeepers. Predictors from 94 countries participate on equal terms. The best ideas win, regardless of credential or location.',
                 },
                 {
-                  icon: Target,
+                  icon: <IconTarget className="w-6 h-6" size={24} />,
                   title: 'Accuracy First',
                   description: 'We measure what matters: were you right? Not how loud you were, not how confident you sounded — just your track record over time.',
                 },
                 {
-                  icon: TrendingUp,
+                  icon: <IconTrending className="w-6 h-6" size={24} />,
                   title: 'Transparent Data',
                   description: 'Every signal is public. Every vote is recorded. Every reputation score is calculated transparently. No black boxes.',
                 },
               ].map((value) => (
-                <div key={value.title} className="text-center">
-                  <div className="w-12 h-12 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <value.icon className="w-6 h-6 text-indigo-600" />
+                <div key={value.title} className="text-center rv">
+                  <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4"
+                    style={{ background: 'rgba(124,110,240,0.1)', color: 'var(--accent2)' }}
+                  >
+                    {value.icon}
                   </div>
-                  <h3 className="font-semibold text-zinc-900 dark:text-white mb-2">{value.title}</h3>
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{value.description}</p>
+                  <h3 className="font-semibold text-[var(--text)] mb-2">{value.title}</h3>
+                  <p className="text-sm text-[var(--text2)] leading-relaxed">{value.description}</p>
                 </div>
               ))}
             </div>
@@ -65,10 +70,10 @@ export default function AboutPage() {
         </section>
 
         {/* Story */}
-        <section className="py-16 bg-zinc-50 dark:bg-zinc-900/50">
+        <section className="py-16 bg-[var(--bg)]">
           <div className="container max-w-3xl">
-            <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-6">The story</h2>
-            <div className="space-y-4 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+            <h2 className="text-2xl font-bold text-[var(--text)] mb-6">The story</h2>
+            <div className="space-y-4 text-[var(--text2)] leading-relaxed">
               <p>
                 ZAWIOS started from a frustration: the most valuable insights about the future were locked in
                 expensive research reports, proprietary models, and private channels. Meanwhile, millions of smart,
@@ -87,14 +92,14 @@ export default function AboutPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-16 bg-white dark:bg-zinc-950">
+        <section className="py-16 bg-[var(--bg2)]">
           <div className="container text-center">
-            <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-4">
+            <h2 className="text-2xl font-bold text-[var(--text)] mb-4">
               Ready to start building your reputation?
             </h2>
             <Link href="/auth/signup">
               <Button size="lg" className="gap-2">
-                Join ZAWIOS free <ArrowRight className="w-4 h-4" />
+                Join ZAWIOS free <IconArrows className="w-4 h-4" size={16} />
               </Button>
             </Link>
           </div>

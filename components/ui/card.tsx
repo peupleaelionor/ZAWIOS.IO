@@ -4,10 +4,7 @@ import { type HTMLAttributes } from 'react'
 function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn(
-        'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl shadow-sm',
-        className
-      )}
+      className={cn('surface rounded-2xl', className)}
       {...props}
     />
   )
@@ -20,7 +17,7 @@ function CardHeader({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 function CardTitle({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn('text-lg font-semibold text-zinc-900 dark:text-zinc-100', className)}
+      className={cn('text-lg font-semibold text-[var(--text)]', className)}
       {...props}
     />
   )
@@ -28,7 +25,7 @@ function CardTitle({ className, ...props }: HTMLAttributes<HTMLHeadingElement>) 
 
 function CardDescription({ className, ...props }: HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p className={cn('text-sm text-zinc-500 dark:text-zinc-400 mt-1', className)} {...props} />
+    <p className={cn('text-sm text-[var(--text2)] mt-1', className)} {...props} />
   )
 }
 

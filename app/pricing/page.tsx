@@ -4,7 +4,8 @@ import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { CheckCircle, X, ArrowRight, Sparkles, Zap, Crown, Building2 } from 'lucide-react'
+import { GridBackground, Orb } from '@/components/ui/effects'
+import { IconCheck, IconArrows, IconZap, IconTrophy, IconShield, IconChart } from '@/components/ui/icons'
 import Link from 'next/link'
 import { useState } from 'react'
 import { PLANS, ADD_ONS, getAnnualSavings } from '@/lib/plans'
@@ -12,37 +13,17 @@ import { trackUpgradeClick, trackPricingToggle, trackAddOnClick } from '@/lib/an
 import type { PlanTier, BillingCycle } from '@/types'
 
 const planIcons: Record<PlanTier, React.ReactNode> = {
-  free: <Zap className="w-5 h-5" />,
-  premium: <Sparkles className="w-5 h-5" />,
-  creator: <Crown className="w-5 h-5" />,
-  business: <Building2 className="w-5 h-5" />,
+  free: <IconZap className="w-5 h-5" size={20} />,
+  premium: <IconChart className="w-5 h-5" size={20} />,
+  creator: <IconTrophy className="w-5 h-5" size={20} />,
+  business: <IconShield className="w-5 h-5" size={20} />,
 }
 
-const planColors: Record<PlanTier, { bg: string; text: string; border: string; icon: string }> = {
-  free: {
-    bg: 'bg-white dark:bg-zinc-900',
-    text: 'text-zinc-900 dark:text-zinc-100',
-    border: 'border-zinc-200 dark:border-zinc-800',
-    icon: 'bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400',
-  },
-  premium: {
-    bg: 'bg-indigo-600',
-    text: 'text-white',
-    border: 'border-indigo-600',
-    icon: 'bg-white/20 text-white',
-  },
-  creator: {
-    bg: 'bg-white dark:bg-zinc-900',
-    text: 'text-zinc-900 dark:text-zinc-100',
-    border: 'border-purple-300 dark:border-purple-800',
-    icon: 'bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400',
-  },
-  business: {
-    bg: 'bg-white dark:bg-zinc-900',
-    text: 'text-zinc-900 dark:text-zinc-100',
-    border: 'border-zinc-200 dark:border-zinc-800',
-    icon: 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400',
-  },
+const planAccents: Record<PlanTier, string> = {
+  free: 'var(--text3)',
+  premium: 'var(--accent)',
+  creator: 'var(--teal)',
+  business: 'var(--amber)',
 }
 
 export default function PricingPage() {
@@ -54,29 +35,31 @@ export default function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Navbar />
       <main>
         {/* Hero */}
-        <section className="pt-20 pb-12 bg-gradient-to-br from-zinc-50 via-white to-indigo-50/30 dark:from-zinc-900 dark:via-zinc-950 dark:to-indigo-950/20">
-          <div className="container text-center">
-            <Badge variant="outline" className="mb-4">Pricing</Badge>
-            <h1 className="text-4xl md:text-5xl font-bold text-zinc-900 dark:text-white mb-4">
+        <section className="relative pt-20 pb-12 overflow-hidden">
+          <GridBackground />
+          <Orb color="var(--accent)" size={400} top="-15%" right="10%" />
+          <div className="container text-center relative">
+            <p className="section-label">Pricing</p>
+            <h1 className="text-4xl md:text-5xl font-bold text-[var(--text)] mb-4">
               Go deeper. See more.
             </h1>
-            <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto text-lg leading-relaxed">
+            <p className="text-[var(--text2)] max-w-xl mx-auto text-lg leading-relaxed">
               ZAWIOS is free to use. Upgrade when you want deeper insights,
               more powerful tools, and a stronger reputation.
             </p>
 
             {/* Billing toggle */}
-            <div className="flex items-center justify-center gap-3 mt-8">
+            <div className="flex items-center justify-center gap-2 mt-8">
               <button
                 onClick={() => handleToggle('monthly')}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                   cycle === 'monthly'
-                    ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-sm'
-                    : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'
+                    ? 'bg-[var(--accent)] text-white shadow-sm shadow-[var(--accent)]/20'
+                    : 'text-[var(--text3)] hover:text-[var(--text2)]'
                 }`}
               >
                 Monthly
@@ -85,12 +68,12 @@ export default function PricingPage() {
                 onClick={() => handleToggle('annual')}
                 className={`px-4 py-2 rounded-xl text-sm font-medium transition-all flex items-center gap-2 ${
                   cycle === 'annual'
-                    ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 shadow-sm'
-                    : 'text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300'
+                    ? 'bg-[var(--accent)] text-white shadow-sm shadow-[var(--accent)]/20'
+                    : 'text-[var(--text3)] hover:text-[var(--text2)]'
                 }`}
               >
                 Annual
-                <span className="text-xs bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300 px-2 py-0.5 rounded-full font-medium">
+                <span className="text-xs bg-[var(--teal)]/15 text-[var(--teal)] px-2 py-0.5 rounded-full font-medium">
                   Save up to 25%
                 </span>
               </button>
@@ -99,11 +82,11 @@ export default function PricingPage() {
         </section>
 
         {/* Plans */}
-        <section className="py-16 bg-white dark:bg-zinc-950">
+        <section className="py-16 bg-[var(--bg)]">
           <div className="container">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
               {PLANS.map((plan) => {
-                const colors = planColors[plan.tier]
+                const accent = planAccents[plan.tier]
                 const isPremium = plan.featured
                 const price = cycle === 'monthly' ? plan.monthlyPrice : plan.annualPrice
                 const savings = getAnnualSavings(plan)
@@ -111,44 +94,54 @@ export default function PricingPage() {
                 return (
                   <div
                     key={plan.tier}
-                    className={`rounded-2xl p-7 border relative transition-all duration-200 ${colors.bg} ${colors.border} ${
-                      isPremium ? 'shadow-xl shadow-indigo-500/20 scale-[1.02] lg:scale-105' : 'card-hover'
+                    className={`rounded-2xl p-7 relative transition-all duration-200 card-hover ${
+                      isPremium
+                        ? 'border-2 shadow-lg scale-[1.02] lg:scale-105'
+                        : 'border'
                     }`}
+                    style={{
+                      background: 'var(--surface)',
+                      borderColor: isPremium ? accent : 'var(--border2)',
+                      boxShadow: isPremium ? `0 0 40px ${accent}20` : undefined,
+                    }}
                   >
                     {isPremium && (
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                        <Badge className="bg-amber-400 text-amber-900 border-0 shadow-sm">
+                        <span className="badge-mono text-[var(--accent)]" style={{ background: 'var(--accent)', color: '#fff', padding: '2px 12px', borderRadius: '999px', fontSize: '11px' }}>
                           Most popular
-                        </Badge>
+                        </span>
                       </div>
                     )}
 
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center mb-4 ${colors.icon}`}>
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                      style={{ background: `color-mix(in srgb, ${accent} 15%, transparent)`, color: accent }}
+                    >
                       {planIcons[plan.tier]}
                     </div>
 
-                    <h2 className={`text-lg font-bold mb-1 ${isPremium ? 'text-white' : colors.text}`}>
+                    <h2 className="text-lg font-bold mb-1 text-[var(--text)]">
                       {plan.name}
                     </h2>
 
                     <div className="flex items-baseline gap-1 mb-2">
-                      <span className={`text-3xl font-bold ${isPremium ? 'text-white' : colors.text}`}>
+                      <span className="text-3xl font-bold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>
                         {price === 0 ? '$0' : `$${price}`}
                       </span>
                       {price > 0 && (
-                        <span className={`text-sm ${isPremium ? 'text-indigo-200' : 'text-zinc-500'}`}>
+                        <span className="text-sm text-[var(--text3)]">
                           /{cycle === 'monthly' ? 'mo' : 'yr'}
                         </span>
                       )}
                     </div>
 
                     {cycle === 'annual' && savings > 0 && (
-                      <p className={`text-xs mb-3 font-medium ${isPremium ? 'text-indigo-200' : 'text-emerald-600 dark:text-emerald-400'}`}>
+                      <p className="text-xs mb-3 font-medium text-[var(--teal)]">
                         Save {savings}% vs monthly
                       </p>
                     )}
 
-                    <p className={`text-sm mb-6 leading-relaxed ${isPremium ? 'text-indigo-200' : 'text-zinc-500 dark:text-zinc-400'}`}>
+                    <p className="text-sm mb-6 leading-relaxed text-[var(--text2)]">
                       {plan.tagline}
                     </p>
 
@@ -157,11 +150,11 @@ export default function PricingPage() {
                       onClick={() => trackUpgradeClick('pricing_page', plan.tier)}
                     >
                       <Button
-                        variant={isPremium ? 'secondary' : plan.tier === 'business' ? 'outline' : 'primary'}
-                        className={`w-full mb-6 ${isPremium ? 'bg-white text-indigo-600 hover:bg-indigo-50' : ''}`}
+                        variant={isPremium ? 'primary' : 'outline'}
+                        className="w-full mb-6"
                       >
                         {plan.cta}
-                        {plan.tier !== 'free' && <ArrowRight className="w-3.5 h-3.5 ml-1" />}
+                        {plan.tier !== 'free' && <IconArrows className="w-3.5 h-3.5 ml-1" size={14} />}
                       </Button>
                     </Link>
 
@@ -169,23 +162,21 @@ export default function PricingPage() {
                       {plan.features.map((feature) => (
                         <li key={feature.label} className="flex items-start gap-2 text-sm">
                           {feature.included ? (
-                            <CheckCircle className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
-                              isPremium ? 'text-indigo-200' : feature.highlight ? 'text-indigo-500' : 'text-emerald-500'
-                            }`} />
+                            <IconCheck
+                              className="w-4 h-4 flex-shrink-0 mt-0.5"
+                              size={16}
+                              style={{ color: feature.highlight ? accent : 'var(--teal)' }}
+                            />
                           ) : (
-                            <X className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
-                              isPremium ? 'text-indigo-300/40' : 'text-zinc-300 dark:text-zinc-600'
-                            }`} />
+                            <span className="w-4 h-4 flex-shrink-0 mt-0.5 flex items-center justify-center text-[var(--text3)]" style={{ opacity: 0.4 }}>—</span>
                           )}
-                          <span className={`${
-                            isPremium
-                              ? feature.included ? 'text-indigo-100' : 'text-indigo-300/50'
-                              : feature.included
-                                ? feature.highlight
-                                  ? 'text-zinc-900 dark:text-zinc-100 font-medium'
-                                  : 'text-zinc-600 dark:text-zinc-400'
-                                : 'text-zinc-400 dark:text-zinc-600'
-                          }`}>
+                          <span className={
+                            feature.included
+                              ? feature.highlight
+                                ? 'text-[var(--text)] font-medium'
+                                : 'text-[var(--text2)]'
+                              : 'text-[var(--text3)]'
+                          } style={{ opacity: feature.included ? 1 : 0.5 }}>
                             {feature.label}
                           </span>
                         </li>
@@ -199,13 +190,13 @@ export default function PricingPage() {
         </section>
 
         {/* Comparison table */}
-        <section className="py-16 bg-zinc-50 dark:bg-zinc-900/50">
+        <section className="py-16 bg-[var(--bg2)]">
           <div className="container">
             <div className="text-center mb-10">
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-3">
+              <h2 className="text-2xl font-bold text-[var(--text)] mb-3">
                 Compare all features
               </h2>
-              <p className="text-zinc-500 dark:text-zinc-400">
+              <p className="text-[var(--text2)]">
                 Every plan includes the essentials. Higher tiers unlock deeper tools.
               </p>
             </div>
@@ -213,11 +204,11 @@ export default function PricingPage() {
             <div className="max-w-5xl mx-auto overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-zinc-200 dark:border-zinc-700">
-                    <th className="text-left py-4 px-4 font-medium text-zinc-500">Feature</th>
+                  <tr style={{ borderBottom: '1px solid var(--border2)' }}>
+                    <th className="text-left py-4 px-4 font-medium text-[var(--text3)]">Feature</th>
                     {PLANS.map((plan) => (
                       <th key={plan.tier} className="text-center py-4 px-4">
-                        <span className={`font-semibold ${plan.featured ? 'text-indigo-600 dark:text-indigo-400' : 'text-zinc-900 dark:text-zinc-100'}`}>
+                        <span className={`font-semibold ${plan.featured ? 'text-[var(--accent)]' : 'text-[var(--text)]'}`}>
                           {plan.name}
                         </span>
                       </th>
@@ -249,16 +240,16 @@ export default function PricingPage() {
                     { feature: 'Multi-user workspace', tiers: [false, false, false, true] },
                     { feature: 'Dedicated support', tiers: [false, false, false, true] },
                   ].map((row) => (
-                    <tr key={row.feature} className="border-b border-zinc-100 dark:border-zinc-800">
-                      <td className="py-3 px-4 text-zinc-700 dark:text-zinc-300">{row.feature}</td>
+                    <tr key={row.feature} style={{ borderBottom: '1px solid var(--border)' }}>
+                      <td className="py-3 px-4 text-[var(--text2)]">{row.feature}</td>
                       {row.tiers.map((val, i) => (
                         <td key={i} className="text-center py-3 px-4">
                           {val === true ? (
-                            <CheckCircle className="w-4 h-4 text-emerald-500 mx-auto" />
+                            <IconCheck className="w-4 h-4 mx-auto" size={16} style={{ color: 'var(--teal)' }} />
                           ) : val === false ? (
-                            <span className="text-zinc-300 dark:text-zinc-600">—</span>
+                            <span className="text-[var(--text3)]" style={{ opacity: 0.4 }}>—</span>
                           ) : (
-                            <span className="text-zinc-600 dark:text-zinc-400 text-xs font-medium">{val}</span>
+                            <span className="text-[var(--text2)] text-xs font-medium" style={{ fontFamily: 'var(--mono)' }}>{val}</span>
                           )}
                         </td>
                       ))}
@@ -271,14 +262,14 @@ export default function PricingPage() {
         </section>
 
         {/* Add-ons */}
-        <section className="py-16 bg-white dark:bg-zinc-950">
+        <section className="py-16 bg-[var(--bg)]">
           <div className="container">
             <div className="text-center mb-10">
-              <Badge variant="outline" className="mb-3">Add-ons</Badge>
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-3">
+              <p className="section-label">Add-ons</p>
+              <h2 className="text-2xl font-bold text-[var(--text)] mb-3">
                 Go even further
               </h2>
-              <p className="text-zinc-500 dark:text-zinc-400 max-w-lg mx-auto">
+              <p className="text-[var(--text2)] max-w-lg mx-auto">
                 Enhance your experience with targeted packs. Each one adds depth, comfort, or visibility — no pressure.
               </p>
             </div>
@@ -287,23 +278,23 @@ export default function PricingPage() {
               {ADD_ONS.map((addon) => (
                 <div
                   key={addon.slug}
-                  className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl p-5 card-hover"
+                  className="surface rounded-xl p-5 card-hover"
                 >
                   <div className="flex items-start justify-between mb-3">
-                    <h3 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                    <h3 className="text-sm font-semibold text-[var(--text)]">
                       {addon.name}
                     </h3>
                     <div className="text-right flex-shrink-0 ml-3">
-                      <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">{addon.price}</span>
-                      <span className="text-xs text-zinc-500">{addon.frequency}</span>
+                      <span className="text-sm font-bold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>{addon.price}</span>
+                      <span className="text-xs text-[var(--text3)]">{addon.frequency}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
+                  <p className="text-xs text-[var(--text3)] leading-relaxed mb-3">
                     {addon.description}
                   </p>
                   <div className="flex items-center gap-1.5 flex-wrap">
                     {addon.availableFor.map((tier) => (
-                      <span key={tier} className="text-[10px] px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-800 text-zinc-500 dark:text-zinc-400 capitalize">
+                      <span key={tier} className="badge-mono capitalize">
                         {tier}
                       </span>
                     ))}
@@ -315,13 +306,13 @@ export default function PricingPage() {
         </section>
 
         {/* FAQ */}
-        <section className="py-16 bg-zinc-50 dark:bg-zinc-900/50">
+        <section className="py-16 bg-[var(--bg2)]">
           <div className="container">
             <div className="max-w-2xl mx-auto">
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-white mb-8 text-center">
+              <h2 className="text-2xl font-bold text-[var(--text)] mb-8 text-center">
                 Common questions
               </h2>
-              <div className="space-y-6">
+              <div className="space-y-4">
                 {[
                   {
                     q: 'Is ZAWIOS really free?',
@@ -344,9 +335,9 @@ export default function PricingPage() {
                     a: 'Your data is never deleted. If you downgrade, you simply lose access to premium features — but your history, predictions, and reputation score remain intact.',
                   },
                 ].map((faq) => (
-                  <div key={faq.q} className="bg-white dark:bg-zinc-900 rounded-xl p-6 border border-zinc-200 dark:border-zinc-800">
-                    <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">{faq.q}</h3>
-                    <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">{faq.a}</p>
+                  <div key={faq.q} className="surface rounded-xl p-6">
+                    <h3 className="font-semibold text-[var(--text)] mb-2">{faq.q}</h3>
+                    <p className="text-sm text-[var(--text2)] leading-relaxed">{faq.a}</p>
                   </div>
                 ))}
               </div>
@@ -355,22 +346,22 @@ export default function PricingPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-gradient-to-br from-indigo-600 to-purple-700">
-          <div className="container text-center">
+        <section className="py-20 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, var(--accent) 0%, var(--teal) 100%)' }}>
+          <div className="container text-center relative">
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready to see the full picture?
             </h2>
-            <p className="text-indigo-200 mb-8 max-w-md mx-auto">
+            <p className="text-white/70 mb-8 max-w-md mx-auto">
               Start free. Upgrade when the depth matters. Your reputation grows either way.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/auth/signup">
-                <Button size="lg" variant="secondary" className="w-full sm:w-auto gap-2">
-                  Create free account <ArrowRight className="w-4 h-4" />
+                <Button size="lg" className="w-full sm:w-auto gap-2 bg-white text-[var(--accent)] hover:bg-white/90 border-0 shadow-none">
+                  Create free account <IconArrows className="w-4 h-4" size={16} />
                 </Button>
               </Link>
               <Link href="/premium">
-                <Button size="lg" className="w-full sm:w-auto border border-white/30 bg-white/10 text-white hover:bg-white/20">
+                <Button size="lg" className="w-full sm:w-auto border border-white/30 bg-white/10 text-white hover:bg-white/20 shadow-none">
                   Explore Premium
                 </Button>
               </Link>

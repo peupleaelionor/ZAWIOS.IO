@@ -1,10 +1,16 @@
 import { cn, formatNumber } from '@/lib/utils'
-import { type LucideIcon } from 'lucide-react'
+import type { ComponentType } from 'react'
+
+interface IconProps {
+  className?: string
+  size?: number
+  style?: React.CSSProperties
+}
 
 interface StatCardProps {
   label: string
   value: number | string
-  icon?: LucideIcon
+  icon?: ComponentType<IconProps>
   trend?: number
   suffix?: string
   className?: string
@@ -17,23 +23,24 @@ export function StatCard({ label, value, icon: Icon, trend, suffix, className }:
   return (
     <div
       className={cn(
-        'bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6',
+        'surface rounded-2xl p-6',
         className
       )}
     >
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400 font-medium">{label}</p>
-          <p className="mt-1 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+          <p className="text-sm text-[var(--text3)] font-medium">{label}</p>
+          <p className="mt-1 text-2xl font-bold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>
             {displayValue}
-            {suffix && <span className="text-lg ml-1 text-zinc-400">{suffix}</span>}
+            {suffix && <span className="text-lg ml-1 text-[var(--text3)]">{suffix}</span>}
           </p>
           {trend !== undefined && (
             <p
               className={cn(
                 'mt-1 text-xs font-medium',
-                isPositiveTrend ? 'text-emerald-600' : 'text-red-600'
+                isPositiveTrend ? 'text-[var(--teal)]' : 'text-[var(--zred)]'
               )}
+              style={{ fontFamily: 'var(--mono)' }}
             >
               {isPositiveTrend ? '+' : ''}
               {trend}% vs last month
@@ -41,8 +48,8 @@ export function StatCard({ label, value, icon: Icon, trend, suffix, className }:
           )}
         </div>
         {Icon && (
-          <div className="p-2.5 bg-indigo-50 dark:bg-indigo-900/30 rounded-xl">
-            <Icon className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+          <div className="p-2.5 rounded-xl" style={{ background: 'rgba(124,110,240,0.1)' }}>
+            <Icon className="w-5 h-5" size={20} style={{ color: 'var(--accent2)' }} />
           </div>
         )}
       </div>

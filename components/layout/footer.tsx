@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { TrendingUp } from 'lucide-react'
+import { IconLogo } from '@/components/ui/icons'
 
 const footerLinks = {
   Product: [
@@ -24,30 +24,28 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-950">
+    <footer style={{ borderTop: '1px solid var(--border)' }} className="bg-[var(--bg)]">
       <div className="container py-12 md:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2 font-bold text-lg mb-3">
-              <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-zinc-900 dark:text-white">ZAWIOS</span>
+            <Link href="/" className="flex items-center gap-2.5 font-bold text-lg mb-3">
+              <IconLogo size={28} />
+              <span className="gradient-text tracking-tight">ZAWIOS</span>
             </Link>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 max-w-xs leading-relaxed">
+            <p className="text-sm text-[var(--text3)] max-w-xs leading-relaxed">
               The world&apos;s collective intelligence platform. See what the crowd thinks before
               it&apos;s right.
             </p>
-            <p className="mt-4 text-xs text-zinc-400">
-              © {new Date().getFullYear()} ZAWIOS. All rights reserved.
+            <p className="mt-4 text-xs text-[var(--text3)]" style={{ opacity: 0.6 }}>
+              &copy; {new Date().getFullYear()} ZAWIOS. All rights reserved.
             </p>
           </div>
 
           {/* Links */}
           {Object.entries(footerLinks).map(([section, links]) => (
             <div key={section}>
-              <h4 className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 mb-3">
+              <h4 className="text-xs font-semibold text-[var(--text2)] mb-3 uppercase tracking-wider" style={{ fontFamily: 'var(--mono)' }}>
                 {section}
               </h4>
               <ul className="space-y-2">
@@ -55,7 +53,7 @@ export function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+                      className="text-sm text-[var(--text3)] hover:text-[var(--text)] transition-colors"
                     >
                       {link.label}
                     </Link>
