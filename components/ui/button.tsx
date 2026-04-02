@@ -10,16 +10,16 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, children, disabled, ...props }, ref) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed select-none'
+      'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed select-none'
 
     const variants = {
-      primary: 'bg-indigo-600 text-white hover:bg-indigo-700 focus-visible:ring-indigo-500 shadow-sm',
+      primary: 'bg-[var(--accent)] text-white hover:brightness-110 focus-visible:ring-[var(--accent)] shadow-sm shadow-[var(--accent)]/20',
       secondary:
-        'bg-zinc-100 text-zinc-900 hover:bg-zinc-200 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700',
+        'bg-[var(--surface2)] text-[var(--text)] hover:bg-[var(--surface3)] border border-[var(--border2)]',
       outline:
-        'border border-zinc-200 dark:border-zinc-700 bg-transparent hover:bg-zinc-50 dark:hover:bg-zinc-800/50',
-      ghost: 'bg-transparent hover:bg-zinc-100 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300',
-      danger: 'bg-red-600 text-white hover:bg-red-700 focus-visible:ring-red-500',
+        'border border-[var(--border2)] bg-transparent text-[var(--text2)] hover:bg-white/[0.04] hover:text-[var(--text)]',
+      ghost: 'bg-transparent hover:bg-white/[0.04] text-[var(--text2)] hover:text-[var(--text)]',
+      danger: 'bg-[var(--zred)] text-white hover:brightness-110 focus-visible:ring-[var(--zred)]',
     }
 
     const sizes = {

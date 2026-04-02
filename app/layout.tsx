@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
+import { GrainOverlay } from '@/components/ui/effects'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -45,7 +46,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
         {/* Plausible — single global script, no duplicates */}
@@ -56,7 +57,8 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="antialiased" style={{ fontFamily: "'Inter', system-ui, sans-serif" }}>
+      <body className="antialiased" style={{ fontFamily: "var(--font)" }}>
+        <GrainOverlay />
         <AnalyticsProvider>
           {children}
         </AnalyticsProvider>

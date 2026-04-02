@@ -1,6 +1,5 @@
 'use client'
 import { cn } from '@/lib/utils'
-import { ChevronDown } from 'lucide-react'
 import { type SelectHTMLAttributes, forwardRef } from 'react'
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
@@ -17,7 +16,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
         {label && (
           <label
             htmlFor={selectId}
-            className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1.5"
+            className="block text-sm font-medium text-[var(--text2)] mb-1.5"
           >
             {label}
           </label>
@@ -28,10 +27,10 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             className={cn(
               'w-full appearance-none px-3.5 py-2.5 text-sm rounded-xl border transition-colors',
-              'bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100',
-              'border-zinc-200 dark:border-zinc-700',
-              'focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent',
-              error && 'border-red-500',
+              'bg-[var(--surface)] text-[var(--text)]',
+              'border-[var(--border2)]',
+              'focus:outline-none focus:ring-2 focus:ring-[var(--accent)] focus:border-transparent',
+              error && 'border-[var(--zred)]',
               className
             )}
             {...props}
@@ -42,9 +41,9 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
               </option>
             ))}
           </select>
-          <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400 pointer-events-none" />
+          <svg className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 pointer-events-none" style={{ color: 'var(--text3)' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
-        {error && <p className="mt-1.5 text-xs text-red-600">{error}</p>}
+        {error && <p className="mt-1.5 text-xs text-[var(--zred)]">{error}</p>}
       </div>
     )
   }

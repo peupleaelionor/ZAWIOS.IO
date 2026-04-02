@@ -30,10 +30,11 @@ export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
   return (
     <div
       className={cn(
-        'rounded-full bg-indigo-600 text-white flex items-center justify-center font-semibold',
+        'rounded-full text-white flex items-center justify-center font-semibold',
         sizes[size],
         className
       )}
+      style={{ background: 'linear-gradient(135deg, var(--accent), var(--teal))' }}
     >
       {getInitials(name)}
     </div>

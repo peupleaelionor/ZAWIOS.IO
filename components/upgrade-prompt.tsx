@@ -1,7 +1,7 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Lock, Sparkles } from 'lucide-react'
+import { IconArrows, IconShield, IconZap } from '@/components/ui/icons'
 import Link from 'next/link'
 import { trackUpgradeClick } from '@/lib/analytics'
 import type { PlanTier } from '@/types'
@@ -22,10 +22,10 @@ export function UpgradePrompt({ currentPlan = 'free', feature, source, compact =
 
   if (compact) {
     return (
-      <div className="flex items-center gap-3 p-3 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/40 rounded-xl">
-        <Lock className="w-4 h-4 text-indigo-500 flex-shrink-0" />
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 flex-1">
-          <span className="font-medium text-zinc-900 dark:text-zinc-100">{feature}</span> is available on {plan.name}.
+      <div className="flex items-center gap-3 p-3 rounded-xl" style={{ background: 'rgba(124,110,240,0.08)', border: '1px solid rgba(124,110,240,0.15)' }}>
+        <IconShield className="w-4 h-4 flex-shrink-0" size={16} style={{ color: 'var(--accent)' }} />
+        <p className="text-sm text-[var(--text2)] flex-1">
+          <span className="font-medium text-[var(--text)]">{feature}</span> is available on {plan.name}.
         </p>
         <Link
           href={plan.href}
@@ -40,14 +40,18 @@ export function UpgradePrompt({ currentPlan = 'free', feature, source, compact =
   }
 
   return (
-    <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 border border-indigo-100 dark:border-indigo-800/40 rounded-2xl p-8 text-center">
-      <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900/40 rounded-xl flex items-center justify-center mx-auto mb-4">
-        <Sparkles className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+    <div className="surface rounded-2xl p-8 text-center relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(124,110,240,0.08) 0%, rgba(52,208,182,0.05) 100%)' }}>
+      <div className="accent-line-top" />
+      <div
+        className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4"
+        style={{ background: 'rgba(124,110,240,0.12)', color: 'var(--accent2)' }}
+      >
+        <IconZap className="w-6 h-6" size={24} />
       </div>
-      <h3 className="text-lg font-semibold text-zinc-900 dark:text-white mb-2">
+      <h3 className="text-lg font-semibold text-[var(--text)] mb-2">
         Unlock {feature}
       </h3>
-      <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-6 max-w-sm mx-auto leading-relaxed">
+      <p className="text-sm text-[var(--text2)] mb-6 max-w-sm mx-auto leading-relaxed">
         Go deeper with {plan.name}. Get access to {feature.toLowerCase()} and more advanced tools
         to sharpen your predictions.
       </p>
@@ -56,10 +60,10 @@ export function UpgradePrompt({ currentPlan = 'free', feature, source, compact =
         onClick={() => trackUpgradeClick(source, nextPlan)}
       >
         <Button className="gap-2">
-          Upgrade to {plan.name} <ArrowRight className="w-4 h-4" />
+          Upgrade to {plan.name} <IconArrows className="w-4 h-4" size={16} />
         </Button>
       </Link>
-      <p className="text-xs text-zinc-400 mt-3">
+      <p className="text-xs text-[var(--text3)] mt-3" style={{ fontFamily: 'var(--mono)' }}>
         Starting at ${plan.monthlyPrice}/month · Cancel anytime
       </p>
     </div>

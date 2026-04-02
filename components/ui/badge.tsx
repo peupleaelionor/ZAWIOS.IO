@@ -7,12 +7,12 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 
 function Badge({ className, variant = 'default', ...props }: BadgeProps) {
   const variants = {
-    default: 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300',
-    success: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
-    warning: 'bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300',
-    danger: 'bg-red-50 text-red-700 dark:bg-red-900/30 dark:text-red-300',
-    outline: 'border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400',
-    category: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300',
+    default: 'bg-[var(--accent)]/15 text-[var(--accent2)] border border-[var(--accent)]/20',
+    success: 'bg-[var(--teal)]/15 text-[var(--teal)] border border-[var(--teal)]/20',
+    warning: 'bg-[var(--amber)]/15 text-[var(--amber)] border border-[var(--amber)]/20',
+    danger: 'bg-[var(--zred)]/15 text-[var(--zred)] border border-[var(--zred)]/20',
+    outline: 'border border-[var(--border2)] text-[var(--text2)]',
+    category: 'bg-[var(--surface2)] text-[var(--text2)] border border-[var(--border)]',
   }
 
   return (
