@@ -1,42 +1,60 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
-import { TrendingUp, ArrowLeft } from 'lucide-react'
+import { IconLogo } from '@/components/ui/icons'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { createClient } from '@/lib/supabase/client'
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    setError('')
+    const supabase = createClient()
+    const { error: err } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/auth/reset-password`,
+    })
     setLoading(false)
-    setSent(true)
+    if (err) {
+      setError(err.message)
+    } else {
+      setSent(true)
+    }
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2 font-bold text-xl">
-            <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center">
-              <TrendingUp className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-zinc-900 dark:text-white">ZAWIOS</span>
+          <Link href="/" className="inline-flex items-center gap-2.5 font-bold text-lg">
+            <IconLogo size={32} />
+            <span className="gradient-text tracking-tight">ZAWIOS</span>
           </Link>
-          <h1 className="mt-6 text-2xl font-bold text-zinc-900 dark:text-white">Reset password</h1>
-          <p className="mt-1 text-sm text-zinc-500">We&apos;ll email you a reset link</p>
+          <h1 className="mt-7 text-2xl font-bold text-[var(--text)]" style={{ letterSpacing: '-0.01em' }}>
+            Reset password
+          </h1>
+          <p className="mt-1.5 text-sm text-[var(--text2)]">We&apos;ll email you a reset link</p>
         </div>
 
-        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 p-8 shadow-sm">
+        <div className="surface rounded-2xl p-7" style={{ border: '1px solid var(--border2)' }}>
           {sent ? (
             <div className="text-center py-2">
-              <p className="text-emerald-600 font-medium mb-2">Email sent!</p>
-              <p className="text-sm text-zinc-500">Check your inbox for the reset link.</p>
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-4"
+                style={{ background: 'color-mix(in srgb, var(--teal) 15%, transparent)', color: 'var(--teal)' }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <p className="text-sm font-semibold text-[var(--text)] mb-1">Email sent</p>
+              <p className="text-sm text-[var(--text2)]">Check your inbox for the reset link.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -46,6 +64,7 @@ export default function ForgotPasswordPage() {
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                error={error}
                 required
               />
               <Button type="submit" className="w-full" loading={loading}>
@@ -55,8 +74,13 @@ export default function ForgotPasswordPage() {
           )}
         </div>
 
-        <Link href="/auth/login" className="flex items-center justify-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-900 mt-6 transition-colors">
-          <ArrowLeft className="w-4 h-4" />
+        <Link
+          href="/auth/login"
+          className="flex items-center justify-center gap-1.5 text-sm text-[var(--text3)] hover:text-[var(--text2)] mt-6 transition-colors"
+        >
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
+          </svg>
           Back to sign in
         </Link>
       </div>

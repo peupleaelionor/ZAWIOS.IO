@@ -2,31 +2,55 @@
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Eye, EyeOff, CheckCircle } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
 export function SignupForm() {
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({ name: '', username: '', email: '', password: '' })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1200))
+    setError('')
+
+    const supabase = createClient()
+    const { error: err } = await supabase.auth.signUp({
+      email: form.email,
+      password: form.password,
+      options: {
+        data: {
+          full_name: form.name,
+          username: form.username,
+        },
+      },
+    })
+
     setLoading(false)
-    setSuccess(true)
+    if (err) {
+      setError(err.message)
+    } else {
+      setSuccess(true)
+    }
   }
 
   if (success) {
     return (
-      <div className="text-center py-4">
-        <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-6 h-6 text-emerald-600" />
+      <div className="text-center py-2">
+        <div
+          className="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-4"
+          style={{ background: 'color-mix(in srgb, var(--teal) 15%, transparent)', color: 'var(--teal)' }}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="20 6 9 17 4 12" />
+          </svg>
         </div>
-        <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Check your email</h3>
-        <p className="text-sm text-zinc-500">
-          We&apos;ve sent a confirmation link to <strong>{form.email}</strong>. Click it to activate your account.
+        <p className="text-sm font-semibold text-[var(--text)] mb-1">Check your email</p>
+        <p className="text-sm text-[var(--text2)]">
+          We sent a confirmation link to{' '}
+          <span className="font-medium text-[var(--text)]">{form.email}</span>.
         </p>
       </div>
     )
@@ -34,6 +58,15 @@ export function SignupForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {error && (
+        <div
+          className="px-4 py-3 rounded-xl text-sm"
+          style={{ background: 'color-mix(in srgb, var(--zred) 12%, transparent)', color: 'var(--zred)', border: '1px solid color-mix(in srgb, var(--zred) 25%, transparent)' }}
+        >
+          {error}
+        </div>
+      )}
+
       <Input
         label="Full name"
         type="text"
@@ -50,7 +83,7 @@ export function SignupForm() {
         value={form.username}
         onChange={(e) => setForm({ ...form, username: e.target.value })}
         required
-        hint="Only letters, numbers, and underscores"
+        hint="Letters, numbers, and underscores only"
       />
       <Input
         label="Email address"
@@ -74,11 +107,25 @@ export function SignupForm() {
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-9 text-zinc-400 hover:text-zinc-600"
+          className="absolute right-3 top-9 transition-colors"
+          style={{ color: 'var(--text3)' }}
+          aria-label="Toggle password visibility"
         >
-          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          {showPassword ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" />
+              <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" />
+              <line x1="1" y1="1" x2="23" y2="23" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          )}
         </button>
       </div>
+
       <Button type="submit" className="w-full" loading={loading}>
         Create free account
       </Button>
