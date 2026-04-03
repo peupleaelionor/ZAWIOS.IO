@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { IconLogo, IconTrending, IconChart, IconTrophy, IconUsers, IconZap, IconTarget } from '@/components/ui/icons'
+import { IconLogo, IconTrending, IconChart, IconTrophy, IconUsers, IconPlus, IconTarget, IconSettings, IconSignOut } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 const sidebarLinks = [
@@ -51,18 +51,18 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             href="/predictions/create"
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors"
           >
-            <IconZap className="w-4 h-4" size={16} />
-            Create prediction
+            <IconPlus className="w-4 h-4" size={16} />
+            New prediction
           </Link>
           <Link
             href="/dashboard/settings"
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--text2)] hover:bg-white/[0.04] transition-colors"
           >
-            <IconTarget className="w-4 h-4" size={16} />
+            <IconSettings className="w-4 h-4" size={16} />
             Settings
           </Link>
           <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--text2)] hover:bg-white/[0.04] transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            <IconSignOut className="w-4 h-4" size={16} />
             Sign out
           </button>
         </div>

@@ -3,7 +3,7 @@ import { PredictionCard } from '@/components/predictions/prediction-card'
 import { Button } from '@/components/ui/button'
 import { mockPredictions } from '@/lib/mock-data'
 import Link from 'next/link'
-import { PlusCircle } from 'lucide-react'
+import { IconPlus } from '@/components/ui/icons'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -17,27 +17,30 @@ export default function DashboardPredictionsPage() {
     <DashboardLayout>
       <div className="flex items-start justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">My Predictions</h1>
-          <p className="text-zinc-500 dark:text-zinc-400 mt-1">Track your created and voted predictions</p>
+          <h1 className="text-2xl font-bold text-[var(--text)]" style={{ letterSpacing: '-0.01em' }}>
+            My Predictions
+          </h1>
+          <p className="text-[var(--text2)] mt-1 text-sm">Track your created and voted predictions</p>
         </div>
         <Link href="/predictions/create">
           <Button size="sm" className="gap-1.5">
-            <PlusCircle className="w-4 h-4" />
+            <IconPlus className="w-4 h-4" size={16} />
             New prediction
           </Button>
         </Link>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-4 border-b border-zinc-200 dark:border-zinc-800 mb-6">
+      <div className="flex gap-1 mb-6 p-1 rounded-xl" style={{ background: 'var(--surface2)', width: 'fit-content' }}>
         {['Created', 'Voted', 'Resolved'].map((tab, i) => (
           <button
             key={tab}
-            className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
+            className="px-4 py-1.5 text-sm font-medium rounded-lg transition-all duration-200"
+            style={
               i === 0
-                ? 'border-indigo-600 text-indigo-600'
-                : 'border-transparent text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100'
-            }`}
+                ? { background: 'var(--surface3)', color: 'var(--text)', boxShadow: '0 1px 3px rgba(0,0,0,0.2)' }
+                : { color: 'var(--text3)' }
+            }
           >
             {tab}
           </button>

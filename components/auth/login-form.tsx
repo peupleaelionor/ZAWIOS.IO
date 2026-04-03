@@ -1,26 +1,48 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { Eye, EyeOff } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
 export function LoginForm() {
+  const router = useRouter()
   const [showPassword, setShowPassword] = useState(false)
   const [loading, setLoading] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    // Simulate auth - in production, call Supabase auth
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setLoading(false)
+    setError('')
+
+    const supabase = createClient()
+    const { error: err } = await supabase.auth.signInWithPassword({ email, password })
+
+    if (err) {
+      setError(err.message)
+      setLoading(false)
+      return
+    }
+
+    router.push('/dashboard')
+    router.refresh()
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {error && (
+        <div
+          className="px-4 py-3 rounded-xl text-sm"
+          style={{ background: 'color-mix(in srgb, var(--zred) 12%, transparent)', color: 'var(--zred)', border: '1px solid color-mix(in srgb, var(--zred) 25%, transparent)' }}
+        >
+          {error}
+        </div>
+      )}
+
       <Input
         label="Email address"
         type="email"
@@ -44,14 +66,31 @@ export function LoginForm() {
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute right-3 top-9 text-zinc-400 hover:text-zinc-600"
+          className="absolute right-3 top-9 transition-colors"
+          style={{ color: 'var(--text3)' }}
+          aria-label="Toggle password visibility"
         >
-          {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+          {showPassword ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" />
+              <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" />
+              <line x1="1" y1="1" x2="23" y2="23" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          )}
         </button>
       </div>
 
       <div className="flex justify-end">
-        <Link href="/auth/forgot-password" className="text-xs text-indigo-600 hover:text-indigo-500">
+        <Link
+          href="/auth/forgot-password"
+          className="text-xs transition-colors"
+          style={{ color: 'var(--text3)' }}
+        >
           Forgot password?
         </Link>
       </div>
@@ -60,16 +99,13 @@ export function LoginForm() {
         Sign in
       </Button>
 
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-zinc-200 dark:border-zinc-700" />
-        </div>
-        <div className="relative flex justify-center text-xs text-zinc-400">
-          <span className="bg-white dark:bg-zinc-900 px-2">or continue with</span>
-        </div>
+      <div className="relative flex items-center gap-3">
+        <div className="flex-1 h-px" style={{ background: 'var(--border2)' }} />
+        <span className="text-xs" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>or</span>
+        <div className="flex-1 h-px" style={{ background: 'var(--border2)' }} />
       </div>
 
-      <Button type="button" variant="outline" className="w-full gap-2">
+      <Button type="button" variant="secondary" className="w-full gap-2.5">
         <svg className="w-4 h-4" viewBox="0 0 24 24">
           <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
           <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
