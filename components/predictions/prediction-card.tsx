@@ -3,6 +3,7 @@ import { formatDate, formatNumber } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Avatar } from '@/components/ui/avatar'
 import { IconComment, IconEye, IconTrending, IconCheck } from '@/components/ui/icons'
+import { VoteButtons } from '@/components/predictions/vote-buttons'
 import type { Prediction } from '@/types'
 
 const categoryColors: Record<string, { bg: string; text: string }> = {
@@ -105,6 +106,11 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
               />
             </div>
           </div>
+        )}
+
+        {/* Inline vote buttons for active yes/no predictions */}
+        {prediction.type === 'yes_no' && !isResolved && (
+          <VoteButtons predictionId={prediction.id} className="mt-3" />
         )}
 
         {/* Footer */}
