@@ -62,7 +62,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
 export default function FAQPage() {
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen flex flex-col bg-[var(--bg)]">
       <Navbar />
       <main className="container py-16">
         <div className="max-w-2xl mx-auto">

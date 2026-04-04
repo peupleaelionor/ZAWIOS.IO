@@ -22,7 +22,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen flex flex-col bg-[var(--bg)]">
       <Navbar />
       <main className="container py-16">
         <div className="max-w-lg mx-auto">
