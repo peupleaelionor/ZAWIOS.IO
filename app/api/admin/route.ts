@@ -15,11 +15,13 @@ async function requireAdmin() {
   if (!user) return null
 
   // Check is_admin flag in the profiles table
-  const { data: profile } = await supabase
+  const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('is_admin')
     .eq('user_id', user.id)
     .single()
+
+  if (profileError) return null
 
   return profile?.is_admin ? user : null
 }

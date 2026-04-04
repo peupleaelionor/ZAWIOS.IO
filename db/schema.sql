@@ -317,7 +317,7 @@ CREATE POLICY "Admins can delete user badges" ON user_badges FOR DELETE USING (i
 
 -- ----- Comments: public read (non-hidden), own write, admin moderation -----
 ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Comments are publicly viewable" ON comments FOR SELECT USING (NOT is_hidden OR auth.uid() = user_id OR is_admin());
+CREATE POLICY "Comments are publicly viewable" ON comments FOR SELECT USING (is_admin() OR auth.uid() = user_id OR NOT is_hidden);
 CREATE POLICY "Authenticated users can comment" ON comments FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "Users can update own comments" ON comments FOR UPDATE USING (auth.uid() = user_id OR is_admin());
 CREATE POLICY "Users can delete own comments" ON comments FOR DELETE USING (auth.uid() = user_id OR is_admin());
