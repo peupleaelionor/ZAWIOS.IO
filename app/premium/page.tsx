@@ -104,7 +104,7 @@ export default function PremiumPage() {
         <section className="py-16 bg-[var(--bg2)]">
           <div className="container">
             <div className="max-w-3xl mx-auto text-center">
-              <div className="grid grid-cols-3 gap-8 mb-10">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-10">
                 {[
                   { value: '12K+', label: 'Premium members' },
                   { value: '94%', label: 'Retention rate' },

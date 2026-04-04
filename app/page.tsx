@@ -390,7 +390,7 @@ export default function HomePage() {
       </section>
 
       {/* ── TRUST SIGNALS ────────────────────────────────────────────── */}
-      <section className="py-20 bg-[var(--bg)]">
+      <section className="py-24 bg-[var(--bg)]">
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

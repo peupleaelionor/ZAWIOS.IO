@@ -78,7 +78,9 @@ export async function POST(request: NextRequest) {
 
   if (!response.ok) {
     const text = await response.text()
-    console.error('[api/email] upstream error', response.status, text)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[api/email] upstream error', response.status, text)
+    }
     return NextResponse.json(
       { error: 'Email service error' },
       { status: response.status }
