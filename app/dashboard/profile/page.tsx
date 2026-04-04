@@ -27,7 +27,10 @@ export default function DashboardProfilePage() {
         <div className="surface rounded-2xl p-8 text-center">
           <div className="relative inline-block mb-4">
             <Avatar src={profile.avatar_url} name={profile.full_name} size="xl" />
-            <button className="absolute bottom-0 right-0 w-7 h-7 bg-[var(--accent)] rounded-full flex items-center justify-center shadow-lg">
+            <button
+              aria-label="Edit profile photo"
+              className="absolute bottom-0 right-0 w-7 h-7 bg-[var(--accent)] rounded-full flex items-center justify-center shadow-lg"
+            >
               <IconEdit className="w-3.5 h-3.5 text-white" size={14} />
             </button>
           </div>

@@ -48,6 +48,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       <button
         className="w-full text-left py-5 flex items-center justify-between gap-4"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
       >
         <span className="font-medium text-[var(--text)]">{question}</span>
         <IconChevronDown className={cn('w-4 h-4 text-[var(--text3)] flex-shrink-0 transition-transform', open && 'rotate-180')} size={16} />

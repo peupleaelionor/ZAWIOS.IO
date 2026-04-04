@@ -62,6 +62,9 @@ export default function DashboardSettingsPage() {
                   <p className="text-xs text-[var(--text2)] mt-0.5">{notif.description}</p>
                 </div>
                 <button
+                  role="switch"
+                  aria-checked={notif.defaultChecked}
+                  aria-label={notif.label}
                   className={`relative w-10 h-6 rounded-full transition-colors ${notif.defaultChecked ? 'bg-[var(--accent)]' : 'bg-[var(--surface2)]'}`}
                 >
                   <span className={`absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform ${notif.defaultChecked ? 'left-4' : 'left-0.5'}`} />
