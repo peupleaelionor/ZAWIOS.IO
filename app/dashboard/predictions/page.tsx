@@ -173,7 +173,7 @@ export default function DashboardPredictionsPage() {
         className="text-center mt-6 text-[var(--text3)]"
         style={{ fontFamily: 'var(--mono)', fontSize: '10px', letterSpacing: '0.04em' }}
       >
-        Updated 2 min ago
+        Updated automatically
       </p>
     </DashboardLayout>
   )

@@ -102,7 +102,7 @@ export default function LeaderboardPage() {
           </div>
 
           <p className="text-center text-sm text-[var(--text3)] mt-6" style={{ fontFamily: 'var(--mono)', fontSize: '11px' }}>
-            Rankings updated in real-time · Last refresh 3 min ago
+            Rankings update based on prediction accuracy and volume
           </p>
         </div>
       </main>
