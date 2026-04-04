@@ -2,9 +2,10 @@ import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Avatar } from '@/components/ui/avatar'
 import { GridBackground, Orb } from '@/components/ui/effects'
-import { IconTrophy, IconMedal } from '@/components/ui/icons'
-import { mockLeaderboard } from '@/lib/mock-data'
+import { IconTrophy, IconMedal, IconUsers, IconChart, IconTrending } from '@/components/ui/icons'
+import { mockLeaderboard, PLATFORM_STATS } from '@/lib/mock-data'
 import { formatNumber } from '@/lib/utils'
+import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -31,6 +32,23 @@ export default function LeaderboardPage() {
             <p className="mt-2 text-[var(--text2)]">
               Top predictors ranked by accuracy and reputation
             </p>
+
+            {/* Quick stats */}
+            <div className="flex items-center justify-center gap-6 mt-6">
+              {[
+                { icon: IconUsers, value: formatNumber(PLATFORM_STATS.total_users), label: 'Predictors' },
+                { icon: IconChart, value: `${PLATFORM_STATS.avg_accuracy}%`, label: 'Avg accuracy' },
+                { icon: IconTrending, value: formatNumber(PLATFORM_STATS.total_predictions), label: 'Predictions' },
+              ].map((s) => (
+                <div key={s.label} className="flex items-center gap-1.5">
+                  <s.icon size={13} style={{ color: 'var(--text3)' }} />
+                  <span className="text-xs font-semibold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>
+                    {s.value}
+                  </span>
+                  <span className="text-[10px] text-[var(--text3)]">{s.label}</span>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="surface rounded-2xl overflow-hidden">
@@ -43,7 +61,8 @@ export default function LeaderboardPage() {
             </div>
 
             {mockLeaderboard.map((entry, index) => (
-              <div
+              <Link
+                href={`/profile/${entry.user.username}`}
                 key={entry.user.id}
                 className={`grid grid-cols-12 items-center px-6 py-4 hover:bg-white/[0.02] transition-colors`}
                 style={{ borderBottom: index < mockLeaderboard.length - 1 ? '1px solid var(--border)' : 'none' }}
@@ -78,12 +97,12 @@ export default function LeaderboardPage() {
                 <div className="col-span-2 text-right">
                   <span className="text-sm text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>{entry.prediction_count}</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
 
           <p className="text-center text-sm text-[var(--text3)] mt-6" style={{ fontFamily: 'var(--mono)', fontSize: '11px' }}>
-            Rankings updated in real-time based on prediction accuracy and volume
+            Rankings update based on prediction accuracy and volume
           </p>
         </div>
       </main>

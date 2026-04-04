@@ -6,7 +6,16 @@ import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
 import { mockPredictions } from '@/lib/mock-data'
 import { formatDate, formatNumber } from '@/lib/utils'
-import { IconCalendar, IconUsers, IconEye, IconComment, IconTrending, IconCheck } from '@/components/ui/icons'
+import {
+  IconCalendar,
+  IconUsers,
+  IconEye,
+  IconComment,
+  IconTrending,
+  IconCheck,
+  IconArrows,
+} from '@/components/ui/icons'
+import { CrowdSignalBar } from '@/components/crowd-signal-bar'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
@@ -31,6 +40,8 @@ export default async function PredictionPage({ params }: Props) {
 
   const isResolved = prediction.status === 'resolved'
   const totalVotes = prediction.options?.reduce((sum, o) => sum + o.vote_count, 0) ?? 0
+  const yesOption = prediction.options?.find((o) => o.label === 'Yes')
+  const yesPercent = yesOption?.percentage ?? 0
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
@@ -39,11 +50,9 @@ export default async function PredictionPage({ params }: Props) {
         <Link
           href="/predictions"
           className="inline-flex items-center gap-1.5 text-sm mb-6 transition-colors"
-          style={{ color: 'var(--text3)' }}
+          style={{ color: 'var(--text2)' }}
         >
-          <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
-          </svg>
+          <IconArrows size={16} />
           Back to predictions
         </Link>
 
@@ -52,11 +61,8 @@ export default async function PredictionPage({ params }: Props) {
           <div className="lg:col-span-2 space-y-6">
             {/* Header */}
             <div className="surface rounded-2xl p-8">
-              <div className="flex items-center gap-2 mb-4 flex-wrap">
-                <span
-                  className="px-2.5 py-1 rounded-full text-xs font-medium capitalize"
-                  style={{ background: 'rgba(124,110,240,0.1)', color: 'var(--accent)' }}
-                >
+              <div className="flex items-center gap-2 mb-4">
+                <span className="badge-mono capitalize" style={{ background: 'color-mix(in srgb, var(--accent) 15%, transparent)', color: 'var(--accent2)' }}>
                   {prediction.category}
                 </span>
                 {isResolved && (
@@ -73,17 +79,20 @@ export default async function PredictionPage({ params }: Props) {
                 )}
               </div>
 
-              <h1 className="text-2xl md:text-3xl font-bold leading-snug mb-4" style={{ color: 'var(--text)' }}>
+              <h1
+                className="text-2xl md:text-3xl font-bold leading-snug mb-4"
+                style={{ color: 'var(--text)' }}
+              >
                 {prediction.title}
               </h1>
 
-              <p className="leading-relaxed" style={{ color: 'var(--text3)' }}>
+              <p style={{ color: 'var(--text2)' }} className="leading-relaxed">
                 {prediction.description}
               </p>
 
               <div
                 className="flex flex-wrap gap-4 mt-6 pt-6 text-sm"
-                style={{ borderTop: '1px solid var(--border)', color: 'var(--text3)' }}
+                style={{ borderTop: '1px solid var(--border)', color: 'var(--text2)' }}
               >
                 <span className="flex items-center gap-1.5">
                   <IconCalendar size={16} />
@@ -106,7 +115,10 @@ export default async function PredictionPage({ params }: Props) {
 
             {/* Voting */}
             <div className="surface rounded-2xl p-8">
-              <h2 className="text-lg font-semibold mb-6" style={{ color: 'var(--text)' }}>
+              <h2
+                className="text-lg font-semibold mb-6"
+                style={{ color: 'var(--text)' }}
+              >
                 Community vote · {formatNumber(totalVotes)} responses
               </h2>
 
@@ -120,31 +132,47 @@ export default async function PredictionPage({ params }: Props) {
                           <IconCheck size={16} style={{ color: 'var(--teal)' }} />
                         )}
                       </div>
-                      <span className="text-sm font-bold" style={{ color: 'var(--text)', fontFamily: 'var(--mono)' }}>
+                      <span
+                        className="text-sm font-bold"
+                        style={{ color: 'var(--text)', fontFamily: 'var(--mono)' }}
+                      >
                         {option.percentage}%
                       </span>
                     </div>
-                    <div className="h-3 rounded-full overflow-hidden" style={{ background: 'var(--surface2)' }}>
+                    <div
+                      className="h-3 rounded-full overflow-hidden"
+                      style={{ background: 'var(--surface2)' }}
+                    >
                       <div
                         className="h-full rounded-full transition-all duration-700"
                         style={{
                           width: `${option.percentage}%`,
                           background: option.is_correct
                             ? 'var(--teal)'
+                            : option.label === 'Yes'
+                            ? 'var(--accent)'
                             : option.label === 'No'
                             ? 'var(--zred)'
                             : 'var(--accent)',
                         }}
                       />
                     </div>
-                    <p className="text-xs mt-1" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>{formatNumber(option.vote_count)} votes</p>
+                    <p className="text-xs mt-1" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
+                      {formatNumber(option.vote_count)} votes
+                    </p>
                   </div>
                 ))}
               </div>
 
+              <CrowdSignalBar
+                yesPercent={yesPercent}
+                totalVotes={totalVotes}
+                className="mt-6"
+              />
+
               {!isResolved && (
                 <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
-                  <p className="text-sm mb-4" style={{ color: 'var(--text3)' }}>Cast your vote</p>
+                  <p className="text-sm mb-4" style={{ color: 'var(--text2)' }}>Cast your vote</p>
                   <div className="flex gap-3 flex-wrap">
                     {prediction.options?.map((option) => (
                       <Link href="/auth/login" key={option.id}>
@@ -162,11 +190,14 @@ export default async function PredictionPage({ params }: Props) {
 
               {isResolved && prediction.resolution_notes && (
                 <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
-                  <div className="flex items-start gap-2 p-4 rounded-xl" style={{ background: 'rgba(52,208,182,0.08)', border: '1px solid rgba(52,208,182,0.2)' }}>
-                    <IconCheck size={16} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--teal)' }} />
+                  <div
+                    className="flex items-start gap-2 p-4 rounded-xl"
+                    style={{ background: 'color-mix(in srgb, var(--teal) 10%, transparent)' }}
+                  >
+                    <IconCheck size={16} style={{ color: 'var(--teal)', flexShrink: 0, marginTop: '2px' }} />
                     <div>
                       <p className="text-sm font-medium" style={{ color: 'var(--teal)' }}>Resolution</p>
-                      <p className="text-sm mt-1" style={{ color: 'var(--text2)' }}>{prediction.resolution_notes}</p>
+                      <p className="text-sm mt-1" style={{ color: 'var(--teal2)' }}>{prediction.resolution_notes}</p>
                     </div>
                   </div>
                 </div>
@@ -188,27 +219,33 @@ export default async function PredictionPage({ params }: Props) {
           <div className="space-y-6">
             {prediction.creator && (
               <div className="surface rounded-2xl p-6">
-                <h3 className="text-sm font-medium mb-4" style={{ color: 'var(--text3)' }}>Created by</h3>
+                <h3 className="text-sm font-medium mb-4" style={{ color: 'var(--text2)' }}>Created by</h3>
                 <Link href={`/profile/${prediction.creator.username}`} className="flex items-center gap-3 group">
                   <Avatar src={prediction.creator.avatar_url} name={prediction.creator.full_name} size="md" />
                   <div>
                     <p className="font-semibold transition-colors" style={{ color: 'var(--text)' }}>
                       {prediction.creator.full_name}
                     </p>
-                    <p className="text-sm" style={{ color: 'var(--text3)' }}>@{prediction.creator.username}</p>
+                    <p className="text-sm" style={{ color: 'var(--text2)' }}>@{prediction.creator.username}</p>
                   </div>
                 </Link>
                 {prediction.creator.bio && (
-                  <p className="text-sm mt-3 leading-relaxed" style={{ color: 'var(--text3)' }}>
+                  <p className="text-sm mt-3 leading-relaxed" style={{ color: 'var(--text2)' }}>
                     {prediction.creator.bio}
                   </p>
                 )}
               </div>
             )}
 
-            <div className="rounded-2xl p-6" style={{ background: 'rgba(124,110,240,0.08)', border: '1px solid rgba(124,110,240,0.2)' }}>
-              <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--accent)' }}>Want to vote?</h3>
-              <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text2)' }}>
+            <div
+              className="rounded-2xl p-6"
+              style={{
+                background: 'color-mix(in srgb, var(--accent) 10%, transparent)',
+                border: '1px solid color-mix(in srgb, var(--accent) 20%, transparent)',
+              }}
+            >
+              <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--accent3)' }}>Want to vote?</h3>
+              <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--accent2)' }}>
                 Create a free account to cast your vote and track your prediction accuracy.
               </p>
               <Link href="/auth/signup" className="block">

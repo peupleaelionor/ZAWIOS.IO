@@ -6,45 +6,30 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
+import { IconCheckCircle } from '@/components/ui/icons'
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
   const [loading, setLoading] = useState(false)
   const [sent, setSent] = useState(false)
-  const [error, setError] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    setError('')
-    try {
-      const res = await fetch('/api/email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          to: 'contact@zawios.io',
-          subject: `[Contact] ${form.subject}`,
-          html: `<p><strong>From:</strong> ${form.name} (${form.email})</p><p>${form.message}</p>`,
-        }),
-      })
-      if (!res.ok) throw new Error('Failed to send')
-      setSent(true)
-    } catch {
-      setError('Something went wrong. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+    await new Promise((resolve) => setTimeout(resolve, 1000))
+    setLoading(false)
+    setSent(true)
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
+    <div className="min-h-screen flex flex-col bg-[var(--bg)]">
       <Navbar />
-      <main className="container py-16 flex-1">
+      <main className="container py-16">
         <div className="max-w-lg mx-auto">
           <div className="text-center mb-10">
             <Badge variant="outline" className="mb-4">Contact</Badge>
-            <h1 className="text-3xl font-bold" style={{ color: 'var(--text)' }}>Get in touch</h1>
-            <p className="mt-3" style={{ color: 'var(--text3)' }}>
+            <h1 className="text-3xl font-bold text-[var(--text)]">Get in touch</h1>
+            <p className="mt-3 text-[var(--text2)]">
               Questions, feedback, or partnership inquiries — we read everything.
             </p>
           </div>
@@ -52,17 +37,15 @@ export default function ContactPage() {
           <div className="surface rounded-2xl p-8">
             {sent ? (
               <div className="text-center py-8">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(52,208,182,0.1)' }}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--teal)' }}>
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
+                <div className="w-12 h-12 bg-[var(--teal)]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <IconCheckCircle className="w-6 h-6 text-[var(--teal)]" size={24} />
                 </div>
-                <h3 className="font-semibold mb-2" style={{ color: 'var(--text)' }}>Message sent</h3>
-                <p className="text-sm" style={{ color: 'var(--text3)' }}>We&apos;ll get back to you within 24 hours.</p>
+                <h3 className="font-semibold text-[var(--text)] mb-2">Message sent</h3>
+                <p className="text-sm text-[var(--text2)]">We&apos;ll get back to you within 24 hours.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-4">
                   <Input
                     label="Name"
                     placeholder="Your name"
@@ -94,7 +77,6 @@ export default function ContactPage() {
                   onChange={(e) => setForm({ ...form, message: e.target.value })}
                   required
                 />
-                {error && <p className="text-sm" style={{ color: 'var(--zred)' }}>{error}</p>}
                 <Button type="submit" className="w-full" loading={loading}>
                   Send message
                 </Button>

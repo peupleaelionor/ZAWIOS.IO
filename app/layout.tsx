@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { GrainOverlay } from '@/components/ui/effects'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -59,6 +60,19 @@ export default function RootLayout({
       </head>
       <body className="antialiased" style={{ fontFamily: "var(--font)" }}>
         <GrainOverlay />
+        <Toaster
+          theme="dark"
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: 'var(--surface2)',
+              border: '1px solid var(--border2)',
+              color: 'var(--text)',
+              fontFamily: 'var(--font)',
+              fontSize: '13px',
+            },
+          }}
+        />
         <AnalyticsProvider>
           {children}
         </AnalyticsProvider>
