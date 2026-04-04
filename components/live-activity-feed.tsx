@@ -145,7 +145,7 @@ export function LiveActivityFeed({ compact = false, className }: LiveActivityFee
       </div>
 
       {/* Activity list */}
-      <ul className={cn('flex flex-col', compact ? 'gap-0' : 'gap-0')}>
+      <ul className="flex flex-col">
         {visibleItems.map((item, i) => {
           const { icon: Icon, color } = ICON_MAP[item.type]
           const isFirst = i === 0
