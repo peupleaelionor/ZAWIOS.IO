@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
-import { CheckCircle } from 'lucide-react'
+import { IconCheckCircle } from '@/components/ui/icons'
 
 export default function ContactPage() {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -22,26 +22,26 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Navbar />
       <main className="container py-16">
         <div className="max-w-lg mx-auto">
           <div className="text-center mb-10">
             <Badge variant="outline" className="mb-4">Contact</Badge>
-            <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">Get in touch</h1>
-            <p className="mt-3 text-zinc-500 dark:text-zinc-400">
+            <h1 className="text-3xl font-bold text-[var(--text)]">Get in touch</h1>
+            <p className="mt-3 text-[var(--text2)]">
               Questions, feedback, or partnership inquiries — we read everything.
             </p>
           </div>
 
-          <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8">
+          <div className="surface rounded-2xl p-8">
             {sent ? (
               <div className="text-center py-8">
-                <div className="w-12 h-12 bg-emerald-50 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-6 h-6 text-emerald-600" />
+                <div className="w-12 h-12 bg-[var(--teal)]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <IconCheckCircle className="w-6 h-6 text-[var(--teal)]" size={24} />
                 </div>
-                <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Message sent</h3>
-                <p className="text-sm text-zinc-500">We&apos;ll get back to you within 24 hours.</p>
+                <h3 className="font-semibold text-[var(--text)] mb-2">Message sent</h3>
+                <p className="text-sm text-[var(--text2)]">We&apos;ll get back to you within 24 hours.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">

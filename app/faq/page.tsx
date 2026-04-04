@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Badge } from '@/components/ui/badge'
-import { ChevronDown } from 'lucide-react'
+import { IconChevronDown } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 const faqs = [
@@ -44,16 +44,16 @@ const faqs = [
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false)
   return (
-    <div className="border-b border-zinc-200 dark:border-zinc-800">
+    <div className="border-b border-[var(--border)]">
       <button
         className="w-full text-left py-5 flex items-center justify-between gap-4"
         onClick={() => setOpen(!open)}
       >
-        <span className="font-medium text-zinc-900 dark:text-zinc-100">{question}</span>
-        <ChevronDown className={cn('w-4 h-4 text-zinc-400 flex-shrink-0 transition-transform', open && 'rotate-180')} />
+        <span className="font-medium text-[var(--text)]">{question}</span>
+        <IconChevronDown className={cn('w-4 h-4 text-[var(--text3)] flex-shrink-0 transition-transform', open && 'rotate-180')} size={16} />
       </button>
       <div className={cn('overflow-hidden transition-all duration-200', open ? 'max-h-96 pb-5' : 'max-h-0')}>
-        <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">{answer}</p>
+        <p className="text-sm text-[var(--text2)] leading-relaxed">{answer}</p>
       </div>
     </div>
   )
@@ -61,16 +61,16 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
 export default function FAQPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Navbar />
       <main className="container py-16">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <Badge variant="outline" className="mb-4">Support</Badge>
-            <h1 className="text-3xl font-bold text-zinc-900 dark:text-white">Frequently asked questions</h1>
-            <p className="mt-3 text-zinc-500 dark:text-zinc-400">Everything you need to know about ZAWIOS</p>
+            <h1 className="text-3xl font-bold text-[var(--text)]">Frequently asked questions</h1>
+            <p className="mt-3 text-[var(--text2)]">Everything you need to know about ZAWIOS</p>
           </div>
-          <div className="divide-y divide-zinc-200 dark:divide-zinc-800 border-t border-zinc-200 dark:border-zinc-800">
+          <div className="divide-y divide-[var(--border)] border-t border-[var(--border)]">
             {faqs.map((faq) => (
               <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
             ))}

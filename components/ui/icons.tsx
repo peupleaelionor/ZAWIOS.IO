@@ -240,6 +240,31 @@ export function IconPlus(props: IconProps) {
   )
 }
 
+export function IconChevronDown(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  )
+}
+
+export function IconEdit(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M17 3a2.83 2.83 0 114 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+    </svg>
+  )
+}
+
+export function IconCheckCircle(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+  )
+}
+
 export function IconLogo({ className, size = 32 }: IconProps) {
   return (
     <svg
