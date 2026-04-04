@@ -6,15 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
 import { mockPredictions } from '@/lib/mock-data'
 import { formatDate, formatNumber } from '@/lib/utils'
-import {
-  Calendar,
-  Users,
-  Eye,
-  MessageSquare,
-  TrendingUp,
-  CheckCircle,
-  ArrowLeft,
-} from 'lucide-react'
+import { IconCalendar, IconUsers, IconEye, IconComment, IconTrending, IconCheck } from '@/components/ui/icons'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
@@ -41,11 +33,17 @@ export default async function PredictionPage({ params }: Props) {
   const totalVotes = prediction.options?.reduce((sum, o) => sum + o.vote_count, 0) ?? 0
 
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950">
+    <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
       <main className="container py-12">
-        <Link href="/predictions" className="inline-flex items-center gap-1.5 text-sm text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 mb-6 transition-colors">
-          <ArrowLeft className="w-4 h-4" />
+        <Link
+          href="/predictions"
+          className="inline-flex items-center gap-1.5 text-sm mb-6 transition-colors"
+          style={{ color: 'var(--text3)' }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+          </svg>
           Back to predictions
         </Link>
 
@@ -53,56 +51,62 @@ export default async function PredictionPage({ params }: Props) {
           {/* Main content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Header */}
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 capitalize">
+            <div className="surface rounded-2xl p-8">
+              <div className="flex items-center gap-2 mb-4 flex-wrap">
+                <span
+                  className="px-2.5 py-1 rounded-full text-xs font-medium capitalize"
+                  style={{ background: 'rgba(124,110,240,0.1)', color: 'var(--accent)' }}
+                >
                   {prediction.category}
                 </span>
                 {isResolved && (
                   <Badge variant="success" className="gap-1">
-                    <CheckCircle className="w-3 h-3" />
+                    <IconCheck size={12} />
                     Resolved
                   </Badge>
                 )}
                 {prediction.featured && (
                   <Badge variant="default" className="gap-1">
-                    <TrendingUp className="w-3 h-3" />
+                    <IconTrending size={12} />
                     Trending
                   </Badge>
                 )}
               </div>
 
-              <h1 className="text-2xl md:text-3xl font-bold text-zinc-900 dark:text-white leading-snug mb-4">
+              <h1 className="text-2xl md:text-3xl font-bold leading-snug mb-4" style={{ color: 'var(--text)' }}>
                 {prediction.title}
               </h1>
 
-              <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed">
+              <p className="leading-relaxed" style={{ color: 'var(--text3)' }}>
                 {prediction.description}
               </p>
 
-              <div className="flex flex-wrap gap-4 mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800 text-sm text-zinc-500">
+              <div
+                className="flex flex-wrap gap-4 mt-6 pt-6 text-sm"
+                style={{ borderTop: '1px solid var(--border)', color: 'var(--text3)' }}
+              >
                 <span className="flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4" />
+                  <IconCalendar size={16} />
                   Resolves {formatDate(prediction.resolution_date)}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Users className="w-4 h-4" />
+                  <IconUsers size={16} />
                   {formatNumber(prediction.vote_count)} votes
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Eye className="w-4 h-4" />
+                  <IconEye size={16} />
                   {formatNumber(prediction.view_count)} views
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <MessageSquare className="w-4 h-4" />
+                  <IconComment size={16} />
                   {prediction.comment_count} comments
                 </span>
               </div>
             </div>
 
             {/* Voting */}
-            <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8">
-              <h2 className="text-lg font-semibold text-zinc-900 dark:text-white mb-6">
+            <div className="surface rounded-2xl p-8">
+              <h2 className="text-lg font-semibold mb-6" style={{ color: 'var(--text)' }}>
                 Community vote · {formatNumber(totalVotes)} responses
               </h2>
 
@@ -111,37 +115,36 @@ export default async function PredictionPage({ params }: Props) {
                   <div key={option.id}>
                     <div className="flex items-center justify-between mb-1.5">
                       <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium text-zinc-800 dark:text-zinc-200">{option.label}</span>
+                        <span className="text-sm font-medium" style={{ color: 'var(--text)' }}>{option.label}</span>
                         {option.is_correct && (
-                          <CheckCircle className="w-4 h-4 text-emerald-500" />
+                          <IconCheck size={16} style={{ color: 'var(--teal)' }} />
                         )}
                       </div>
-                      <span className="text-sm font-bold text-zinc-900 dark:text-zinc-100">
+                      <span className="text-sm font-bold" style={{ color: 'var(--text)', fontFamily: 'var(--mono)' }}>
                         {option.percentage}%
                       </span>
                     </div>
-                    <div className="h-3 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                    <div className="h-3 rounded-full overflow-hidden" style={{ background: 'var(--surface2)' }}>
                       <div
-                        className={`h-full rounded-full transition-all duration-700 ${
-                          option.is_correct
-                            ? 'bg-emerald-500'
-                            : option.label === 'Yes'
-                            ? 'bg-indigo-500'
+                        className="h-full rounded-full transition-all duration-700"
+                        style={{
+                          width: `${option.percentage}%`,
+                          background: option.is_correct
+                            ? 'var(--teal)'
                             : option.label === 'No'
-                            ? 'bg-red-400'
-                            : 'bg-indigo-500'
-                        }`}
-                        style={{ width: `${option.percentage}%` }}
+                            ? 'var(--zred)'
+                            : 'var(--accent)',
+                        }}
                       />
                     </div>
-                    <p className="text-xs text-zinc-400 mt-1">{formatNumber(option.vote_count)} votes</p>
+                    <p className="text-xs mt-1" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>{formatNumber(option.vote_count)} votes</p>
                   </div>
                 ))}
               </div>
 
               {!isResolved && (
-                <div className="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
-                  <p className="text-sm text-zinc-500 mb-4">Cast your vote</p>
+                <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
+                  <p className="text-sm mb-4" style={{ color: 'var(--text3)' }}>Cast your vote</p>
                   <div className="flex gap-3 flex-wrap">
                     {prediction.options?.map((option) => (
                       <Link href="/auth/login" key={option.id}>
@@ -151,19 +154,19 @@ export default async function PredictionPage({ params }: Props) {
                       </Link>
                     ))}
                   </div>
-                  <p className="text-xs text-zinc-400 mt-3">
+                  <p className="text-xs mt-3" style={{ color: 'var(--text3)' }}>
                     <Link href="/auth/login" className="underline">Sign in</Link> to cast your vote
                   </p>
                 </div>
               )}
 
               {isResolved && prediction.resolution_notes && (
-                <div className="mt-6 pt-6 border-t border-zinc-100 dark:border-zinc-800">
-                  <div className="flex items-start gap-2 p-4 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl">
-                    <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
+                  <div className="flex items-start gap-2 p-4 rounded-xl" style={{ background: 'rgba(52,208,182,0.08)', border: '1px solid rgba(52,208,182,0.2)' }}>
+                    <IconCheck size={16} className="flex-shrink-0 mt-0.5" style={{ color: 'var(--teal)' }} />
                     <div>
-                      <p className="text-sm font-medium text-emerald-800 dark:text-emerald-300">Resolution</p>
-                      <p className="text-sm text-emerald-700 dark:text-emerald-400 mt-1">{prediction.resolution_notes}</p>
+                      <p className="text-sm font-medium" style={{ color: 'var(--teal)' }}>Resolution</p>
+                      <p className="text-sm mt-1" style={{ color: 'var(--text2)' }}>{prediction.resolution_notes}</p>
                     </div>
                   </div>
                 </div>
@@ -173,7 +176,7 @@ export default async function PredictionPage({ params }: Props) {
             {/* Tags */}
             {prediction.tags.length > 0 && (
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs text-zinc-400">Tags:</span>
+                <span className="text-xs" style={{ color: 'var(--text3)' }}>Tags:</span>
                 {prediction.tags.map((tag) => (
                   <Badge key={tag} variant="outline">{tag}</Badge>
                 ))}
@@ -184,28 +187,28 @@ export default async function PredictionPage({ params }: Props) {
           {/* Sidebar */}
           <div className="space-y-6">
             {prediction.creator && (
-              <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-6">
-                <h3 className="text-sm font-medium text-zinc-500 mb-4">Created by</h3>
+              <div className="surface rounded-2xl p-6">
+                <h3 className="text-sm font-medium mb-4" style={{ color: 'var(--text3)' }}>Created by</h3>
                 <Link href={`/profile/${prediction.creator.username}`} className="flex items-center gap-3 group">
                   <Avatar src={prediction.creator.avatar_url} name={prediction.creator.full_name} size="md" />
                   <div>
-                    <p className="font-semibold text-zinc-900 dark:text-zinc-100 group-hover:text-indigo-600 transition-colors">
+                    <p className="font-semibold transition-colors" style={{ color: 'var(--text)' }}>
                       {prediction.creator.full_name}
                     </p>
-                    <p className="text-sm text-zinc-500">@{prediction.creator.username}</p>
+                    <p className="text-sm" style={{ color: 'var(--text3)' }}>@{prediction.creator.username}</p>
                   </div>
                 </Link>
                 {prediction.creator.bio && (
-                  <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-3 leading-relaxed">
+                  <p className="text-sm mt-3 leading-relaxed" style={{ color: 'var(--text3)' }}>
                     {prediction.creator.bio}
                   </p>
                 )}
               </div>
             )}
 
-            <div className="bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800 rounded-2xl p-6">
-              <h3 className="text-sm font-semibold text-indigo-900 dark:text-indigo-300 mb-2">Want to vote?</h3>
-              <p className="text-sm text-indigo-700 dark:text-indigo-400 mb-4 leading-relaxed">
+            <div className="rounded-2xl p-6" style={{ background: 'rgba(124,110,240,0.08)', border: '1px solid rgba(124,110,240,0.2)' }}>
+              <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--accent)' }}>Want to vote?</h3>
+              <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text2)' }}>
                 Create a free account to cast your vote and track your prediction accuracy.
               </p>
               <Link href="/auth/signup" className="block">

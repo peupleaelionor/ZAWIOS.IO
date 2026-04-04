@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Select } from '@/components/ui/select'
 import { Button } from '@/components/ui/button'
-import { PlusCircle, X, CheckCircle } from 'lucide-react'
+import { IconPlus, IconCheck } from '@/components/ui/icons'
 
 const categoryOptions = [
   { value: 'technology', label: 'Technology' },
@@ -36,6 +36,7 @@ export function CreatePredictionForm() {
   })
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
 
   const addOption = () => {
     if (form.options.length < 6) {
@@ -75,26 +76,34 @@ export function CreatePredictionForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1200))
-    setLoading(false)
-    setSuccess(true)
+    setError('')
+    try {
+      // TODO: replace with real Supabase insert once predictions table is ready
+      // const { error } = await supabase.from('predictions').insert({ ... })
+      // For now, simulate network without fake delay — just toggle success
+      setSuccess(true)
+    } catch {
+      setError('Failed to submit. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (success) {
     return (
-      <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-12 text-center">
-        <div className="w-16 h-16 bg-emerald-50 dark:bg-emerald-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle className="w-8 h-8 text-emerald-600" />
+      <div className="surface rounded-2xl p-12 text-center">
+        <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ background: 'rgba(52,208,182,0.1)' }}>
+          <IconCheck size={32} style={{ color: 'var(--teal)' }} />
         </div>
-        <h3 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100 mb-2">Prediction submitted!</h3>
-        <p className="text-zinc-500 mb-6">Your prediction is under review and will be live shortly.</p>
+        <h3 className="text-xl font-semibold mb-2" style={{ color: 'var(--text)' }}>Prediction submitted!</h3>
+        <p className="mb-6" style={{ color: 'var(--text3)' }}>Your prediction is under review and will be live shortly.</p>
         <Button onClick={() => setSuccess(false)} variant="outline">Create another</Button>
       </div>
     )
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8 space-y-6">
+    <form onSubmit={handleSubmit} className="surface rounded-2xl p-8 space-y-6">
       <Input
         label="Question"
         placeholder="Will AI surpass human performance on all benchmarks by 2025?"
@@ -113,7 +122,7 @@ export function CreatePredictionForm() {
         required
       />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid sm:grid-cols-2 gap-4">
         <Select
           label="Category"
           options={categoryOptions}
@@ -140,7 +149,7 @@ export function CreatePredictionForm() {
       {/* Options */}
       {form.type !== 'probability' && (
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+          <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text2)' }}>
             Answer options
           </label>
           <div className="space-y-2">
@@ -151,15 +160,25 @@ export function CreatePredictionForm() {
                   value={option}
                   onChange={(e) => updateOption(i, e.target.value)}
                   placeholder={`Option ${i + 1}`}
-                  className="flex-1 px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  className="flex-1 px-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:ring-2"
+                  style={{
+                    border: '1px solid var(--border)',
+                    background: 'var(--surface2)',
+                    color: 'var(--text)',
+                    // @ts-expect-error css variable
+                    '--tw-ring-color': 'var(--accent)',
+                  }}
                 />
                 {form.options.length > 2 && (
                   <button
                     type="button"
                     onClick={() => removeOption(i)}
-                    className="p-2.5 text-zinc-400 hover:text-red-500 transition-colors"
+                    className="p-2.5 transition-colors"
+                    style={{ color: 'var(--text3)' }}
                   >
-                    <X className="w-4 h-4" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
                   </button>
                 )}
               </div>
@@ -169,9 +188,10 @@ export function CreatePredictionForm() {
             <button
               type="button"
               onClick={addOption}
-              className="mt-2 flex items-center gap-1.5 text-sm text-indigo-600 hover:text-indigo-500"
+              className="mt-2 flex items-center gap-1.5 text-sm transition-colors"
+              style={{ color: 'var(--accent)' }}
             >
-              <PlusCircle className="w-4 h-4" />
+              <IconPlus size={16} />
               Add option
             </button>
           )}
@@ -180,8 +200,8 @@ export function CreatePredictionForm() {
 
       {/* Tags */}
       <div>
-        <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
-          Tags <span className="font-normal text-zinc-400">(optional, max 5)</span>
+        <label className="block text-sm font-medium mb-2" style={{ color: 'var(--text2)' }}>
+          Tags <span className="font-normal" style={{ color: 'var(--text3)' }}>(optional, max 5)</span>
         </label>
         <div className="flex gap-2">
           <input
@@ -195,17 +215,33 @@ export function CreatePredictionForm() {
               }
             }}
             placeholder="Add tag..."
-            className="flex-1 px-3.5 py-2.5 text-sm rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="flex-1 px-3.5 py-2.5 text-sm rounded-xl focus:outline-none focus:ring-2"
+            style={{
+              border: '1px solid var(--border)',
+              background: 'var(--surface2)',
+              color: 'var(--text)',
+            }}
           />
           <Button type="button" variant="outline" size="sm" onClick={addTag}>Add</Button>
         </div>
         {form.tags.length > 0 && (
           <div className="flex gap-2 flex-wrap mt-2">
             {form.tags.map((tag) => (
-              <span key={tag} className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium bg-zinc-100 dark:bg-zinc-800 text-zinc-700 dark:text-zinc-300">
+              <span
+                key={tag}
+                className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium"
+                style={{ background: 'var(--surface2)', color: 'var(--text2)' }}
+              >
                 {tag}
-                <button type="button" onClick={() => removeTag(tag)} className="hover:text-red-500">
-                  <X className="w-3 h-3" />
+                <button
+                  type="button"
+                  onClick={() => removeTag(tag)}
+                  className="transition-colors"
+                  style={{ color: 'var(--text3)' }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
                 </button>
               </span>
             ))}
@@ -213,11 +249,13 @@ export function CreatePredictionForm() {
         )}
       </div>
 
+      {error && <p className="text-sm" style={{ color: 'var(--zred)' }}>{error}</p>}
+
       <div className="pt-2">
         <Button type="submit" className="w-full" loading={loading}>
           Submit prediction for review
         </Button>
-        <p className="text-xs text-zinc-400 text-center mt-3">
+        <p className="text-xs text-center mt-3" style={{ color: 'var(--text3)' }}>
           Predictions are reviewed by our team before going live. This usually takes less than 24 hours.
         </p>
       </div>
