@@ -14,12 +14,16 @@ async function requireAdmin() {
 
   if (!user) return null
 
-  // Check admin role in user metadata or a dedicated table
-  const isAdmin =
-    user.app_metadata?.role === 'admin' ||
-    user.user_metadata?.role === 'admin'
+  // Check is_admin flag in the profiles table
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('is_admin')
+    .eq('user_id', user.id)
+    .single()
 
-  return isAdmin ? user : null
+  if (profileError) return null
+
+  return profile?.is_admin ? user : null
 }
 
 export async function GET(request: NextRequest) {
