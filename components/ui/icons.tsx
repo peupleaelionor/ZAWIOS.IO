@@ -231,31 +231,77 @@ export function IconPlus(props: IconProps) {
   )
 }
 
-export function IconLogo({ className, size = 32 }: IconProps) {
+/**
+ * IconMark — the raw ZAWIOS butterfly mark (no background).
+ * Two fans of lines converging at center: left = light, right = accent.
+ * viewBox 56×34, aspect ratio preserved. Pass `width` to control size.
+ */
+export function IconMark({
+  className,
+  width = 56,
+  leftColor = '#ffffff',
+  rightColor = '#7c6ef0',
+  style,
+}: {
+  className?: string
+  width?: number
+  leftColor?: string
+  rightColor?: string
+  style?: React.CSSProperties
+}) {
+  const n = 11
+  const ys = Array.from({ length: n }, (_, i) => (i / (n - 1)) * 34)
+  const h = (width * 34) / 56
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={width}
+      height={h}
+      viewBox="0 0 56 34"
+      fill="none"
+      className={className}
+      style={style}
+    >
+      {ys.map((y, i) => (
+        <line key={`L${i}`} x1={28} y1={17} x2={0} y2={y} stroke={leftColor} strokeWidth="0.9" strokeLinecap="round" />
+      ))}
+      {ys.map((y, i) => (
+        <line key={`R${i}`} x1={28} y1={17} x2={56} y2={y} stroke={rightColor} strokeWidth="0.9" strokeLinecap="round" />
+      ))}
+    </svg>
+  )
+}
+
+/**
+ * IconLogo — square app icon: dark background + butterfly mark.
+ * Used in navbar, footer, auth pages, and as the favicon placeholder.
+ */
+export function IconLogo({ className, size = 32, style }: IconProps) {
+  const n = 11
+  // y positions for mark endpoints, centered vertically in the icon with padding
+  const pad = size * 0.23
+  const ys = Array.from({ length: n }, (_, i) => pad + (i / (n - 1)) * (size - 2 * pad))
+  const cx = size / 2
+  const cy = size / 2
+  const xL = size * 0.06
+  const xR = size * 0.94
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
-      viewBox="0 0 32 32"
+      viewBox={`0 0 ${size} ${size}`}
       fill="none"
       className={className}
+      style={style}
     >
-      <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
-      <path
-        d="M8 22L12 10h2l4 8 4-8h2l4 12"
-        stroke="#fff"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-      <defs>
-        <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32">
-          <stop stopColor="#7c6ef0" />
-          <stop offset="1" stopColor="#34d0b6" />
-        </linearGradient>
-      </defs>
+      <rect width={size} height={size} rx={size * 0.22} fill="#08080f" />
+      {ys.map((y, i) => (
+        <line key={`L${i}`} x1={cx} y1={cy} x2={xL} y2={y} stroke="#ffffff" strokeWidth={size * 0.026} strokeLinecap="round" />
+      ))}
+      {ys.map((y, i) => (
+        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#7c6ef0" strokeWidth={size * 0.026} strokeLinecap="round" />
+      ))}
     </svg>
   )
 }

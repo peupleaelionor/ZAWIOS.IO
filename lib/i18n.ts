@@ -1,0 +1,76 @@
+export type Lang = 'en' | 'fr'
+
+export const translations = {
+  en: {
+    nav: {
+      predictions: 'Predictions',
+      leaderboard: 'Leaderboard',
+      insights: 'Insights',
+      pricing: 'Pricing',
+      about: 'About',
+      signin: 'Sign in',
+      join: 'Join the beta',
+      joinMobile: 'Join beta',
+    },
+    footer: {
+      tagline: "The world's collective intelligence platform. See what the crowd thinks before it's right.",
+      rights: 'All rights reserved.',
+      sections: {
+        Product: 'Product',
+        Company: 'Company',
+        Legal: 'Legal',
+      },
+      links: {
+        Predictions: 'Predictions',
+        Leaderboard: 'Leaderboard',
+        Insights: 'Insights',
+        Pricing: 'Pricing',
+        Premium: 'Premium',
+        Creator: 'Creator',
+        Business: 'Business',
+        About: 'About',
+        Contact: 'Contact',
+        FAQ: 'FAQ',
+        'Privacy Policy': 'Privacy Policy',
+        'Terms of Service': 'Terms of Service',
+      },
+    },
+  },
+  fr: {
+    nav: {
+      predictions: 'Prédictions',
+      leaderboard: 'Classement',
+      insights: 'Analyses',
+      pricing: 'Tarifs',
+      about: 'À propos',
+      signin: 'Connexion',
+      join: 'Rejoindre la bêta',
+      joinMobile: 'Rejoindre',
+    },
+    footer: {
+      tagline: "La plateforme mondiale d'intelligence collective. Voyez ce que la foule pense — avant que ça arrive.",
+      rights: 'Tous droits réservés.',
+      sections: {
+        Product: 'Produit',
+        Company: 'Entreprise',
+        Legal: 'Légal',
+      },
+      links: {
+        Predictions: 'Prédictions',
+        Leaderboard: 'Classement',
+        Insights: 'Analyses',
+        Pricing: 'Tarifs',
+        Premium: 'Premium',
+        Creator: 'Créateur',
+        Business: 'Business',
+        About: 'À propos',
+        Contact: 'Contact',
+        FAQ: 'FAQ',
+        'Privacy Policy': 'Politique de confidentialité',
+        'Terms of Service': "Conditions d'utilisation",
+      },
+    },
+  },
+} as const
+
+export type Translations = typeof translations
