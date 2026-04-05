@@ -9,13 +9,13 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-zinc-950">
+    <div className="min-h-screen bg-[var(--bg)]">
       <Navbar />
       <main className="container py-16">
         <div className="max-w-2xl mx-auto">
-          <h1 className="text-3xl font-bold text-zinc-900 dark:text-white mb-2">Terms of Service</h1>
-          <p className="text-sm text-zinc-500 mb-10">Last updated: January 2025</p>
-          <div className="space-y-8 text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          <h1 className="text-3xl font-bold text-[var(--text)] mb-2">Terms of Service</h1>
+          <p className="text-sm text-[var(--text2)] mb-10">Last updated: January 2025</p>
+          <div className="space-y-8 text-[var(--text2)] leading-relaxed">
             {[
               {
                 title: '1. Acceptance of terms',
@@ -59,7 +59,7 @@ export default function TermsPage() {
               },
             ].map((section) => (
               <div key={section.title}>
-                <h2 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-3">{section.title}</h2>
+                <h2 className="text-lg font-semibold text-[var(--text)] mb-3">{section.title}</h2>
                 <p>{section.content}</p>
               </div>
             ))}

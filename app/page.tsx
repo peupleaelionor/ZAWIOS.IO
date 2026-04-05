@@ -14,10 +14,13 @@ import {
   IconArrows,
   IconTrending,
   IconShield,
+  IconZap,
 } from '@/components/ui/icons'
 import { mockPredictions, PLATFORM_STATS, mockLeaderboard } from '@/lib/mock-data'
 import { formatNumber } from '@/lib/utils'
 import { Avatar } from '@/components/ui/avatar'
+import { LiveActivityFeed } from '@/components/live-activity-feed'
+import { AiInsightsPanel } from '@/components/ai-insights-panel'
 
 export default function HomePage() {
   const featuredPredictions = mockPredictions.filter((p) => p.featured).slice(0, 3)
@@ -346,6 +349,26 @@ export default function HomePage() {
                 </Button>
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── LIVE SIGNALS + AI INSIGHTS ─────────────────────────────── */}
+      <section className="py-24 bg-[var(--bg2)]">
+        <div className="container">
+          <div className="mb-12">
+            <p className="section-label">Intelligence</p>
+            <h2 className="text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.01em' }}>
+              Real-time signals and AI analysis
+            </h2>
+            <p className="mt-2 text-sm text-[var(--text2)]">
+              Live crowd activity paired with machine-generated insights
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            <LiveActivityFeed />
+            <AiInsightsPanel />
           </div>
         </div>
       </section>

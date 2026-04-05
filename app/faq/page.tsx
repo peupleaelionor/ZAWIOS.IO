@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Badge } from '@/components/ui/badge'
+import { IconChevronDown } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
 const faqs = [
@@ -43,30 +44,17 @@ const faqs = [
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false)
   return (
-    <div style={{ borderBottom: '1px solid var(--border)' }}>
+    <div className="border-b border-[var(--border)]">
       <button
         className="w-full text-left py-5 flex items-center justify-between gap-4"
         onClick={() => setOpen(!open)}
+        aria-expanded={open}
       >
-        <span className="font-medium" style={{ color: 'var(--text)' }}>{question}</span>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width={16}
-          height={16}
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className={cn('flex-shrink-0 transition-transform', open && 'rotate-180')}
-          style={{ color: 'var(--text3)' }}
-        >
-          <polyline points="6 9 12 15 18 9" />
-        </svg>
+        <span className="font-medium text-[var(--text)]">{question}</span>
+        <IconChevronDown className={cn('w-4 h-4 text-[var(--text3)] flex-shrink-0 transition-transform', open && 'rotate-180')} size={16} />
       </button>
       <div className={cn('overflow-hidden transition-all duration-200', open ? 'max-h-96 pb-5' : 'max-h-0')}>
-        <p className="text-sm leading-relaxed" style={{ color: 'var(--text2)' }}>{answer}</p>
+        <p className="text-sm text-[var(--text2)] leading-relaxed">{answer}</p>
       </div>
     </div>
   )
@@ -74,16 +62,16 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
 
 export default function FAQPage() {
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: 'var(--bg)' }}>
+    <div className="min-h-screen flex flex-col bg-[var(--bg)]">
       <Navbar />
-      <main className="container py-16 flex-1">
+      <main className="container py-16">
         <div className="max-w-2xl mx-auto">
           <div className="text-center mb-12">
             <Badge variant="outline" className="mb-4">Support</Badge>
-            <h1 className="text-3xl font-bold" style={{ color: 'var(--text)' }}>Frequently asked questions</h1>
-            <p className="mt-3" style={{ color: 'var(--text3)' }}>Everything you need to know about ZAWIOS</p>
+            <h1 className="text-3xl font-bold text-[var(--text)]">Frequently asked questions</h1>
+            <p className="mt-3 text-[var(--text2)]">Everything you need to know about ZAWIOS</p>
           </div>
-          <div style={{ borderTop: '1px solid var(--border)' }}>
+          <div className="divide-y divide-[var(--border)] border-t border-[var(--border)]">
             {faqs.map((faq) => (
               <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
             ))}
