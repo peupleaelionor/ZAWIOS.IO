@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
+import { LanguageProvider } from '@/components/providers/language-provider'
 import { GrainOverlay } from '@/components/ui/effects'
 import { Toaster } from 'sonner'
 import './globals.css'
@@ -74,7 +75,9 @@ export default function RootLayout({
           }}
         />
         <AnalyticsProvider>
-          {children}
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
         </AnalyticsProvider>
       </body>
     </html>

@@ -3,18 +3,20 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { IconLogo } from '@/components/ui/icons'
+import { useLanguage } from '@/components/providers/language-provider'
 import { cn } from '@/lib/utils'
-
-const navLinks = [
-  { href: '/predictions', label: 'Predictions' },
-  { href: '/leaderboard', label: 'Leaderboard' },
-  { href: '/insights', label: 'Insights' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/about', label: 'About' },
-]
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
+  const { lang, setLang, t } = useLanguage()
+
+  const navLinks = [
+    { href: '/predictions', label: t.nav.predictions },
+    { href: '/leaderboard', label: t.nav.leaderboard },
+    { href: '/insights', label: t.nav.insights },
+    { href: '/pricing', label: t.nav.pricing },
+    { href: '/about', label: t.nav.about },
+  ]
 
   return (
     <header className="sticky top-0 z-50 w-full glass" style={{ borderBottom: '1px solid var(--border)' }}>
@@ -39,30 +41,57 @@ export function Navbar() {
             ))}
           </div>
 
-          {/* CTA */}
+          {/* CTA + lang toggle */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Language toggle */}
+            <button
+              onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
+              className="text-xs font-semibold px-2 py-1 rounded-md transition-colors"
+              style={{
+                fontFamily: 'var(--mono)',
+                color: 'var(--text3)',
+                border: '1px solid var(--border)',
+                letterSpacing: '0.05em',
+              }}
+              aria-label="Toggle language"
+            >
+              {lang === 'en' ? 'FR' : 'EN'}
+            </button>
             <Link href="/auth/login">
-              <Button variant="ghost" size="sm">
-                Sign in
-              </Button>
+              <Button variant="ghost" size="sm">{t.nav.signin}</Button>
             </Link>
             <Link href="/auth/signup">
-              <Button size="sm">Join the beta</Button>
+              <Button size="sm">{t.nav.join}</Button>
             </Link>
           </div>
 
           {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-white/[0.04] transition-colors text-[var(--text2)]"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
-            ) : (
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>
-            )}
-          </button>
+          <div className="md:hidden flex items-center gap-2">
+            <button
+              onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
+              className="text-xs font-semibold px-2 py-1 rounded-md"
+              style={{
+                fontFamily: 'var(--mono)',
+                color: 'var(--text3)',
+                border: '1px solid var(--border)',
+                letterSpacing: '0.05em',
+              }}
+              aria-label="Toggle language"
+            >
+              {lang === 'en' ? 'FR' : 'EN'}
+            </button>
+            <button
+              className="p-2 rounded-lg hover:bg-white/[0.04] transition-colors text-[var(--text2)]"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+              ) : (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>
+              )}
+            </button>
+          </div>
         </div>
 
         {/* Mobile nav */}
@@ -85,14 +114,10 @@ export function Navbar() {
             ))}
             <div className="flex gap-2 mt-2 pt-2" style={{ borderTop: '1px solid var(--border)' }}>
               <Link href="/auth/login" className="flex-1">
-                <Button variant="outline" size="sm" className="w-full">
-                  Sign in
-                </Button>
+                <Button variant="outline" size="sm" className="w-full">{t.nav.signin}</Button>
               </Link>
               <Link href="/auth/signup" className="flex-1">
-                <Button size="sm" className="w-full">
-                  Join beta
-                </Button>
+                <Button size="sm" className="w-full">{t.nav.joinMobile}</Button>
               </Link>
             </div>
           </div>

@@ -40,7 +40,7 @@ export async function GET(request: NextRequest) {
   if (resource === 'users') {
     const { data, error } = await adminClient.auth.admin.listUsers()
     if (error) {
-      console.error('[api/admin] listUsers error', error)
+      if (process.env.NODE_ENV === 'development') console.error('[api/admin] listUsers error', error)
       return NextResponse.json({ error: 'Failed to fetch users' }, { status: 500 })
     }
     return NextResponse.json({ users: data.users })
@@ -72,7 +72,7 @@ export async function DELETE(request: NextRequest) {
   const { error } = await adminClient.auth.admin.deleteUser(payload.userId)
 
   if (error) {
-    console.error('[api/admin] deleteUser error', error)
+    if (process.env.NODE_ENV === 'development') console.error('[api/admin] deleteUser error', error)
     return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 })
   }
 
