@@ -209,3 +209,13 @@ body {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
+
+/* ─── SCROLLBAR HIDE ─── */
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }
+
+/* ─── MOBILE TAP ─── */
+@media (hover: none) {
+  .card-hover:active { transform: scale(0.985); }
+  button:active { transform: scale(0.97); }
+}
