@@ -7,27 +7,48 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'ZAWIOS — Collective Intelligence Platform',
+    default: 'ZAWIOS — Intelligence collective mondiale',
     template: '%s | ZAWIOS',
   },
   description:
-    "See what the crowd thinks before it's right. ZAWIOS is the world's collective intelligence and prediction platform — vote, predict, build your reputation.",
-  keywords: ['prediction', 'collective intelligence', 'forecasting', 'reputation', 'community', 'crowd signals'],
+    "Votez, prédisez, comparez. ZAWIOS est la plateforme d'intelligence collective mondiale — construisez votre réputation sur vos prédictions.",
+  keywords: [
+    'prédictions', 'intelligence collective', 'forecasting', 'réputation',
+    'communauté', 'signaux collectifs', 'vote', 'opinions', 'tendances',
+  ],
   authors: [{ name: 'ZAWIOS' }],
   creator: 'ZAWIOS',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app'),
+  // ASSET SLOT — favicon & apple icon: drop final files in /public/brand/
+  icons: {
+    icon: '/brand/favicon.svg',
+    apple: '/brand/apple-touch-icon.png',
+    shortcut: '/brand/favicon.svg',
+  },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    url: 'https://zawios.netlify.app',
+    locale: 'fr_FR',
+    alternateLocale: 'en_US',
+    url: process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app',
     siteName: 'ZAWIOS',
-    title: 'ZAWIOS — Collective Intelligence Platform',
-    description: "See what the crowd thinks before it's right. Vote, predict, build your reputation.",
+    title: 'ZAWIOS — Intelligence collective mondiale',
+    description: "Votez, prédisez, comparez. Construisez votre réputation sur vos prédictions.",
+    // ASSET SLOT — OG image: drop /public/brand/og-image.png (1200×630)
+    images: [
+      {
+        url: '/brand/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'ZAWIOS — Intelligence collective mondiale',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ZAWIOS — Collective Intelligence Platform',
-    description: "See what the crowd thinks before it's right.",
+    title: 'ZAWIOS — Intelligence collective mondiale',
+    description: "Votez, prédisez, comparez. Construisez votre réputation.",
+    // ASSET SLOT — Twitter card: same /brand/og-image.png
+    images: ['/brand/og-image.png'],
   },
   robots: {
     index: true,

@@ -75,6 +75,22 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/*
+           * ASSET SLOT — Visuel produit hero
+           * Décommenter quand /public/brand/hero-visual.png est disponible (1600×900, fond transparent)
+           * <div className="mt-16 max-w-4xl mx-auto ri" style={{ animationDelay: '0.15s' }}>
+           *   <Image
+           *     src="/brand/hero-visual.png"
+           *     alt="ZAWIOS — aperçu de l'interface"
+           *     width={1600}
+           *     height={900}
+           *     priority
+           *     className="w-full h-auto rounded-2xl"
+           *     style={{ border: '1px solid var(--border)', boxShadow: '0 32px 80px rgba(124,110,240,0.15)' }}
+           *   />
+           * </div>
+           */}
+
           {/* ── Unified stats bar ── */}
           <div
             className="mt-20 max-w-2xl mx-auto surface ri"
