@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
 import { GrainOverlay } from '@/components/ui/effects'
+import { MobileNav } from '@/components/layout/mobile-nav'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -86,6 +87,7 @@ export default function RootLayout({
             {children}
           </LanguageProvider>
         </AnalyticsProvider>
+        <MobileNav />
       </body>
     </html>
   )

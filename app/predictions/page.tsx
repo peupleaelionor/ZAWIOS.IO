@@ -1,6 +1,6 @@
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
-import { PredictionCard } from '@/components/predictions/prediction-card'
+import { PredictionsFeed } from '@/components/predictions/predictions-feed'
 import { Button } from '@/components/ui/button'
 import { IconTarget, IconPlus, IconTrending, IconUsers, IconChart } from '@/components/ui/icons'
 import { mockPredictions, PLATFORM_STATS } from '@/lib/mock-data'
@@ -9,21 +9,9 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Predictions',
-  description: 'Browse all predictions on ZAWIOS. Vote, predict, and compare your views with the crowd.',
+  title: 'Prédictions',
+  description: 'Explorez les prédictions, votez et comparez vos intuitions avec la foule.',
 }
-
-const categories = [
-  { value: 'all', label: 'All' },
-  { value: 'technology', label: 'Technology' },
-  { value: 'finance', label: 'Finance' },
-  { value: 'politics', label: 'Politics' },
-  { value: 'science', label: 'Science' },
-  { value: 'sports', label: 'Sports' },
-  { value: 'business', label: 'Business' },
-  { value: 'culture', label: 'Culture' },
-  { value: 'world', label: 'World' },
-]
 
 export default function PredictionsPage() {
   const resolved = mockPredictions.filter((p) => p.status === 'resolved').length
@@ -32,87 +20,64 @@ export default function PredictionsPage() {
     <div className="min-h-screen bg-[var(--bg)]">
       <Navbar />
 
-      {/* Header */}
+      {/* En-tête */}
       <div style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg2)' }}>
-        <div className="container py-10">
+        <div className="container py-8 md:py-10">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="section-label">Community</p>
-              <h1 className="text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.01em' }}>
-                Predictions
+              <p className="section-label">Communauté</p>
+              <h1 className="text-2xl md:text-3xl font-bold mt-1" style={{ color: 'var(--text)', letterSpacing: '-0.01em' }}>
+                Prédictions
               </h1>
-              <p className="mt-2 text-sm text-[var(--text2)]">
-                Vote on active predictions and track crowd intelligence in real time
+              <p className="mt-1.5 text-sm" style={{ color: 'var(--text2)' }}>
+                Votez, comparez, construisez votre réputation
               </p>
             </div>
-            <Link href="/predictions/create" className="hidden sm:block">
+            <Link href="/predictions/create" className="hidden sm:block flex-shrink-0">
               <Button size="sm" className="gap-1.5">
-                <IconPlus className="w-4 h-4" size={16} />
-                Create prediction
+                <IconPlus size={15} />
+                Créer
               </Button>
             </Link>
           </div>
 
-          {/* Stats bar */}
-          <div className="flex items-center gap-6 mt-7 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
+          {/* Barre de stats */}
+          <div
+            className="flex items-center gap-4 md:gap-6 mt-6 pt-5 overflow-x-auto"
+            style={{ borderTop: '1px solid var(--border)', scrollbarWidth: 'none' }}
+          >
             {[
-              { icon: IconTrending, value: formatNumber(mockPredictions.length), label: 'predictions' },
-              { icon: IconUsers, value: formatNumber(PLATFORM_STATS.total_votes), label: 'total votes' },
-              { icon: IconChart, value: `${PLATFORM_STATS.avg_accuracy}%`, label: 'avg accuracy' },
-              { icon: IconTarget, value: String(resolved), label: 'resolved' },
+              { icon: IconTrending, value: formatNumber(mockPredictions.length), label: 'prédictions' },
+              { icon: IconUsers, value: formatNumber(PLATFORM_STATS.total_votes), label: 'votes' },
+              { icon: IconChart, value: `${PLATFORM_STATS.avg_accuracy}%`, label: 'précision moy.' },
+              { icon: IconTarget, value: String(resolved), label: 'résolues' },
             ].map((stat) => (
-              <div key={stat.label} className="flex items-center gap-2">
-                <stat.icon size={14} style={{ color: 'var(--text3)' }} />
-                <span className="text-sm font-semibold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>
+              <div key={stat.label} className="flex items-center gap-1.5 flex-shrink-0">
+                <stat.icon size={13} style={{ color: 'var(--text3)' }} />
+                <span className="text-sm font-semibold" style={{ color: 'var(--text)', fontFamily: 'var(--mono)' }}>
                   {stat.value}
                 </span>
-                <span className="text-xs text-[var(--text3)]">{stat.label}</span>
+                <span className="text-xs" style={{ color: 'var(--text3)' }}>{stat.label}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <main className="container py-8">
-        {/* Category filters */}
-        <div className="flex gap-2 flex-wrap mb-8">
-          {categories.map((cat, i) => (
-            <button
-              key={cat.value}
-              className="px-3.5 py-1.5 rounded-full text-sm font-medium border transition-colors"
-              style={
-                i === 0
-                  ? { background: 'var(--accent)', color: 'white', borderColor: 'var(--accent)' }
-                  : { borderColor: 'var(--border2)', color: 'var(--text2)' }
-              }
-            >
-              {cat.label}
-            </button>
-          ))}
-          <button className="ml-auto flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium border transition-colors"
-            style={{ borderColor: 'var(--border2)', color: 'var(--text2)' }}>
-            <IconTarget className="w-3.5 h-3.5" size={14} />
-            Filter
-          </button>
-        </div>
-
-        {/* Mobile create CTA */}
-        <div className="sm:hidden mb-6">
-          <Link href="/predictions/create" className="block">
+      <main className="container py-6 md:py-8">
+        {/* CTA mobile */}
+        <div className="sm:hidden mb-5">
+          <Link href="/predictions/create">
             <Button size="sm" className="gap-1.5 w-full">
-              <IconPlus className="w-4 h-4" size={16} />
-              Create a prediction
+              <IconPlus size={15} />
+              Créer une prédiction
             </Button>
           </Link>
         </div>
 
-        {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {mockPredictions.map((prediction) => (
-            <PredictionCard key={prediction.id} prediction={prediction} />
-          ))}
-        </div>
+        <PredictionsFeed predictions={mockPredictions} />
       </main>
+
       <Footer />
     </div>
   )
