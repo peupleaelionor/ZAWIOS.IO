@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { IconMark, IconArrows } from '@/components/ui/icons'
+import { ConvergenceBg } from '@/components/ui/convergence-bg'
 import { SignalCard } from '@/components/signals/signal-card'
 import { getTrendingSignals } from '@/lib/signals-data'
 
@@ -10,18 +11,15 @@ export function HeroSection() {
   const heroSignal = getTrendingSignals(1)[0]
 
   return (
-    <section className="relative pt-24 pb-16 md:pt-32 md:pb-24">
-      {/* Subtle glow */}
-      <div
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full blur-[120px]"
-        style={{ background: 'radial-gradient(circle, rgba(52,208,182,0.06) 0%, transparent 70%)' }}
-      />
+    <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+      {/* Convergence background */}
+      <ConvergenceBg opacity={0.035} />
 
       <div className="container relative">
         <div className="max-w-2xl mx-auto text-center mb-12">
           {/* Logo mark */}
           <div className="flex justify-center mb-8">
-            <IconMark width={64} leftColor="rgba(255,255,255,0.8)" rightColor="rgba(52,208,182,0.8)" />
+            <IconMark width={72} />
           </div>
 
           <h1

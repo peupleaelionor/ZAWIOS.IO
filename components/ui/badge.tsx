@@ -7,10 +7,10 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 
 function Badge({ className, variant = 'default', ...props }: BadgeProps) {
   const variants = {
-    default: 'bg-[var(--accent)]/15 text-[var(--accent2)] border border-[var(--accent)]/20',
-    success: 'bg-[var(--teal)]/15 text-[var(--teal)] border border-[var(--teal)]/20',
-    warning: 'bg-[var(--amber)]/15 text-[var(--amber)] border border-[var(--amber)]/20',
-    danger: 'bg-[var(--zred)]/15 text-[var(--zred)] border border-[var(--zred)]/20',
+    default: 'bg-[var(--teal)]/12 text-[var(--teal)] border border-[var(--teal)]/20',
+    success: 'bg-[var(--teal)]/12 text-[var(--teal)] border border-[var(--teal)]/20',
+    warning: 'bg-[var(--amber)]/12 text-[var(--amber)] border border-[var(--amber)]/20',
+    danger: 'bg-[var(--zred)]/12 text-[var(--zred)] border border-[var(--zred)]/20',
     outline: 'border border-[var(--border2)] text-[var(--text2)]',
     category: 'bg-[var(--surface2)] text-[var(--text2)] border border-[var(--border)]',
   }
@@ -18,7 +18,7 @@ function Badge({ className, variant = 'default', ...props }: BadgeProps) {
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium',
+        'inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold',
         variants[variant],
         className
       )}

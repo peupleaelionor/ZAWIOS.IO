@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" fill="none">
+  <rect width="192" height="192" rx="42" fill="#0C0D10"/>
+  <circle cx="96" cy="96" r="10" fill="#17D5CF" opacity="0.25"/>
+  <g stroke="#EBEBEB" stroke-linecap="round">
+    <line x1="96" y1="96" x2="12" y2="38" stroke-width="1.4" opacity="0.5"/>
+    <line x1="96" y1="96" x2="12" y2="51" stroke-width="1.4" opacity="0.6"/>
+    <line x1="96" y1="96" x2="12" y2="64" stroke-width="1.4" opacity="0.72"/>
+    <line x1="96" y1="96" x2="12" y2="77" stroke-width="1.4" opacity="0.85"/>
+    <line x1="96" y1="96" x2="12" y2="90" stroke-width="1.4" opacity="0.95"/>
+    <line x1="96" y1="96" x2="12" y2="103" stroke-width="1.4" opacity="1"/>
+    <line x1="96" y1="96" x2="12" y2="116" stroke-width="1.4" opacity="0.95"/>
+    <line x1="96" y1="96" x2="12" y2="129" stroke-width="1.4" opacity="0.85"/>
+    <line x1="96" y1="96" x2="12" y2="142" stroke-width="1.4" opacity="0.72"/>
+    <line x1="96" y1="96" x2="12" y2="155" stroke-width="1.4" opacity="0.6"/>
+    <line x1="96" y1="96" x2="180" y2="38" stroke-width="1.4" opacity="0.5"/>
+    <line x1="96" y1="96" x2="180" y2="51" stroke-width="1.4" opacity="0.6"/>
+    <line x1="96" y1="96" x2="180" y2="64" stroke-width="1.4" opacity="0.72"/>
+    <line x1="96" y1="96" x2="180" y2="77" stroke-width="1.4" opacity="0.85"/>
+    <line x1="96" y1="96" x2="180" y2="90" stroke-width="1.4" opacity="0.95"/>
+    <line x1="96" y1="96" x2="180" y2="103" stroke-width="1.4" opacity="1"/>
+    <line x1="96" y1="96" x2="180" y2="116" stroke-width="1.4" opacity="0.95"/>
+    <line x1="96" y1="96" x2="180" y2="129" stroke-width="1.4" opacity="0.85"/>
+    <line x1="96" y1="96" x2="180" y2="142" stroke-width="1.4" opacity="0.72"/>
+    <line x1="96" y1="96" x2="180" y2="155" stroke-width="1.4" opacity="0.6"/>
+  </g>
+</svg>

@@ -1,67 +1,73 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════
-   ZAWIOS Design System — Dark Data-Intelligence
-   Sora + IBM Plex Mono · Zero emojis
+   ZAWIOS Design System v2 — Official Brand Guidelines
+   Palette: #0C0D10 / #1A1C22 / #17D5CF / #5A4BFF
+   Typography: Sora + IBM Plex Mono
+   Radius: 4px / 8px / 12px
+   Spacing base: 4px
    ═══════════════════════════════════════════ */
 
 :root {
-  --bg: #050508;
-  --bg2: #0a0a10;
-  --surface: #0e0e16;
-  --surface2: #141420;
-  --surface3: #1a1a28;
-  --border: rgba(255,255,255,0.05);
-  --border2: rgba(255,255,255,0.09);
-  --border3: rgba(255,255,255,0.14);
-  --text: #eaeaf0;
-  --text2: #a0a0b8;
-  --text3: #5c5c78;
-  --accent: #7c6ef0;
-  --accent2: #9d92f8;
-  --accent3: #beb6ff;
-  --teal: #34d0b6;
-  --teal2: #20b89f;
-  --zred: #f06070;
-  --amber: #f0c050;
-  --blue: #60a8f0;
+  /* ── BACKGROUNDS ── */
+  --bg: #0C0D10;
+  --bg2: #111218;
+  --surface: #161720;
+  --surface2: #1A1C22;
+  --surface3: #22242C;
+
+  /* ── BORDERS ── */
+  --border: rgba(255,255,255,0.06);
+  --border2: rgba(255,255,255,0.10);
+  --border3: rgba(255,255,255,0.16);
+
+  /* ── TEXT ── */
+  --text: #EBEBEB;
+  --text2: #888888;
+  --text3: #555555;
+
+  /* ── BRAND ACCENT ── */
+  --teal: #17D5CF;
+  --teal2: #14BAB5;
+  --accent: #5A4BFF;
+  --accent2: #7B6FFF;
+  --accent3: #9D94FF;
+
+  /* ── SEMANTIC ── */
+  --zred: #E85D6F;
+  --amber: #E8B84D;
+  --blue: #5B9FE8;
+
+  /* ── TYPOGRAPHY ── */
   --font: 'Sora', sans-serif;
   --mono: 'IBM Plex Mono', monospace;
-  --radius: 13px;
 
-  /* Compat aliases for existing components */
-  --background: #050508;
-  --foreground: #eaeaf0;
-  --primary: #7c6ef0;
-  --primary-foreground: #ffffff;
-  --secondary: #141420;
-  --secondary-foreground: #eaeaf0;
-  --muted: #1a1a28;
-  --muted-foreground: #a0a0b8;
-  --accent-foreground: #ffffff;
-  --card: #0e0e16;
-  --card-foreground: #eaeaf0;
-  --ring: #7c6ef0;
-  --success: #34d0b6;
-  --warning: #f0c050;
-  --danger: #f06070;
-}
+  /* ── RADIUS (brand spec) ── */
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 12px;
 
-/* Dark is the default — no .dark class needed */
-.dark {
-  --background: #050508;
-  --foreground: #eaeaf0;
-  --primary: #7c6ef0;
-  --primary-foreground: #ffffff;
-  --secondary: #141420;
-  --secondary-foreground: #eaeaf0;
-  --muted: #1a1a28;
-  --muted-foreground: #a0a0b8;
+  /* ── SHADOWS ── */
+  --shadow-l0: none;
+  --shadow-l1: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-l2: 0 4px 20px rgba(0,0,0,0.5);
+
+  /* ── COMPAT ALIASES ── */
+  --background: #0C0D10;
+  --foreground: #EBEBEB;
+  --primary: #17D5CF;
+  --primary-foreground: #0C0D10;
+  --secondary: #1A1C22;
+  --secondary-foreground: #EBEBEB;
+  --muted: #22242C;
+  --muted-foreground: #888888;
   --accent-foreground: #ffffff;
-  --border: rgba(255,255,255,0.05);
-  --ring: #7c6ef0;
-  --card: #0e0e16;
-  --card-foreground: #eaeaf0;
+  --card: #161720;
+  --card-foreground: #EBEBEB;
+  --ring: #17D5CF;
+  --success: #17D5CF;
+  --warning: #E8B84D;
+  --danger: #E85D6F;
 }
 
 *, *::before, *::after {
@@ -86,8 +92,8 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: #fff;
+  background: var(--teal);
+  color: var(--bg);
 }
 
 :focus-visible {
@@ -103,7 +109,7 @@ body {
 
 /* ─── ANIMATIONS ─── */
 @keyframes revealUp {
-  from { opacity: 0; transform: translateY(32px); }
+  from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
 @keyframes revealIn {
@@ -122,51 +128,48 @@ body {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
-@keyframes orbit {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
 @keyframes glow-pulse {
-  0%, 100% { opacity: .12; }
-  50% { opacity: .22; }
+  0%, 100% { opacity: .06; }
+  50% { opacity: .12; }
 }
 
-.rv { animation: revealUp .75s cubic-bezier(.16,1,.3,1) both; }
-.ri { animation: revealIn .6s cubic-bezier(.16,1,.3,1) both; }
-.sr { animation: slideRight .55s cubic-bezier(.16,1,.3,1) both; }
+.rv { animation: revealUp .65s cubic-bezier(.16,1,.3,1) both; }
+.ri { animation: revealIn .5s cubic-bezier(.16,1,.3,1) both; }
+.sr { animation: slideRight .5s cubic-bezier(.16,1,.3,1) both; }
 
 /* ─── LAYOUT ─── */
 .container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
+}
+@media (min-width: 640px) {
+  .container { padding: 0 1.5rem; }
 }
 
 /* ─── TEXT EFFECTS ─── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--teal) 100%);
-  background-size: 200% 200%;
-  animation: shimmer 5s ease infinite;
+  background: linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .section-label {
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--accent2);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--teal);
   text-transform: uppercase;
   letter-spacing: .14em;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
   font-family: var(--mono);
 }
 
 /* ─── GLASS / SURFACE ─── */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(24px) saturate(1.6);
+  background: rgba(12, 13, 16, 0.85);
+  backdrop-filter: blur(20px) saturate(1.4);
   border: 1px solid var(--border);
 }
 
@@ -178,12 +181,12 @@ body {
 
 /* ─── CARD ─── */
 .card-hover {
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 .card-hover:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255,255,255,0.09);
-  background: var(--surface2);
+  transform: translateY(-1px);
+  border-color: var(--border2);
+  box-shadow: var(--shadow-l1);
 }
 
 /* ─── BADGE MONO ─── */
@@ -191,8 +194,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 3px 9px;
-  border-radius: 5px;
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: .04em;
@@ -203,11 +206,9 @@ body {
 /* ─── ACCENT LINE ─── */
 .accent-line-top {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  background: linear-gradient(90deg, transparent, var(--teal), transparent);
 }
 
 /* ─── SCROLLBAR HIDE ─── */
@@ -218,4 +219,12 @@ body {
 @media (hover: none) {
   .card-hover:active { transform: scale(0.985); }
   button:active { transform: scale(0.97); }
+}
+
+/* ─── MOBILE BOTTOM NAV SPACER ─── */
+.has-mobile-nav {
+  padding-bottom: 72px;
+}
+@media (min-width: 768px) {
+  .has-mobile-nav { padding-bottom: 0; }
 }

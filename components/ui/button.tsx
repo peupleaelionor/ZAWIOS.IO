@@ -10,22 +10,22 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, children, disabled, ...props }, ref) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed select-none'
+      'inline-flex items-center justify-center font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed select-none'
 
     const variants = {
-      primary: 'bg-[var(--accent)] text-white hover:brightness-110 focus-visible:ring-[var(--accent)] shadow-sm shadow-[var(--accent)]/20',
+      primary: 'bg-[var(--teal)] text-[var(--bg)] hover:brightness-110 focus-visible:ring-[var(--teal)] shadow-sm rounded-lg',
       secondary:
-        'bg-[var(--surface2)] text-[var(--text)] hover:bg-[var(--surface3)] border border-[var(--border2)]',
+        'bg-[var(--surface2)] text-[var(--text)] hover:bg-[var(--surface3)] border border-[var(--border2)] rounded-lg',
       outline:
-        'border border-[var(--border2)] bg-transparent text-[var(--text2)] hover:bg-white/[0.04] hover:text-[var(--text)]',
-      ghost: 'bg-transparent hover:bg-white/[0.04] text-[var(--text2)] hover:text-[var(--text)]',
-      danger: 'bg-[var(--zred)] text-white hover:brightness-110 focus-visible:ring-[var(--zred)]',
+        'border border-[var(--border2)] bg-transparent text-[var(--text2)] hover:bg-white/[0.04] hover:text-[var(--text)] rounded-lg',
+      ghost: 'bg-transparent hover:bg-white/[0.04] text-[var(--text2)] hover:text-[var(--text)] rounded-lg',
+      danger: 'bg-[var(--zred)] text-white hover:brightness-110 focus-visible:ring-[var(--zred)] rounded-lg',
     }
 
     const sizes = {
-      sm: 'text-sm px-3 py-1.5 gap-1.5',
+      sm: 'text-xs px-3 py-1.5 gap-1.5',
       md: 'text-sm px-4 py-2.5 gap-2',
-      lg: 'text-base px-6 py-3 gap-2',
+      lg: 'text-sm px-6 py-3 gap-2',
     }
 
     return (
