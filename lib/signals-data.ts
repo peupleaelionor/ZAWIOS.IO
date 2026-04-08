@@ -622,13 +622,13 @@ export const CATEGORY_COLORS: Record<SignalCategory, { bg: string; text: string 
   news: { bg: 'rgba(234,234,240,0.10)', text: '#eaeaf0' },
   tech: { bg: 'rgba(96,168,240,0.12)', text: '#60a8f0' },
   business: { bg: 'rgba(240,192,80,0.12)', text: '#f0c050' },
-  crypto: { bg: 'rgba(52,208,182,0.12)', text: '#34d0b6' },
+  crypto: { bg: 'rgba(23,213,207,0.12)', text: '#17D5CF' },
   sports: { bg: 'rgba(251,146,60,0.12)', text: '#fb923c' },
   culture: { bg: 'rgba(244,114,182,0.12)', text: '#f472b6' },
   society: { bg: 'rgba(157,146,248,0.12)', text: '#9d92f8' },
   entertainment: { bg: 'rgba(34,211,238,0.12)', text: '#22d3ee' },
-  trends: { bg: 'rgba(124,110,240,0.12)', text: '#7c6ef0' },
-  fun: { bg: 'rgba(52,208,182,0.12)', text: '#34d0b6' },
+  trends: { bg: 'rgba(90,75,255,0.12)', text: '#5A4BFF' },
+  fun: { bg: 'rgba(23,213,207,0.12)', text: '#17D5CF' },
 }
 
 // Reputation tiers
@@ -643,9 +643,9 @@ export const REPUTATION_TIERS: ReputationTier[] = [
   { name: 'Newcomer', nameFr: 'Debutant', minScore: 0, color: '#5c5c78' },
   { name: 'Observer', nameFr: 'Observateur', minScore: 100, color: '#a0a0b8' },
   { name: 'Analyst', nameFr: 'Analyste', minScore: 500, color: '#60a8f0' },
-  { name: 'Expert', nameFr: 'Expert', minScore: 1500, color: '#34d0b6' },
+  { name: 'Expert', nameFr: 'Expert', minScore: 1500, color: '#17D5CF' },
   { name: 'Visionary', nameFr: 'Visionnaire', minScore: 5000, color: '#f0c050' },
-  { name: 'Oracle', nameFr: 'Oracle', minScore: 15000, color: '#7c6ef0' },
+  { name: 'Oracle', nameFr: 'Oracle', minScore: 15000, color: '#5A4BFF' },
 ]
 
 export function getReputationTier(score: number): ReputationTier {
