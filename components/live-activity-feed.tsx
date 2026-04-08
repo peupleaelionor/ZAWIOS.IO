@@ -45,7 +45,7 @@ const ICON_MAP: Record<ActivityType, { icon: typeof IconUpvote; color: string }>
   upvote:      { icon: IconUpvote,   color: 'var(--accent)' },
   prediction:  { icon: IconTarget,   color: 'var(--teal)' },
   profile:     { icon: IconUsers,    color: 'var(--blue, #60a8f0)' },
-  follow:      { icon: IconUsers,    color: 'var(--accent2, #9d92f8)' },
+  follow:      { icon: IconUsers,    color: 'var(--accent2, #7b6fff)' },
   achievement: { icon: IconMedal,    color: 'var(--amber, #f0c050)' },
   trending:    { icon: IconTrending, color: 'var(--teal)' },
   target:      { icon: IconTarget,   color: 'var(--accent)' },

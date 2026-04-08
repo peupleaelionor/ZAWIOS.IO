@@ -18,7 +18,7 @@ export function ReputationBadge({ score, accuracy, totalVotes, streak }: Reputat
     : 100
 
   return (
-    <div className="surface p-5 rounded-2xl mt-6">
+    <div className="surface p-4 md:p-5 rounded-xl mt-6">
       <p className="text-[10px] font-semibold text-[var(--text3)] uppercase tracking-wider mb-4" style={{ fontFamily: 'var(--mono)' }}>
         Reputation
       </p>

@@ -32,7 +32,7 @@ export function Footer() {
 
   return (
     <footer style={{ borderTop: '1px solid var(--border)' }} className="bg-[var(--bg)]">
-      <div className="container py-12 md:py-16">
+      <div className="container py-8 md:py-12 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2">

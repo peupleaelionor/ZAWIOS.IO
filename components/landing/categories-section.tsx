@@ -2,11 +2,11 @@ import { SIGNAL_CATEGORIES, CATEGORY_COLORS } from '@/lib/signals-data'
 
 export function CategoriesSection() {
   return (
-    <section className="py-16 bg-[var(--bg2)]">
+    <section className="py-10 md:py-16 bg-[var(--bg2)]">
       <div className="container">
-        <div className="mb-10">
+        <div className="mb-6 md:mb-10">
           <p className="section-label">Categories</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
+          <h2 className="text-xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
             Tous les sujets. Toutes les regions.
           </h2>
           <p className="mt-2 text-sm text-[var(--text2)] max-w-md">

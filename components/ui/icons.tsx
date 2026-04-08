@@ -274,7 +274,7 @@ export function IconMark({
   className,
   width = 56,
   leftColor = '#ffffff',
-  rightColor = '#7c6ef0',
+  rightColor = '#17D5CF',
   style,
 }: {
   className?: string
@@ -329,13 +329,152 @@ export function IconLogo({ className, size = 32, style }: IconProps) {
       className={className}
       style={style}
     >
-      <rect width={size} height={size} rx={size * 0.22} fill="#08080f" />
+      <rect width={size} height={size} rx={size * 0.22} fill="#0C0D10" />
       {ys.map((y, i) => (
         <line key={`L${i}`} x1={cx} y1={cy} x2={xL} y2={y} stroke="#ffffff" strokeWidth={size * 0.026} strokeLinecap="round" />
       ))}
       {ys.map((y, i) => (
-        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#7c6ef0" strokeWidth={size * 0.026} strokeLinecap="round" />
+        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#17D5CF" strokeWidth={size * 0.026} strokeLinecap="round" />
       ))}
+    </svg>
+  )
+}
+
+// ─── Production Icons ───
+
+export function IconVote(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M7 11l5-5 5 5" />
+      <path d="M12 6v13" />
+    </svg>
+  )
+}
+
+export function IconSignal(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M2 20h.01" />
+      <path d="M7 20v-4" />
+      <path d="M12 20v-8" />
+      <path d="M17 20V8" />
+      <path d="M22 4v16" />
+    </svg>
+  )
+}
+
+export function IconScore(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+    </svg>
+  )
+}
+
+export function IconReputation(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  )
+}
+
+export function IconComparison(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M18 20V10" />
+      <path d="M12 20V4" />
+      <path d="M6 20v-6" />
+    </svg>
+  )
+}
+
+export function IconShare(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <circle cx="18" cy="5" r="3" />
+      <circle cx="6" cy="12" r="3" />
+      <circle cx="18" cy="19" r="3" />
+      <path d="M8.59 13.51l6.83 3.98" />
+      <path d="M15.41 6.51l-6.82 3.98" />
+    </svg>
+  )
+}
+
+export function IconProfile(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  )
+}
+
+export function IconCreate(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M12 8v8" />
+      <path d="M8 12h8" />
+    </svg>
+  )
+}
+
+export function IconLeaderboard(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M8 21V11" />
+      <path d="M12 21V3" />
+      <path d="M16 21v-6" />
+      <path d="M4 21h16" />
+    </svg>
+  )
+}
+
+export function IconNotification(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 01-3.46 0" />
+    </svg>
+  )
+}
+
+export function IconSearch(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <circle cx="11" cy="11" r="8" />
+      <path d="M21 21l-4.35-4.35" />
+    </svg>
+  )
+}
+
+export function IconCategory(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <rect x="14" y="14" width="7" height="7" rx="1" />
+    </svg>
+  )
+}
+
+export function IconRegion(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 2a14.5 14.5 0 000 20M12 2a14.5 14.5 0 010 20" />
+      <path d="M2 12h20" />
+    </svg>
+  )
+}
+
+export function IconHome(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+      <polyline points="9 22 9 12 15 12 15 22" />
     </svg>
   )
 }
