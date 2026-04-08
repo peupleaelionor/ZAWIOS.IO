@@ -26,11 +26,11 @@ export default function HomePage() {
       <StepsSection />
 
       {/* Live Feed */}
-      <section id="feed" className="py-20 bg-[var(--bg)]">
+      <section id="feed" className="py-12 md:py-20 bg-[var(--bg)]">
         <div className="container">
-          <div className="mb-8">
+          <div className="mb-6 md:mb-8">
             <p className="section-label">Live</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
+            <h2 className="text-xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
               Signaux en direct
             </h2>
             <p className="mt-2 text-sm text-[var(--text2)]">
@@ -43,11 +43,11 @@ export default function HomePage() {
       </section>
 
       {/* Resolved signals */}
-      <section className="py-16 bg-[var(--bg2)]">
+      <section className="py-10 md:py-16 bg-[var(--bg2)]">
         <div className="container">
-          <div className="mb-8">
+          <div className="mb-6 md:mb-8">
             <p className="section-label">Resultats</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
+            <h2 className="text-xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
               Signaux resolus
             </h2>
             <p className="mt-2 text-sm text-[var(--text2)]">

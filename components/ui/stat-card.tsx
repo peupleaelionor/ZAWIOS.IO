@@ -23,7 +23,7 @@ export function StatCard({ label, value, icon: Icon, trend, suffix, className }:
   return (
     <div
       className={cn(
-        'surface rounded-2xl p-6',
+        'surface rounded-xl p-5 md:p-6',
         className
       )}
     >
@@ -48,8 +48,8 @@ export function StatCard({ label, value, icon: Icon, trend, suffix, className }:
           )}
         </div>
         {Icon && (
-          <div className="p-2.5 rounded-xl" style={{ background: 'rgba(124,110,240,0.1)' }}>
-            <Icon className="w-5 h-5" size={20} style={{ color: 'var(--accent2)' }} />
+          <div className="p-2.5 rounded-xl" style={{ background: 'rgba(23,213,207,0.1)' }}>
+            <Icon className="w-5 h-5" size={20} style={{ color: 'var(--teal)' }} />
           </div>
         )}
       </div>

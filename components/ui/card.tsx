@@ -4,7 +4,7 @@ import { type HTMLAttributes } from 'react'
 function Card({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('surface rounded-2xl', className)}
+      className={cn('surface rounded-xl', className)}
       {...props}
     />
   )

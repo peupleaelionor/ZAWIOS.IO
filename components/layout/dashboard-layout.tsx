@@ -36,7 +36,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors',
                 pathname === href
-                  ? 'bg-[var(--accent)]/10 text-[var(--accent2)]'
+                  ? 'bg-[var(--teal)]/10 text-[var(--teal)]'
                   : 'text-[var(--text2)] hover:bg-white/[0.04] hover:text-[var(--text)]'
               )}
             >
@@ -49,7 +49,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="px-4 py-4 space-y-1" style={{ borderTop: '1px solid var(--border)' }}>
           <Link
             href="/predictions/create"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--teal)] hover:bg-[var(--teal)]/10 transition-colors"
           >
             <IconPlus className="w-4 h-4" size={16} />
             New prediction
