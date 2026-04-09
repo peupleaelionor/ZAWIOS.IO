@@ -9,10 +9,10 @@ const footerStructure = {
     { href: '/leaderboard', key: 'Leaderboard' },
     { href: '/insights', key: 'Insights' },
     { href: '/product-system', key: 'Système' },
+    { href: '/pro', key: 'Pro' },
+    { href: '/intelligence', key: 'Intelligence' },
+    { href: '/methodology', key: 'Méthodologie' },
     { href: '/pricing', key: 'Pricing' },
-    { href: '/premium', key: 'Premium' },
-    { href: '/creator', key: 'Creator' },
-    { href: '/business', key: 'Business' },
   ],
   Company: [
     { href: '/about', key: 'About' },
