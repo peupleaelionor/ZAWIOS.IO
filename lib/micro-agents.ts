@@ -126,7 +126,7 @@ export function lifeTopicExpander(signals: Signal[], minLifeRatio = 0.1): Signal
   // This does not suppress anything, just reorders to ensure visibility
   const result: Signal[] = []
   let lifeInserted = 0
-  const interval = signals.length > 0 ? Math.max(1, Math.floor(signals.length / minLife)) : 1
+  const interval = Math.max(1, Math.floor(signals.length / minLife))
 
   for (let i = 0; i < signals.length; i++) {
     if (lifeInserted < minLife && lifeInserted < lifeSignals.length && i % interval === 0) {
