@@ -1,13 +1,20 @@
 'use client'
 
+import { useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { captureException } from '@/lib/sentry'
 
 export default function DashboardError({
+  error,
   reset,
 }: {
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  useEffect(() => {
+    captureException(error, { digest: error.digest, page: 'dashboard' })
+  }, [error])
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[var(--bg)] px-4">
       <div className="text-center max-w-md">

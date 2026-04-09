@@ -5,15 +5,58 @@ import { Button } from '@/components/ui/button'
 import { mockProfiles, mockLeaderboard, PLATFORM_STATS } from '@/lib/mock-data'
 import { formatNumber } from '@/lib/utils'
 import { IconAward, IconTarget, IconTrending, IconTrophy, IconEdit } from '@/components/ui/icons'
+import { AvatarUpload } from '@/components/ui/avatar-upload'
+import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'My Profile',
 }
 
-export default function DashboardProfilePage() {
-  const profile = mockProfiles[0]
-  const leaderboardEntry = mockLeaderboard[0]
+export default async function DashboardProfilePage() {
+  // Try to fetch real profile data; fallback to mock
+  let profile = mockProfiles[0]
+  let leaderboardEntry = mockLeaderboard[0]
+  let totalUsers = PLATFORM_STATS.total_users
+
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      const { data: realProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', user.id)
+        .single()
+
+      if (realProfile) {
+        profile = { ...profile, ...realProfile }
+      }
+
+      const { data: reputation } = await supabase
+        .from('reputation_scores')
+        .select('*')
+        .eq('user_id', user.id)
+        .single()
+
+      if (reputation) {
+        leaderboardEntry = {
+          ...leaderboardEntry,
+          score: reputation.total_score ?? leaderboardEntry.score,
+          accuracy_rate: reputation.accuracy_rate ?? leaderboardEntry.accuracy_rate,
+          prediction_count: reputation.prediction_count ?? leaderboardEntry.prediction_count,
+          rank: reputation.global_rank ?? leaderboardEntry.rank,
+        }
+      }
+
+      const { count } = await supabase
+        .from('profiles')
+        .select('*', { count: 'exact', head: true })
+      if (count) totalUsers = count
+    }
+  } catch {
+    /* Fallback to mock data */
+  }
 
   return (
     <DashboardLayout>
@@ -25,15 +68,7 @@ export default function DashboardProfilePage() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Profile card */}
         <div className="surface rounded-2xl p-8 text-center">
-          <div className="relative inline-block mb-4">
-            <Avatar src={profile.avatar_url} name={profile.full_name} size="xl" />
-            <button
-              aria-label="Edit profile photo"
-              className="absolute bottom-0 right-0 w-7 h-7 bg-[var(--accent)] rounded-full flex items-center justify-center shadow-lg"
-            >
-              <IconEdit className="w-3.5 h-3.5 text-white" size={14} />
-            </button>
-          </div>
+          <AvatarUpload currentUrl={profile.avatar_url} name={profile.full_name} />
           <h2 className="text-xl font-bold text-[var(--text)]">{profile.full_name}</h2>
           <p className="text-sm text-[var(--text2)]">@{profile.username}</p>
           {profile.is_premium && <Badge variant="default" className="mt-2">Premium</Badge>}
@@ -75,7 +110,7 @@ export default function DashboardProfilePage() {
               <span className="text-sm text-[var(--text2)]">Global rank</span>
             </div>
             <p className="text-3xl font-bold text-[var(--text)]">#{leaderboardEntry.rank}</p>
-            <p className="text-xs text-[var(--text3)] mt-2">Top {Math.round((leaderboardEntry.rank / PLATFORM_STATS.total_users) * 100)}% of all predictors</p>
+            <p className="text-xs text-[var(--text3)] mt-2">Top {Math.round((leaderboardEntry.rank / totalUsers) * 100)}% of all predictors</p>
           </div>
         </div>
       </div>
