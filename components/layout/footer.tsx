@@ -8,6 +8,7 @@ const footerStructure = {
     { href: '/predictions', key: 'Predictions' },
     { href: '/leaderboard', key: 'Leaderboard' },
     { href: '/insights', key: 'Insights' },
+    { href: '/product-system', key: 'Système' },
     { href: '/pricing', key: 'Pricing' },
     { href: '/premium', key: 'Premium' },
     { href: '/creator', key: 'Creator' },

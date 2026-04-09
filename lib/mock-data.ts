@@ -308,15 +308,27 @@ export const mockPredictions: Prediction[] = [
   },
 ]
 
+// Extended leaderboard with personas matching design boards
+const leaderboardPersonas = [
+  { full_name: 'C. Laurent', username: 'c_laurent', avatar_url: '/avatars/laurent.jpg', location: 'Paris, France' },
+  { full_name: 'L. Faye', username: 'l_faye', avatar_url: '/avatars/faye.jpg', location: 'Dakar, Sénégal' },
+  { full_name: 'T. Diop', username: 't_diop', avatar_url: '/avatars/diop.jpg', location: 'Abidjan, CI' },
+  { full_name: 'R. Moreau', username: 'r_moreau', avatar_url: '/avatars/moreau.jpg', location: 'Lyon, France' },
+  { full_name: 'S. Diallo', username: 's_diallo', avatar_url: '/avatars/diallo2.jpg', location: 'Conakry, Guinée' },
+  { full_name: 'Peli & James', username: 'peli_james', avatar_url: '/avatars/peli.jpg', location: 'Kinshasa, RDC' },
+  { full_name: 'Guely', username: 'guely', avatar_url: '/avatars/guely.jpg', location: 'Bruxelles, Belgique' },
+  { full_name: 'A. Adebayo', username: 'adebayo_a', avatar_url: '/avatars/adebayo.jpg', location: 'Lagos, Nigeria' },
+]
+
 export const mockLeaderboard: LeaderboardEntry[] = [
-  { rank: 1, user: mockProfiles[0], score: 9847, accuracy_rate: 73, prediction_count: 124 },
-  { rank: 2, user: mockProfiles[7], score: 9234, accuracy_rate: 71, prediction_count: 98 },
-  { rank: 3, user: mockProfiles[1], score: 8756, accuracy_rate: 68, prediction_count: 143 },
-  { rank: 4, user: mockProfiles[5], score: 8450, accuracy_rate: 78, prediction_count: 150 },
-  { rank: 5, user: mockProfiles[2], score: 7432, accuracy_rate: 65, prediction_count: 87 },
-  { rank: 6, user: mockProfiles[9], score: 6891, accuracy_rate: 62, prediction_count: 76 },
-  { rank: 7, user: mockProfiles[3], score: 6234, accuracy_rate: 59, prediction_count: 91 },
-  { rank: 8, user: mockProfiles[11], score: 5789, accuracy_rate: 57, prediction_count: 68 },
+  { rank: 1, user: { ...mockProfiles[0], ...leaderboardPersonas[0], id: 'lb1', user_id: 'lb1', is_premium: true, plan: 'business', created_at: '', updated_at: '' }, score: 9360, accuracy_rate: 76, prediction_count: 170 },
+  { rank: 2, user: { ...mockProfiles[1], ...leaderboardPersonas[1], id: 'lb2', user_id: 'lb2', is_premium: true, plan: 'creator', created_at: '', updated_at: '' }, score: 9180, accuracy_rate: 74, prediction_count: 156 },
+  { rank: 3, user: { ...mockProfiles[2], ...leaderboardPersonas[2], id: 'lb3', user_id: 'lb3', is_premium: true, plan: 'business', created_at: '', updated_at: '' }, score: 8040, accuracy_rate: 71, prediction_count: 143 },
+  { rank: 4, user: { ...mockProfiles[3], ...leaderboardPersonas[3], id: 'lb4', user_id: 'lb4', is_premium: false, plan: 'premium', created_at: '', updated_at: '' }, score: 3090, accuracy_rate: 65, prediction_count: 98 },
+  { rank: 5, user: { ...mockProfiles[4], ...leaderboardPersonas[4], id: 'lb5', user_id: 'lb5', is_premium: false, plan: 'free', created_at: '', updated_at: '' }, score: 4270, accuracy_rate: 62, prediction_count: 87 },
+  { rank: 6, user: { ...mockProfiles[5], ...leaderboardPersonas[5], id: 'lb6', user_id: 'lb6', is_premium: true, plan: 'creator', created_at: '', updated_at: '' }, score: 69606, accuracy_rate: 78, prediction_count: 430 },
+  { rank: 7, user: { ...mockProfiles[6], ...leaderboardPersonas[6], id: 'lb7', user_id: 'lb7', is_premium: true, plan: 'creator', created_at: '', updated_at: '' }, score: 13525, accuracy_rate: 69, prediction_count: 210 },
+  { rank: 8, user: { ...mockProfiles[7], ...leaderboardPersonas[7], id: 'lb8', user_id: 'lb8', is_premium: true, plan: 'business', created_at: '', updated_at: '' }, score: 9847, accuracy_rate: 73, prediction_count: 124 },
 ]
 
 export const mockTrends: InsightTrend[] = [

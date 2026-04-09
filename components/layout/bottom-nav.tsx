@@ -6,11 +6,11 @@ import { IconHome, IconTrending, IconCreate, IconLeaderboard, IconProfile } from
 import { cn } from '@/lib/utils'
 
 const navItems = [
-  { href: '/', label: 'Home', icon: IconHome },
-  { href: '/predictions', label: 'Feed', icon: IconTrending },
-  { href: '/predictions/create', label: 'Create', icon: IconCreate },
-  { href: '/leaderboard', label: 'Rank', icon: IconLeaderboard },
-  { href: '/profile', label: 'Profile', icon: IconProfile },
+  { href: '/', label: 'Accueil', icon: IconHome },
+  { href: '/predictions', label: 'Signaux', icon: IconTrending },
+  { href: '/predictions/create', label: 'Créer', icon: IconCreate },
+  { href: '/leaderboard', label: 'Top', icon: IconLeaderboard },
+  { href: '/profile', label: 'Profil', icon: IconProfile },
 ]
 
 export function BottomNav() {

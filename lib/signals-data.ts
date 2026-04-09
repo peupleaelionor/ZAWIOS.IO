@@ -14,7 +14,7 @@ export type SignalCategory =
   | 'fun'
   | 'worldview'
 
-export type SignalRegion = 'global' | 'africa' | 'france' | 'europe' | 'usa'
+export type SignalRegion = 'global' | 'africa' | 'france' | 'europe' | 'usa' | 'rdc' | 'belgique'
 
 export type SignalStatus = 'active' | 'resolved'
 
@@ -63,9 +63,11 @@ export const SIGNAL_CATEGORIES: { id: SignalCategory; label: string; labelFr: st
 ]
 
 export const SIGNAL_REGIONS: { id: SignalRegion; label: string; labelFr: string }[] = [
-  { id: 'global', label: 'World', labelFr: 'Monde' },
-  { id: 'africa', label: 'Africa', labelFr: 'Afrique' },
+  { id: 'global', label: 'Monde', labelFr: 'Monde' },
+  { id: 'africa', label: 'Afrique', labelFr: 'Afrique' },
+  { id: 'rdc', label: 'RD Congo', labelFr: 'RD Congo' },
   { id: 'france', label: 'France', labelFr: 'France' },
+  { id: 'belgique', label: 'Belgique', labelFr: 'Belgique' },
   { id: 'europe', label: 'Europe', labelFr: 'Europe' },
   { id: 'usa', label: 'USA', labelFr: 'USA' },
 ]
@@ -704,3 +706,167 @@ export function getReputationTier(score: number): ReputationTier {
   }
   return REPUTATION_TIERS[0]
 }
+
+// ─── SIGNAUX RDC · BELGIQUE · FRANCE · AFRIQUE ─────────────────────────────
+// Ajoutés discrètement — contenus géopolitiques ciblés
+export const extendedSignals: Signal[] = [
+  // ── RD CONGO ──
+  {
+    id: 'rdc1',
+    title: "La RDC va-t-elle stabiliser l'est du pays avant 2027 ?",
+    description: "Les conflits armés à l'est freinent le développement. La communauté internationale presse pour une résolution.",
+    category: 'news', region: 'rdc', status: 'active',
+    yesPercent: 29, noPercent: 71, totalVotes: 18432,
+    createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '1 year',
+    regionalBreakdown: { global: 29, africa: 34, france: 27, europe: 25, usa: 22 },
+  },
+  {
+    id: 'rdc2',
+    title: "Le cobalt congolais restera-t-il dominant dans la chaîne des batteries EV ?",
+    description: "La RDC contrôle 70% des réserves mondiales de cobalt. Les alternatives technologiques menacent-elles cette position ?",
+    category: 'business', region: 'rdc', status: 'active',
+    yesPercent: 64, noPercent: 36, totalVotes: 24501,
+    createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '5 years',
+    regionalBreakdown: { global: 64, africa: 71, france: 62, europe: 60, usa: 57 },
+  },
+  {
+    id: 'rdc3',
+    title: "Kinshasa deviendra-t-elle un hub technologique africain majeur d'ici 2030 ?",
+    description: "Avec 15 millions d'habitants, Kinshasa est la plus grande ville francophone du monde. La tech peut-elle y exploser ?",
+    category: 'tech', region: 'rdc', status: 'active',
+    yesPercent: 47, noPercent: 53, totalVotes: 11234,
+    createdBy: 'u11', creatorName: 'E. Diallo', creatorAvatar: '/avatars/diallo.jpg',
+    trending: true, timeAgo: '3h ago', expiresIn: '4 years',
+    regionalBreakdown: { global: 47, africa: 62, france: 44, europe: 41, usa: 38 },
+  },
+  {
+    id: 'rdc4',
+    title: "Les prochaines élections en RDC seront-elles reconnues par l'Union Africaine ?",
+    description: "Les tensions post-électorales sont récurrentes. La légitimité institutionnelle est en jeu.",
+    category: 'news', region: 'rdc', status: 'active',
+    yesPercent: 38, noPercent: 62, totalVotes: 9876,
+    createdBy: null, timeAgo: '5h ago', expiresIn: '2 years',
+  },
+  {
+    id: 'rdc5',
+    title: "La RDC deviendra-t-elle la première puissance économique d'Afrique centrale avant 2040 ?",
+    description: "Ressources naturelles colossales, population jeune. Le potentiel est là — les institutions suivront-elles ?",
+    category: 'business', region: 'rdc', status: 'active',
+    yesPercent: 52, noPercent: 48, totalVotes: 14321,
+    createdBy: 'u1', creatorName: 'A. Adebayo', creatorAvatar: '/avatars/adebayo.jpg',
+    trending: true, timeAgo: '4h ago', expiresIn: '14 years',
+    regionalBreakdown: { global: 52, africa: 68, france: 49, europe: 45, usa: 41 },
+  },
+
+  // ── BELGIQUE ──
+  {
+    id: 'bel1',
+    title: "La Belgique restera-t-elle un État fédéral unifié après 2030 ?",
+    description: "Les tensions entre Flandre et Wallonie s'intensifient. Le fédéralisme belge est-il viable à long terme ?",
+    category: 'society', region: 'belgique', status: 'active',
+    yesPercent: 44, noPercent: 56, totalVotes: 21345,
+    createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '5 years',
+    regionalBreakdown: { global: 44, africa: 48, france: 41, europe: 39, usa: 46 },
+  },
+  {
+    id: 'bel2',
+    title: "Bruxelles perdra-t-elle son statut de capitale de facto de l'UE ?",
+    description: "Avec l'élargissement de l'UE et les critiques de gouvernance, Bruxelles reste-t-elle incontournable ?",
+    category: 'news', region: 'belgique', status: 'active',
+    yesPercent: 22, noPercent: 78, totalVotes: 17890,
+    createdBy: null, timeAgo: '6h ago', expiresIn: '10 years',
+    regionalBreakdown: { global: 22, africa: 28, france: 24, europe: 19, usa: 21 },
+  },
+  {
+    id: 'bel3',
+    title: "La Wallonie rattrapera-t-elle économiquement la Flandre avant 2040 ?",
+    description: "L'écart de PIB par habitant entre les deux régions persiste depuis 40 ans.",
+    category: 'business', region: 'belgique', status: 'active',
+    yesPercent: 27, noPercent: 73, totalVotes: 12456,
+    createdBy: null, timeAgo: '8h ago', expiresIn: '14 years',
+    regionalBreakdown: { global: 27, africa: 31, france: 29, europe: 25, usa: 26 },
+  },
+
+  // ── FRANCE ──
+  {
+    id: 'fr_extra1',
+    title: "La France sera-t-elle en récession technique en 2026 ?",
+    description: "Croissance atone, dette record, consommation en berne. Les signaux macro s'accumulent.",
+    category: 'business', region: 'france', status: 'active',
+    yesPercent: 46, noPercent: 54, totalVotes: 28901,
+    createdBy: null, hot: true, timeAgo: '1h ago', expiresIn: '6 months',
+    regionalBreakdown: { global: 46, africa: 41, france: 52, europe: 44, usa: 38 },
+  },
+  {
+    id: 'fr_extra2',
+    title: "Les syndicats vont-ils bloquer la réforme des retraites de 2027 ?",
+    description: "La France fait face à un nouveau projet de réforme. L'histoire se répète-t-elle ?",
+    category: 'society', region: 'france', status: 'active',
+    yesPercent: 61, noPercent: 39, totalVotes: 34512,
+    createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '1 year',
+    regionalBreakdown: { global: 61, africa: 55, france: 68, europe: 58, usa: 47 },
+  },
+  {
+    id: 'fr_extra3',
+    title: "Paris deviendra-t-elle la première ville de startups en Europe avant 2028 ?",
+    description: "Station F, la French Tech... Paris défie Londres et Berlin sur la scène tech européenne.",
+    category: 'tech', region: 'france', status: 'active',
+    yesPercent: 53, noPercent: 47, totalVotes: 19234,
+    createdBy: 'u8', creatorName: 'C. Dubois', creatorAvatar: '/avatars/dubois.jpg',
+    verified: true, trending: true, timeAgo: '3h ago', expiresIn: '2 years',
+    regionalBreakdown: { global: 53, africa: 48, france: 71, europe: 56, usa: 44 },
+  },
+
+  // ── AFRIQUE ──
+  {
+    id: 'af_extra1',
+    title: "L'Afrique subsaharienne va-t-elle doubler son taux d'accès à internet d'ici 2030 ?",
+    description: "Starlink, fibres sous-marines, téléphonie mobile. La connectivité africaine explose.",
+    category: 'tech', region: 'africa', status: 'active',
+    yesPercent: 72, noPercent: 28, totalVotes: 31245,
+    createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '4 years',
+    regionalBreakdown: { global: 72, africa: 81, france: 69, europe: 68, usa: 65 },
+  },
+  {
+    id: 'af_extra2',
+    title: "La zone de libre-échange africaine (ZLECAf) sera-t-elle pleinement opérationnelle en 2027 ?",
+    description: "Le plus grand espace de libre-échange du monde en nombre de pays. L'exécution suit-elle l'ambition ?",
+    category: 'business', region: 'africa', status: 'active',
+    yesPercent: 41, noPercent: 59, totalVotes: 16789,
+    createdBy: null, trending: true, timeAgo: '4h ago', expiresIn: '1 year',
+    regionalBreakdown: { global: 41, africa: 54, france: 38, europe: 37, usa: 33 },
+  },
+  {
+    id: 'af_extra3',
+    title: "Un pays africain va-t-il accueillir les Jeux Olympiques avant 2040 ?",
+    description: "Dakar 2026 YOG, Le Cap candidat. L'Afrique s'affirme sur la scène sportive mondiale.",
+    category: 'sports', region: 'africa', status: 'active',
+    yesPercent: 58, noPercent: 42, totalVotes: 22341,
+    createdBy: null, timeAgo: '5h ago', expiresIn: '14 years',
+    regionalBreakdown: { global: 58, africa: 74, france: 55, europe: 52, usa: 48 },
+  },
+
+  // ── EUROPE / MONDE ──
+  {
+    id: 'eu_extra1',
+    title: "L'UE va-t-elle adopter une armée commune avant 2030 ?",
+    description: "Face aux menaces géopolitiques, l'Europe cherche une autonomie stratégique. La souveraineté militaire est-elle proche ?",
+    category: 'news', region: 'europe', status: 'active',
+    yesPercent: 34, noPercent: 66, totalVotes: 38901,
+    createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '4 years',
+    regionalBreakdown: { global: 34, africa: 38, france: 42, europe: 36, usa: 27 },
+  },
+  {
+    id: 'world_extra1',
+    title: "Les BRICS dépasseront-ils le G7 en PIB nominal avant 2030 ?",
+    description: "Inde, Chine, Brésil, Russie, Afrique du Sud + nouveaux membres. Le basculement du pouvoir économique mondial.",
+    category: 'business', region: 'global', status: 'active',
+    yesPercent: 48, noPercent: 52, totalVotes: 54321,
+    createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '4 years',
+    regionalBreakdown: { global: 48, africa: 61, france: 43, europe: 41, usa: 31 },
+  },
+]
+
+// Merge extended signals into main mockSignals export
+// (called by getSignals, getTrendingSignals, etc.)
+mockSignals.push(...extendedSignals)
