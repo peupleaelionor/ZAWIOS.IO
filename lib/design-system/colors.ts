@@ -31,7 +31,10 @@ export const colors = {
   teal: '#17D5CF',
   teal2: '#12b8b2',
 
-  /* ── Semantic ── */
+  /* ── Semantic / extra ── */
+  zred: '#f06070',
+  amber: '#f0c050',
+  blue: '#60a8f0',
   success: '#17D5CF',
   warning: '#f0c050',
   danger: '#f06070',

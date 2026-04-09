@@ -81,6 +81,13 @@ function organize() {
     ensureDir(destDir);
 
     const destPath = path.join(destDir, file.toLowerCase());
+
+    if (fs.existsSync(destPath)) {
+      console.log(`  SKIP  ${file} (already exists in public/${destFolder}/)`);
+      skipped++;
+      continue;
+    }
+
     fs.renameSync(path.join(SOURCE, file), destPath);
     console.log(`  MOVE  ${file} → public/${destFolder}/${file.toLowerCase()}`);
     moved++;
