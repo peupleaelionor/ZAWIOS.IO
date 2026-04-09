@@ -13,6 +13,16 @@ export type SignalCategory =
   | 'trends'
   | 'fun'
   | 'worldview'
+  | 'work'
+  | 'education'
+  | 'health'
+  | 'housing'
+  | 'climate'
+  | 'relationships'
+  | 'youth'
+  | 'spirituality'
+  | 'finance'
+  | 'geopolitics'
 
 export type SignalRegion = 'global' | 'africa' | 'france' | 'europe' | 'usa' | 'rdc' | 'belgique'
 
@@ -60,6 +70,16 @@ export const SIGNAL_CATEGORIES: { id: SignalCategory; label: string; labelFr: st
   { id: 'entertainment', label: 'Entertainment', labelFr: 'Divertissement' },
   { id: 'trends', label: 'Trends', labelFr: 'Tendances' },
   { id: 'fun', label: 'Fun', labelFr: 'Fun' },
+  { id: 'work', label: 'Work & Employment', labelFr: 'Travail & Emploi' },
+  { id: 'education', label: 'Education', labelFr: 'Éducation' },
+  { id: 'health', label: 'Health', labelFr: 'Santé' },
+  { id: 'housing', label: 'Housing', labelFr: 'Logement' },
+  { id: 'climate', label: 'Climate', labelFr: 'Climat' },
+  { id: 'relationships', label: 'Relationships', labelFr: 'Relations' },
+  { id: 'youth', label: 'Youth', labelFr: 'Jeunesse' },
+  { id: 'spirituality', label: 'Spirituality & Values', labelFr: 'Spiritualité' },
+  { id: 'finance', label: 'Personal Finance', labelFr: 'Finances perso' },
+  { id: 'geopolitics', label: 'Geopolitics', labelFr: 'Géopolitique' },
 ]
 
 export const SIGNAL_REGIONS: { id: SignalRegion; label: string; labelFr: string }[] = [
@@ -680,6 +700,16 @@ export const CATEGORY_COLORS: Record<SignalCategory, { bg: string; text: string 
   entertainment: { bg: 'rgba(34,211,238,0.12)',  text: '#22d3ee' },
   trends:        { bg: 'rgba(90,75,255,0.12)',   text: '#7a6fff' },
   fun:           { bg: 'rgba(240,192,80,0.12)',  text: '#f0c050' },
+  work:          { bg: 'rgba(240,168,80,0.12)',  text: '#f0a850' },
+  education:     { bg: 'rgba(100,180,240,0.12)', text: '#64b4f0' },
+  health:        { bg: 'rgba(80,220,140,0.12)',  text: '#50dc8c' },
+  housing:       { bg: 'rgba(200,160,120,0.12)', text: '#c8a078' },
+  climate:       { bg: 'rgba(60,200,180,0.12)',  text: '#3cc8b4' },
+  relationships: { bg: 'rgba(240,130,170,0.12)', text: '#f082aa' },
+  youth:         { bg: 'rgba(180,140,255,0.12)', text: '#b48cff' },
+  spirituality:  { bg: 'rgba(200,180,220,0.12)', text: '#c8b4dc' },
+  finance:       { bg: 'rgba(80,200,120,0.12)',  text: '#50c878' },
+  geopolitics:   { bg: 'rgba(240,120,100,0.12)', text: '#f07864' },
 }
 
 // ─── REPUTATION TIERS ──────────────────────────────────────────────────────
@@ -870,3 +900,98 @@ export const extendedSignals: Signal[] = [
 // Merge extended signals into main mockSignals export
 // (called by getSignals, getTrendingSignals, etc.)
 mockSignals.push(...extendedSignals)
+
+// ─── LIFE CATEGORY SIGNALS ──────────────────────────────────────────────────
+const lifeSignals: Signal[] = [
+  {
+    id: 'life_work1',
+    title: "Le télétravail va-t-il devenir la norme en Afrique d'ici 2028 ?",
+    description: "L'essor du numérique transforme le marché du travail africain. Freelancing et remote gagnent du terrain.",
+    category: 'work', region: 'africa', status: 'active',
+    yesPercent: 42, noPercent: 58, totalVotes: 14230,
+    createdBy: null, trending: true, timeAgo: '3h ago', expiresIn: '2 years',
+    regionalBreakdown: { global: 42, africa: 48, france: 62, europe: 58, usa: 71 },
+  },
+  {
+    id: 'life_edu1',
+    title: "L'IA va-t-elle remplacer les professeurs dans les universités avant 2035 ?",
+    description: "Cours personnalisés par IA, tuteurs virtuels. Le modèle éducatif est en pleine mutation.",
+    category: 'education', region: 'global', status: 'active',
+    yesPercent: 28, noPercent: 72, totalVotes: 31450,
+    createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '9 years',
+    regionalBreakdown: { global: 28, africa: 22, france: 31, europe: 33, usa: 35 },
+  },
+  {
+    id: 'life_health1',
+    title: "La couverture santé universelle sera-t-elle effective en RDC avant 2030 ?",
+    description: "L'accès aux soins reste un défi majeur. Les partenariats internationaux accélèrent la réforme.",
+    category: 'health', region: 'rdc', status: 'active',
+    yesPercent: 21, noPercent: 79, totalVotes: 19870,
+    createdBy: null, timeAgo: '5h ago', expiresIn: '4 years',
+    regionalBreakdown: { global: 21, africa: 18, france: 24, europe: 25, usa: 22 },
+  },
+  {
+    id: 'life_housing1',
+    title: "Les prix de l'immobilier en France vont-ils baisser de 20% d'ici 2027 ?",
+    description: "Taux d'intérêt élevés, demande en baisse. Le marché immobilier français vacille.",
+    category: 'housing', region: 'france', status: 'active',
+    yesPercent: 37, noPercent: 63, totalVotes: 28900,
+    createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '1 year',
+    regionalBreakdown: { global: 37, africa: 34, france: 44, europe: 40, usa: 28 },
+  },
+  {
+    id: 'life_climate1',
+    title: "L'Accord de Paris limitera-t-il le réchauffement à 1.5°C ?",
+    description: "Les émissions continuent d'augmenter. Les engagements sont-ils suffisants ?",
+    category: 'climate', region: 'global', status: 'active',
+    yesPercent: 18, noPercent: 82, totalVotes: 45670,
+    createdBy: null, hot: true, timeAgo: '1h ago', expiresIn: '5 years',
+    regionalBreakdown: { global: 18, africa: 14, france: 22, europe: 24, usa: 15 },
+  },
+  {
+    id: 'life_rel1',
+    title: "Les apps de rencontre vont-elles dominer la formation des couples d'ici 2030 ?",
+    description: "Tinder, Bumble, Hinge — les relations amoureuses sont-elles désormais algorithmiques ?",
+    category: 'relationships', region: 'global', status: 'active',
+    yesPercent: 64, noPercent: 36, totalVotes: 22100,
+    createdBy: null, timeAgo: '4h ago', expiresIn: '4 years',
+    regionalBreakdown: { global: 64, africa: 45, france: 68, europe: 66, usa: 72 },
+  },
+  {
+    id: 'life_youth1',
+    title: "La génération Z va-t-elle transformer la politique africaine avant 2030 ?",
+    description: "Jeunes connectés, activistes numériques. La révolution politique viendra-t-elle de la jeunesse ?",
+    category: 'youth', region: 'africa', status: 'active',
+    yesPercent: 71, noPercent: 29, totalVotes: 26340,
+    createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '4 years',
+    regionalBreakdown: { global: 71, africa: 82, france: 65, europe: 63, usa: 58 },
+  },
+  {
+    id: 'life_spirit1',
+    title: "La spiritualité individuelle remplacera-t-elle les religions organisées en Europe ?",
+    description: "Baisse de la fréquentation des églises, montée de la méditation et du développement personnel.",
+    category: 'spirituality', region: 'europe', status: 'active',
+    yesPercent: 52, noPercent: 48, totalVotes: 18760,
+    createdBy: null, timeAgo: '6h ago', expiresIn: '10 years',
+    regionalBreakdown: { global: 52, africa: 28, france: 61, europe: 58, usa: 42 },
+  },
+  {
+    id: 'life_fin1',
+    title: "Le mobile money va-t-il remplacer les banques traditionnelles en Afrique ?",
+    description: "M-Pesa, Orange Money, Wave — la fintech africaine bouleverse le secteur bancaire.",
+    category: 'finance', region: 'africa', status: 'active',
+    yesPercent: 68, noPercent: 32, totalVotes: 33210,
+    createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '3 years',
+    regionalBreakdown: { global: 68, africa: 81, france: 55, europe: 52, usa: 44 },
+  },
+  {
+    id: 'life_geo1',
+    title: "La Chine dépassera-t-elle les USA en influence géopolitique mondiale avant 2035 ?",
+    description: "Belt and Road, BRICS+, présence en Afrique. La redistribution du pouvoir mondial accélère.",
+    category: 'geopolitics', region: 'global', status: 'active',
+    yesPercent: 47, noPercent: 53, totalVotes: 51890,
+    createdBy: null, trending: true, hot: true, timeAgo: '30min ago', expiresIn: '9 years',
+    regionalBreakdown: { global: 47, africa: 56, france: 44, europe: 42, usa: 31 },
+  },
+]
+mockSignals.push(...lifeSignals)

@@ -14,6 +14,16 @@ const CATEGORY_COUNTS: Record<string, number> = {
   entertainment: 5,
   trends: 6,
   fun: 4,
+  work: 8,
+  education: 6,
+  health: 9,
+  housing: 5,
+  climate: 7,
+  relationships: 4,
+  youth: 5,
+  spirituality: 3,
+  finance: 6,
+  geopolitics: 10,
 }
 
 // Minimal monochrome SVG mini-assets per category
@@ -126,6 +136,85 @@ function MiniAsset({ category }: { category: string }) {
           <line x1="20" y1="14" x2="44" y2="14" stroke={stroke} strokeWidth="0.6" strokeDasharray="2 2" />
           <line x1="20" y1="26" x2="44" y2="26" stroke={stroke} strokeWidth="0.6" strokeDasharray="2 2" />
           <circle cx="32" cy="20" r="2" fill="rgba(23,213,207,0.3)" />
+        </svg>
+      )
+    case 'work':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <rect x="16" y="10" width="32" height="22" rx="3" stroke={stroke} strokeWidth="1.2" />
+          <line x1="16" y1="16" x2="48" y2="16" stroke={stroke} strokeWidth="1" />
+          <rect x="28" y="12" width="8" height="8" rx="1.5" stroke="rgba(23,213,207,0.3)" strokeWidth="1" fill="rgba(23,213,207,0.08)" />
+        </svg>
+      )
+    case 'education':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <path d="M32 8 L52 18 L32 28 L12 18 Z" stroke={stroke} strokeWidth="1.2" fill={color} />
+          <line x1="32" y1="28" x2="32" y2="36" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
+          <path d="M20 22 L20 30 Q32 36 44 30 L44 22" stroke={stroke} strokeWidth="0.8" fill="none" />
+        </svg>
+      )
+    case 'health':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <rect x="28" y="8" width="8" height="24" rx="2" fill="rgba(23,213,207,0.1)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
+          <rect x="20" y="16" width="24" height="8" rx="2" fill="rgba(23,213,207,0.1)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
+        </svg>
+      )
+    case 'housing':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <path d="M32 8 L50 22 L50 34 L14 34 L14 22 Z" stroke={stroke} strokeWidth="1.2" fill={color} />
+          <rect x="27" y="24" width="10" height="10" rx="1" stroke={stroke} strokeWidth="1" />
+        </svg>
+      )
+    case 'climate':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <circle cx="24" cy="22" r="10" stroke="rgba(23,213,207,0.3)" strokeWidth="1.2" fill="rgba(23,213,207,0.06)" />
+          <path d="M34 16 Q42 12 48 18 Q54 18 54 24 Q54 30 48 30 L24 30" stroke={stroke} strokeWidth="1" fill="none" />
+        </svg>
+      )
+    case 'relationships':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <circle cx="24" cy="18" r="6" stroke={stroke} strokeWidth="1.2" />
+          <circle cx="40" cy="18" r="6" stroke={stroke} strokeWidth="1.2" />
+          <path d="M18 30 Q24 24 32 26 Q40 24 46 30" stroke="rgba(23,213,207,0.3)" strokeWidth="1" fill="none" />
+        </svg>
+      )
+    case 'youth':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <circle cx="32" cy="14" r="6" stroke={stroke} strokeWidth="1.2" />
+          <path d="M22 34 Q32 24 42 34" stroke={stroke} strokeWidth="1" fill="none" />
+          <line x1="32" y1="20" x2="32" y2="28" stroke={stroke} strokeWidth="1" />
+        </svg>
+      )
+    case 'spirituality':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <circle cx="32" cy="20" r="12" stroke={stroke} strokeWidth="1.2" />
+          <circle cx="32" cy="20" r="6" stroke="rgba(23,213,207,0.3)" strokeWidth="0.8" />
+          <circle cx="32" cy="20" r="2" fill="rgba(23,213,207,0.4)" />
+        </svg>
+      )
+    case 'finance':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <line x1="10" y1="32" x2="54" y2="32" stroke={stroke} strokeWidth="1" />
+          <rect x="14" y="24" width="6" height="8" rx="1" fill={color} stroke={stroke} strokeWidth="1" />
+          <rect x="24" y="18" width="6" height="14" rx="1" fill={color} stroke={stroke} strokeWidth="1" />
+          <rect x="34" y="12" width="6" height="20" rx="1" fill="rgba(23,213,207,0.08)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
+          <rect x="44" y="8" width="6" height="24" rx="1" fill="rgba(23,213,207,0.08)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
+        </svg>
+      )
+    case 'geopolitics':
+      return (
+        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
+          <ellipse cx="32" cy="20" rx="20" ry="14" stroke={stroke} strokeWidth="1.2" />
+          <ellipse cx="32" cy="20" rx="10" ry="14" stroke={stroke} strokeWidth="0.8" />
+          <line x1="12" y1="20" x2="52" y2="20" stroke={stroke} strokeWidth="0.8" />
         </svg>
       )
     default:
