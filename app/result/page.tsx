@@ -64,7 +64,7 @@ export default function ResultPage() {
         </div>
       </header>
 
-      <div className="container max-w-lg py-8">
+      <div className="container max-w-lg py-6 md:py-8">
         {/* Result header */}
         <div className="text-center mb-8">
           <div

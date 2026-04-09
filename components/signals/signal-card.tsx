@@ -40,7 +40,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
   }
 
   return (
-    <div className="surface rounded-2xl p-5 card-hover relative overflow-hidden">
+    <div className="surface rounded-xl p-4 md:p-5 card-hover relative overflow-hidden">
       {/* Top accent line */}
       {signal.hot && (
         <div
@@ -138,7 +138,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
                 onClick={() => handleVote('yes')}
                 disabled={voted !== null}
                 className={cn(
-                  'w-16 h-16 rounded-full text-sm font-bold transition-all duration-200 flex items-center justify-center',
+                  'w-14 h-14 md:w-16 md:h-16 rounded-full text-sm font-bold transition-all duration-150 flex items-center justify-center',
                   voted === 'yes'
                     ? 'bg-[var(--teal)] text-[var(--bg)] scale-105'
                     : voted === null
@@ -156,7 +156,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
                 onClick={() => handleVote('no')}
                 disabled={voted !== null}
                 className={cn(
-                  'w-16 h-16 rounded-full text-sm font-bold transition-all duration-200 flex items-center justify-center',
+                  'w-14 h-14 md:w-16 md:h-16 rounded-full text-sm font-bold transition-all duration-150 flex items-center justify-center',
                   voted === 'no'
                     ? 'bg-[var(--text)] text-[var(--bg)] scale-105'
                     : voted === null

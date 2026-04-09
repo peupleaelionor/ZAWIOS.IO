@@ -26,20 +26,20 @@ export function StepsSection() {
   ]
 
   return (
-    <section className="py-20 bg-[var(--bg2)]">
+    <section className="py-12 md:py-20 bg-[var(--bg2)]">
       <div className="container">
-        <div className="mb-12">
+        <div className="mb-8 md:mb-12">
           <p className="section-label">Comment ca marche</p>
-          <h2 className="text-2xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
+          <h2 className="text-xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
             3 etapes. Rien de plus.
           </h2>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-3 gap-4 md:gap-5">
           {steps.map((item) => (
             <div
               key={item.step}
-              className="relative surface p-6 overflow-hidden"
+              className="relative surface p-5 md:p-6 overflow-hidden rounded-xl"
             >
               <div
                 className="absolute left-0 top-0 bottom-0 w-[3px]"

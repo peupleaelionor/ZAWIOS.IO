@@ -1,8 +1,9 @@
 'use client'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { IconLogo, IconTrending, IconChart, IconTrophy, IconUsers, IconPlus, IconTarget, IconSettings, IconSignOut } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
+import { createClient } from '@/lib/supabase/client'
 
 const sidebarLinks = [
   { href: '/dashboard', label: 'Home', icon: IconTarget },
@@ -18,6 +19,14 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname()
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/')
+    router.refresh()
+  }
 
   return (
     <div className="flex min-h-screen bg-[var(--bg)]">
@@ -36,7 +45,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors',
                 pathname === href
-                  ? 'bg-[var(--accent)]/10 text-[var(--accent2)]'
+                  ? 'bg-[var(--teal)]/10 text-[var(--teal)]'
                   : 'text-[var(--text2)] hover:bg-white/[0.04] hover:text-[var(--text)]'
               )}
             >
@@ -49,7 +58,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="px-4 py-4 space-y-1" style={{ borderTop: '1px solid var(--border)' }}>
           <Link
             href="/predictions/create"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--teal)] hover:bg-[var(--teal)]/10 transition-colors"
           >
             <IconPlus className="w-4 h-4" size={16} />
             New prediction
@@ -61,7 +70,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <IconSettings className="w-4 h-4" size={16} />
             Settings
           </Link>
-          <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--text2)] hover:bg-white/[0.04] transition-colors">
+          <button onClick={handleSignOut} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--text2)] hover:bg-white/[0.04] transition-colors">
             <IconSignOut className="w-4 h-4" size={16} />
             Sign out
           </button>

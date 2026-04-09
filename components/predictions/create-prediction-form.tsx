@@ -75,9 +75,35 @@ export function CreatePredictionForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1200))
-    setLoading(false)
-    setSuccess(true)
+
+    try {
+      const res = await fetch('/api/predictions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: form.title,
+          description: form.description,
+          category: form.category,
+          type: form.type,
+          resolution_date: form.resolution_date,
+          options: form.options.filter((o) => o.trim()),
+          tags: form.tags,
+        }),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || 'Failed to create prediction')
+      }
+
+      setSuccess(true)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Something went wrong'
+      const { toast } = await import('sonner')
+      toast.error(message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (success) {

@@ -690,12 +690,12 @@ export interface ReputationTier {
 }
 
 export const REPUTATION_TIERS: ReputationTier[] = [
-  { name: 'Newcomer',   nameFr: 'Debutant',    minScore: 0,     color: '#4e5060' },
-  { name: 'Observer',   nameFr: 'Observateur', minScore: 100,   color: '#8f919e' },
-  { name: 'Analyst',    nameFr: 'Analyste',    minScore: 500,   color: '#60a8f0' },
-  { name: 'Expert',     nameFr: 'Expert',      minScore: 1500,  color: '#17d5cf' },
-  { name: 'Visionary',  nameFr: 'Visionnaire', minScore: 5000,  color: '#f0c050' },
-  { name: 'Oracle',     nameFr: 'Oracle',      minScore: 15000, color: '#5a4bff' },
+  { name: 'Newcomer',  nameFr: 'Debutant',    minScore: 0,     color: '#4e5060' },
+  { name: 'Observer',  nameFr: 'Observateur', minScore: 100,   color: '#8f919e' },
+  { name: 'Analyst',   nameFr: 'Analyste',    minScore: 500,   color: '#60a8f0' },
+  { name: 'Expert',    nameFr: 'Expert',      minScore: 1500,  color: '#17d5cf' },
+  { name: 'Visionary', nameFr: 'Visionnaire', minScore: 5000,  color: '#f0c050' },
+  { name: 'Oracle',    nameFr: 'Oracle',      minScore: 15000, color: '#5a4bff' },
 ]
 
 export function getReputationTier(score: number): ReputationTier {

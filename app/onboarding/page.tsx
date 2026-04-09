@@ -55,7 +55,7 @@ export default function OnboardingPage() {
         />
       </div>
 
-      <div className="flex-1 flex items-center justify-center px-4 py-12">
+      <div className="flex-1 flex items-center justify-center px-4 py-8 md:py-12">
         <div className="w-full max-w-md">
 
           {/* ─── STEP 1: INTERESTS ─── */}
@@ -197,7 +197,7 @@ export default function OnboardingPage() {
 
               {/* Crowd comparison */}
               {trendingSignal && (
-                <div className="surface p-5 rounded-2xl">
+                <div className="surface p-5 rounded-xl">
                   <p className="text-[10px] font-semibold text-[var(--text3)] uppercase tracking-wider mb-4" style={{ fontFamily: 'var(--mono)' }}>
                     Comparaison avec la foule
                   </p>
@@ -233,7 +233,7 @@ export default function OnboardingPage() {
               )}
 
               {/* Reputation preview */}
-              <div className="surface p-5 rounded-2xl text-center">
+              <div className="surface p-5 rounded-xl text-center">
                 <p className="text-[10px] font-semibold text-[var(--text3)] uppercase tracking-wider mb-3" style={{ fontFamily: 'var(--mono)' }}>
                   Ta reputation
                 </p>

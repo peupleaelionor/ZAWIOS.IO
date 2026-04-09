@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
-import { GrainOverlay } from '@/components/ui/effects'
+import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
 import './globals.css'
 
@@ -59,8 +59,7 @@ export default function RootLayout({
           strategy="afterInteractive"
         />
       </head>
-      <body className="antialiased" style={{ fontFamily: "var(--font)" }}>
-        <GrainOverlay />
+      <body className="antialiased has-bottom-nav" style={{ fontFamily: "var(--font)" }}>
         <Toaster
           theme="dark"
           position="bottom-right"
@@ -77,6 +76,7 @@ export default function RootLayout({
         <AnalyticsProvider>
           <LanguageProvider>
             {children}
+            <BottomNav />
           </LanguageProvider>
         </AnalyticsProvider>
       </body>
