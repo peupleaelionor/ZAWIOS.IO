@@ -22,6 +22,7 @@ const footerStructure = {
   Legal: [
     { href: '/privacy', key: 'Privacy Policy' },
     { href: '/terms', key: 'Terms of Service' },
+    { href: '/methodology', key: 'Methodology' },
   ],
 } as const
 

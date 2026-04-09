@@ -257,3 +257,52 @@ body {
 @media (max-width: 767px) {
   .has-bottom-nav { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }
+
+/* ─── DEVICE ADAPTATION ─── */
+
+/* Mobile: immersive vertical feed */
+@media (max-width: 767px) {
+  .feed-grid {
+    grid-template-columns: 1fr;
+  }
+  .desktop-side-panel {
+    display: none;
+  }
+}
+
+/* Tablet: two-column feed layout */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .feed-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: three-column layout with side panel */
+@media (min-width: 1024px) {
+  .feed-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .desktop-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 24px;
+    align-items: start;
+  }
+  .desktop-side-panel {
+    position: sticky;
+    top: 80px;
+  }
+}
+
+/* Low bandwidth / reduced data */
+@media (prefers-reduced-data: reduce) {
+  .animation-enabled { animation: none !important; }
+  .transition-enabled { transition: none !important; }
+}
+
+/* High-performance devices get smooth transitions */
+@media (prefers-reduced-motion: no-preference) {
+  .smooth-transition {
+    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}

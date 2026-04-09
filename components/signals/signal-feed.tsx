@@ -27,6 +27,16 @@ const CATEGORY_TABS: { id: SignalCategory | 'all'; labelFr: string }[] = [
   { id: 'entertainment', labelFr: 'Divertissement' },
   { id: 'trends',        labelFr: 'Tendances' },
   { id: 'fun',           labelFr: 'Fun' },
+  { id: 'work',          labelFr: 'Travail' },
+  { id: 'education',     labelFr: 'Éducation' },
+  { id: 'health',        labelFr: 'Santé' },
+  { id: 'housing',       labelFr: 'Logement' },
+  { id: 'climate',       labelFr: 'Climat' },
+  { id: 'relationships', labelFr: 'Relations' },
+  { id: 'youth',         labelFr: 'Jeunesse' },
+  { id: 'spirituality',  labelFr: 'Spiritualité' },
+  { id: 'finance',       labelFr: 'Finances' },
+  { id: 'geopolitics',   labelFr: 'Géopolitique' },
 ]
 
 // ── Feed sort tabs ────────────────────────────────────────────────────────────
@@ -168,6 +178,43 @@ export function SignalFeed() {
         })}
       </div>
 
+      {/* ── Region-Aware Toggles (Ethical Transparency) ── */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() => { setRegion('all'); setCategory('all') }}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[12px] font-semibold transition-all duration-150 min-h-[40px]"
+          style={{
+            fontFamily: 'var(--mono)',
+            background: region === 'all' && category === 'all' ? 'rgba(23,213,207,0.12)' : 'var(--surface)',
+            color: region === 'all' && category === 'all' ? 'var(--teal)' : 'var(--text2)',
+            border: region === 'all' && category === 'all' ? '1px solid rgba(23,213,207,0.3)' : '1px solid var(--border2)',
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <circle cx="7" cy="7" r="5.5" stroke="currentColor" strokeWidth="1.2" />
+            <ellipse cx="7" cy="7" rx="3" ry="5.5" stroke="currentColor" strokeWidth="0.8" />
+            <line x1="1.5" y1="7" x2="12.5" y2="7" stroke="currentColor" strokeWidth="0.8" />
+          </svg>
+          Voir Monde
+        </button>
+        <button
+          onClick={() => setShowWV((v) => !v)}
+          className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-[12px] font-semibold transition-all duration-150 min-h-[40px]"
+          style={{
+            fontFamily: 'var(--mono)',
+            background: showWorldView ? 'rgba(90,75,255,0.12)' : 'var(--surface)',
+            color: showWorldView ? 'var(--accent2)' : 'var(--text2)',
+            border: showWorldView ? '1px solid rgba(90,75,255,0.3)' : '1px solid var(--border2)',
+          }}
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <rect x="1" y="3" width="5" height="8" rx="1" stroke="currentColor" strokeWidth="1" />
+            <rect x="8" y="3" width="5" height="8" rx="1" stroke="currentColor" strokeWidth="1" />
+          </svg>
+          Comparer régions
+        </button>
+      </div>
+
       {/* ── Region pills ── */}
       <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
         <button
@@ -200,7 +247,7 @@ export function SignalFeed() {
       </div>
 
       {/* ── Signal cards ── */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4 feed-grid">
         {filteredSignals.map((signal) => (
           <SignalCard key={signal.id} signal={signal} />
         ))}
