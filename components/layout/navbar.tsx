@@ -30,12 +30,12 @@ export function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full glass" style={{ borderBottom: '1px solid var(--border)' }}>
-      <nav className="container">
+    <header className="sticky top-0 z-50 w-full glass" style={{ borderBottom: '1px solid var(--border)' }} role="banner">
+      <nav className="container" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg">
-            <IconLogo size={32} />
+          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg" aria-label="ZAWIOS Home">
+            <IconLogo size={32} aria-hidden="true" />
             <span className="gradient-text tracking-tight" style={{ fontFamily: 'var(--font)', fontWeight: 700 }}>ZAWIOS</span>
           </Link>
 
@@ -64,7 +64,8 @@ export function Navbar() {
                 border: '1px solid var(--border)',
                 letterSpacing: '0.05em',
               }}
-              aria-label="Toggle language"
+              aria-label={`Switch language to ${lang === 'en' ? 'French' : 'English'}`}
+              title={`Current language: ${lang === 'en' ? 'English' : 'French'}`}
             >
               {lang === 'en' ? 'FR' : 'EN'}
             </button>
@@ -107,7 +108,9 @@ export function Navbar() {
             <button
               className="p-2 rounded-lg hover:bg-white/[0.04] transition-colors text-[var(--text2)]"
               onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
+              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isOpen}
+              aria-controls="mobile-nav"
             >
               {isOpen ? (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
@@ -120,10 +123,13 @@ export function Navbar() {
 
         {/* Mobile nav */}
         <div
+          id="mobile-nav"
           className={cn(
             'md:hidden overflow-hidden transition-all duration-300',
             isOpen ? 'max-h-96 pb-4' : 'max-h-0'
           )}
+          role="navigation"
+          aria-label="Mobile navigation"
         >
           <div className="flex flex-col gap-1 pt-2">
             {navLinks.map((link) => (

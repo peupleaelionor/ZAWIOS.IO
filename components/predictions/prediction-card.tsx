@@ -29,32 +29,34 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
   const catStyle = categoryColors[prediction.category] || { bg: 'var(--surface2)', text: 'var(--text2)' }
 
   return (
-    <Link href={`/predictions/${prediction.id}`} className="block group">
-      <div className="surface rounded-2xl p-5 card-hover relative overflow-hidden">
-        <div className="accent-line-top" />
+    <article className="block group">
+      <Link href={`/predictions/${prediction.id}`} className="surface rounded-2xl p-5 card-hover relative overflow-hidden block" aria-label={`Prediction: ${prediction.title}`}>
+        <div className="accent-line-top" aria-hidden="true" />
         {/* Header */}
         <div className="flex items-start justify-between gap-3 mb-3">
           <div className="flex items-center gap-2 flex-wrap">
             <span
               className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize"
               style={{ background: catStyle.bg, color: catStyle.text }}
+              role="status"
+              aria-label={`Category: ${prediction.category}`}
             >
               {prediction.category}
             </span>
             {isResolved && (
               <Badge variant="success" className="gap-1">
-                <IconCheck className="w-3 h-3" size={12} />
+                <IconCheck className="w-3 h-3" size={12} aria-hidden="true" />
                 Resolved
               </Badge>
             )}
             {prediction.featured && !isResolved && (
               <Badge variant="default" className="gap-1">
-                <IconTrending className="w-3 h-3" size={12} />
+                <IconTrending className="w-3 h-3" size={12} aria-hidden="true" />
                 Trending
               </Badge>
             )}
           </div>
-          <span className="text-xs text-[var(--text3)] whitespace-nowrap flex items-center gap-1" style={{ fontFamily: 'var(--mono)' }}>
+          <span className="text-xs text-[var(--text3)] whitespace-nowrap flex items-center gap-1" style={{ fontFamily: 'var(--mono)' }} aria-label={`Resolution date: ${formatDate(prediction.resolution_date)}`}>
             {formatDate(prediction.resolution_date)}
           </span>
         </div>
@@ -62,6 +64,7 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
         {/* Title */}
         <h3
           className={`font-semibold text-[var(--text)] group-hover:text-[var(--accent2)] transition-colors leading-snug ${compact ? 'text-sm line-clamp-2' : 'text-base line-clamp-2'}`}
+          id={`prediction-title-${prediction.id}`}
         >
           {prediction.title}
         </h3>
@@ -74,7 +77,7 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
 
         {/* Progress bar for yes/no */}
         {prediction.type === 'yes_no' && mainOption && secondOption && (
-          <div className="mt-4">
+          <div className="mt-4" role="region" aria-label="Vote distribution">
             <div className="flex justify-between text-xs mb-1" style={{ fontFamily: 'var(--mono)' }}>
               <span className="font-medium text-[var(--teal)]">
                 {mainOption.label} {mainOption.percentage}%
@@ -83,7 +86,7 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
                 {secondOption.label} {secondOption.percentage}%
               </span>
             </div>
-            <div className="h-1.5 bg-[var(--surface3)] rounded-full overflow-hidden">
+            <div className="h-1.5 bg-[var(--surface3)] rounded-full overflow-hidden" role="progressbar" aria-valuenow={mainOption.percentage} aria-valuemin={0} aria-valuemax={100} aria-label={`${mainOption.label} votes: ${mainOption.percentage}%`}>
               <div
                 className="h-full rounded-full transition-all duration-500"
                 style={{ width: `${mainOption.percentage}%`, background: 'linear-gradient(90deg, var(--teal), var(--accent))' }}
@@ -94,12 +97,12 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
 
         {/* Probability */}
         {prediction.type === 'probability' && mainOption && (
-          <div className="mt-4">
+          <div className="mt-4" role="region" aria-label="Community probability">
             <div className="flex justify-between text-xs mb-1" style={{ fontFamily: 'var(--mono)' }}>
               <span className="text-[var(--text3)]">Community probability</span>
               <span className="font-semibold text-[var(--accent)]">{mainOption.percentage}%</span>
             </div>
-            <div className="h-1.5 bg-[var(--surface3)] rounded-full overflow-hidden">
+            <div className="h-1.5 bg-[var(--surface3)] rounded-full overflow-hidden" role="progressbar" aria-valuenow={mainOption.percentage} aria-valuemin={0} aria-valuemax={100} aria-label={`Community probability: ${mainOption.percentage}%`}>
               <div
                 className="h-full rounded-full"
                 style={{ width: `${mainOption.percentage}%`, background: 'var(--accent)' }}
@@ -122,25 +125,25 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
                 name={prediction.creator.full_name}
                 size="xs"
               />
-              <span className="text-xs text-[var(--text3)]">@{prediction.creator.username}</span>
+              <span className="text-xs text-[var(--text3)]" aria-label={`Creator: @${prediction.creator.username}`}>@{prediction.creator.username}</span>
             </div>
           )}
-          <div className="flex items-center gap-3 text-xs text-[var(--text3)] ml-auto" style={{ fontFamily: 'var(--mono)' }}>
-            <span className="flex items-center gap-1">
-              <IconTrending className="w-3 h-3" size={12} />
+          <div className="flex items-center gap-3 text-xs text-[var(--text3)] ml-auto" style={{ fontFamily: 'var(--mono)' }} role="region" aria-label="Engagement metrics">
+            <span className="flex items-center gap-1" aria-label={`${formatNumber(prediction.vote_count)} votes`}>
+              <IconTrending className="w-3 h-3" size={12} aria-hidden="true" />
               {formatNumber(prediction.vote_count)}
             </span>
-            <span className="flex items-center gap-1">
-              <IconComment className="w-3 h-3" size={12} />
+            <span className="flex items-center gap-1" aria-label={`${formatNumber(prediction.comment_count)} comments`}>
+              <IconComment className="w-3 h-3" size={12} aria-hidden="true" />
               {formatNumber(prediction.comment_count)}
             </span>
-            <span className="flex items-center gap-1">
-              <IconEye className="w-3 h-3" size={12} />
+            <span className="flex items-center gap-1" aria-label={`${formatNumber(prediction.view_count)} views`}>
+              <IconEye className="w-3 h-3" size={12} aria-hidden="true" />
               {formatNumber(prediction.view_count)}
             </span>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </article>
   )
 }
