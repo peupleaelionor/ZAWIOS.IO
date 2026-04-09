@@ -24,7 +24,7 @@ export function Navbar() {
   const navLinks = [
     { href: '/predictions', label: t.nav.predictions },
     { href: '/leaderboard', label: t.nav.leaderboard },
-    { href: '/insights', label: t.nav.insights },
+    { href: '/methodology', label: 'Méthodo' },
     { href: '/pricing', label: t.nav.pricing },
     { href: '/about', label: t.nav.about },
   ]
