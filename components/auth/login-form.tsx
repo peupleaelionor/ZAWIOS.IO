@@ -107,7 +107,8 @@ export function LoginForm() {
 
       <Button type="button" variant="secondary" className="w-full gap-2.5" onClick={async () => {
         const supabase = createClient()
-        const appUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+        const { getAppUrl } = await import('@/lib/utils')
+        const appUrl = getAppUrl()
         await supabase.auth.signInWithOAuth({
           provider: 'google',
           options: { redirectTo: `${appUrl}/auth/callback` },

@@ -17,7 +17,8 @@ export function SignupForm() {
     setError('')
 
     const supabase = createClient()
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+    const { getAppUrl } = await import('@/lib/utils')
+    const appUrl = getAppUrl()
     const { error: err } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,

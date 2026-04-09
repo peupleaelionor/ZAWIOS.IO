@@ -84,7 +84,13 @@ export async function PATCH(request: NextRequest) {
     }
   }
 
-  if (typeof payload.new_password === 'string' && payload.new_password.length >= 8) {
+  if (typeof payload.new_password === 'string') {
+    if (payload.new_password.length < 8) {
+      return NextResponse.json(
+        { error: 'Password must be at least 8 characters' },
+        { status: 400 }
+      )
+    }
     const { error: pwError } = await supabase.auth.updateUser({ password: payload.new_password })
     if (pwError) {
       return NextResponse.json({ profile, warning: 'Profile updated but password change failed' })

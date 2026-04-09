@@ -49,8 +49,8 @@ export async function GET(request: NextRequest) {
   try {
     const { data: { user } } = await supabase.auth.getUser()
     if (user) {
-      const appUrl = process.env.NEXT_PUBLIC_APP_URL || origin
-      fetch(`${appUrl}/api/auth/welcome`, {
+      // Use the request origin (server-controlled) for the internal API call
+      fetch(`${origin}/api/auth/welcome`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId: user.id }),
