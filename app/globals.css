@@ -125,6 +125,18 @@ body {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
 }
+@keyframes convergence-pulse {
+  0%, 100% { opacity: .05; transform: scale(1); }
+  50% { opacity: .12; transform: scale(1.03); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes glow-pulse {
+  0%, 100% { opacity: .10; }
+  50% { opacity: .20; }
+}
 
 .rv { animation: revealUp .5s cubic-bezier(.16,1,.3,1) both; }
 

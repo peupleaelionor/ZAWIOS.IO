@@ -3,94 +3,194 @@
 import { cn } from '@/lib/utils'
 import { IconMark } from '@/components/ui/icons'
 import { type Signal } from '@/lib/signals-data'
+import { formatNumber } from '@/lib/utils'
 
 interface ShareCardProps {
   signal: Signal
   userVote: 'yes' | 'no'
-  wasCorrect: boolean
-  userScore: number
+  wasCorrect?: boolean
+  userScore?: number
+}
+
+// Decorative convergence lines for share card backdrop
+function CardConvergence() {
+  const n = 9
+  const cx = 120
+  const cy = 48
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 240 96"
+      className="absolute inset-0 w-full h-full"
+      style={{ pointerEvents: 'none', opacity: 0.12 }}
+    >
+      {Array.from({ length: n }, (_, i) => {
+        const y = (i / (n - 1)) * 96
+        return (
+          <line
+            key={`r${i}`}
+            x1={cx} y1={cy}
+            x2={240} y2={y}
+            stroke="#17d5cf"
+            strokeWidth="0.5"
+            strokeLinecap="round"
+          />
+        )
+      })}
+      {Array.from({ length: n }, (_, i) => {
+        const y = (i / (n - 1)) * 96
+        return (
+          <line
+            key={`l${i}`}
+            x1={cx} y1={cy}
+            x2={0} y2={y}
+            stroke="white"
+            strokeWidth="0.5"
+            strokeLinecap="round"
+          />
+        )
+      })}
+    </svg>
+  )
 }
 
 export function ShareCard({ signal, userVote, wasCorrect, userScore }: ShareCardProps) {
-  const shareText = wasCorrect
-    ? `J'avais raison sur ZAWIOS : "${signal.title}" — Mon score : ${userScore} pts`
-    : `J'avais tort sur ZAWIOS : "${signal.title}" — La foule gagne cette fois`
-
-  const majorityPercent = Math.max(signal.yesPercent, signal.noPercent)
-  const majorityLabel = signal.yesPercent > signal.noPercent ? 'YES' : 'NO'
+  const shareText = `${signal.title}\n${signal.yesPercent}% YES · ${signal.noPercent}% NO · ${formatNumber(signal.totalVotes)} votes\nzawios.io`
 
   const handleCopy = () => {
     navigator.clipboard.writeText(shareText).catch(() => {})
   }
 
+  const handleNativeShare = () => {
+    if (navigator.share) {
+      navigator.share({ text: shareText }).catch(() => {})
+    } else {
+      handleCopy()
+    }
+  }
+
   return (
-    <div className="surface p-4 md:p-5 rounded-xl space-y-4">
-      {/* OG-style preview card (1200×630 ratio approximated) */}
+    <div
+      className="rounded-2xl overflow-hidden"
+      style={{ background: 'var(--surface)', border: '1px solid var(--border2)' }}
+    >
+      {/* ── Preview card — matches Social Share Framework design ── */}
       <div
-        className="rounded-xl relative overflow-hidden"
-        style={{
-          background: 'linear-gradient(135deg, #0C0D10 0%, #13141a 100%)',
-          border: '1px solid var(--border2)',
-          aspectRatio: '1200 / 630',
-        }}
+        className="relative overflow-hidden p-5"
+        style={{ background: 'linear-gradient(135deg, #0c0d10 0%, #141820 100%)' }}
       >
-        <div className="absolute inset-0 flex flex-col justify-between p-5 md:p-6">
-          {/* Top: Logo */}
-          <div className="flex items-center gap-2">
-            <IconMark width={28} leftColor="rgba(255,255,255,0.6)" rightColor="rgba(23,213,207,0.6)" />
-            <span className="text-xs font-bold text-[var(--text3)] uppercase tracking-wider" style={{ fontFamily: 'var(--mono)' }}>
-              ZAWIOS
-            </span>
-          </div>
+        <CardConvergence />
 
-          {/* Center: Big percentage */}
-          <div className="text-center">
-            <p className="text-4xl md:text-5xl font-bold text-[var(--text)]" style={{ fontFamily: 'var(--mono)', lineHeight: 1 }}>
-              {majorityPercent}%
-            </p>
-            <p className={cn(
-              'text-sm font-bold mt-1',
-              majorityLabel === 'YES' ? 'text-[var(--teal)]' : 'text-[var(--text2)]',
-            )} style={{ fontFamily: 'var(--mono)' }}>
-              {majorityLabel}
-            </p>
-          </div>
-
-          {/* Bottom: Question + result */}
+        {/* Header: mark + brand */}
+        <div className="relative flex items-center gap-2 mb-4">
+          <IconMark width={32} leftColor="rgba(255,255,255,0.9)" rightColor="#17d5cf" />
           <div>
-            <p className="text-sm font-semibold text-[var(--text)] line-clamp-2 mb-2">{signal.title}</p>
-            <div className="flex items-center gap-3">
-              <span className={cn(
-                'text-xs font-bold px-2 py-0.5 rounded',
-                wasCorrect ? 'bg-[var(--teal)]/20 text-[var(--teal)]' : 'bg-[var(--zred)]/20 text-[var(--zred)]',
-              )} style={{ fontFamily: 'var(--mono)' }}>
-                {wasCorrect ? 'CORRECT' : 'FAUX'}
-              </span>
-              <span className="text-xs text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
-                Vote: {userVote.toUpperCase()} | Score: {userScore}
-              </span>
-            </div>
+            <p className="text-[13px] font-bold text-white leading-none tracking-wide">ZAWIOS</p>
+            <p className="text-[9px] text-[rgba(255,255,255,0.4)] uppercase tracking-widest mt-0.5" style={{ fontFamily: 'var(--mono)' }}>
+              data-driven signal
+            </p>
           </div>
         </div>
+
+        {/* Signal title */}
+        <p className="relative text-sm font-semibold text-white leading-snug mb-4 pr-4" style={{ maxWidth: '85%' }}>
+          {signal.title}
+        </p>
+
+        {/* Vote stats */}
+        <div className="relative flex items-end gap-4">
+          <div>
+            <p className="text-2xl font-bold text-white" style={{ fontFamily: 'var(--mono)', lineHeight: 1 }}>
+              {signal.yesPercent}%
+            </p>
+            <p className="text-[10px] text-[rgba(255,255,255,0.45)] mt-1" style={{ fontFamily: 'var(--mono)' }}>
+              {signal.yesPercent}% YES · {signal.noPercent}% NO
+            </p>
+          </div>
+
+          {/* YES/NO pills */}
+          <div className="flex gap-2 ml-auto">
+            <span
+              className={cn(
+                'px-3 py-1 rounded-full text-[11px] font-bold',
+                userVote === 'yes'
+                  ? 'bg-[var(--teal)] text-[var(--bg)]'
+                  : 'bg-transparent text-[var(--teal)] border border-[rgba(23,213,207,0.35)]'
+              )}
+              style={{ fontFamily: 'var(--mono)' }}
+            >
+              YES
+            </span>
+            <span
+              className={cn(
+                'px-3 py-1 rounded-full text-[11px] font-bold',
+                userVote === 'no'
+                  ? 'bg-white text-[var(--bg)]'
+                  : 'bg-transparent text-[rgba(255,255,255,0.5)] border border-[rgba(255,255,255,0.15)]'
+              )}
+              style={{ fontFamily: 'var(--mono)' }}
+            >
+              NO
+            </span>
+          </div>
+        </div>
+
+        {/* Vote count */}
+        <p className="relative mt-3 text-[10px] text-[rgba(255,255,255,0.3)]" style={{ fontFamily: 'var(--mono)' }}>
+          Voted by {formatNumber(signal.totalVotes)} users
+        </p>
+
+        {/* Outcome badge if resolved */}
+        {wasCorrect !== undefined && (
+          <div
+            className={cn(
+              'relative mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold',
+              wasCorrect
+                ? 'bg-[var(--teal)]/15 text-[var(--teal)]'
+                : 'bg-[var(--zred)]/15 text-[var(--zred)]'
+            )}
+            style={{ fontFamily: 'var(--mono)' }}
+          >
+            {wasCorrect ? 'YOU WERE RIGHT' : 'YOU WERE WRONG'}
+            {userScore !== undefined && (
+              <span className="text-[rgba(255,255,255,0.5)]">
+                · +{userScore} pts
+              </span>
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Share actions */}
-      <div className="flex gap-2">
+      {/* ── Share actions ── */}
+      <div className="flex gap-2 p-4">
         <button
           onClick={handleCopy}
-          className="flex-1 py-3 rounded-xl text-xs font-semibold text-[var(--text)] bg-[var(--surface2)] hover:bg-[var(--surface3)] transition-colors duration-150 border border-[var(--border2)] min-h-[48px]"
-          style={{ fontFamily: 'var(--mono)' }}
+          className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-[var(--text2)] transition-colors"
+          style={{
+            fontFamily: 'var(--mono)',
+            background: 'var(--surface2)',
+            border: '1px solid var(--border2)',
+          }}
         >
-          Copier le lien
+          Copier
         </button>
         <button
-          onClick={() => {
-            if (navigator.share) {
-              navigator.share({ text: shareText }).catch(() => {})
-            }
+          onClick={() => window.open(`https://linkedin.com/shareArticle?mini=true&title=${encodeURIComponent(signal.title)}`, '_blank')}
+          className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-white transition-all hover:brightness-110"
+          style={{
+            fontFamily: 'var(--mono)',
+            background: '#0A66C2',
           }}
-          className="flex-1 py-3 rounded-xl text-xs font-semibold text-[var(--bg)] bg-[var(--teal)] hover:brightness-110 transition-all duration-150 min-h-[48px]"
-          style={{ fontFamily: 'var(--mono)' }}
+        >
+          LinkedIn
+        </button>
+        <button
+          onClick={handleNativeShare}
+          className="flex-1 py-2.5 rounded-xl text-xs font-semibold text-[var(--bg)] transition-all hover:brightness-110"
+          style={{
+            fontFamily: 'var(--mono)',
+            background: 'var(--teal)',
+          }}
         >
           Partager
         </button>

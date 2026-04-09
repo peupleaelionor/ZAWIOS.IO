@@ -6,7 +6,8 @@ import { cn } from '@/lib/utils'
 import { formatNumber } from '@/lib/utils'
 import { CATEGORY_COLORS, type Signal } from '@/lib/signals-data'
 import { Avatar } from '@/components/ui/avatar'
-import { IconTrending, IconCheck, IconComment } from '@/components/ui/icons'
+import { IconTrending, IconCheck } from '@/components/ui/icons'
+import { WorldViewComparison } from '@/components/signals/world-view-comparison'
 
 interface SignalCardProps {
   signal: Signal
@@ -178,18 +179,23 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
             Voted by {formatNumber(signal.totalVotes)} users
           </div>
 
-          {/* Voted feedback */}
+          {/* Voted feedback + World View breakdown */}
           {voted && (
-            <div className="mt-3 p-2.5 rounded-lg bg-[var(--surface2)] border border-[var(--border2)]">
-              <p className="text-xs text-[var(--text2)]">
-                Tu as vote <span className="font-bold text-[var(--text)]">{voted === 'yes' ? 'YES' : 'NO'}</span>.{' '}
-                <span className="text-[var(--text3)]">
-                  {voted === 'yes' && yesPercent > 50 ? 'Tu es avec la majorite.' : ''}
-                  {voted === 'yes' && yesPercent <= 50 ? 'Tu es contre la majorite.' : ''}
-                  {voted === 'no' && noPercent > 50 ? 'Tu es avec la majorite.' : ''}
-                  {voted === 'no' && noPercent <= 50 ? 'Tu es contre la majorite.' : ''}
-                </span>
-              </p>
+            <div className="mt-3 space-y-3">
+              <div className="p-2.5 rounded-lg bg-[var(--surface2)] border border-[var(--border2)]">
+                <p className="text-xs text-[var(--text2)]">
+                  Tu as voté <span className="font-bold text-[var(--text)]">{voted === 'yes' ? 'YES' : 'NO'}</span>.{' '}
+                  <span className="text-[var(--text3)]">
+                    {voted === 'yes' && yesPercent > 50 ? 'Tu es avec la majorité.' : ''}
+                    {voted === 'yes' && yesPercent <= 50 ? 'Tu es contre la majorité.' : ''}
+                    {voted === 'no' && noPercent > 50 ? 'Tu es avec la majorité.' : ''}
+                    {voted === 'no' && noPercent <= 50 ? 'Tu es contre la majorité.' : ''}
+                  </span>
+                </p>
+              </div>
+              {signal.regionalBreakdown && (
+                <WorldViewComparison breakdown={signal.regionalBreakdown} />
+              )}
             </div>
           )}
         </div>
