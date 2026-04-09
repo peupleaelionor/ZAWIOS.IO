@@ -23,6 +23,20 @@ export default [
     },
   },
   {
+    files: ["scripts/**/*.js"],
+    languageOptions: {
+      globals: {
+        require: "readonly",
+        module: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        process: "readonly",
+        console: "readonly",
+      },
+      sourceType: "commonjs",
+    },
+  },
+  {
     ignores: [".next/**", "node_modules/**", "out/**"],
   },
 ]

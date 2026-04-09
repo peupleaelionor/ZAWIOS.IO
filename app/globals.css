@@ -253,6 +253,23 @@ body {
   }
 }
 
+/* ─── APP SHELL (mobile standalone) ─── */
+.app-shell {
+  max-width: 480px;
+  margin: 0 auto;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+}
+
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 80px;
+}
+
 /* ─── MOBILE BODY PADDING for bottom nav ─── */
 @media (max-width: 767px) {
   .has-bottom-nav { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }

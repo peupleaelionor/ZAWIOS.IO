@@ -1,13 +1,23 @@
+'use client'
+
+import { useState } from 'react'
 import { cn, getInitials } from '@/lib/utils'
 
 interface AvatarProps {
-  src?: string
+  src?: string | null
   name: string
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   className?: string
 }
 
+/**
+ * Robust avatar with automatic fallback to gradient initials.
+ * If the image fails to load (404, network error, etc.) the component
+ * silently switches to the initials view — no broken square "?".
+ */
 export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
+  const [imgError, setImgError] = useState(false)
+
   const sizes = {
     xs: 'w-6 h-6 text-xs',
     sm: 'w-8 h-8 text-xs',
@@ -16,12 +26,15 @@ export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
     xl: 'w-16 h-16 text-xl',
   }
 
-  if (src) {
+  const showImage = src && !imgError
+
+  if (showImage) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
         src={src}
         alt={name}
+        onError={() => setImgError(true)}
         className={cn('rounded-full object-cover', sizes[size], className)}
       />
     )
@@ -34,7 +47,7 @@ export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
         sizes[size],
         className
       )}
-      style={{ background: 'linear-gradient(135deg, var(--accent), var(--teal))' }}
+      style={{ background: 'linear-gradient(135deg, var(--teal), var(--accent))' }}
     >
       {getInitials(name)}
     </div>
