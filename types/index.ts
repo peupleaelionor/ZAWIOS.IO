@@ -14,7 +14,7 @@ export type PredictionStatus = 'open' | 'in_progress' | 'resolved' | 'archived'
 
 export type BadgeTier = 'bronze' | 'silver' | 'gold' | 'platinum'
 
-export type PlanTier = 'free' | 'premium' | 'creator' | 'business'
+export type PlanTier = 'free' | 'pro' | 'premium' | 'creator' | 'business'
 
 export type BillingCycle = 'monthly' | 'annual'
 

@@ -3,7 +3,10 @@
  * Monetize depth, analytics, and infrastructure. Not participation.
  */
 
-export type Plan = 'free' | 'pro' | 'business' | 'creator' | 'premium'
+import type { PlanTier } from '@/types'
+
+/** Canonical plan type — use PlanTier from @/types everywhere */
+export type Plan = PlanTier
 
 // Feature → which plans have access
 export const FEATURES = {

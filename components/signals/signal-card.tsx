@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { formatNumber } from '@/lib/utils'
@@ -26,11 +26,16 @@ const getCategoryLabel = (id: string) =>
 const getRegionLabel = (id: string) =>
   SIGNAL_REGIONS.find((r) => r.id === id)?.labelFr ?? id
 
+const SWIPE_THRESHOLD = 50   // px horizontal
+const SWIPE_UP_THRESHOLD = -60 // px vertical (negative = upward)
+
 export function SignalCard({ signal, compact = false, onVote }: SignalCardProps) {
   const [voted, setVoted] = useState<'yes' | 'no' | 'neutral' | null>(null)
   const [yes, setYes] = useState(signal.yesPercent)
   const [no, setNo] = useState(signal.noPercent)
   const [neutral, setNeutral] = useState(signal.neutralPercent ?? 0)
+  const [swipeHint, setSwipeHint] = useState<'yes' | 'no' | 'neutral' | null>(null)
+  const touchStart = useRef<{ x: number; y: number } | null>(null)
   const isResolved = signal.status === 'resolved'
   const catStyle = CATEGORY_COLORS[signal.category]
 
@@ -50,6 +55,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
       setYes((p) => Math.max(1, p - 1))
     }
 
+    setSwipeHint(null)
     onVote?.(signal.id, choice)
 
     const label =
@@ -65,16 +71,81 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
     })
   }
 
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (voted || isResolved) return
+    touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!touchStart.current || voted || isResolved) return
+    const dx = e.touches[0].clientX - touchStart.current.x
+    const dy = e.touches[0].clientY - touchStart.current.y
+    if (Math.abs(dy) > SWIPE_UP_THRESHOLD * -1 && Math.abs(dy) > Math.abs(dx)) {
+      setSwipeHint('neutral')
+    } else if (dx > SWIPE_THRESHOLD) {
+      setSwipeHint('yes')
+    } else if (dx < -SWIPE_THRESHOLD) {
+      setSwipeHint('no')
+    } else {
+      setSwipeHint(null)
+    }
+  }
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (!touchStart.current || voted || isResolved) return
+    const dx = e.changedTouches[0].clientX - touchStart.current.x
+    const dy = e.changedTouches[0].clientY - touchStart.current.y
+    touchStart.current = null
+    setSwipeHint(null)
+    if (Math.abs(dy) > Math.abs(dx) && dy < SWIPE_UP_THRESHOLD) {
+      handleVote('neutral')
+    } else if (dx > SWIPE_THRESHOLD) {
+      handleVote('yes')
+    } else if (dx < -SWIPE_THRESHOLD) {
+      handleVote('no')
+    }
+  }
+
+  const swipeOverlayColor =
+    swipeHint === 'yes' ? 'rgba(23,213,207,0.08)' :
+    swipeHint === 'no'  ? 'rgba(255,255,255,0.05)' :
+    swipeHint === 'neutral' ? 'rgba(160,160,184,0.06)' :
+    'transparent'
+
   return (
     <div
       className="card-hover relative overflow-hidden flex flex-col"
       style={{
-        background: 'var(--surface)',
-        border: '1px solid var(--border2)',
+        background: swipeHint ? swipeOverlayColor : 'var(--surface)',
+        border: swipeHint === 'yes' ? '1px solid rgba(23,213,207,0.3)' :
+                swipeHint === 'no'  ? '1px solid rgba(255,255,255,0.15)' :
+                '1px solid var(--border2)',
         borderRadius: 'var(--radius)',
         padding: compact ? '14px' : '16px 18px 14px',
+        transition: 'background 0.15s, border-color 0.15s',
       }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
+      {/* Swipe hint overlay */}
+      {swipeHint && (
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
+          style={{ opacity: 0.9 }}
+        >
+          <span
+            className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest"
+            style={{
+              fontFamily: 'var(--mono)',
+              background: swipeHint === 'yes' ? 'var(--teal)' : swipeHint === 'no' ? 'rgba(255,255,255,0.9)' : 'rgba(160,160,184,0.35)',
+              color: swipeHint === 'neutral' ? 'var(--text)' : 'var(--bg)',
+            }}
+          >
+            {swipeHint === 'yes' ? 'YES' : swipeHint === 'no' ? 'NO' : 'NEUTRE'}
+          </span>
+        </div>
+      )}
       {/* HOT accent line */}
       {signal.hot && (
         <div
