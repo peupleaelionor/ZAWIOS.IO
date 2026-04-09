@@ -18,6 +18,8 @@ function parseDsn(dsn: string) {
   return { key: match[1], host: match[2], projectId: match[3] }
 }
 
+const SENTRY_API_VERSION = 7
+
 export function captureException(error: unknown, context?: Record<string, unknown>) {
   try {
     const dsn = getDsn()
@@ -42,7 +44,7 @@ export function captureException(error: unknown, context?: Record<string, unknow
               {
                 type: error instanceof Error ? error.constructor.name : 'Error',
                 value: message,
-                stacktrace: { frames: parseStack(stack) },
+                stacktrace: { frames: parseStackFrames(stack) },
               },
             ],
           }
@@ -51,7 +53,7 @@ export function captureException(error: unknown, context?: Record<string, unknow
       environment: process.env.NODE_ENV || 'production',
     })
 
-    const url = `https://${parsed.host}/api/${parsed.projectId}/store/?sentry_key=${parsed.key}&sentry_version=7`
+    const url = `https://${parsed.host}/api/${parsed.projectId}/store/?sentry_key=${parsed.key}&sentry_version=${SENTRY_API_VERSION}`
 
     if (typeof fetch !== 'undefined') {
       fetch(url, {
@@ -65,7 +67,7 @@ export function captureException(error: unknown, context?: Record<string, unknow
   }
 }
 
-function parseStack(stack: string) {
+function parseStackFrames(stack: string) {
   return stack
     .split('\n')
     .slice(1, 10)
@@ -101,7 +103,7 @@ export function captureMessage(message: string, level: 'info' | 'warning' | 'err
       environment: process.env.NODE_ENV || 'production',
     })
 
-    const url = `https://${parsed.host}/api/${parsed.projectId}/store/?sentry_key=${parsed.key}&sentry_version=7`
+    const url = `https://${parsed.host}/api/${parsed.projectId}/store/?sentry_key=${parsed.key}&sentry_version=${SENTRY_API_VERSION}`
 
     if (typeof fetch !== 'undefined') {
       fetch(url, {
