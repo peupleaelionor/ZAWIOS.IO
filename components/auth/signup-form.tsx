@@ -17,6 +17,7 @@ export function SignupForm() {
     setError('')
 
     const supabase = createClient()
+    const appUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
     const { error: err } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,
@@ -25,6 +26,7 @@ export function SignupForm() {
           full_name: form.name,
           username: form.username,
         },
+        emailRedirectTo: `${appUrl}/auth/callback`,
       },
     })
 

@@ -16,9 +16,30 @@ export default function ContactPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
-    await new Promise((resolve) => setTimeout(resolve, 1000))
-    setLoading(false)
-    setSent(true)
+
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error(data.error || 'Failed to send message')
+      }
+
+      setSent(true)
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Something went wrong'
+      setSent(false)
+      setForm((f) => ({ ...f }))
+      // Show error inline via toast
+      const { toast } = await import('sonner')
+      toast.error(message)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (

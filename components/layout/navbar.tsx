@@ -1,14 +1,25 @@
 'use client'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
+import { Avatar } from '@/components/ui/avatar'
 import { IconLogo } from '@/components/ui/icons'
 import { useLanguage } from '@/components/providers/language-provider'
 import { cn } from '@/lib/utils'
+import { createClient } from '@/lib/supabase/client'
+import type { User } from '@supabase/supabase-js'
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const { lang, setLang, t } = useLanguage()
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user)
+    })
+  }, [])
 
   const navLinks = [
     { href: '/predictions', label: t.nav.predictions },
@@ -57,12 +68,25 @@ export function Navbar() {
             >
               {lang === 'en' ? 'FR' : 'EN'}
             </button>
-            <Link href="/auth/login">
-              <Button variant="ghost" size="sm">{t.nav.signin}</Button>
-            </Link>
-            <Link href="/auth/signup">
-              <Button size="sm">{t.nav.join}</Button>
-            </Link>
+            {user ? (
+              <Link href="/dashboard" className="flex items-center gap-2">
+                <Avatar
+                  src={user.user_metadata?.avatar_url}
+                  name={user.user_metadata?.full_name || user.email || ''}
+                  size="xs"
+                />
+                <Button variant="ghost" size="sm">Dashboard</Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/auth/login">
+                  <Button variant="ghost" size="sm">{t.nav.signin}</Button>
+                </Link>
+                <Link href="/auth/signup">
+                  <Button size="sm">{t.nav.join}</Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -113,12 +137,20 @@ export function Navbar() {
               </Link>
             ))}
             <div className="flex gap-2 mt-2 pt-2" style={{ borderTop: '1px solid var(--border)' }}>
-              <Link href="/auth/login" className="flex-1">
-                <Button variant="outline" size="sm" className="w-full">{t.nav.signin}</Button>
-              </Link>
-              <Link href="/auth/signup" className="flex-1">
-                <Button size="sm" className="w-full">{t.nav.joinMobile}</Button>
-              </Link>
+              {user ? (
+                <Link href="/dashboard" className="flex-1">
+                  <Button size="sm" className="w-full">Dashboard</Button>
+                </Link>
+              ) : (
+                <>
+                  <Link href="/auth/login" className="flex-1">
+                    <Button variant="outline" size="sm" className="w-full">{t.nav.signin}</Button>
+                  </Link>
+                  <Link href="/auth/signup" className="flex-1">
+                    <Button size="sm" className="w-full">{t.nav.joinMobile}</Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
