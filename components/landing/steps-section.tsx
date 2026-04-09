@@ -5,21 +5,21 @@ export function StepsSection() {
     {
       step: '01',
       title: 'Vote',
-      description: 'YES ou NO sur les sujets du moment. Actualite, tech, sport, culture — ton avis compte.',
+      description: 'YES ou NO sur les sujets du moment. Actualité, tech, sport, culture — ton avis compte.',
       icon: <IconTrending className="w-5 h-5" size={20} />,
       color: 'var(--teal)',
     },
     {
       step: '02',
       title: 'Compare',
-      description: 'Decouvre ce que la foule pense. Es-tu avec la majorite ou contre ?',
+      description: 'Découvre ce que la foule pense. Es-tu avec la majorité ou contre ?',
       icon: <IconChart className="w-5 h-5" size={20} />,
       color: 'var(--text2)',
     },
     {
       step: '03',
-      title: 'Repute',
-      description: 'Chaque bonne reponse renforce ton score. Construis ta reputation dans le temps.',
+      title: 'Réputation',
+      description: 'Chaque bonne réponse renforce ton score. Construis ta réputation dans le temps.',
       icon: <IconTrophy className="w-5 h-5" size={20} />,
       color: 'var(--amber)',
     },
@@ -29,9 +29,9 @@ export function StepsSection() {
     <section className="py-12 md:py-20 bg-[var(--bg2)]">
       <div className="container">
         <div className="mb-8 md:mb-12">
-          <p className="section-label">Comment ca marche</p>
+          <p className="section-label">Comment ça marche</p>
           <h2 className="text-xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
-            3 etapes. Rien de plus.
+            3 étapes. Rien de plus.
           </h2>
         </div>
 

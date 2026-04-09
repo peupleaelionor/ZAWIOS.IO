@@ -8,27 +8,28 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'ZAWIOS — Collective Intelligence Platform',
+    default: 'ZAWIOS — Intelligence Collective',
     template: '%s | ZAWIOS',
   },
   description:
-    "See what the crowd thinks before it's right. ZAWIOS is the world's collective intelligence and prediction platform — vote, predict, build your reputation.",
-  keywords: ['prediction', 'collective intelligence', 'forecasting', 'reputation', 'community', 'crowd signals'],
+    "Vote YES ou NO sur les sujets qui font l'actu. Compare ton signal avec la foule mondiale, construis ta réputation d'analyste.",
+  keywords: ['prédiction', 'intelligence collective', 'vote', 'réputation', 'signaux', 'actualité', 'analyse'],
   authors: [{ name: 'ZAWIOS' }],
   creator: 'ZAWIOS',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app'),
   openGraph: {
     type: 'website',
-    locale: 'en_US',
+    locale: 'fr_FR',
+    alternateLocale: 'en_US',
     url: 'https://zawios.netlify.app',
     siteName: 'ZAWIOS',
-    title: 'ZAWIOS — Collective Intelligence Platform',
-    description: "See what the crowd thinks before it's right. Vote, predict, build your reputation.",
+    title: 'ZAWIOS — Intelligence Collective',
+    description: 'Vote sur les signaux du monde. Compare avec la foule. Construis ta réputation.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ZAWIOS — Collective Intelligence Platform',
-    description: "See what the crowd thinks before it's right.",
+    title: 'ZAWIOS — Intelligence Collective',
+    description: 'Vote sur les signaux du monde. Compare avec la foule.',
   },
   robots: {
     index: true,
@@ -43,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
