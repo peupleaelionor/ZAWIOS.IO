@@ -4,6 +4,8 @@ import { HeroSection } from '@/components/landing/hero-section'
 import { SocialProofSection } from '@/components/landing/social-proof-section'
 import { StepsSection } from '@/components/landing/steps-section'
 import { CategoriesSection } from '@/components/landing/categories-section'
+import { WorldViewSection } from '@/components/landing/world-view-section'
+import { AmbassadorSection } from '@/components/landing/ambassador-section'
 import { CTASection } from '@/components/landing/cta-section'
 import { SignalFeed } from '@/components/signals/signal-feed'
 import { SignalCard } from '@/components/signals/signal-card'
@@ -13,20 +15,20 @@ export default function HomePage() {
   const resolvedSignals = getResolvedSignals(3)
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
 
-      {/* Hero */}
+      {/* Hero + live signal preview */}
       <HeroSection />
 
-      {/* Social proof stats */}
+      {/* Stats */}
       <SocialProofSection />
 
       {/* How it works */}
       <StepsSection />
 
       {/* Live Feed */}
-      <section id="feed" className="py-12 md:py-20 bg-[var(--bg)]">
+      <section id="feed" className="py-12 md:py-20" style={{ background: 'var(--bg)' }}>
         <div className="container">
           <div className="mb-6 md:mb-8">
             <p className="section-label">Live</p>
@@ -42,13 +44,16 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* World View */}
+      <WorldViewSection />
+
       {/* Resolved signals */}
-      <section className="py-10 md:py-16 bg-[var(--bg2)]">
+      <section className="py-10 md:py-16" style={{ background: 'var(--bg2)', borderTop: '1px solid var(--border)' }}>
         <div className="container">
           <div className="mb-6 md:mb-8">
-            <p className="section-label">Resultats</p>
+            <p className="section-label">Résultats</p>
             <h2 className="text-xl md:text-3xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
-              Signaux resolus
+              Signaux résolus
             </h2>
             <p className="mt-2 text-sm text-[var(--text2)]">
               La foule avait-elle raison ?
@@ -63,8 +68,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Categories */}
+      {/* Categories (editorial rows) */}
       <CategoriesSection />
+
+      {/* Ambassador map */}
+      <AmbassadorSection />
 
       {/* CTA */}
       <CTASection />
