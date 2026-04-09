@@ -23,6 +23,181 @@ function iconProps({ className, size = 24, style }: IconProps) {
   }
 }
 
+// ── PRODUCTION ICON SYSTEM ──────────────────────────────────────────────────
+// From: ZAWIOS Production Icon System Guidelines Board
+// Monoline · 24px bounding box · Consistent stroke width
+
+/** VOTE — ballot box with hand inserting paper */
+export function IconVote(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <rect x="3" y="10" width="18" height="11" rx="2" />
+      <path d="M3 13h18" />
+      <path d="M9 2l3 5 3-5" />
+      <path d="M12 7v3" />
+    </svg>
+  )
+}
+
+/** SIGNAL — the ZAWIOS convergence butterfly mark as icon */
+export function IconSignal(props: IconProps) {
+  return (
+    <svg {...iconProps(props)} viewBox="0 0 24 24">
+      <path d="M12 12 C10 9 4 6 2 4" />
+      <path d="M12 12 C14 9 20 6 22 4" />
+      <path d="M12 12 C10 15 4 18 2 20" />
+      <path d="M12 12 C14 15 20 18 22 20" />
+      <path d="M12 12 C9 10 3 11 2 12" />
+      <path d="M12 12 C15 10 21 11 22 12" />
+      <circle cx="12" cy="12" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
+/** SCORE — gauge slider at 88% */
+export function IconScore(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <rect x="2" y="10" width="20" height="4" rx="2" />
+      <circle cx="16" cy="12" r="3" fill="currentColor" stroke="none" />
+      <line x1="2" y1="16" x2="2" y2="17" />
+      <line x1="7" y1="16" x2="7" y2="17" />
+      <line x1="12" y1="16" x2="12" y2="17" />
+      <line x1="17" y1="16" x2="17" y2="17" />
+      <line x1="22" y1="16" x2="22" y2="17" />
+    </svg>
+  )
+}
+
+/** REPUTATION — shield with laurel wreath and upward arrow */
+export function IconReputation(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <path d="M9 13l2 2 4-4" />
+    </svg>
+  )
+}
+
+/** TREND — line chart going up with dot */
+export function IconTrendChart(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <polyline points="3 17 7 11 11 13 16 7 21 9" />
+      <circle cx="21" cy="9" r="1.5" fill="currentColor" stroke="none" />
+      <line x1="3" y1="21" x2="21" y2="21" />
+    </svg>
+  )
+}
+
+/** COMPARISON — balance scales */
+export function IconComparison(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <line x1="12" y1="3" x2="12" y2="21" />
+      <line x1="3" y1="21" x2="21" y2="21" />
+      <path d="M7 8l-5 5h10L7 8z" />
+      <path d="M17 8l-5 5h10l-5-5z" />
+      <circle cx="12" cy="5" r="2" />
+    </svg>
+  )
+}
+
+/** SHARE — arrow out of rounded box */
+export function IconShare(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M4 12v7a2 2 0 002 2h12a2 2 0 002-2v-7" />
+      <polyline points="16 6 12 2 8 6" />
+      <line x1="12" y1="2" x2="12" y2="15" />
+    </svg>
+  )
+}
+
+/** PROFILE — person silhouette */
+export function IconProfile(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
+  )
+}
+
+/** CREATE — plus inside circle */
+export function IconCreate(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <circle cx="12" cy="12" r="10" />
+      <line x1="12" y1="8" x2="12" y2="16" />
+      <line x1="8" y1="12" x2="16" y2="12" />
+    </svg>
+  )
+}
+
+/** LEADERBOARD — trophy on podium */
+export function IconLeaderboard(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M6 9H4.5a2.5 2.5 0 010-5H6" />
+      <path d="M18 9h1.5a2.5 2.5 0 000-5H18" />
+      <path d="M18 2H6v7a6 6 0 0012 0V2z" />
+      <line x1="9" y1="21" x2="15" y2="21" />
+      <line x1="10" y1="17" x2="10" y2="21" />
+      <line x1="14" y1="17" x2="14" y2="21" />
+      <rect x="5" y="17" width="14" height="2" rx="1" />
+    </svg>
+  )
+}
+
+/** NOTIFICATION — bell with dot */
+export function IconNotification(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 01-3.46 0" />
+      <circle cx="18" cy="5" r="2.5" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
+/** SEARCH — magnifying glass */
+export function IconSearch(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
+  )
+}
+
+/** CATEGORY — 2×2 grid of rounded squares */
+export function IconCategory(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <rect x="3" y="3" width="8" height="8" rx="2" />
+      <rect x="13" y="3" width="8" height="8" rx="2" />
+      <rect x="3" y="13" width="8" height="8" rx="2" />
+      <rect x="13" y="13" width="8" height="8" rx="2" />
+    </svg>
+  )
+}
+
+/** REGION — globe with location pin */
+export function IconRegion(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M12 3a14.5 14.5 0 000 18M12 3a14.5 14.5 0 010 18" />
+      <path d="M3 12h18" />
+      <circle cx="12" cy="8" r="2" fill="currentColor" stroke="none" />
+      <path d="M12 6v-2" />
+    </svg>
+  )
+}
+
+// ── EXISTING ICONS ──────────────────────────────────────────────────────────
+
 export function IconTarget(props: IconProps) {
   return (
     <svg {...iconProps(props)}>
@@ -274,7 +449,7 @@ export function IconMark({
   className,
   width = 56,
   leftColor = '#ffffff',
-  rightColor = '#7c6ef0',
+  rightColor = '#17d5cf',
   style,
 }: {
   className?: string
@@ -312,7 +487,6 @@ export function IconMark({
  */
 export function IconLogo({ className, size = 32, style }: IconProps) {
   const n = 11
-  // y positions for mark endpoints, centered vertically in the icon with padding
   const pad = size * 0.23
   const ys = Array.from({ length: n }, (_, i) => pad + (i / (n - 1)) * (size - 2 * pad))
   const cx = size / 2
@@ -329,12 +503,12 @@ export function IconLogo({ className, size = 32, style }: IconProps) {
       className={className}
       style={style}
     >
-      <rect width={size} height={size} rx={size * 0.22} fill="#08080f" />
+      <rect width={size} height={size} rx={size * 0.22} fill="#0c0d10" />
       {ys.map((y, i) => (
         <line key={`L${i}`} x1={cx} y1={cy} x2={xL} y2={y} stroke="#ffffff" strokeWidth={size * 0.026} strokeLinecap="round" />
       ))}
       {ys.map((y, i) => (
-        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#7c6ef0" strokeWidth={size * 0.026} strokeLinecap="round" />
+        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#17d5cf" strokeWidth={size * 0.026} strokeLinecap="round" />
       ))}
     </svg>
   )
