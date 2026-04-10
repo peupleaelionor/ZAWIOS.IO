@@ -1,230 +1,182 @@
 import Link from 'next/link'
 import { SIGNAL_CATEGORIES, CATEGORY_COLORS } from '@/lib/signals-data'
 
-// Signal counts per category (approx from data)
-const CATEGORY_COUNTS: Record<string, number> = {
-  worldview: 20,
-  news: 14,
-  tech: 12,
-  business: 9,
-  crypto: 8,
-  sports: 7,
-  culture: 6,
-  society: 7,
-  entertainment: 5,
-  trends: 6,
-  fun: 4,
-}
-
-// Minimal monochrome SVG mini-assets per category
-function MiniAsset({ category }: { category: string }) {
-  const color = 'rgba(255,255,255,0.07)'
-  const stroke = 'rgba(255,255,255,0.18)'
-
-  switch (category) {
-    case 'news':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <rect x="4" y="6" width="36" height="28" rx="3" stroke={stroke} strokeWidth="1.2" />
-          <line x1="10" y1="14" x2="34" y2="14" stroke={stroke} strokeWidth="1.2" strokeLinecap="round" />
-          <line x1="10" y1="19" x2="28" y2="19" stroke={stroke} strokeWidth="1.2" strokeLinecap="round" />
-          <line x1="10" y1="24" x2="31" y2="24" stroke={stroke} strokeWidth="1.2" strokeLinecap="round" />
-          <circle cx="52" cy="20" r="8" stroke="rgba(23,213,207,0.25)" strokeWidth="1" />
-          <circle cx="52" cy="20" r="4" fill="rgba(23,213,207,0.12)" />
-        </svg>
-      )
-    case 'tech':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <rect x="20" y="10" width="24" height="20" rx="3" stroke={stroke} strokeWidth="1.2" />
-          <line x1="26" y1="16" x2="38" y2="16" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
-          <line x1="26" y1="20" x2="34" y2="20" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
-          <line x1="26" y1="24" x2="36" y2="24" stroke={stroke} strokeWidth="1" strokeLinecap="round" />
-          <circle cx="8" cy="14" r="3" stroke={stroke} strokeWidth="1" />
-          <line x1="11" y1="14" x2="20" y2="14" stroke={stroke} strokeWidth="0.8" />
-          <circle cx="8" cy="26" r="3" stroke={stroke} strokeWidth="1" />
-          <line x1="11" y1="26" x2="20" y2="26" stroke={stroke} strokeWidth="0.8" />
-          <circle cx="56" cy="20" r="3" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
-          <line x1="44" y1="20" x2="53" y2="20" stroke="rgba(23,213,207,0.2)" strokeWidth="0.8" />
-        </svg>
-      )
-    case 'business':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <line x1="8" y1="32" x2="56" y2="32" stroke={stroke} strokeWidth="1" />
-          <rect x="10" y="22" width="8" height="10" rx="1" fill={color} stroke={stroke} strokeWidth="1" />
-          <rect x="24" y="16" width="8" height="16" rx="1" fill={color} stroke={stroke} strokeWidth="1" />
-          <rect x="38" y="10" width="8" height="22" rx="1" fill="rgba(23,213,207,0.08)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
-          <polyline points="10,22 28,14 46,8" stroke="rgba(23,213,207,0.4)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-        </svg>
-      )
-    case 'crypto':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <circle cx="32" cy="20" r="14" stroke={stroke} strokeWidth="1.2" />
-          <text x="32" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="rgba(23,213,207,0.35)" fontFamily="monospace">₿</text>
-          <circle cx="32" cy="20" r="9" stroke="rgba(23,213,207,0.1)" strokeWidth="1" strokeDasharray="2 3" />
-        </svg>
-      )
-    case 'sports':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <circle cx="32" cy="20" r="14" stroke={stroke} strokeWidth="1.2" />
-          <path d="M22 14 C26 18 38 18 42 14" stroke={stroke} strokeWidth="1" fill="none" />
-          <path d="M20 22 C24 26 40 26 44 22" stroke={stroke} strokeWidth="1" fill="none" />
-          <line x1="32" y1="6" x2="32" y2="34" stroke={stroke} strokeWidth="0.8" />
-        </svg>
-      )
-    case 'culture':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <path d="M12 32 Q20 10 32 20 Q44 30 52 8" stroke={stroke} strokeWidth="1.2" fill="none" strokeLinecap="round" />
-          <circle cx="32" cy="20" r="3" fill="rgba(23,213,207,0.2)" stroke="rgba(23,213,207,0.4)" strokeWidth="1" />
-          <circle cx="12" cy="32" r="2" fill={color} stroke={stroke} strokeWidth="1" />
-          <circle cx="52" cy="8" r="2" fill={color} stroke={stroke} strokeWidth="1" />
-        </svg>
-      )
-    case 'society':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <circle cx="20" cy="16" r="6" stroke={stroke} strokeWidth="1.2" />
-          <circle cx="36" cy="16" r="6" stroke={stroke} strokeWidth="1.2" />
-          <circle cx="28" cy="14" r="6" stroke="rgba(23,213,207,0.3)" strokeWidth="1.2" />
-          <path d="M10 32 Q20 24 28 26 Q36 24 46 32" stroke={stroke} strokeWidth="1" fill="none" strokeLinecap="round" />
-        </svg>
-      )
-    case 'entertainment':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <circle cx="32" cy="20" r="14" stroke={stroke} strokeWidth="1.2" />
-          <polygon points="28,14 28,26 42,20" fill="rgba(23,213,207,0.12)" stroke="rgba(23,213,207,0.35)" strokeWidth="1" strokeLinejoin="round" />
-        </svg>
-      )
-    case 'trends':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <polyline points="8,30 20,22 32,26 44,14 56,10" stroke="rgba(23,213,207,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <circle cx="56" cy="10" r="3" fill="rgba(23,213,207,0.2)" stroke="rgba(23,213,207,0.5)" strokeWidth="1" />
-          <polyline points="8,34 56,34" stroke={stroke} strokeWidth="0.8" />
-        </svg>
-      )
-    case 'fun':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <circle cx="32" cy="20" r="14" stroke={stroke} strokeWidth="1.2" />
-          <circle cx="27" cy="17" r="2" fill={stroke} />
-          <circle cx="37" cy="17" r="2" fill={stroke} />
-          <path d="M26 24 Q32 29 38 24" stroke="rgba(23,213,207,0.4)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
-        </svg>
-      )
-    case 'worldview':
-      return (
-        <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <ellipse cx="32" cy="20" rx="14" ry="14" stroke={stroke} strokeWidth="1.2" />
-          <ellipse cx="32" cy="20" rx="8" ry="14" stroke={stroke} strokeWidth="0.8" />
-          <line x1="18" y1="20" x2="46" y2="20" stroke={stroke} strokeWidth="0.8" />
-          <line x1="20" y1="14" x2="44" y2="14" stroke={stroke} strokeWidth="0.6" strokeDasharray="2 2" />
-          <line x1="20" y1="26" x2="44" y2="26" stroke={stroke} strokeWidth="0.6" strokeDasharray="2 2" />
-          <circle cx="32" cy="20" r="2" fill="rgba(23,213,207,0.3)" />
-        </svg>
-      )
-    default:
-      return null
-  }
+// Signal counts + emoji per category
+const CATEGORY_META: Record<string, { count: number; emoji: string; sub: string }> = {
+  worldview:     { count: 20, emoji: '🌍', sub: '4 continents' },
+  news:          { count: 14, emoji: '📰', sub: 'Actualité chaude' },
+  tech:          { count: 12, emoji: '🤖', sub: 'Tech & IA' },
+  business:      { count: 9,  emoji: '📈', sub: 'Marchés & startups' },
+  crypto:        { count: 8,  emoji: '🔐', sub: 'Web3 & DeFi' },
+  sports:        { count: 7,  emoji: '⚽', sub: 'Football & + ' },
+  culture:       { count: 6,  emoji: '🎭', sub: 'Art & tendances' },
+  society:       { count: 7,  emoji: '👥', sub: 'Humanité & droits' },
+  entertainment: { count: 5,  emoji: '🎬', sub: 'Séries, films, musique' },
+  trends:        { count: 6,  emoji: '🔥', sub: 'Ce qui buzz' },
+  fun:           { count: 4,  emoji: '😄', sub: 'Bonne humeur' },
 }
 
 export function CategoriesSection() {
   const displayCategories = SIGNAL_CATEGORIES.filter((c) => c.id !== 'worldview')
+  const worldview = SIGNAL_CATEGORIES.find((c) => c.id === 'worldview')
 
   return (
-    <section className="py-12 md:py-20" style={{ background: 'var(--bg)' }}>
+    <section className="py-14 md:py-20" style={{ background: 'var(--bg)' }}>
       <div className="container">
-        {/* Header */}
+
+        {/* ── Header ── */}
         <div className="mb-8 md:mb-10">
           <p className="section-label">Catégories</p>
           <h2
-            className="text-2xl md:text-4xl font-bold text-[var(--text)] mt-1 leading-tight"
-            style={{ letterSpacing: '-0.03em' }}
+            className="text-2xl md:text-4xl font-bold mt-1 leading-tight"
+            style={{ color: 'var(--text)', letterSpacing: '-0.03em' }}
           >
-            Tous les sujets.<br className="md:hidden" /> Toutes les régions.
+            Tous les sujets.{' '}
+            <span className="gradient-text">Toutes les régions.</span>
           </h2>
-          <p className="mt-2 text-sm text-[var(--text2)] max-w-md leading-relaxed">
-            De la tech aux sports, de l&apos;Afrique au USA — il y a toujours un sujet qui t&apos;intéresse.
+          <p className="mt-2 text-sm md:text-base max-w-md" style={{ color: 'var(--text2)' }}>
+            De la tech à la culture, du sport à la société — un sujet pour chaque humain sur Terre.
           </p>
         </div>
 
-        {/* Category rows */}
-        <div
-          className="rounded-xl overflow-hidden"
-          style={{ border: '1px solid var(--border2)' }}
-        >
-          {displayCategories.map((cat, i) => {
+        {/* ── World View featured card ── */}
+        {worldview && (
+          <Link
+            href="/predictions?category=worldview"
+            className="group block mb-4"
+          >
+            <div
+              className="relative rounded-2xl px-6 py-5 overflow-hidden transition-all duration-200"
+              style={{
+                background:  'linear-gradient(135deg, rgba(29,228,222,0.08) 0%, rgba(108,92,231,0.08) 100%)',
+                border:      '1px solid rgba(29,228,222,0.25)',
+                boxShadow:   '0 4px 20px rgba(29,228,222,0.08)',
+              }}
+            >
+              {/* Shimmer accent */}
+              <div
+                className="absolute top-0 left-0 right-0 h-[2px]"
+                style={{ background: 'linear-gradient(90deg, var(--teal), var(--accent2), var(--teal))', backgroundSize: '200% 100%', animation: 'shimmer 3s linear infinite' }}
+              />
+
+              <div className="flex items-center justify-between flex-wrap gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-4xl">🌍</span>
+                  <div>
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="text-base font-bold" style={{ color: 'var(--text)' }}>World View</span>
+                      <span
+                        className="text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full"
+                        style={{ background: 'rgba(29,228,222,0.15)', color: 'var(--teal)', fontFamily: 'var(--mono)' }}
+                      >
+                        Live
+                      </span>
+                    </div>
+                    <p className="text-xs" style={{ color: 'var(--text2)' }}>
+                      Compare Afrique · France · Europe · USA — 4 continents en temps réel
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold" style={{ color: 'var(--teal)', fontFamily: 'var(--mono)' }}>
+                    20 sujets
+                  </span>
+                  <span style={{ color: 'var(--teal)' }}>→</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        )}
+
+        {/* ── Category emoji grid ── */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
+          {displayCategories.map((cat) => {
             const colors = CATEGORY_COLORS[cat.id]
-            const count = CATEGORY_COUNTS[cat.id] ?? 5
-            const isLast = i === displayCategories.length - 1
+            const meta   = CATEGORY_META[cat.id] ?? { count: 5, emoji: '📌', sub: '' }
+
             return (
               <Link
                 key={cat.id}
                 href={`/predictions?category=${cat.id}`}
-                className="group flex items-center justify-between px-5 py-4 transition-colors duration-150 hover:bg-white/[0.025]"
+                className="group relative rounded-2xl p-4 flex flex-col gap-2 transition-all duration-200 overflow-hidden"
                 style={{
-                  borderBottom: isLast ? 'none' : '1px solid var(--border)',
-                  background: 'var(--surface)',
+                  background:  'var(--surface)',
+                  border:      `1px solid var(--border2)`,
                 }}
               >
-                {/* Left: color dot + label */}
-                <div className="flex items-center gap-3">
-                  <div
-                    className="w-2 h-2 rounded-full shrink-0"
-                    style={{ background: colors.text }}
-                  />
-                  <span
-                    className="text-[15px] font-semibold text-[var(--text)] group-hover:text-white transition-colors"
+                {/* Hover glow */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 rounded-2xl"
+                  style={{ background: `${colors.bg}` }}
+                />
+
+                {/* Emoji */}
+                <span className="text-3xl relative z-10">{meta.emoji}</span>
+
+                {/* Name */}
+                <div className="relative z-10">
+                  <p
+                    className="text-[13px] font-bold leading-tight mb-0.5 transition-colors duration-150"
+                    style={{ color: 'var(--text)' }}
                   >
                     {cat.labelFr}
-                  </span>
+                  </p>
+                  <p className="text-[10px]" style={{ color: 'var(--text3)' }}>
+                    {meta.sub}
+                  </p>
                 </div>
 
-                {/* Middle: count */}
-                <div className="flex items-center gap-4 ml-auto mr-4">
-                  <span
-                    className="text-[11px] font-medium whitespace-nowrap"
-                    style={{ fontFamily: 'var(--mono)', color: 'var(--text3)' }}
-                  >
-                    {count} sujets actifs
-                  </span>
-                  <span
-                    className="text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity"
-                    style={{ fontFamily: 'var(--mono)', color: colors.text }}
-                  >
-                    →
-                  </span>
-                </div>
+                {/* Count pill */}
+                <span
+                  className="relative z-10 self-start text-[9px] font-bold px-2 py-0.5 rounded-full"
+                  style={{
+                    background:  colors.bg,
+                    color:       colors.text,
+                    fontFamily:  'var(--mono)',
+                  }}
+                >
+                  {meta.count} actifs
+                </span>
 
-                {/* Right: mini asset */}
-                <div className="shrink-0 opacity-60 group-hover:opacity-90 transition-opacity">
-                  <MiniAsset category={cat.id} />
-                </div>
+                {/* Arrow — appears on hover */}
+                <span
+                  className="absolute top-3 right-3 text-[11px] opacity-0 group-hover:opacity-100 transition-all duration-150"
+                  style={{ color: colors.text }}
+                >
+                  →
+                </span>
               </Link>
             )
           })}
         </div>
 
-        {/* CTA */}
-        <div className="mt-6">
+        {/* ── CTA ── */}
+        <div className="mt-6 flex flex-col sm:flex-row gap-3">
           <Link
             href="/predictions"
-            className="flex items-center justify-center gap-2 w-full py-4 rounded-xl text-sm font-bold transition-all duration-150 hover:brightness-110 active:scale-[0.98]"
+            className="flex-1 flex items-center justify-center gap-2 py-4 rounded-2xl text-sm font-bold transition-all duration-150 hover:brightness-110 active:scale-[0.98]"
             style={{
-              background: 'var(--teal)',
-              color: 'var(--bg)',
-              fontFamily: 'var(--font)',
+              background:  'var(--teal)',
+              color:       'var(--bg)',
+              fontFamily:  'var(--font)',
             }}
           >
-            Commencer maintenant
+            Voir tous les signaux
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
+          </Link>
+          <Link
+            href="/auth/signup"
+            className="flex items-center justify-center gap-2 px-6 py-4 rounded-2xl text-sm font-bold transition-all duration-150"
+            style={{
+              background:  'var(--surface)',
+              border:      '1px solid var(--border2)',
+              color:       'var(--text2)',
+              fontFamily:  'var(--font)',
+            }}
+          >
+            Créer un compte gratuit
           </Link>
         </div>
       </div>
