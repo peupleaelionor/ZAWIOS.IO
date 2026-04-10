@@ -15,7 +15,7 @@ import {
   IconTrending,
   IconShield,
 } from '@/components/ui/icons'
-import { allPredictions, mockPredictions, PLATFORM_STATS, mockLeaderboard } from '@/lib/mock-data'
+import { allPredictions, PLATFORM_STATS, mockLeaderboard } from '@/lib/mock-data'
 import { CategoriesSection } from '@/components/home/categories-section'
 import { WorldViewPreview } from '@/components/home/world-view-preview'
 import { formatNumber } from '@/lib/utils'
@@ -31,8 +31,8 @@ export default function HomePage() {
       {/* ── HERO ─────────────────────────────────────────────────────── */}
       <section className="relative overflow-hidden pt-24 pb-20 md:pt-36 md:pb-28">
         <GridBackground />
-        <Orb color="var(--accent)" size={520} top="-15%" right="-8%" />
-        <Orb color="var(--teal)" size={380} bottom="-15%" left="-8%" />
+        <Orb color="var(--accent)" size={480} top="-18%" right="-6%" />
+        <Orb color="var(--violet2)" size={340} bottom="-20%" left="-6%" />
 
         <div className="container relative">
           <div className="max-w-3xl mx-auto text-center rv">

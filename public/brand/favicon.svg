@@ -1,29 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <!-- ZAWIOS brand mark — butterfly fan logo -->
-  <!-- Replace this file with the final brand asset when available -->
   <rect width="32" height="32" rx="7" fill="#08080f"/>
-  <!-- Left fan — white lines -->
-  <line x1="16" y1="16" x2="2" y2="7.5"  stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="9.2"  stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="10.9" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="12.6" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="14.3" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="16.0" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="17.7" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="19.4" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="21.1" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="22.8" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="2" y2="24.5" stroke="#ffffff" stroke-width="0.85" stroke-linecap="round"/>
-  <!-- Right fan — accent purple lines -->
-  <line x1="16" y1="16" x2="30" y2="7.5"  stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="9.2"  stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="10.9" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="12.6" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="14.3" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="16.0" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="17.7" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="19.4" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="21.1" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="22.8" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
-  <line x1="16" y1="16" x2="30" y2="24.5" stroke="#7c6ef0" stroke-width="0.85" stroke-linecap="round"/>
+  <!-- Left fan: 11 lines from center to left (white) -->
+  <line x1="16" y1="16" x2="2" y2="2.5"  stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="5.5"  stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="8.5"  stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="11.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="14.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="16"   stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="18.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="21.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="23.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="26.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="2" y2="29.5" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Right fan: 11 lines from center to right (teal) -->
+  <line x1="16" y1="16" x2="30" y2="2.5"  stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="5.5"  stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="8.5"  stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="11.5" stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="14.5" stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="16"   stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="18.5" stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="21.5" stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="23.5" stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="26.5" stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="16" y1="16" x2="30" y2="29.5" stroke="#17D5CF" stroke-width="1.2" stroke-linecap="round"/>
 </svg>

@@ -15,25 +15,16 @@ export default function manifest(): MetadataRoute.Manifest {
     categories: ['social', 'news'],
     lang: 'fr',
     icons: [
-      // ASSET SLOT — replace src paths when /public/brand/icon-*.png are delivered
-      {
-        src: '/brand/icon-192.png',
-        sizes: '192x192',
-        type: 'image/png',
-        purpose: 'any',
-      },
-      {
-        src: '/brand/icon-512.png',
-        sizes: '512x512',
-        type: 'image/png',
-        purpose: 'maskable',
-      },
+      // SVG icon available now — PNG slots to fill when designer delivers assets
       {
         src: '/brand/favicon.svg',
         sizes: 'any',
         type: 'image/svg+xml',
         purpose: 'any',
       },
+      // ASSET SLOT — uncomment when /public/brand/icon-192.png is delivered:
+      // { src: '/brand/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+      // { src: '/brand/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
   }
 }

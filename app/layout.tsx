@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     // ASSET SLOT — OG image: drop /public/brand/og-image.png (1200×630)
     images: [
       {
-        url: '/brand/og-image.png',
+        url: '/brand/og-image.svg',
         width: 1200,
         height: 630,
         alt: 'ZAWIOS — Intelligence collective mondiale',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     title: 'ZAWIOS — Intelligence collective mondiale',
     description: "Votez, prédisez, comparez. Construisez votre réputation.",
     // ASSET SLOT — Twitter card: same /brand/og-image.png
-    images: ['/brand/og-image.png'],
+    images: ['/brand/og-image.svg'],
   },
   robots: {
     index: true,

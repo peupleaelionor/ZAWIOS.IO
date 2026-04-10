@@ -125,14 +125,14 @@ export default async function PredictionPage({ params }: Props) {
                         {option.percentage}%
                       </span>
                     </div>
-                    <div className="h-3 rounded-full overflow-hidden" style={{ background: 'var(--surface2)' }}>
+                    <div className="h-2.5 rounded-full overflow-hidden" style={{ background: 'var(--surface2)' }}>
                       <div
-                        className="h-full rounded-full transition-all duration-700"
+                        className="h-full rounded-full bar-settle"
                         style={{
                           width: `${option.percentage}%`,
                           background: option.is_correct
                             ? 'var(--teal)'
-                            : option.label === 'No'
+                            : option.label === 'No' || option.label === 'Non'
                             ? 'var(--zred)'
                             : 'var(--accent)',
                         }}

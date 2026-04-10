@@ -17,34 +17,46 @@
   --text: #eaeaf0;
   --text2: #a0a0b8;
   --text3: #5c5c78;
-  --accent: #7c6ef0;
-  --accent2: #9d92f8;
-  --accent3: #beb6ff;
-  --teal: #34d0b6;
-  --teal2: #20b89f;
-  --zred: #f06070;
+  /* ── PRIMARY — Teal CTA ── */
+  --accent:  #17D5CF;         /* primary CTA, focus, active */
+  --accent2: #0da8a3;         /* darker teal for hover */
+  --accent3: rgba(23,213,207,0.15); /* teal surface tint */
+  --accent-foreground: #050508;     /* dark text on teal bg (AA ✓) */
+
+  /* ── SECONDARY — Soft violet for labels/UX ── */
+  --violet:  #5A4BFF;         /* World View, divergence, rare highlight */
+  --violet2: #7c6ef0;         /* section labels bg, soft highlight */
+  --violet3: #9d92f8;         /* lightest violet — section-label color */
+
+  /* ── TEAL alias (= --accent) ── */
+  --teal:  #17D5CF;
+  --teal2: #0da8a3;
+
+  /* ── Neutral ── */
+  --zred:  #f06070;
   --amber: #f0c050;
-  --blue: #60a8f0;
-  --font: 'Sora', sans-serif;
-  --mono: 'IBM Plex Mono', monospace;
+  --blue:  #60a8f0;
+
+  /* ── Typography ── */
+  --font:  'Sora', sans-serif;
+  --mono:  'IBM Plex Mono', monospace;
   --radius: 13px;
 
-  /* Compat aliases for existing components */
-  --background: #050508;
-  --foreground: #eaeaf0;
-  --primary: #7c6ef0;
-  --primary-foreground: #ffffff;
-  --secondary: #141420;
+  /* ── Compat aliases ── */
+  --background:           #050508;
+  --foreground:           #eaeaf0;
+  --primary:              #17D5CF;
+  --primary-foreground:   #050508;
+  --secondary:            #141420;
   --secondary-foreground: #eaeaf0;
-  --muted: #1a1a28;
-  --muted-foreground: #a0a0b8;
-  --accent-foreground: #ffffff;
-  --card: #0e0e16;
-  --card-foreground: #eaeaf0;
-  --ring: #7c6ef0;
-  --success: #34d0b6;
-  --warning: #f0c050;
-  --danger: #f06070;
+  --muted:                #1a1a28;
+  --muted-foreground:     #a0a0b8;
+  --card:                 #0e0e16;
+  --card-foreground:      #eaeaf0;
+  --ring:                 #17D5CF;
+  --success:              #17D5CF;
+  --warning:              #f0c050;
+  --danger:               #f06070;
 }
 
 /* Dark is the default — no .dark class needed */
@@ -57,9 +69,9 @@
   --secondary-foreground: #eaeaf0;
   --muted: #1a1a28;
   --muted-foreground: #a0a0b8;
-  --accent-foreground: #ffffff;
+  --accent-foreground: #050508;
   --border: rgba(255,255,255,0.05);
-  --ring: #7c6ef0;
+  --ring: #17D5CF;
   --card: #0e0e16;
   --card-foreground: #eaeaf0;
 }
@@ -156,7 +168,7 @@ body {
 
 /* ─── TEXT EFFECTS ─── */
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--teal) 100%);
+  background: linear-gradient(135deg, var(--teal) 0%, var(--violet3) 100%);
   background-size: 200% 200%;
   animation: shimmer 5s ease infinite;
   -webkit-background-clip: text;
@@ -167,7 +179,7 @@ body {
 .section-label {
   font-size: 10.5px;
   font-weight: 700;
-  color: var(--accent2);
+  color: var(--violet3);
   text-transform: uppercase;
   letter-spacing: .14em;
   margin-bottom: 10px;
@@ -220,3 +232,79 @@ body {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
 }
+
+/* ═══════════════════════════════════════════
+   MOTION SYSTEM — Premium micro-interactions
+   120–180ms · ease — no particles, no neon
+   ═══════════════════════════════════════════ */
+
+/* Focus ring — teal, accessible */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Skeleton loading */
+@keyframes skeleton-shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface)  0%,
+    var(--surface2) 50%,
+    var(--surface)  100%
+  );
+  background-size: 800px 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius);
+}
+
+/* Tab/feed switch fade */
+@keyframes tab-fade-in {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.tab-fade { animation: tab-fade-in 150ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+
+/* Vote bar settle (spring) */
+@keyframes bar-settle {
+  from { transform: scaleX(0.6); opacity: 0.6; }
+  to   { transform: scaleX(1);   opacity: 1;   }
+}
+.bar-settle {
+  transform-origin: left;
+  animation: bar-settle 500ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+/* Hover — unified speed */
+.card-hover {
+  transition: transform 150ms ease, border-color 150ms ease, background 150ms ease,
+              box-shadow 150ms ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,0.09);
+  background: var(--surface2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+}
+
+/* Touch targets — 48px minimum on mobile */
+.touch-target { min-height: 48px; min-width: 48px; }
+@media (max-width: 767px) {
+  .btn-touch-mobile {
+    min-height: 48px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
+/* Panel / notification spring */
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)  scale(1); }
+}
+.panel-in { animation: panel-in 200ms cubic-bezier(0.34, 1.56, 0.64, 1) both; }

@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { IconLogo } from '@/components/ui/icons'
+import { LogoLockup } from '@/components/ui/logo'
 import { useLanguage } from '@/components/providers/language-provider'
 import { cn } from '@/lib/utils'
 
@@ -23,9 +23,8 @@ export function Navbar() {
       <nav className="container">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg">
-            <IconLogo size={32} />
-            <span className="gradient-text tracking-tight" style={{ fontFamily: 'var(--font)', fontWeight: 700 }}>ZAWIOS</span>
+          <Link href="/" aria-label="ZAWIOS — Accueil">
+            <LogoLockup className="text-lg" />
           </Link>
 
           {/* Desktop nav */}

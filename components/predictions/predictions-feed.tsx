@@ -110,15 +110,15 @@ export function PredictionsFeed({ predictions }: PredictionsFeedProps) {
         ))}
       </div>
 
-      {/* Grille */}
+      {/* Grille — key on tab triggers tab-fade CSS animation */}
       {filtered.length === 0 ? (
-        <div className="py-20 text-center">
+        <div className="py-20 text-center tab-fade">
           <p className="text-sm" style={{ color: 'var(--text3)' }}>
             Aucune prédiction dans cette catégorie.
           </p>
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div key={`${tab}-${category}`} className="grid md:grid-cols-2 lg:grid-cols-3 gap-5 tab-fade">
           {filtered.map((prediction) => (
             <PredictionCard key={prediction.id} prediction={prediction} />
           ))}
