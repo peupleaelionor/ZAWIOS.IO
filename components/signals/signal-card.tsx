@@ -11,13 +11,14 @@ import {
   type Signal,
 } from '@/lib/signals-data'
 import { Avatar } from '@/components/ui/avatar'
-import { IconTrending, IconCheck } from '@/components/ui/icons'
+import { IconTrending, IconCheck, IconShare, IconBookmark, IconComment, IconFire } from '@/components/ui/icons'
 import { WorldViewComparison } from '@/components/signals/world-view-comparison'
+import { SignalComments } from '@/components/signals/signal-comments'
 
 interface SignalCardProps {
-  signal: Signal
+  signal:   Signal
   compact?: boolean
-  onVote?: (signalId: string, vote: 'yes' | 'no' | 'neutral') => void
+  onVote?:  (signalId: string, vote: 'yes' | 'no' | 'neutral') => void
 }
 
 const getCategoryLabel = (id: string) =>
@@ -26,35 +27,50 @@ const getCategoryLabel = (id: string) =>
 const getRegionLabel = (id: string) =>
   SIGNAL_REGIONS.find((r) => r.id === id)?.labelFr ?? id
 
-const SWIPE_THRESHOLD = 50   // px horizontal
-const SWIPE_UP_THRESHOLD = -60 // px vertical (negative = upward)
+const SWIPE_THRESHOLD    = 50
+const SWIPE_UP_THRESHOLD = -60
+
+// Reaction definitions
+const REACTIONS = [
+  { key: 'fire',    emoji: '🔥', label: 'Hot' },
+  { key: 'wow',     emoji: '😮', label: 'Wow' },
+  { key: 'think',   emoji: '🤔', label: 'Hmm' },
+  { key: 'skeptic', emoji: '🧐', label: 'Sceptique' },
+  { key: 'clap',    emoji: '👏', label: 'Bravo' },
+] as const
+type ReactionKey = typeof REACTIONS[number]['key']
 
 export function SignalCard({ signal, compact = false, onVote }: SignalCardProps) {
   const [voted, setVoted] = useState<'yes' | 'no' | 'neutral' | null>(null)
-  const [yes, setYes] = useState(signal.yesPercent)
-  const [no, setNo] = useState(signal.noPercent)
+  const [yes, setYes]         = useState(signal.yesPercent)
+  const [no, setNo]           = useState(signal.noPercent)
   const [neutral, setNeutral] = useState(signal.neutralPercent ?? 0)
   const [swipeHint, setSwipeHint] = useState<'yes' | 'no' | 'neutral' | null>(null)
+  const [bookmarked, setBookmarked]  = useState(false)
+  const [activeReaction, setActiveReaction] = useState<ReactionKey | null>(null)
+  const [reactionCounts, setReactionCounts] = useState<Record<ReactionKey, number>>({
+    fire: 0, wow: 0, think: 0, skeptic: 0, clap: 0,
+  })
+  const [showComments, setShowComments] = useState(false)
   const touchStart = useRef<{ x: number; y: number } | null>(null)
   const isResolved = signal.status === 'resolved'
-  const catStyle = CATEGORY_COLORS[signal.category]
+  const catStyle   = CATEGORY_COLORS[signal.category]
 
+  // ── Vote ────────────────────────────────────────────────────────────────────
   const handleVote = (choice: 'yes' | 'no' | 'neutral') => {
     if (voted || isResolved) return
     setVoted(choice)
 
-    // Simulate slight distribution shift
     if (choice === 'yes') {
       setYes((p) => Math.min(97, p + 1))
-      setNo((p) => Math.max(1, p - 1))
+      setNo((p)  => Math.max(1, p - 1))
     } else if (choice === 'no') {
-      setNo((p) => Math.min(97, p + 1))
+      setNo((p)  => Math.min(97, p + 1))
       setYes((p) => Math.max(1, p - 1))
     } else {
       setNeutral((p) => Math.min(30, p + 1))
-      setYes((p) => Math.max(1, p - 1))
+      setYes((p)    => Math.max(1, p - 1))
     }
-
     setSwipeHint(null)
     onVote?.(signal.id, choice)
 
@@ -71,11 +87,11 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
     })
   }
 
+  // ── Swipe ───────────────────────────────────────────────────────────────────
   const handleTouchStart = (e: React.TouchEvent) => {
     if (voted || isResolved) return
     touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
   }
-
   const handleTouchMove = (e: React.TouchEvent) => {
     if (!touchStart.current || voted || isResolved) return
     const dx = e.touches[0].clientX - touchStart.current.x
@@ -90,7 +106,6 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
       setSwipeHint(null)
     }
   }
-
   const handleTouchEnd = (e: React.TouchEvent) => {
     if (!touchStart.current || voted || isResolved) return
     const dx = e.changedTouches[0].clientX - touchStart.current.x
@@ -106,55 +121,97 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
     }
   }
 
-  const swipeOverlayColor =
-    swipeHint === 'yes' ? 'rgba(23,213,207,0.08)' :
-    swipeHint === 'no'  ? 'rgba(255,255,255,0.05)' :
-    swipeHint === 'neutral' ? 'rgba(160,160,184,0.06)' :
+  // ── Reaction ────────────────────────────────────────────────────────────────
+  const handleReaction = (key: ReactionKey) => {
+    if (activeReaction === key) {
+      setActiveReaction(null)
+      setReactionCounts((prev) => ({ ...prev, [key]: Math.max(0, prev[key] - 1) }))
+    } else {
+      if (activeReaction) {
+        setReactionCounts((prev) => ({ ...prev, [activeReaction]: Math.max(0, prev[activeReaction] - 1) }))
+      }
+      setActiveReaction(key)
+      setReactionCounts((prev) => ({ ...prev, [key]: prev[key] + 1 }))
+    }
+  }
+
+  // ── Share ───────────────────────────────────────────────────────────────────
+  const handleShare = async () => {
+    const url  = `${typeof window !== 'undefined' ? window.location.origin : ''}/signals/${signal.id}`
+    const text = `"${signal.title}" — Vote YES ou NO sur ZAWIOS`
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try { await navigator.share({ title: signal.title, text, url }) } catch { /* cancelled */ }
+    } else {
+      await navigator.clipboard?.writeText(url)
+      toast.success('Lien copié', { description: url })
+    }
+  }
+
+  // ── Bookmark ────────────────────────────────────────────────────────────────
+  const handleBookmark = () => {
+    setBookmarked(!bookmarked)
+    toast.success(bookmarked ? 'Retiré des favoris' : 'Ajouté aux favoris')
+  }
+
+  // Swipe overlay color
+  const swipeOverlayBg =
+    swipeHint === 'yes'     ? 'rgba(29,228,222,0.07)' :
+    swipeHint === 'no'      ? 'rgba(255,107,157,0.07)' :
+    swipeHint === 'neutral' ? 'rgba(168,168,192,0.05)' :
     'transparent'
+
+  const cardBorder =
+    voted === 'yes'     ? '1px solid rgba(29,228,222,0.30)' :
+    voted === 'no'      ? '1px solid rgba(255,107,157,0.30)' :
+    voted === 'neutral' ? '1px solid rgba(168,168,192,0.22)' :
+    swipeHint === 'yes' ? '1px solid rgba(29,228,222,0.28)' :
+    swipeHint === 'no'  ? '1px solid rgba(255,107,157,0.28)' :
+    '1px solid var(--border2)'
 
   return (
     <div
-      className="card-hover relative overflow-hidden flex flex-col"
+      className="social-card relative overflow-hidden flex flex-col"
       style={{
-        background: swipeHint ? swipeOverlayColor : 'var(--surface)',
-        border: swipeHint === 'yes' ? '1px solid rgba(23,213,207,0.3)' :
-                swipeHint === 'no'  ? '1px solid rgba(255,255,255,0.15)' :
-                '1px solid var(--border2)',
+        background:  swipeHint ? swipeOverlayBg : 'var(--surface)',
+        border:      cardBorder,
         borderRadius: 'var(--radius)',
-        padding: compact ? '14px' : '16px 18px 14px',
-        transition: 'background 0.15s, border-color 0.15s',
+        padding:     compact ? '14px' : '16px 18px 14px',
+        transition:  'background 0.15s, border-color 0.2s, transform 0.2s, box-shadow 0.2s',
       }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Swipe hint overlay */}
+      {/* ── Swipe hint badge ─────────────────────────────────────────────── */}
       {swipeHint && (
-        <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
-          style={{ opacity: 0.9 }}
-        >
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
           <span
-            className="px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest"
+            className="px-4 py-2 rounded-xl text-sm font-bold uppercase tracking-widest pop-in"
             style={{
               fontFamily: 'var(--mono)',
-              background: swipeHint === 'yes' ? 'var(--teal)' : swipeHint === 'no' ? 'rgba(255,255,255,0.9)' : 'rgba(160,160,184,0.35)',
+              background:
+                swipeHint === 'yes'     ? 'var(--teal)' :
+                swipeHint === 'no'      ? 'var(--pink)' :
+                'rgba(168,168,192,0.35)',
               color: swipeHint === 'neutral' ? 'var(--text)' : 'var(--bg)',
+              boxShadow: swipeHint === 'yes' ? '0 0 20px rgba(29,228,222,0.4)' :
+                         swipeHint === 'no'  ? '0 0 20px rgba(255,107,157,0.4)' : 'none',
             }}
           >
             {swipeHint === 'yes' ? 'YES' : swipeHint === 'no' ? 'NO' : 'NEUTRE'}
           </span>
         </div>
       )}
-      {/* HOT accent line */}
+
+      {/* ── HOT accent line ──────────────────────────────────────────────── */}
       {signal.hot && (
         <div
           className="absolute top-0 left-0 right-0 h-[2px]"
-          style={{ background: 'linear-gradient(90deg, var(--teal), var(--accent), var(--teal))' }}
+          style={{ background: 'linear-gradient(90deg, var(--teal), var(--accent2), var(--pink))' }}
         />
       )}
 
-      {/* ── Header ── */}
+      {/* ── Header row ──────────────────────────────────────────────────── */}
       <div className="flex items-start justify-between gap-2 mb-3">
         <div className="flex items-center gap-1.5 flex-wrap">
           <span
@@ -171,68 +228,85 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
           </span>
           {signal.hot && (
             <span
-              className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-              style={{ fontFamily: 'var(--mono)', background: 'rgba(240,96,112,0.12)', color: 'var(--zred)' }}
+              className="flex items-center gap-0.5 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+              style={{ fontFamily: 'var(--mono)', background: 'rgba(255,112,67,0.12)', color: 'var(--fire-color)' }}
             >
+              <IconFire size={9} />
               HOT
             </span>
           )}
           {isResolved && (
             <span
               className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-              style={{ fontFamily: 'var(--mono)', background: 'rgba(23,213,207,0.1)', color: 'var(--teal)' }}
+              style={{ fontFamily: 'var(--mono)', background: 'rgba(29,228,222,0.10)', color: 'var(--teal)' }}
             >
               Résolu
             </span>
           )}
         </div>
-        <span
-          className="text-[10px] text-[var(--text3)] whitespace-nowrap shrink-0 mt-0.5"
-          style={{ fontFamily: 'var(--mono)' }}
-        >
-          {signal.timeAgo}
-        </span>
+
+        <div className="flex items-center gap-1.5 shrink-0">
+          <span
+            className="text-[10px] text-[var(--text3)]"
+            style={{ fontFamily: 'var(--mono)' }}
+          >
+            {signal.timeAgo}
+          </span>
+          <button
+            onClick={handleBookmark}
+            className="p-1 rounded-lg transition-colors"
+            style={{
+              color:      bookmarked ? 'var(--teal)' : 'var(--text3)',
+              background: bookmarked ? 'rgba(29,228,222,0.08)' : 'transparent',
+            }}
+            title={bookmarked ? 'Retirer des favoris' : 'Ajouter aux favoris'}
+          >
+            <IconBookmark size={13} />
+          </button>
+        </div>
       </div>
 
-      {/* ── Title ── */}
+      {/* ── Title ───────────────────────────────────────────────────────── */}
       <h3
-        className={cn('font-bold text-[var(--text)] leading-snug', compact ? 'text-sm' : 'text-[15px]')}
-        style={{ letterSpacing: '-0.01em' }}
+        className={cn('font-bold leading-snug', compact ? 'text-sm' : 'text-[15px]')}
+        style={{ color: 'var(--text)', letterSpacing: '-0.01em' }}
       >
         {signal.title}
       </h3>
 
       {!compact && signal.description && (
-        <p className="mt-1.5 text-[12px] text-[var(--text2)] line-clamp-2 leading-relaxed">
+        <p className="mt-1.5 text-[12px] leading-relaxed line-clamp-2" style={{ color: 'var(--text2)' }}>
           {signal.description}
         </p>
       )}
 
-      {/* ── Resolved result ── */}
+      {/* ── Resolved result ─────────────────────────────────────────────── */}
       {isResolved && signal.resolvedResult !== undefined && (
         <div className="mt-4 flex items-center gap-4">
           <div>
-            <span className="text-[9px] text-[var(--text3)] uppercase tracking-wider block mb-0.5" style={{ fontFamily: 'var(--mono)' }}>
+            <span className="text-[9px] uppercase tracking-wider block mb-0.5" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
               Prédiction foule
             </span>
             <span
-              className={cn('text-sm font-bold', signal.yesPercent > 50 ? 'text-[var(--teal)]' : 'text-white')}
+              className={cn('text-sm font-bold', signal.yesPercent > 50 ? 'text-[var(--teal)]' : 'text-[var(--pink)]')}
               style={{ fontFamily: 'var(--mono)' }}
             >
               {signal.yesPercent > 50 ? 'YES' : 'NO'}{' '}
-              <span className="text-xs font-normal text-[var(--text3)]">
+              <span className="text-xs font-normal" style={{ color: 'var(--text3)' }}>
                 {Math.max(signal.yesPercent, signal.noPercent)}%
               </span>
             </span>
           </div>
           <div>
-            <span className="text-[9px] text-[var(--text3)] uppercase tracking-wider block mb-0.5" style={{ fontFamily: 'var(--mono)' }}>
+            <span className="text-[9px] uppercase tracking-wider block mb-0.5" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
               Résultat réel
             </span>
             <span
               className={cn(
                 'inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold',
-                signal.resolvedResult ? 'bg-[var(--teal)]/15 text-[var(--teal)]' : 'bg-[var(--zred)]/15 text-[var(--zred)]',
+                signal.resolvedResult
+                  ? 'bg-[rgba(29,228,222,0.12)] text-[var(--teal)]'
+                  : 'bg-[rgba(255,77,117,0.12)] text-[var(--zred)]',
               )}
               style={{ fontFamily: 'var(--mono)' }}
             >
@@ -242,52 +316,47 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
         </div>
       )}
 
-      {/* ── Active signal: vote section ── */}
+      {/* ── Active signal: vote section ──────────────────────────────────── */}
       {!isResolved && (
         <div className="mt-auto pt-4">
-          {/* Stats row */}
+
+          {/* Percentage stats */}
           <div className="flex items-baseline gap-3 mb-2">
             <div className="flex items-baseline gap-1">
               <span
-                className="text-[20px] font-bold text-[var(--text)]"
-                style={{ fontFamily: 'var(--mono)', lineHeight: 1 }}
+                className="text-[22px] font-bold"
+                style={{ color: voted === 'yes' ? 'var(--teal)' : 'var(--text)', fontFamily: 'var(--mono)', lineHeight: 1 }}
               >
                 {yes}%
               </span>
-              <span className="text-[10px] text-[var(--teal)] font-semibold" style={{ fontFamily: 'var(--mono)' }}>
-                YES
-              </span>
+              <span className="text-[10px] font-bold" style={{ fontFamily: 'var(--mono)', color: 'var(--teal)' }}>YES</span>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-[14px] font-semibold text-[var(--text2)]" style={{ fontFamily: 'var(--mono)', lineHeight: 1 }}>
+              <span
+                className="text-[16px] font-semibold"
+                style={{ color: voted === 'no' ? 'var(--pink)' : 'var(--text2)', fontFamily: 'var(--mono)', lineHeight: 1 }}
+              >
                 {no}%
               </span>
-              <span className="text-[10px] text-[var(--text3)] font-semibold" style={{ fontFamily: 'var(--mono)' }}>
-                NO
-              </span>
+              <span className="text-[10px] font-bold" style={{ fontFamily: 'var(--mono)', color: 'var(--pink)' }}>NO</span>
             </div>
             {neutral > 0 && (
               <div className="flex items-baseline gap-1">
-                <span className="text-[12px] font-medium text-[var(--text3)]" style={{ fontFamily: 'var(--mono)', lineHeight: 1 }}>
+                <span className="text-[13px] font-medium" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)', lineHeight: 1 }}>
                   {neutral}%
                 </span>
-                <span className="text-[10px] text-[var(--text3)] font-semibold" style={{ fontFamily: 'var(--mono)' }}>
-                  —
-                </span>
+                <span className="text-[10px]" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>—</span>
               </div>
             )}
           </div>
 
           {/* Tri-segment progress bar */}
-          <div
-            className="w-full h-1.5 rounded-full overflow-hidden flex mb-4"
-            style={{ background: 'var(--surface3)' }}
-          >
+          <div className="w-full h-2 rounded-full overflow-hidden flex mb-4" style={{ background: 'var(--surface3)' }}>
             <div
               className="h-full transition-all duration-500"
               style={{
-                width: `${yes}%`,
-                background: voted === 'yes' ? 'var(--teal)' : 'rgba(23,213,207,0.7)',
+                width:        `${yes}%`,
+                background:   voted === 'yes' ? 'var(--teal)' : 'rgba(29,228,222,0.55)',
                 borderRadius: '9999px 0 0 9999px',
               }}
             />
@@ -295,94 +364,64 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
               <div
                 className="h-full transition-all duration-500"
                 style={{
-                  width: `${neutral}%`,
-                  background: voted === 'neutral' ? 'rgba(160,160,184,0.6)' : 'rgba(160,160,184,0.25)',
-                  margin: '0 1px',
+                  width:      `${neutral}%`,
+                  background: voted === 'neutral' ? 'var(--text3)' : 'rgba(168,168,192,0.3)',
+                  margin:     '0 1px',
                 }}
               />
             )}
             <div
               className="h-full transition-all duration-500"
               style={{
-                width: `${no}%`,
-                background: voted === 'no' ? 'rgba(255,255,255,0.6)' : 'rgba(255,255,255,0.18)',
+                width:        `${no}%`,
+                background:   voted === 'no' ? 'var(--pink)' : 'rgba(255,107,157,0.4)',
                 borderRadius: '0 9999px 9999px 0',
               }}
             />
           </div>
 
           {/* Vote count */}
-          <div className="flex items-center gap-1.5 text-[10px] text-[var(--text3)] mb-3" style={{ fontFamily: 'var(--mono)' }}>
-            <IconTrending size={10} className="w-2.5 h-2.5 shrink-0" />
+          <div
+            className="flex items-center gap-1.5 text-[10px] mb-3"
+            style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}
+          >
+            <IconTrending size={10} />
             {formatNumber(signal.totalVotes)} signaux
           </div>
 
-          {/* YES / NEUTRAL / NO buttons — 3-column horizontal */}
+          {/* YES / NEUTRAL / NO vote buttons */}
           {!voted ? (
             <div className="grid grid-cols-3 gap-2">
-              <VoteButton
-                label="YES"
-                onClick={() => handleVote('yes')}
-                variant="yes"
-              />
-              <VoteButton
-                label="—"
-                sublabel="NEUTRE"
-                onClick={() => handleVote('neutral')}
-                variant="neutral"
-              />
-              <VoteButton
-                label="NO"
-                onClick={() => handleVote('no')}
-                variant="no"
-              />
+              <VoteButton label="YES" onClick={() => handleVote('yes')} variant="yes" />
+              <VoteButton label="—" sublabel="NEUTRE" onClick={() => handleVote('neutral')} variant="neutral" />
+              <VoteButton label="NO" onClick={() => handleVote('no')} variant="no" />
             </div>
           ) : (
-            // Post-vote state: show chosen vote
             <div className="grid grid-cols-3 gap-2">
-              <VoteButton
-                label="YES"
-                onClick={() => {}}
-                variant="yes"
-                state={voted === 'yes' ? 'active' : 'dim'}
-                disabled
-              />
-              <VoteButton
-                label="—"
-                sublabel="NEUTRE"
-                onClick={() => {}}
-                variant="neutral"
-                state={voted === 'neutral' ? 'active' : 'dim'}
-                disabled
-              />
-              <VoteButton
-                label="NO"
-                onClick={() => {}}
-                variant="no"
-                state={voted === 'no' ? 'active' : 'dim'}
-                disabled
-              />
+              <VoteButton label="YES" onClick={() => {}} variant="yes"     state={voted === 'yes'     ? 'active' : 'dim'} disabled />
+              <VoteButton label="—" sublabel="NEUTRE" onClick={() => {}} variant="neutral" state={voted === 'neutral' ? 'active' : 'dim'} disabled />
+              <VoteButton label="NO"  onClick={() => {}} variant="no"      state={voted === 'no'      ? 'active' : 'dim'} disabled />
             </div>
           )}
 
-          {/* Post-vote feedback + World View breakdown */}
+          {/* Post-vote feedback */}
           {voted && (
             <div className="mt-3 space-y-3">
               <div
-                className="p-3 rounded-lg text-xs"
+                className="p-3 rounded-xl text-xs"
                 style={{ background: 'var(--surface2)', border: '1px solid var(--border2)' }}
               >
-                <span className="text-[var(--text2)]">Signal enregistré : </span>
+                <span style={{ color: 'var(--text2)' }}>Signal enregistré : </span>
                 <span
                   className="font-bold"
                   style={{
-                    color: voted === 'yes' ? 'var(--teal)' : voted === 'neutral' ? 'var(--text2)' : 'var(--text)',
+                    color: voted === 'yes' ? 'var(--teal)' : voted === 'neutral' ? 'var(--text2)' : 'var(--pink)',
                   }}
                 >
                   {voted === 'yes' ? 'YES' : voted === 'no' ? 'NO' : 'NEUTRE'}
                 </span>
                 {voted !== 'neutral' && (
-                  <span className="text-[var(--text3)]">
+                  <span style={{ color: 'var(--text3)' }}>
                     {' — '}
                     {(voted === 'yes' && yes > 50) || (voted === 'no' && no > 50)
                       ? 'Aligné avec la majorité.'
@@ -390,7 +429,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
                   </span>
                 )}
                 {voted === 'neutral' && (
-                  <span className="text-[var(--text3)]"> — Position abstention comptabilisée.</span>
+                  <span style={{ color: 'var(--text3)' }}> — Abstention comptabilisée.</span>
                 )}
               </div>
               {signal.regionalBreakdown && (
@@ -401,112 +440,164 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
         </div>
       )}
 
-      {/* ── Footer: creator + trending ── */}
+      {/* ── Reactions row ────────────────────────────────────────────────── */}
       <div
-        className="mt-4 pt-3 flex items-center justify-between"
+        className="mt-4 pt-3 flex items-center gap-1.5 overflow-x-auto scrollbar-none"
         style={{ borderTop: '1px solid var(--border)' }}
       >
-        {signal.createdBy && signal.creatorName ? (
-          <div className="flex items-center gap-2">
-            <Avatar src={signal.creatorAvatar} name={signal.creatorName} size="xs" />
-            <span className="text-[11px] text-[var(--text3)] font-medium flex items-center gap-0.5">
-              {signal.creatorName}
-              {signal.verified && (
-                <IconCheck size={10} className="inline-block w-2.5 h-2.5 text-[var(--teal)]" />
+        {REACTIONS.map((r) => {
+          const count  = reactionCounts[r.key]
+          const active = activeReaction === r.key
+          return (
+            <button
+              key={r.key}
+              onClick={() => handleReaction(r.key)}
+              className={cn(
+                'reaction-btn flex-shrink-0',
+                active && 'active',
               )}
-            </span>
-          </div>
-        ) : (
-          <div />
-        )}
-        {signal.trending && !isResolved && (
-          <span
-            className="flex items-center gap-1 text-[10px] font-semibold"
-            style={{ fontFamily: 'var(--mono)', color: 'var(--accent2)' }}
-          >
-            <IconTrending size={10} className="w-2.5 h-2.5" />
-            trending
-          </span>
-        )}
+              title={r.label}
+            >
+              <span style={{ fontSize: 13 }}>{r.emoji}</span>
+              {count > 0 && (
+                <span className="text-[11px] font-bold" style={{ color: active ? 'var(--text)' : 'var(--text3)' }}>
+                  {count}
+                </span>
+              )}
+            </button>
+          )
+        })}
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Share */}
+        <button
+          onClick={handleShare}
+          className="reaction-btn flex-shrink-0"
+          title="Partager"
+        >
+          <IconShare size={12} />
+          <span className="text-[11px]">Partager</span>
+        </button>
       </div>
+
+      {/* ── Footer: creator + trending + comment toggle ──────────────────── */}
+      <div
+        className="mt-3 flex items-center justify-between gap-2"
+        style={{ borderTop: '1px solid var(--border)', paddingTop: '10px' }}
+      >
+        <div className="flex items-center gap-2">
+          {signal.createdBy && signal.creatorName ? (
+            <>
+              <Avatar src={signal.creatorAvatar} name={signal.creatorName} size="xs" />
+              <span className="text-[11px] font-medium flex items-center gap-0.5" style={{ color: 'var(--text3)' }}>
+                {signal.creatorName}
+                {signal.verified && (
+                  <IconCheck size={10} className="inline-block text-[var(--teal)]" />
+                )}
+              </span>
+            </>
+          ) : (
+            <div />
+          )}
+        </div>
+
+        <div className="flex items-center gap-2">
+          {signal.trending && !isResolved && (
+            <span
+              className="flex items-center gap-1 text-[10px] font-semibold"
+              style={{ fontFamily: 'var(--mono)', color: 'var(--accent2)' }}
+            >
+              <IconTrending size={10} />
+              trending
+            </span>
+          )}
+          <button
+            onClick={() => setShowComments(!showComments)}
+            className="flex items-center gap-1.5 text-[11px] font-semibold reaction-btn"
+            style={{ color: showComments ? 'var(--teal)' : 'var(--text3)' }}
+          >
+            <IconComment size={12} />
+            <span style={{ fontFamily: 'var(--mono)' }}>
+              {(signal as unknown as { comment_count?: number }).comment_count ?? 0}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* ── Comments section ─────────────────────────────────────────────── */}
+      {showComments && (
+        <SignalComments
+          signalId={signal.id}
+          initialComments={[]}
+          commentCount={(signal as unknown as { comment_count?: number }).comment_count ?? 0}
+        />
+      )}
     </div>
   )
 }
 
-// ── Vote Button ────────────────────────────────────────────────────────────
+// ── Vote Button ────────────────────────────────────────────────────────────────
 type VoteVariant = 'yes' | 'no' | 'neutral'
-type VoteState = 'idle' | 'active' | 'dim'
+type VoteState   = 'idle' | 'active' | 'dim'
 
 interface VoteButtonProps {
-  label: string
-  sublabel?: string
-  onClick: () => void
-  variant: VoteVariant
-  state?: VoteState
-  disabled?: boolean
+  label:      string
+  sublabel?:  string
+  onClick:    () => void
+  variant:    VoteVariant
+  state?:     VoteState
+  disabled?:  boolean
 }
 
 function VoteButton({ label, sublabel, onClick, variant, state = 'idle', disabled = false }: VoteButtonProps) {
   const isActive = state === 'active'
-  const isDim = state === 'dim'
+  const isDim    = state === 'dim'
 
-  const styles: Record<VoteVariant, { active: string; idle: string; border: string; activeBorder: string }> = {
+  const styleMap = {
     yes: {
-      active: 'var(--teal)',
-      idle: 'transparent',
-      border: 'rgba(23,213,207,0.2)',
-      activeBorder: 'var(--teal)',
+      idle:         { bg: 'rgba(29,228,222,0.10)',    border: 'rgba(29,228,222,0.25)',  color: 'var(--teal)' },
+      active:       { bg: 'var(--teal)',               border: 'var(--teal)',             color: 'var(--bg)' },
     },
     no: {
-      active: 'rgba(255,255,255,0.85)',
-      idle: 'transparent',
-      border: 'var(--border2)',
-      activeBorder: 'rgba(255,255,255,0.6)',
+      idle:         { bg: 'rgba(255,107,157,0.10)',   border: 'rgba(255,107,157,0.25)', color: 'var(--pink)' },
+      active:       { bg: 'var(--pink)',               border: 'var(--pink)',             color: '#fff' },
     },
     neutral: {
-      active: 'rgba(160,160,184,0.25)',
-      idle: 'transparent',
-      border: 'var(--border)',
-      activeBorder: 'rgba(160,160,184,0.5)',
+      idle:         { bg: 'rgba(168,168,192,0.08)',   border: 'rgba(168,168,192,0.18)', color: 'var(--text3)' },
+      active:       { bg: 'var(--surface3)',           border: 'var(--border3)',          color: 'var(--text2)' },
     },
   }
 
-  const s = styles[variant]
+  const s = isActive ? styleMap[variant].active : styleMap[variant].idle
 
   return (
     <button
       onClick={onClick}
       disabled={disabled}
       className={cn(
-        'flex flex-col items-center justify-center gap-0.5 rounded-xl transition-all duration-150',
-        'min-h-[48px] py-2',
-        !disabled && 'hover:brightness-110 active:scale-[0.97]',
-        isDim && 'opacity-25',
+        'vote-btn flex flex-col items-center justify-center gap-0.5 min-h-[52px] py-2',
+        !disabled && 'hover:brightness-110',
+        isDim && 'opacity-20',
       )}
       style={{
-        background: isActive ? s.active : s.idle,
-        border: `1px solid ${isActive ? s.activeBorder : s.border}`,
-        fontFamily: 'var(--mono)',
+        background:  s.bg,
+        border:      `1px solid ${s.border}`,
+        fontFamily:  'var(--mono)',
+        borderRadius: '12px',
       }}
     >
       <span
-        className="text-[13px] font-bold leading-none"
-        style={{
-          color: isActive
-            ? variant === 'yes' ? 'var(--bg)' : variant === 'no' ? 'var(--bg)' : 'var(--text2)'
-            : variant === 'yes' ? 'var(--teal)' : variant === 'neutral' ? 'var(--text3)' : 'var(--text2)',
-        }}
+        className="text-[14px] font-bold leading-none"
+        style={{ color: s.color }}
       >
         {label}
       </span>
       {sublabel && (
         <span
           className="text-[8px] font-semibold uppercase tracking-wider"
-          style={{
-            color: isActive
-              ? variant === 'neutral' ? 'var(--text2)' : 'var(--bg)'
-              : 'var(--text3)',
-          }}
+          style={{ color: isActive ? (variant === 'neutral' ? 'var(--text2)' : 'rgba(255,255,255,0.7)') : 'var(--text3)' }}
         >
           {sublabel}
         </span>

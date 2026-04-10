@@ -1,38 +1,38 @@
 export function SocialProofSection() {
   const stats = [
-    { value: '47K+', label: 'Votants actifs' },
-    { value: '32', label: 'Signaux / jour' },
-    { value: '94', label: 'Pays' },
-    { value: '64%', label: 'Precision moyenne' },
+    { value: '47K+', label: 'Votants actifs', sub: '+18% ce mois' },
+    { value: '32',   label: 'Signaux / jour',  sub: 'Mis à jour en continu' },
+    { value: '94',   label: 'Pays représentés', sub: '4 continents' },
+    { value: '64%',  label: 'Précision foule',  sub: 'Moyenne globale' },
   ]
 
   return (
-    <section className="py-8 md:py-12 bg-[var(--bg)]">
+    <section className="py-8 md:py-12" style={{ background: 'var(--bg)' }}>
       <div className="container">
-        <div
-          className="max-w-2xl mx-auto surface"
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(2, 1fr)',
-          }}
-        >
-          {stats.map((stat, i) => (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-3xl mx-auto">
+          {stats.map((stat) => (
             <div
               key={stat.label}
-              className="py-4 px-3 text-center"
+              className="text-center py-5 px-3 rounded-2xl"
               style={{
-                borderRight: i % 2 === 0 ? '1px solid var(--border)' : 'none',
-                borderBottom: i < 2 ? '1px solid var(--border)' : 'none',
+                background: 'var(--surface)',
+                border:     '1px solid var(--border2)',
               }}
             >
               <p
-                className="text-lg md:text-xl font-bold text-[var(--text)]"
-                style={{ fontFamily: 'var(--mono)' }}
+                className="text-2xl md:text-3xl font-bold"
+                style={{ fontFamily: 'var(--mono)', color: 'var(--teal)' }}
               >
                 {stat.value}
               </p>
-              <p className="text-[10px] text-[var(--text3)] mt-1 uppercase tracking-wider" style={{ fontFamily: 'var(--mono)' }}>
+              <p
+                className="text-[11px] font-semibold mt-1 uppercase tracking-wider"
+                style={{ color: 'var(--text2)', fontFamily: 'var(--mono)' }}
+              >
                 {stat.label}
+              </p>
+              <p className="text-[10px] mt-0.5" style={{ color: 'var(--text3)' }}>
+                {stat.sub}
               </p>
             </div>
           ))}

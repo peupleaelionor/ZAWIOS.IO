@@ -478,3 +478,65 @@ export function IconHome(props: IconProps) {
     </svg>
   )
 }
+
+export function IconBookmark(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+    </svg>
+  )
+}
+
+export function IconHeart(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+    </svg>
+  )
+}
+
+export function IconFire(props: IconProps) {
+  // Filled flame shape using fill
+  return (
+    <svg {...iconProps(props)} fill="currentColor" stroke="none">
+      <path d="M17.66 11.2c-.23-.3-.51-.56-.77-.82-.67-.6-1.43-1.03-2.07-1.67-.64-.63-1.14-1.65-.93-2.61.17-.78.67-1.45 1.09-2.12-.26.09-.53.2-.77.32-.94.48-1.8 1.18-2.46 2.02-.69.88-1.13 1.94-1.18 3.05-.02.26-.05.51-.14.74-.06.17-.14.33-.22.49a3.17 3.17 0 01-.66-.56c-.73-.83-1.07-1.91-.93-2.97-.54.47-1.03 1-.42 1.44.3.23.65.38 1.03.44-.37.54-.65 1.12-.84 1.71-.23.71-.26 1.48-.11 2.2.14.66.45 1.29.88 1.82.43.53.98.98 1.59 1.29.62.32 1.3.49 1.99.49s1.37-.17 1.99-.49c.61-.31 1.16-.76 1.59-1.29.43-.53.74-1.16.88-1.82.15-.72.12-1.49-.11-2.2-.18-.56-.43-1.09-.77-1.57z" />
+    </svg>
+  )
+}
+
+export function IconSend(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <line x1="22" y1="2" x2="11" y2="13" />
+      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+    </svg>
+  )
+}
+
+export function IconThumbUp(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z" />
+      <path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" />
+    </svg>
+  )
+}
+
+export function IconMoreHoriz(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
+export function IconReply(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <polyline points="9 17 4 12 9 7" />
+      <path d="M20 18v-2a4 4 0 00-4-4H4" />
+    </svg>
+  )
+}
