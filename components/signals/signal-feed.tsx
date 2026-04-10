@@ -1,19 +1,22 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import { cn } from '@/lib/utils'
 import { SignalCard } from './signal-card'
+import { SignalFeedSkeleton } from './signal-card-skeleton'
 import { WorldViewComparison } from './world-view-comparison'
 import {
-  mockSignals,
   SIGNAL_REGIONS,
   CATEGORY_COLORS,
   getWorldViewSignals,
   type SignalRegion,
   type SignalCategory,
 } from '@/lib/signals-data'
+import { useSignals } from '@/hooks/useSignals'
+import { useSignalVote } from '@/hooks/useSignalVote'
+import { useUIStore } from '@/lib/stores/ui'
 
-// ── Category tabs with brand colors ──────────────────────────────────────────
+// ── Category tabs ─────────────────────────────────────────────────────────────
 const CATEGORY_TABS: { id: SignalCategory | 'all'; labelFr: string }[] = [
   { id: 'all',           labelFr: 'Tous' },
   { id: 'worldview',     labelFr: 'World View' },
@@ -29,50 +32,35 @@ const CATEGORY_TABS: { id: SignalCategory | 'all'; labelFr: string }[] = [
   { id: 'fun',           labelFr: 'Fun' },
 ]
 
-// ── Feed sort tabs ────────────────────────────────────────────────────────────
 const SORT_TABS = [
-  { id: 'trending', label: 'Tendances' },
-  { id: 'latest',   label: 'Récents' },
-  { id: 'popular',  label: 'Populaires' },
+  { id: 'trending',  label: 'Tendances' },
+  { id: 'latest',    label: 'Récents' },
+  { id: 'popular',   label: 'Populaires' },
   { id: 'following', label: 'Suivis' },
 ]
 
 export function SignalFeed() {
-  const [sortTab, setSortTab]         = useState('trending')
-  const [category, setCategory]       = useState<SignalCategory | 'all'>('all')
-  const [region, setRegion]           = useState<SignalRegion | 'all'>('all')
-  const [showWorldView, setShowWV]    = useState(false)
+  // ── State from Zustand (UI-only) ──────────────────────────────────────────
+  const {
+    feedSort,     setFeedSort,
+    feedCategory, setFeedCategory,
+    feedRegion,   setFeedRegion,
+    showWorldView, toggleWorldView,
+    resetFeedFilters,
+  } = useUIStore()
+
+  // ── Server data from React Query ──────────────────────────────────────────
+  const sortParam = (feedSort === 'following' ? 'trending' : feedSort) as 'trending' | 'latest' | 'popular'
+  const { data: signals = [], isLoading } = useSignals({
+    category: feedCategory,
+    region:   feedRegion,
+    sort:     sortParam,
+    limit:    20,
+  })
+
+  const { mutate: castVote } = useSignalVote()
 
   const worldViewSignals = useMemo(() => getWorldViewSignals(3), [])
-
-  const filteredSignals = useMemo(() => {
-    let signals = [...mockSignals].filter((s) => s.status === 'active')
-
-    if (category !== 'all')   signals = signals.filter((s) => s.category === category)
-    if (region !== 'all')     signals = signals.filter((s) => s.region === region)
-
-    // worldview tab always shows worldview category
-    if (category === 'worldview') {
-      signals = signals.sort((a, b) => b.totalVotes - a.totalVotes)
-      return signals.slice(0, 15)
-    }
-
-    switch (sortTab) {
-      case 'trending':
-        signals = signals.filter((s) => s.trending || s.hot).sort((a, b) => b.totalVotes - a.totalVotes)
-        break
-      case 'popular':
-        signals.sort((a, b) => b.totalVotes - a.totalVotes)
-        break
-      case 'following':
-        signals = signals.filter((s) => s.createdBy !== null)
-        break
-      default:
-        break
-    }
-
-    return signals.slice(0, 15)
-  }, [sortTab, category, region])
 
   const catColor = (id: SignalCategory | 'all') =>
     id !== 'all' ? CATEGORY_COLORS[id] : { bg: 'rgba(255,255,255,0.08)', text: '#eaeaf0' }
@@ -80,18 +68,23 @@ export function SignalFeed() {
   return (
     <div className="space-y-5">
 
-      {/* ── World View banner (collapsed by default) ── */}
+      {/* ── World View banner ─────────────────────────────────────────────── */}
       <div
         className="rounded-xl overflow-hidden cursor-pointer"
         style={{ background: 'var(--surface)', border: '1px solid var(--border2)' }}
-        onClick={() => setShowWV((v) => !v)}
+        onClick={toggleWorldView}
       >
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-2 h-2 rounded-full bg-[var(--teal)]" style={{ boxShadow: '0 0 6px var(--teal)' }} />
+            <div
+              className="w-2 h-2 rounded-full"
+              style={{ background: 'var(--teal)', boxShadow: '0 0 6px var(--teal)' }}
+            />
             <span className="text-sm font-semibold text-[var(--text)]">World View</span>
-            <span className="text-[10px] px-2 py-0.5 rounded-full bg-[var(--teal)]/15 text-[var(--teal)]"
-              style={{ fontFamily: 'var(--mono)' }}>
+            <span
+              className="text-[10px] px-2 py-0.5 rounded-full"
+              style={{ background: 'color-mix(in srgb,var(--teal) 15%,transparent)', color: 'var(--teal)', fontFamily: 'var(--mono)' }}
+            >
               Comment le monde pense ?
             </span>
           </div>
@@ -101,7 +94,10 @@ export function SignalFeed() {
         </div>
 
         {showWorldView && (
-          <div className="px-4 pb-4 space-y-4 border-t border-[var(--border)]">
+          <div
+            className="px-4 pb-4 space-y-4"
+            style={{ borderTop: '1px solid var(--border)' }}
+          >
             <p className="text-xs text-[var(--text3)] pt-3">
               Signaux cross-régionaux — compare l'opinion de l'Afrique, la France, l'Europe et les USA.
             </p>
@@ -114,9 +110,9 @@ export function SignalFeed() {
               </div>
             ))}
             <button
-              onClick={(e) => { e.stopPropagation(); setCategory('worldview') }}
-              className="text-xs font-semibold text-[var(--teal)] hover:underline"
-              style={{ fontFamily: 'var(--mono)' }}
+              onClick={(e) => { e.stopPropagation(); setFeedCategory('worldview') }}
+              className="text-xs font-semibold hover:underline"
+              style={{ color: 'var(--teal)', fontFamily: 'var(--mono)' }}
             >
               Voir tous les signaux World View →
             </button>
@@ -124,42 +120,44 @@ export function SignalFeed() {
         )}
       </div>
 
-      {/* ── Sort tabs ── */}
+      {/* ── Sort tabs ──────────────────────────────────────────────────────── */}
       <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
         {SORT_TABS.map((tab) => (
           <button
             key={tab.id}
-            onClick={() => setSortTab(tab.id)}
+            onClick={() => setFeedSort(tab.id as typeof feedSort)}
             className={cn(
               'px-4 py-2 rounded-full text-[12px] font-semibold whitespace-nowrap transition-all duration-150 min-h-[36px]',
-              sortTab === tab.id
-                ? 'bg-[var(--text)] text-[var(--bg)]'
-                : 'text-[var(--text2)] border border-[var(--border2)] hover:border-[var(--border3)] hover:text-[var(--text)]',
+              feedSort === tab.id
+                ? 'text-[var(--bg)]'
+                : 'text-[var(--text2)] hover:text-[var(--text)]',
             )}
-            style={{ fontFamily: 'var(--font)' }}
+            style={{
+              fontFamily:   'var(--font)',
+              background:   feedSort === tab.id ? 'var(--text)' : 'transparent',
+              border:       feedSort === tab.id ? '1px solid transparent' : '1px solid var(--border2)',
+            }}
           >
             {tab.label}
           </button>
         ))}
       </div>
 
-      {/* ── Category color pills ── */}
+      {/* ── Category color pills ───────────────────────────────────────────── */}
       <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
         {CATEGORY_TABS.map((tab) => {
-          const col = catColor(tab.id)
-          const active = category === tab.id
+          const col    = catColor(tab.id)
+          const active = feedCategory === tab.id
           return (
             <button
               key={tab.id}
-              onClick={() => setCategory(tab.id)}
+              onClick={() => setFeedCategory(tab.id)}
               className="px-3 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all duration-150 min-h-[32px]"
               style={{
                 fontFamily: 'var(--mono)',
                 background: active ? col.bg : 'transparent',
-                color: active ? col.text : 'var(--text3)',
-                border: active
-                  ? `1px solid ${col.text}40`
-                  : '1px solid transparent',
+                color:      active ? col.text : 'var(--text3)',
+                border:     active ? `1px solid ${col.text}40` : '1px solid transparent',
               }}
             >
               {tab.labelFr}
@@ -168,53 +166,73 @@ export function SignalFeed() {
         })}
       </div>
 
-      {/* ── Region pills ── */}
+      {/* ── Region pills ──────────────────────────────────────────────────── */}
       <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none">
         <button
-          onClick={() => setRegion('all')}
+          onClick={() => setFeedRegion('all')}
           className={cn(
             'px-3 py-1 rounded-full text-[11px] font-medium whitespace-nowrap transition-all duration-150',
-            region === 'all'
-              ? 'bg-[var(--surface3)] text-[var(--text)] border border-[var(--border3)]'
+            feedRegion === 'all'
+              ? 'text-[var(--text)]'
               : 'text-[var(--text3)] hover:text-[var(--text2)]',
           )}
-          style={{ fontFamily: 'var(--mono)' }}
+          style={{
+            fontFamily: 'var(--mono)',
+            background: feedRegion === 'all' ? 'var(--surface3)' : 'transparent',
+            border:     feedRegion === 'all' ? '1px solid var(--border3)' : '1px solid transparent',
+          }}
         >
           Toutes régions
         </button>
         {SIGNAL_REGIONS.map((r) => (
           <button
             key={r.id}
-            onClick={() => setRegion(r.id)}
+            onClick={() => setFeedRegion(r.id as SignalRegion)}
             className={cn(
               'px-3 py-1 rounded-full text-[11px] font-medium whitespace-nowrap transition-all duration-150',
-              region === r.id
-                ? 'bg-[var(--surface3)] text-[var(--text)] border border-[var(--border3)]'
+              feedRegion === r.id
+                ? 'text-[var(--text)]'
                 : 'text-[var(--text3)] hover:text-[var(--text2)]',
             )}
-            style={{ fontFamily: 'var(--mono)' }}
+            style={{
+              fontFamily: 'var(--mono)',
+              background: feedRegion === r.id ? 'var(--surface3)' : 'transparent',
+              border:     feedRegion === r.id ? '1px solid var(--border3)' : '1px solid transparent',
+            }}
           >
             {r.labelFr}
           </button>
         ))}
       </div>
 
-      {/* ── Signal cards ── */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filteredSignals.map((signal) => (
-          <SignalCard key={signal.id} signal={signal} />
-        ))}
-      </div>
+      {/* ── Signal cards ──────────────────────────────────────────────────── */}
+      {isLoading ? (
+        <SignalFeedSkeleton count={6} />
+      ) : (
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {signals.map((signal) => (
+            <SignalCard
+              key={signal.id}
+              signal={signal}
+              onVote={(id, vote) => castVote({ signalId: id, voteType: vote })}
+            />
+          ))}
+        </div>
+      )}
 
-      {filteredSignals.length === 0 && (
+      {/* ── Empty state ───────────────────────────────────────────────────── */}
+      {!isLoading && signals.length === 0 && (
         <div className="text-center py-16">
-          <p className="text-sm text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
+          <p
+            className="text-sm"
+            style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}
+          >
             Aucun signal pour ces filtres.
           </p>
           <button
-            onClick={() => { setCategory('all'); setRegion('all') }}
-            className="mt-3 text-xs text-[var(--teal)] hover:underline"
-            style={{ fontFamily: 'var(--mono)' }}
+            onClick={resetFeedFilters}
+            className="mt-3 text-xs hover:underline"
+            style={{ color: 'var(--teal)', fontFamily: 'var(--mono)' }}
           >
             Réinitialiser les filtres
           </button>

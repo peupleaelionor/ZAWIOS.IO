@@ -2,13 +2,14 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
+import { QueryProvider } from '@/components/providers/query-provider'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
 import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'ZAWIOS — Intelligence Collective',
+    default:  'ZAWIOS — Intelligence Collective',
     template: '%s | ZAWIOS',
   },
   description:
@@ -18,31 +19,34 @@ export const metadata: Metadata = {
   creator: 'ZAWIOS',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app'),
   openGraph: {
-    type: 'website',
-    locale: 'fr_FR',
+    type:            'website',
+    locale:          'fr_FR',
     alternateLocale: 'en_US',
-    url: 'https://zawios.netlify.app',
-    siteName: 'ZAWIOS',
-    title: 'ZAWIOS — Intelligence Collective',
-    description: 'Vote sur les signaux du monde. Compare avec la foule. Construis ta réputation.',
+    url:             'https://zawios.netlify.app',
+    siteName:        'ZAWIOS',
+    title:           'ZAWIOS — Intelligence Collective',
+    description:     'Vote sur les signaux du monde. Compare avec la foule. Construis ta réputation.',
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'ZAWIOS — Intelligence Collective',
+    card:        'summary_large_image',
+    title:       'ZAWIOS — Intelligence Collective',
     description: 'Vote sur les signaux du monde. Compare avec la foule.',
   },
   robots: {
-    index: true,
+    index:  true,
     follow: true,
     googleBot: { index: true, follow: true },
   },
+  // PWA
+  manifest: '/manifest.webmanifest',
+  appleWebApp: {
+    capable:        true,
+    statusBarStyle: 'black-translucent',
+    title:          'ZAWIOS',
+  },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
@@ -52,34 +56,52 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* Plausible — single global script, no duplicates */}
+        {/* PWA meta */}
+        <meta name="theme-color" content="#17D5CF" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+        {/* Plausible */}
         <Script
           defer
           data-domain="zawios.netlify.app"
           src="https://plausible.io/js/script.js"
           strategy="afterInteractive"
         />
+        {/* Service Worker registration */}
+        <Script id="sw-register" strategy="afterInteractive">{`
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+              navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                .catch(function() { /* SW optional */ });
+            });
+          }
+        `}</Script>
       </head>
-      <body className="antialiased has-bottom-nav" style={{ fontFamily: "var(--font)" }}>
+      <body className="antialiased has-bottom-nav" style={{ fontFamily: 'var(--font)' }}>
         <Toaster
           theme="dark"
           position="bottom-right"
           toastOptions={{
             style: {
-              background: 'var(--surface2)',
-              border: '1px solid var(--border2)',
-              color: 'var(--text)',
-              fontFamily: 'var(--font)',
-              fontSize: '13px',
+              background:  'var(--surface2)',
+              border:      '1px solid var(--border2)',
+              color:       'var(--text)',
+              fontFamily:  'var(--font)',
+              fontSize:    '13px',
             },
           }}
         />
-        <AnalyticsProvider>
-          <LanguageProvider>
-            {children}
-            <BottomNav />
-          </LanguageProvider>
-        </AnalyticsProvider>
+        <QueryProvider>
+          <AnalyticsProvider>
+            <LanguageProvider>
+              {children}
+              <BottomNav />
+            </LanguageProvider>
+          </AnalyticsProvider>
+        </QueryProvider>
       </body>
     </html>
   )

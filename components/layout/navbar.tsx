@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
 import { IconLogo } from '@/components/ui/icons'
+import { StreakIndicator } from '@/components/streak/streak-indicator'
 import { useLanguage } from '@/components/providers/language-provider'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
@@ -54,6 +55,8 @@ export function Navbar() {
 
           {/* CTA + lang toggle */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Streak indicator */}
+            <StreakIndicator compact />
             {/* Language toggle */}
             <button
               onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}

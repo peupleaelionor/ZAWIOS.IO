@@ -18,6 +18,8 @@ const footerStructure = {
     { href: '/about', key: 'About' },
     { href: '/contact', key: 'Contact' },
     { href: '/faq', key: 'FAQ' },
+    { href: '/principles', key: 'Principes' },
+    { href: '/moderation-guidelines', key: 'Modération' },
   ],
   Legal: [
     { href: '/privacy', key: 'Privacy Policy' },
