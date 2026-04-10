@@ -64,7 +64,7 @@ export default function PredictionsPage() {
         </div>
       </div>
 
-      <main className="container py-6 md:py-8">
+      <main className="container py-6 md:py-8 md:max-w-3xl md:mx-auto">
         {/* CTA mobile */}
         <div className="sm:hidden mb-5">
           <Link href="/predictions/create">

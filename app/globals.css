@@ -143,6 +143,17 @@ body {
   padding: 0 1.5rem;
 }
 
+/* App-page container — narrow, phone-like on desktop */
+.app-container {
+  width: 100%;
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Full-height viewport (modern dvh with fallback) */
+.min-h-screen { min-height: 100vh; min-height: 100dvh; }
+
 /* ─── TEXT EFFECTS ─── */
 .gradient-text {
   background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--teal) 100%);

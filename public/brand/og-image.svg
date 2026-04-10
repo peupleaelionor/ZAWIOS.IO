@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#050508"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="0" cy="0" r="1" fill="white" opacity="0.04"/>
+    </pattern>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7c6ef0" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#050508" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <ellipse cx="600" cy="315" rx="500" ry="300" fill="url(#glow)"/>
+  
+  <!-- Butterfly mark — centered, large -->
+  <g transform="translate(488, 215)">
+    <!-- Left fan: 11 lines from center to left -->
+    <line x1="112" y1="68" x2="0" y2="0"   stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="13.6" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="27.2" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="40.8" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="54.4" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="68"   stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="81.6" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="95.2" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="108.8" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="122.4" stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <line x1="112" y1="68" x2="0" y2="136"  stroke="white" stroke-width="2.5" stroke-linecap="round" opacity="0.9"/>
+    <!-- Right fan: 11 lines from center to right -->
+    <line x1="112" y1="68" x2="224" y2="0"   stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="13.6" stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="27.2" stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="40.8" stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="54.4" stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="68"   stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="81.6" stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="95.2" stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="108.8" stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="122.4" stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+    <line x1="112" y1="68" x2="224" y2="136"  stroke="#7c6ef0" stroke-width="2.5" stroke-linecap="round"/>
+  </g>
+  
+  <!-- ZAWIOS wordmark -->
+  <text x="600" y="430" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-weight="700" font-size="72" letter-spacing="-2" fill="white">ZAWIOS</text>
+  
+  <!-- Tagline -->
+  <text x="600" y="490" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="20" fill="#5c5c78" letter-spacing="3">INTELLIGENCE COLLECTIVE MONDIALE</text>
+  
+  <!-- Top line accent -->
+  <line x1="400" y1="545" x2="800" y2="545" stroke="#7c6ef0" stroke-width="1" opacity="0.4"/>
+  
+  <!-- URL -->
+  <text x="600" y="575" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="14" fill="#5c5c78" letter-spacing="1">zawios.netlify.app</text>
+</svg>

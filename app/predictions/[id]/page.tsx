@@ -36,7 +36,7 @@ export default async function PredictionPage({ params }: Props) {
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
-      <main className="container py-12">
+      <main className="container py-12 md:max-w-3xl md:mx-auto">
         <Link
           href="/predictions"
           className="inline-flex items-center gap-1.5 text-sm mb-6 transition-colors"

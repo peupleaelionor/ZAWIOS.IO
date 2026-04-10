@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   // ASSET SLOT — favicon & apple icon: drop final files in /public/brand/
   icons: {
     icon: '/brand/favicon.svg',
-    apple: '/brand/apple-touch-icon.png',
+    apple: '/brand/apple-touch-icon.svg',
     shortcut: '/brand/favicon.svg',
   },
   openGraph: {

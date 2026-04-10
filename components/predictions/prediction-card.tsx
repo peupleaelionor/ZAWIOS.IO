@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { formatDate, formatNumber } from '@/lib/utils'
 import { IconComment, IconShare } from '@/components/ui/icons'
 import { Avatar } from '@/components/ui/avatar'
+import { SignalVisual } from '@/components/ui/signal-visual'
 import type { Prediction } from '@/types'
 
 // Subtil mark décoratif en fond de carte
@@ -46,7 +47,11 @@ function ResultCard({ prediction }: { prediction: Prediction }) {
 
   return (
     <Link href={`/predictions/${prediction.id}`} className="block group">
-      <div className="relative surface rounded-2xl p-5 card-hover overflow-hidden">
+      <div className="relative surface rounded-2xl overflow-hidden card-hover">
+        <div style={{ height: 72, overflow: 'hidden' }}>
+          <SignalVisual category={prediction.category} />
+        </div>
+        <div className="relative p-5">
         <CardMark />
         {/* Badge résultat */}
         <div className="flex items-center justify-between mb-3">
@@ -106,6 +111,7 @@ function ResultCard({ prediction }: { prediction: Prediction }) {
             {prediction.resolution_notes}
           </p>
         )}
+        </div>{/* end inner p-5 */}
       </div>
     </Link>
   )
@@ -143,7 +149,13 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
 
   return (
     <Link href={`/predictions/${prediction.id}`} className="block group">
-      <div className="relative surface rounded-2xl p-5 card-hover overflow-hidden">
+      <div className="relative surface rounded-2xl overflow-hidden card-hover">
+        {/* Thumbnail visuel généré */}
+        <div style={{ height: 72, overflow: 'hidden' }}>
+          <SignalVisual category={prediction.category} />
+        </div>
+
+        <div className="relative p-5">
         <CardMark />
 
         {/* Ligne SIGNAL + date */}
@@ -259,6 +271,7 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
             <IconShare size={13} />
           </div>
         </div>
+        </div>{/* end inner p-5 */}
       </div>
     </Link>
   )

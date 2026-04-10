@@ -15,12 +15,14 @@ import {
   IconTrending,
   IconShield,
 } from '@/components/ui/icons'
-import { mockPredictions, PLATFORM_STATS, mockLeaderboard } from '@/lib/mock-data'
+import { allPredictions, mockPredictions, PLATFORM_STATS, mockLeaderboard } from '@/lib/mock-data'
+import { CategoriesSection } from '@/components/home/categories-section'
+import { WorldViewPreview } from '@/components/home/world-view-preview'
 import { formatNumber } from '@/lib/utils'
 import { Avatar } from '@/components/ui/avatar'
 
 export default function HomePage() {
-  const featuredPredictions = mockPredictions.filter((p) => p.featured).slice(0, 3)
+  const featuredPredictions = allPredictions.filter((p) => p.featured).slice(0, 3)
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
@@ -197,6 +199,8 @@ export default function HomePage() {
         </div>
       </section>
 
+      <CategoriesSection />
+
       {/* ── PILLARS ──────────────────────────────────────────────────── */}
       <section className="py-24 bg-[var(--bg)]">
         <div className="container">
@@ -304,6 +308,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <WorldViewPreview />
 
       {/* ── LEADERBOARD ──────────────────────────────────────────────── */}
       <section className="py-24 bg-[var(--bg)]">
