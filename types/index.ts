@@ -7,6 +7,19 @@ export type Category =
   | 'business'
   | 'science'
   | 'world'
+  | 'work'
+  | 'education'
+  | 'lifestyle'
+  | 'africa'
+  | 'future'
+
+export type Region = 'Global' | 'Africa' | 'France' | 'Europe' | 'USA'
+
+export interface RegionalBreakdown {
+  region: Region
+  yes_percent: number
+  vote_count: number
+}
 
 export type PredictionType = 'yes_no' | 'multiple_choice' | 'probability'
 
@@ -112,6 +125,7 @@ export interface Prediction {
   featured: boolean
   tags: string[]
   options?: PredictionOption[]
+  regional_data?: RegionalBreakdown[]
   created_at: string
   updated_at: string
 }

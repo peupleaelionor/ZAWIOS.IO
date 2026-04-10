@@ -3,7 +3,7 @@ import { Footer } from '@/components/layout/footer'
 import { PredictionsFeed } from '@/components/predictions/predictions-feed'
 import { Button } from '@/components/ui/button'
 import { IconTarget, IconPlus, IconTrending, IconUsers, IconChart } from '@/components/ui/icons'
-import { mockPredictions, PLATFORM_STATS } from '@/lib/mock-data'
+import { allPredictions, PLATFORM_STATS } from '@/lib/mock-data'
 import { formatNumber } from '@/lib/utils'
 import Link from 'next/link'
 import type { Metadata } from 'next'
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 }
 
 export default function PredictionsPage() {
-  const resolved = mockPredictions.filter((p) => p.status === 'resolved').length
+  const resolved = allPredictions.filter((p) => p.status === 'resolved').length
 
   return (
     <div className="min-h-screen bg-[var(--bg)]">
@@ -47,7 +47,7 @@ export default function PredictionsPage() {
             style={{ borderTop: '1px solid var(--border)', scrollbarWidth: 'none' }}
           >
             {[
-              { icon: IconTrending, value: formatNumber(mockPredictions.length), label: 'prédictions' },
+              { icon: IconTrending, value: formatNumber(allPredictions.length), label: 'prédictions' },
               { icon: IconUsers, value: formatNumber(PLATFORM_STATS.total_votes), label: 'votes' },
               { icon: IconChart, value: `${PLATFORM_STATS.avg_accuracy}%`, label: 'précision moy.' },
               { icon: IconTarget, value: String(resolved), label: 'résolues' },
@@ -75,7 +75,7 @@ export default function PredictionsPage() {
           </Link>
         </div>
 
-        <PredictionsFeed predictions={mockPredictions} />
+        <PredictionsFeed predictions={allPredictions} />
       </main>
 
       <Footer />

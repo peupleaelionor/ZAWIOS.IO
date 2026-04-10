@@ -4,7 +4,8 @@ import { Footer } from '@/components/layout/footer'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
-import { mockPredictions } from '@/lib/mock-data'
+import { allPredictions } from '@/lib/mock-data'
+import { RegionalComparison } from '@/components/world-view/regional-comparison'
 import { formatDate, formatNumber } from '@/lib/utils'
 import { IconCalendar, IconUsers, IconEye, IconComment, IconTrending, IconCheck } from '@/components/ui/icons'
 import Link from 'next/link'
@@ -16,7 +17,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
-  const prediction = mockPredictions.find((p) => p.id === id)
+  const prediction = allPredictions.find((p) => p.id === id)
   if (!prediction) return { title: 'Prediction not found' }
   return {
     title: prediction.title,
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PredictionPage({ params }: Props) {
   const { id } = await params
-  const prediction = mockPredictions.find((p) => p.id === id)
+  const prediction = allPredictions.find((p) => p.id === id)
   if (!prediction) notFound()
 
   const isResolved = prediction.status === 'resolved'
@@ -172,6 +173,13 @@ export default async function PredictionPage({ params }: Props) {
                 </div>
               )}
             </div>
+
+            {/* Comparaison régionale */}
+            {prediction.regional_data && prediction.regional_data.length > 0 && (
+              <div className="surface rounded-2xl p-8">
+                <RegionalComparison data={prediction.regional_data} />
+              </div>
+            )}
 
             {/* Tags */}
             {prediction.tags.length > 0 && (
