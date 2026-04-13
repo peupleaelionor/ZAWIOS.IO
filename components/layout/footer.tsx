@@ -69,7 +69,7 @@ export function Footer() {
                 ))}
               </ul>
             </nav>
-          ))
+          ))}
         </div>
       </div>
     </footer>
