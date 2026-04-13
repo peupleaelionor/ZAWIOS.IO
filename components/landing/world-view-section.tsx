@@ -18,8 +18,8 @@ function MinimalWorldMap({ activeRegion }: { activeRegion: string }) {
       {/* North America */}
       <path
         d="M30 30 L60 25 L75 35 L80 55 L70 70 L55 80 L45 75 L35 60 Z"
-        fill={activeRegion === 'usa' || activeRegion === 'global' ? 'rgba(23,213,207,0.15)' : 'rgba(255,255,255,0.04)'}
-        stroke={activeRegion === 'usa' ? 'rgba(23,213,207,0.5)' : 'rgba(255,255,255,0.08)'}
+        fill={activeRegion === 'usa' || activeRegion === 'global' ? 'rgba(65,105,225,0.15)' : 'rgba(255,255,255,0.04)'}
+        stroke={activeRegion === 'usa' ? 'rgba(65,105,225,0.5)' : 'rgba(255,255,255,0.08)'}
         strokeWidth="0.8"
         style={{ transition: 'all 400ms ease', opacity: continentOpacity('usa') }}
       />
@@ -41,8 +41,8 @@ function MinimalWorldMap({ activeRegion }: { activeRegion: string }) {
       {/* Africa */}
       <path
         d="M148 60 L172 58 L185 75 L188 105 L175 125 L155 128 L140 110 L135 85 Z"
-        fill={activeRegion === 'africa' || activeRegion === 'rdc' || activeRegion === 'global' ? 'rgba(23,213,207,0.12)' : 'rgba(255,255,255,0.04)'}
-        stroke={activeRegion === 'africa' || activeRegion === 'rdc' ? 'rgba(23,213,207,0.4)' : 'rgba(255,255,255,0.08)'}
+        fill={activeRegion === 'africa' || activeRegion === 'rdc' || activeRegion === 'global' ? 'rgba(65,105,225,0.12)' : 'rgba(255,255,255,0.04)'}
+        stroke={activeRegion === 'africa' || activeRegion === 'rdc' ? 'rgba(65,105,225,0.4)' : 'rgba(255,255,255,0.08)'}
         strokeWidth="0.8"
         style={{ transition: 'all 400ms ease', opacity: continentOpacity('africa') }}
       />
@@ -67,13 +67,13 @@ function MinimalWorldMap({ activeRegion }: { activeRegion: string }) {
 
       {/* City dots */}
       {/* Kinshasa (RDC) */}
-      <circle cx="165" cy="100" r="2.5" fill="rgba(23,213,207,0.6)" />
-      <circle cx="165" cy="100" r="5" fill="rgba(23,213,207,0.12)" stroke="rgba(23,213,207,0.2)" strokeWidth="0.5" />
+      <circle cx="165" cy="100" r="2.5" fill="rgba(65,105,225,0.6)" />
+      <circle cx="165" cy="100" r="5" fill="rgba(65,105,225,0.12)" stroke="rgba(65,105,225,0.2)" strokeWidth="0.5" />
       {/* Paris */}
       <circle cx="153" cy="33" r="2" fill="rgba(90,75,255,0.7)" />
       <circle cx="153" cy="33" r="4" fill="rgba(90,75,255,0.1)" stroke="rgba(90,75,255,0.2)" strokeWidth="0.5" />
       {/* Lagos */}
-      <circle cx="155" cy="90" r="2" fill="rgba(23,213,207,0.4)" />
+      <circle cx="155" cy="90" r="2" fill="rgba(65,105,225,0.4)" />
       {/* New York */}
       <circle cx="60" cy="45" r="2" fill="rgba(255,255,255,0.25)" />
       {/* Singapore */}
@@ -142,9 +142,9 @@ export function WorldViewSection() {
                   className="px-3 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all duration-150"
                   style={{
                     fontFamily: 'var(--mono)',
-                    background: activeRegion === r.id ? 'rgba(23,213,207,0.15)' : 'transparent',
-                    color: activeRegion === r.id ? 'var(--teal)' : 'var(--text3)',
-                    border: activeRegion === r.id ? '1px solid rgba(23,213,207,0.3)' : '1px solid transparent',
+                    background: activeRegion === r.id ? 'rgba(65,105,225,0.15)' : 'transparent',
+                    color: activeRegion === r.id ? 'var(--accent)' : 'var(--text3)',
+                    border: activeRegion === r.id ? '1px solid rgba(65,105,225,0.3)' : '1px solid transparent',
                   }}
                 >
                   {r.label}
@@ -161,11 +161,11 @@ export function WorldViewSection() {
               <div>
                 <p
                   className="text-3xl font-bold"
-                  style={{ fontFamily: 'var(--mono)', color: 'var(--teal)', lineHeight: 1 }}
+                  style={{ fontFamily: 'var(--mono)', color: 'var(--accent)', lineHeight: 1 }}
                 >
                   {stats.yes}%
                 </p>
-                <p className="text-[10px] text-[var(--teal)] font-semibold mt-0.5" style={{ fontFamily: 'var(--mono)' }}>
+                <p className="text-[10px] text-[var(--accent)] font-semibold mt-0.5" style={{ fontFamily: 'var(--mono)' }}>
                   YES
                 </p>
               </div>
@@ -174,7 +174,7 @@ export function WorldViewSection() {
                   className="h-full rounded-full transition-all duration-500"
                   style={{
                     width: `${stats.yes}%`,
-                    background: 'linear-gradient(90deg, var(--teal), var(--accent))',
+                    background: 'linear-gradient(90deg, var(--accent), var(--accent2))',
                   }}
                 />
               </div>
@@ -217,7 +217,7 @@ export function WorldViewSection() {
                           className="text-[10px] w-14 shrink-0"
                           style={{
                             fontFamily: 'var(--mono)',
-                            color: row.highlight ? 'var(--teal)' : 'var(--text3)',
+                            color: row.highlight ? 'var(--accent)' : 'var(--text3)',
                           }}
                         >
                           {row.label}
@@ -228,7 +228,7 @@ export function WorldViewSection() {
                             style={{
                               width: `${row.value}%`,
                               background: row.highlight
-                                ? 'var(--teal)'
+                                ? 'var(--accent)'
                                 : 'rgba(255,255,255,0.15)',
                             }}
                           />
@@ -237,7 +237,7 @@ export function WorldViewSection() {
                           className="text-[10px] w-8 text-right shrink-0 font-semibold"
                           style={{
                             fontFamily: 'var(--mono)',
-                            color: row.highlight ? 'var(--teal)' : 'var(--text3)',
+                            color: row.highlight ? 'var(--accent)' : 'var(--text3)',
                           }}
                         >
                           {row.value}%

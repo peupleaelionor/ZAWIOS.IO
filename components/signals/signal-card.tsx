@@ -149,18 +149,18 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
             >
               Prédiction foule
             </span>
-            <span
-              className={cn(
-                'text-sm font-bold',
-                signal.yesPercent > 50 ? 'text-[var(--teal)]' : 'text-white',
-              )}
-              style={{ fontFamily: 'var(--mono)' }}
-            >
-              {signal.yesPercent > 50 ? 'YES' : 'NO'}{' '}
-              <span className="text-xs font-normal text-[var(--text3)]">
-                {Math.max(signal.yesPercent, signal.noPercent)}%
-              </span>
-            </span>
+                <span
+                  className={cn(
+                    'text-sm font-bold',
+                    signal.yesPercent > 50 ? 'text-[var(--accent)]' : 'text-white',
+                  )}
+                  style={{ fontFamily: 'var(--mono)' }}
+                >
+                  {signal.yesPercent > 50 ? 'YES' : 'NO'}{' '}
+                  <span className="text-xs font-normal text-[var(--text3)]">
+                    {Math.max(signal.yesPercent, signal.noPercent)}%
+                  </span>
+                </span>
           </div>
           <div>
             <span
@@ -197,7 +197,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
                 {yesPercent}%
               </span>
               <span
-                className="text-[10px] text-[var(--teal)] font-semibold"
+                className="text-[10px] text-[var(--accent)] font-semibold"
                 style={{ fontFamily: 'var(--mono)' }}
               >
                 YES
@@ -224,17 +224,17 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
             className="w-full h-1.5 rounded-full overflow-hidden mb-4"
             style={{ background: 'var(--surface3)' }}
           >
-            <div
-              className="h-full rounded-full transition-all duration-500"
-              style={{
-                width: `${yesPercent}%`,
-                background: voted
-                  ? voted === 'yes'
-                    ? 'var(--teal)'
-                    : 'var(--teal)'
-                  : 'linear-gradient(90deg, var(--teal), var(--accent))',
-              }}
-            />
+                <div
+                  className="h-full rounded-full transition-all duration-500"
+                  style={{
+                    width: `${yesPercent}%`,
+                    background: voted
+                      ? voted === 'yes'
+                        ? 'var(--accent)'
+                        : 'var(--accent)'
+                      : 'linear-gradient(90deg, var(--accent), var(--accent2))',
+                  }}
+                />
           </div>
 
           {/* YES / NO buttons + vote count */}
@@ -251,17 +251,17 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
                 className={cn(
                   'w-12 h-12 rounded-full text-[13px] font-bold transition-all duration-150 flex items-center justify-center',
                   voted === 'yes'
-                    ? 'bg-[var(--teal)] text-[var(--bg)] scale-105 shadow-[0_0_12px_rgba(23,213,207,0.35)]'
+                    ? 'bg-[var(--accent)] text-white scale-105 shadow-[0_0_12px_rgba(65,105,225,0.35)]'
                     : voted === null
-                      ? 'text-[var(--teal)] hover:bg-[var(--teal)]/10 active:scale-95'
+                      ? 'text-[var(--accent)] hover:bg-[var(--accent)]/10 active:scale-95'
                       : 'text-[var(--text3)] opacity-30 cursor-not-allowed',
                 )}
                 style={{
                   fontFamily: 'var(--mono)',
                   border:
                     voted === 'yes'
-                      ? '2px solid var(--teal)'
-                      : '2px solid rgba(23,213,207,0.25)',
+                      ? '2px solid var(--accent)'
+                      : '2px solid rgba(65,105,225,0.25)',
                 }}
               >
                 YES

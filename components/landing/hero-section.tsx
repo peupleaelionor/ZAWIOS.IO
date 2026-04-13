@@ -37,11 +37,11 @@ export function HeroSection() {
           >
             <span className="flex items-center gap-1.5">
               <span
-                className="w-1.5 h-1.5 rounded-full bg-[var(--teal)]"
-                style={{ boxShadow: '0 0 6px var(--teal)' }}
+                className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"
+                style={{ boxShadow: '0 0 6px var(--accent)' }}
               />
               <span
-                className="text-[11px] font-semibold text-[var(--teal)]"
+                className="text-[11px] font-semibold text-[var(--accent)]"
                 style={{ fontFamily: 'var(--mono)' }}
               >
                 47K+ actifs

@@ -14,17 +14,17 @@
   --border: rgba(255,255,255,0.05);
   --border2: rgba(255,255,255,0.09);
   --border3: rgba(255,255,255,0.14);
-  --text: #eaeaf0;
-  --text2: #a0a0b8;
-  --text3: #5c5c78;
-  --accent: #5A4BFF;
-  --accent2: #7b6fff;
-  --accent3: #9d92ff;
-  --teal: #17D5CF;
-  --teal2: #12b8b2;
-  --zred: #f06070;
-  --amber: #f0c050;
-  --blue: #60a8f0;
+  --text: #FFFFFF; /* Blanc fort pour les parties conversationnelles */
+  --text2: #F2F2F7; /* Blanc légèrement grisé */
+  --text3: #A0A0B8;
+  --accent: #4169E1; /* Bleu Roi (Royal Blue) */
+  --accent2: #4D79FF;
+  --accent3: #7094FF;
+  --teal: #4169E1; /* Remplacement du teal par le bleu roi pour la cohérence */
+  --teal2: #3A5DC9;
+  --zred: #FF3B30;
+  --amber: #FFCC00;
+  --blue: #4169E1;
   --font: 'Sora', sans-serif;
   --mono: 'IBM Plex Mono', monospace;
   --radius: 12px;
@@ -47,17 +47,17 @@
   /* Compat aliases for existing components */
   --background: #0C0D10;
   --foreground: #eaeaf0;
-  --primary: #17D5CF;
-  --primary-foreground: #0C0D10;
+  --primary: #4169E1;
+  --primary-foreground: #FFFFFF;
   --secondary: #191a22;
-  --secondary-foreground: #eaeaf0;
+  --secondary-foreground: #F2F2F7;
   --muted: #1f2028;
-  --muted-foreground: #a0a0b8;
-  --accent-foreground: #ffffff;
+  --muted-foreground: #A0A0B8;
+  --accent-foreground: #FFFFFF;
   --card: #13141a;
-  --card-foreground: #eaeaf0;
-  --ring: #17D5CF;
-  --success: #17D5CF;
+  --card-foreground: #FFFFFF;
+  --ring: #4169E1;
+  --success: #4169E1;
   --warning: #f0c050;
   --danger: #f06070;
 }

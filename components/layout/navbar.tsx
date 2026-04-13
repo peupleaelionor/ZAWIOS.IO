@@ -36,7 +36,7 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 font-bold text-lg" aria-label="ZAWIOS Home">
             <IconLogo size={32} aria-hidden="true" />
-            <span className="gradient-text tracking-tight" style={{ fontFamily: 'var(--font)', fontWeight: 700 }}>ZAWIOS</span>
+            <span className="tracking-tighter text-white" style={{ fontFamily: 'var(--font)', fontWeight: 800, fontSize: '1.4rem', letterSpacing: '-0.03em' }}>ZAWIOS</span>
           </Link>
 
           {/* Desktop nav */}

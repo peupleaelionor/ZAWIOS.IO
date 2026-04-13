@@ -12,7 +12,7 @@ export function CTASection() {
         >
           <div
             className="absolute top-0 left-0 right-0 h-px"
-            style={{ background: 'linear-gradient(90deg, transparent, var(--teal), transparent)' }}
+            style={{ background: 'linear-gradient(90deg, transparent, var(--accent), transparent)' }}
           />
           <h2
             className="text-xl md:text-3xl font-bold text-[var(--text)] mb-3"

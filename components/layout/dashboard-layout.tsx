@@ -34,7 +34,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       <aside className="hidden lg:flex flex-col w-64 fixed inset-y-0 z-30 glass" style={{ borderRight: '1px solid var(--border)' }}>
         <div className="flex items-center gap-2.5 h-16 px-6" style={{ borderBottom: '1px solid var(--border)' }}>
           <IconLogo size={28} />
-          <span className="font-bold gradient-text tracking-tight">ZAWIOS</span>
+          <span className="tracking-tighter text-white" style={{ fontFamily: 'var(--font)', fontWeight: 800, fontSize: '1.2rem', letterSpacing: '-0.02em' }}>ZAWIOS</span>
         </div>
 
         <nav className="flex-1 px-4 py-4 space-y-1">
@@ -45,8 +45,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors',
                 pathname === href
-                  ? 'bg-[var(--teal)]/10 text-[var(--teal)]'
-                  : 'text-[var(--text2)] hover:bg-white/[0.04] hover:text-[var(--text)]'
+                  ? 'bg-[var(--accent)]/10 text-[var(--accent)]'
+                  : 'text-[var(--text2)] hover:bg-white/[0.04] hover:text-white'
               )}
             >
               <Icon className="w-4 h-4" size={16} />
@@ -58,7 +58,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="px-4 py-4 space-y-1" style={{ borderTop: '1px solid var(--border)' }}>
           <Link
             href="/predictions/create"
-            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--teal)] hover:bg-[var(--teal)]/10 transition-colors"
+            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors"
           >
             <IconPlus className="w-4 h-4" size={16} />
             New prediction

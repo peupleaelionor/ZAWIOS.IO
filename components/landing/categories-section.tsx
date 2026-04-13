@@ -39,8 +39,8 @@ function MiniAsset({ category }: { category: string }) {
           <line x1="10" y1="14" x2="34" y2="14" stroke={stroke} strokeWidth="1.2" strokeLinecap="round" />
           <line x1="10" y1="19" x2="28" y2="19" stroke={stroke} strokeWidth="1.2" strokeLinecap="round" />
           <line x1="10" y1="24" x2="31" y2="24" stroke={stroke} strokeWidth="1.2" strokeLinecap="round" />
-          <circle cx="52" cy="20" r="8" stroke="rgba(23,213,207,0.25)" strokeWidth="1" />
-          <circle cx="52" cy="20" r="4" fill="rgba(23,213,207,0.12)" />
+          <circle cx="52" cy="20" r="8" stroke="rgba(65,105,225,0.25)" strokeWidth="1" />
+          <circle cx="52" cy="20" r="4" fill="rgba(65,105,225,0.12)" />
         </svg>
       )
     case 'tech':
@@ -54,8 +54,8 @@ function MiniAsset({ category }: { category: string }) {
           <line x1="11" y1="14" x2="20" y2="14" stroke={stroke} strokeWidth="0.8" />
           <circle cx="8" cy="26" r="3" stroke={stroke} strokeWidth="1" />
           <line x1="11" y1="26" x2="20" y2="26" stroke={stroke} strokeWidth="0.8" />
-          <circle cx="56" cy="20" r="3" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
-          <line x1="44" y1="20" x2="53" y2="20" stroke="rgba(23,213,207,0.2)" strokeWidth="0.8" />
+          <circle cx="56" cy="20" r="3" stroke="rgba(65,105,225,0.3)" strokeWidth="1" />
+          <line x1="44" y1="20" x2="53" y2="20" stroke="rgba(65,105,225,0.2)" strokeWidth="0.8" />
         </svg>
       )
     case 'business':
@@ -64,16 +64,16 @@ function MiniAsset({ category }: { category: string }) {
           <line x1="8" y1="32" x2="56" y2="32" stroke={stroke} strokeWidth="1" />
           <rect x="10" y="22" width="8" height="10" rx="1" fill={color} stroke={stroke} strokeWidth="1" />
           <rect x="24" y="16" width="8" height="16" rx="1" fill={color} stroke={stroke} strokeWidth="1" />
-          <rect x="38" y="10" width="8" height="22" rx="1" fill="rgba(23,213,207,0.08)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
-          <polyline points="10,22 28,14 46,8" stroke="rgba(23,213,207,0.4)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <rect x="38" y="10" width="8" height="22" rx="1" fill="rgba(65,105,225,0.08)" stroke="rgba(65,105,225,0.3)" strokeWidth="1" />
+          <polyline points="10,22 28,14 46,8" stroke="rgba(65,105,225,0.4)" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none" />
         </svg>
       )
     case 'crypto':
       return (
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
           <circle cx="32" cy="20" r="14" stroke={stroke} strokeWidth="1.2" />
-          <text x="32" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="rgba(23,213,207,0.35)" fontFamily="monospace">₿</text>
-          <circle cx="32" cy="20" r="9" stroke="rgba(23,213,207,0.1)" strokeWidth="1" strokeDasharray="2 3" />
+          <text x="32" y="25" textAnchor="middle" fontSize="14" fontWeight="600" fill="rgba(65,105,225,0.35)" fontFamily="monospace">₿</text>
+          <circle cx="32" cy="20" r="9" stroke="rgba(65,105,225,0.1)" strokeWidth="1" strokeDasharray="2 3" />
         </svg>
       )
     case 'sports':
@@ -89,7 +89,7 @@ function MiniAsset({ category }: { category: string }) {
       return (
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
           <path d="M12 32 Q20 10 32 20 Q44 30 52 8" stroke={stroke} strokeWidth="1.2" fill="none" strokeLinecap="round" />
-          <circle cx="32" cy="20" r="3" fill="rgba(23,213,207,0.2)" stroke="rgba(23,213,207,0.4)" strokeWidth="1" />
+          <circle cx="32" cy="20" r="3" fill="rgba(65,105,225,0.2)" stroke="rgba(65,105,225,0.4)" strokeWidth="1" />
           <circle cx="12" cy="32" r="2" fill={color} stroke={stroke} strokeWidth="1" />
           <circle cx="52" cy="8" r="2" fill={color} stroke={stroke} strokeWidth="1" />
         </svg>
@@ -99,7 +99,7 @@ function MiniAsset({ category }: { category: string }) {
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
           <circle cx="20" cy="16" r="6" stroke={stroke} strokeWidth="1.2" />
           <circle cx="36" cy="16" r="6" stroke={stroke} strokeWidth="1.2" />
-          <circle cx="28" cy="14" r="6" stroke="rgba(23,213,207,0.3)" strokeWidth="1.2" />
+          <circle cx="28" cy="14" r="6" stroke="rgba(65,105,225,0.3)" strokeWidth="1.2" />
           <path d="M10 32 Q20 24 28 26 Q36 24 46 32" stroke={stroke} strokeWidth="1" fill="none" strokeLinecap="round" />
         </svg>
       )
@@ -107,14 +107,14 @@ function MiniAsset({ category }: { category: string }) {
       return (
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
           <circle cx="32" cy="20" r="14" stroke={stroke} strokeWidth="1.2" />
-          <polygon points="28,14 28,26 42,20" fill="rgba(23,213,207,0.12)" stroke="rgba(23,213,207,0.35)" strokeWidth="1" strokeLinejoin="round" />
+          <polygon points="28,14 28,26 42,20" fill="rgba(65,105,225,0.12)" stroke="rgba(65,105,225,0.35)" strokeWidth="1" strokeLinejoin="round" />
         </svg>
       )
     case 'trends':
       return (
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <polyline points="8,30 20,22 32,26 44,14 56,10" stroke="rgba(23,213,207,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-          <circle cx="56" cy="10" r="3" fill="rgba(23,213,207,0.2)" stroke="rgba(23,213,207,0.5)" strokeWidth="1" />
+          <polyline points="8,30 20,22 32,26 44,14 56,10" stroke="rgba(65,105,225,0.45)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+          <circle cx="56" cy="10" r="3" fill="rgba(65,105,225,0.2)" stroke="rgba(65,105,225,0.5)" strokeWidth="1" />
           <polyline points="8,34 56,34" stroke={stroke} strokeWidth="0.8" />
         </svg>
       )
@@ -124,7 +124,7 @@ function MiniAsset({ category }: { category: string }) {
           <circle cx="32" cy="20" r="14" stroke={stroke} strokeWidth="1.2" />
           <circle cx="27" cy="17" r="2" fill={stroke} />
           <circle cx="37" cy="17" r="2" fill={stroke} />
-          <path d="M26 24 Q32 29 38 24" stroke="rgba(23,213,207,0.4)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+          <path d="M26 24 Q32 29 38 24" stroke="rgba(65,105,225,0.4)" strokeWidth="1.5" fill="none" strokeLinecap="round" />
         </svg>
       )
     case 'worldview':
@@ -135,7 +135,7 @@ function MiniAsset({ category }: { category: string }) {
           <line x1="18" y1="20" x2="46" y2="20" stroke={stroke} strokeWidth="0.8" />
           <line x1="20" y1="14" x2="44" y2="14" stroke={stroke} strokeWidth="0.6" strokeDasharray="2 2" />
           <line x1="20" y1="26" x2="44" y2="26" stroke={stroke} strokeWidth="0.6" strokeDasharray="2 2" />
-          <circle cx="32" cy="20" r="2" fill="rgba(23,213,207,0.3)" />
+          <circle cx="32" cy="20" r="2" fill="rgba(65,105,225,0.3)" />
         </svg>
       )
     case 'work':
@@ -143,22 +143,22 @@ function MiniAsset({ category }: { category: string }) {
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
           <rect x="16" y="10" width="32" height="22" rx="3" stroke={stroke} strokeWidth="1.2" />
           <line x1="16" y1="16" x2="48" y2="16" stroke={stroke} strokeWidth="1" />
-          <rect x="28" y="12" width="8" height="8" rx="1.5" stroke="rgba(23,213,207,0.3)" strokeWidth="1" fill="rgba(23,213,207,0.08)" />
+          <rect x="28" y="12" width="8" height="8" rx="1.5" stroke="rgba(65,105,225,0.3)" strokeWidth="1" fill="rgba(65,105,225,0.08)" />
         </svg>
       )
     case 'education':
       return (
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
           <path d="M32 8 L52 18 L32 28 L12 18 Z" stroke={stroke} strokeWidth="1.2" fill={color} />
-          <line x1="32" y1="28" x2="32" y2="36" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
+          <line x1="32" y1="28" x2="32" y2="36" stroke="rgba(65,105,225,0.3)" strokeWidth="1" />
           <path d="M20 22 L20 30 Q32 36 44 30 L44 22" stroke={stroke} strokeWidth="0.8" fill="none" />
         </svg>
       )
     case 'health':
       return (
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <rect x="28" y="8" width="8" height="24" rx="2" fill="rgba(23,213,207,0.1)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
-          <rect x="20" y="16" width="24" height="8" rx="2" fill="rgba(23,213,207,0.1)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
+          <rect x="28" y="8" width="8" height="24" rx="2" fill="rgba(65,105,225,0.1)" stroke="rgba(65,105,225,0.3)" strokeWidth="1" />
+          <rect x="20" y="16" width="24" height="8" rx="2" fill="rgba(65,105,225,0.1)" stroke="rgba(65,105,225,0.3)" strokeWidth="1" />
         </svg>
       )
     case 'housing':
@@ -171,7 +171,7 @@ function MiniAsset({ category }: { category: string }) {
     case 'climate':
       return (
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
-          <circle cx="24" cy="22" r="10" stroke="rgba(23,213,207,0.3)" strokeWidth="1.2" fill="rgba(23,213,207,0.06)" />
+          <circle cx="24" cy="22" r="10" stroke="rgba(65,105,225,0.3)" strokeWidth="1.2" fill="rgba(65,105,225,0.06)" />
           <path d="M34 16 Q42 12 48 18 Q54 18 54 24 Q54 30 48 30 L24 30" stroke={stroke} strokeWidth="1" fill="none" />
         </svg>
       )
@@ -180,7 +180,7 @@ function MiniAsset({ category }: { category: string }) {
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
           <circle cx="24" cy="18" r="6" stroke={stroke} strokeWidth="1.2" />
           <circle cx="40" cy="18" r="6" stroke={stroke} strokeWidth="1.2" />
-          <path d="M18 30 Q24 24 32 26 Q40 24 46 30" stroke="rgba(23,213,207,0.3)" strokeWidth="1" fill="none" />
+          <path d="M18 30 Q24 24 32 26 Q40 24 46 30" stroke="rgba(65,105,225,0.3)" strokeWidth="1" fill="none" />
         </svg>
       )
     case 'youth':
@@ -195,8 +195,8 @@ function MiniAsset({ category }: { category: string }) {
       return (
         <svg width="64" height="40" viewBox="0 0 64 40" fill="none">
           <circle cx="32" cy="20" r="12" stroke={stroke} strokeWidth="1.2" />
-          <circle cx="32" cy="20" r="6" stroke="rgba(23,213,207,0.3)" strokeWidth="0.8" />
-          <circle cx="32" cy="20" r="2" fill="rgba(23,213,207,0.4)" />
+          <circle cx="32" cy="20" r="6" stroke="rgba(65,105,225,0.3)" strokeWidth="0.8" />
+          <circle cx="32" cy="20" r="2" fill="rgba(65,105,225,0.4)" />
         </svg>
       )
     case 'finance':
@@ -205,8 +205,8 @@ function MiniAsset({ category }: { category: string }) {
           <line x1="10" y1="32" x2="54" y2="32" stroke={stroke} strokeWidth="1" />
           <rect x="14" y="24" width="6" height="8" rx="1" fill={color} stroke={stroke} strokeWidth="1" />
           <rect x="24" y="18" width="6" height="14" rx="1" fill={color} stroke={stroke} strokeWidth="1" />
-          <rect x="34" y="12" width="6" height="20" rx="1" fill="rgba(23,213,207,0.08)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
-          <rect x="44" y="8" width="6" height="24" rx="1" fill="rgba(23,213,207,0.08)" stroke="rgba(23,213,207,0.3)" strokeWidth="1" />
+          <rect x="34" y="12" width="6" height="20" rx="1" fill="rgba(65,105,225,0.08)" stroke="rgba(65,105,225,0.3)" strokeWidth="1" />
+          <rect x="44" y="8" width="6" height="24" rx="1" fill="rgba(65,105,225,0.08)" stroke="rgba(65,105,225,0.3)" strokeWidth="1" />
         </svg>
       )
     case 'geopolitics':
