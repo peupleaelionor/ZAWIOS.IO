@@ -83,7 +83,7 @@ export function MobileNav() {
                   key={item.href}
                   href={item.href}
                   className="flex flex-col items-center justify-center w-14 h-14 rounded-full -mt-5 transition-transform active:scale-95"
-                  style={{ background: 'var(--accent)', color: 'white', boxShadow: '0 4px 20px rgba(124,110,240,0.4)' }}
+                  style={{ background: 'var(--accent)', color: 'var(--bg)', boxShadow: '0 4px 24px rgba(23,213,207,0.45)' }}
                   aria-label={item.label}
                 >
                   {item.icon}

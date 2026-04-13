@@ -308,3 +308,31 @@ body {
   to   { opacity: 1; transform: translateY(0)  scale(1); }
 }
 .panel-in { animation: panel-in 200ms cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+/* Hero product visual — gentle levitation */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-9px); }
+}
+.float-gentle { animation: float-gentle 6s ease-in-out infinite; }
+
+/* Hero visual entrance */
+@keyframes hero-visual-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+.hero-visual-in {
+  animation: hero-visual-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.3s;
+}
+
+/* Responsive hero visual grid */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 12px;
+}
+@media (max-width: 639px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-grid-right { display: none; }
+}

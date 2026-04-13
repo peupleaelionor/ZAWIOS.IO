@@ -18,6 +18,7 @@ import {
 import { allPredictions, PLATFORM_STATS, mockLeaderboard } from '@/lib/mock-data'
 import { CategoriesSection } from '@/components/home/categories-section'
 import { WorldViewPreview } from '@/components/home/world-view-preview'
+import { HeroVisual } from '@/components/home/hero-visual'
 import { formatNumber } from '@/lib/utils'
 import { Avatar } from '@/components/ui/avatar'
 
@@ -29,7 +30,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative overflow-hidden pt-24 pb-20 md:pt-36 md:pb-28">
+      <section className="relative overflow-hidden pt-24 pb-12 md:pt-32 md:pb-20">
         <GridBackground />
         <Orb color="var(--accent)" size={480} top="-18%" right="-6%" />
         <Orb color="var(--violet2)" size={340} bottom="-20%" left="-6%" />
@@ -77,25 +78,14 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/*
-           * ASSET SLOT — Visuel produit hero
-           * Décommenter quand /public/brand/hero-visual.png est disponible (1600×900, fond transparent)
-           * <div className="mt-16 max-w-4xl mx-auto ri" style={{ animationDelay: '0.15s' }}>
-           *   <Image
-           *     src="/brand/hero-visual.png"
-           *     alt="ZAWIOS — aperçu de l'interface"
-           *     width={1600}
-           *     height={900}
-           *     priority
-           *     className="w-full h-auto rounded-2xl"
-           *     style={{ border: '1px solid var(--border)', boxShadow: '0 32px 80px rgba(124,110,240,0.15)' }}
-           *   />
-           * </div>
-           */}
+          {/* ── Product visual ── */}
+          <div className="mt-14 max-w-2xl mx-auto px-4">
+            <HeroVisual />
+          </div>
 
           {/* ── Unified stats bar ── */}
           <div
-            className="mt-20 max-w-2xl mx-auto surface ri"
+            className="mt-10 max-w-2xl mx-auto surface ri"
             style={{
               animationDelay: '0.25s',
               borderRadius: 'var(--radius)',

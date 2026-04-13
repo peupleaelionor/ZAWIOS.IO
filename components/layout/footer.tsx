@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { IconLogo } from '@/components/ui/icons'
+import { LogoLockup } from '@/components/ui/logo'
 import { useLanguage } from '@/components/providers/language-provider'
 
 const footerStructure = {
@@ -36,9 +36,8 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 font-bold text-lg mb-3">
-              <IconLogo size={28} />
-              <span className="gradient-text tracking-tight">ZAWIOS</span>
+            <Link href="/" className="inline-block mb-3">
+              <LogoLockup className="text-lg" />
             </Link>
             <p className="text-sm text-[var(--text3)] max-w-xs leading-relaxed">
               {t.footer.tagline}

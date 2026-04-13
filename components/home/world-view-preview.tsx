@@ -46,9 +46,9 @@ export function WorldViewPreview() {
                     <span style={{ color: i === 0 ? 'var(--text)' : 'var(--text3)' }}>{r.label}</span>
                     <span style={{ color: i === 0 ? r.color : 'var(--text3)' }}>{r.avg}%</span>
                   </div>
-                  <div className="h-1 rounded-full" style={{ background: 'var(--surface2)' }}>
+                  <div className="h-1.5 rounded-full" style={{ background: 'var(--surface2)' }}>
                     <div
-                      className="h-full rounded-full transition-all"
+                      className="h-full rounded-full bar-settle"
                       style={{ width: `${r.avg}%`, background: i === 0 ? r.color : 'rgba(255,255,255,0.08)' }}
                     />
                   </div>

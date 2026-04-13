@@ -48,7 +48,7 @@ function ResultCard({ prediction }: { prediction: Prediction }) {
   return (
     <Link href={`/predictions/${prediction.id}`} className="block group">
       <div className="relative surface rounded-2xl overflow-hidden card-hover">
-        <div style={{ height: 72, overflow: 'hidden' }}>
+        <div style={{ height: 96, overflow: 'hidden' }}>
           <SignalVisual category={prediction.category} />
         </div>
         <div className="relative p-5">
@@ -151,7 +151,7 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
     <Link href={`/predictions/${prediction.id}`} className="block group">
       <div className="relative surface rounded-2xl overflow-hidden card-hover">
         {/* Thumbnail visuel généré */}
-        <div style={{ height: 72, overflow: 'hidden' }}>
+        <div style={{ height: 96, overflow: 'hidden' }}>
           <SignalVisual category={prediction.category} />
         </div>
 
@@ -195,21 +195,25 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
             </div>
             <div className="flex gap-2">
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold"
+                className="w-11 h-11 rounded-full flex items-center justify-center text-xs font-bold"
                 style={{
-                  border: '1.5px solid var(--border2)',
-                  color: 'var(--text2)',
-                  background: 'var(--surface2)',
+                  border: '1.5px solid rgba(23,213,207,0.3)',
+                  color: 'var(--teal)',
+                  background: 'rgba(23,213,207,0.07)',
+                  fontFamily: 'var(--mono)',
+                  letterSpacing: '0.04em',
                 }}
               >
                 YES
               </div>
               <div
-                className="w-12 h-12 rounded-full flex items-center justify-center text-xs font-bold"
+                className="w-11 h-11 rounded-full flex items-center justify-center text-xs font-bold"
                 style={{
-                  border: '1.5px solid var(--border2)',
-                  color: 'var(--text2)',
-                  background: 'var(--surface2)',
+                  border: '1.5px solid rgba(240,96,112,0.3)',
+                  color: 'var(--zred)',
+                  background: 'rgba(240,96,112,0.07)',
+                  fontFamily: 'var(--mono)',
+                  letterSpacing: '0.04em',
                 }}
               >
                 NO
@@ -225,9 +229,9 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
               <span style={{ color: 'var(--text3)' }}>Probabilité collective</span>
               <span className="font-bold" style={{ color: 'var(--text)' }}>{mainOption.percentage}%</span>
             </div>
-            <div className="h-1 rounded-full overflow-hidden" style={{ background: 'var(--surface3)' }}>
+            <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--surface3)' }}>
               <div
-                className="h-full rounded-full"
+                className="h-full rounded-full bar-settle"
                 style={{ width: `${mainOption.percentage}%`, background: 'var(--accent)' }}
               />
             </div>
