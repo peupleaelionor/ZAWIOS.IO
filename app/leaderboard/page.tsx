@@ -29,7 +29,7 @@ export default function LeaderboardPage() {
             </div>
             <h1 className="text-3xl font-bold text-[var(--text)]">Leaderboard</h1>
             <p className="mt-2 text-[var(--text2)]">
-              Top predictors ranked by accuracy and reputation
+              Top forecasters ranked by prediction accuracy
             </p>
           </div>
 
@@ -83,7 +83,7 @@ export default function LeaderboardPage() {
           </div>
 
           <p className="text-center text-sm text-[var(--text3)] mt-6" style={{ fontFamily: 'var(--mono)', fontSize: '11px' }}>
-            Rankings updated in real-time based on prediction accuracy and volume
+Rankings update live · based on accuracy rate and prediction count
           </p>
         </div>
       </main>

@@ -54,14 +54,14 @@ export default function HomePage() {
               className="text-5xl md:text-7xl font-bold text-[var(--text)] leading-[1.08] tracking-tight mb-6"
               style={{ fontFamily: 'var(--font)', letterSpacing: '-0.02em' }}
             >
-              See what the crowd<br />
+              See what the world<br />
               thinks{' '}
-              <span className="gradient-text">before it&apos;s right</span>
+              <span className="gradient-text">before it happens</span>
             </h1>
 
             <p className="text-base md:text-lg text-[var(--text2)] mb-10 max-w-lg mx-auto leading-relaxed">
-              The collective intelligence platform where your predictions build your reputation.
-              Vote, predict, compare — see who sees the future first.
+              The collective intelligence platform where prediction accuracy builds reputation.
+              Vote, compare, and track who calls it right.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -126,7 +126,7 @@ export default function HomePage() {
               Three steps to collective intelligence
             </h2>
             <p className="mt-3 text-[var(--text2)] max-w-md">
-              ZAWIOS turns opinions into data. Build a track record. Find the signal in the crowd.
+              ZAWIOS converts crowd opinions into measurable forecasts. Build a track record. Find who gets it right, consistently.
             </p>
           </div>
 
@@ -150,7 +150,7 @@ export default function HomePage() {
                 step: '03',
                 icon: <IconTrophy className="w-5 h-5" size={20} />,
                 title: 'Build reputation',
-                description: 'Every correct prediction compounds your score. A transparent track record that speaks for itself.',
+                description: 'Every correct call builds your accuracy score. A public track record that speaks for itself — no followers, no engagement, just outcomes.',
                 accent: 'var(--amber)',
               },
             ].map((item) => (
@@ -206,7 +206,7 @@ export default function HomePage() {
               {
                 icon: <IconUsers className="w-5 h-5" size={20} />,
                 title: 'Community',
-                description: 'Join 47,000+ thinkers, analysts, and researchers making sense of the future together.',
+                description: 'Join 47,000+ forecasters, analysts, and researchers already building their track record on ZAWIOS.',
                 features: ['Real-time crowd sentiment', 'Category communities', 'Public profiles', 'Social reputation'],
                 accent: 'var(--accent)',
               },
@@ -220,7 +220,7 @@ export default function HomePage() {
               {
                 icon: <IconTrophy className="w-5 h-5" size={20} />,
                 title: 'Reputation',
-                description: 'Your prediction track record is your credential. Build a verifiable reputation that compounds.',
+                description: 'Your prediction track record is your credential — measurable, public, transparent. Earned through accuracy, not noise.',
                 features: ['Accuracy score', 'Global ranking', 'Category mastery', 'Credibility badges'],
                 accent: 'var(--amber)',
               },
@@ -374,8 +374,8 @@ export default function HomePage() {
                   Built for a worldwide community
                 </h2>
                 <p className="text-sm text-[var(--text2)] leading-relaxed">
-                  Predictors from 94 countries are already on ZAWIOS.
-                  Finance, technology, politics, science — every topic, every timezone, one shared signal.
+                  Forecasters from 94 countries use ZAWIOS daily.
+                  Finance, technology, politics, science — every category, every timezone, one shared intelligence layer.
                 </p>
               </div>
               <div className="grid grid-cols-3 gap-4">
@@ -458,7 +458,7 @@ export default function HomePage() {
               Start predicting now
             </h2>
             <p className="text-[var(--text2)] mb-8 max-w-sm mx-auto text-sm leading-relaxed">
-              Join {formatNumber(PLATFORM_STATS.total_users)} predictors already building their reputation. Free forever.
+              Join {formatNumber(PLATFORM_STATS.total_users)} forecasters already building their track record. Free to start.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link href="/auth/signup">

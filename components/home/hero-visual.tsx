@@ -1,5 +1,5 @@
-import { allPredictions, mockLeaderboard } from '@/lib/mock-data'
-import { worldViewSignals } from '@/lib/mock-data'
+import type { CSSProperties } from 'react'
+import { allPredictions, mockLeaderboard, worldViewSignals } from '@/lib/mock-data'
 import { SignalVisual } from '@/components/ui/signal-visual'
 import { formatNumber } from '@/lib/utils'
 
@@ -54,7 +54,7 @@ export function HeroVisual() {
   })
 
   // Shared card style
-  const cardBase: React.CSSProperties = {
+  const cardBase: CSSProperties = {
     background: 'var(--surface)',
     border: '1px solid var(--border2)',
     borderRadius: 14,
@@ -118,7 +118,8 @@ export function HeroVisual() {
                 marginBottom: 16,
                 display: '-webkit-box',
                 WebkitLineClamp: 3,
-                WebkitBoxOrient: 'vertical',
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                WebkitBoxOrient: 'vertical' as any,
                 overflow: 'hidden',
               }}
             >

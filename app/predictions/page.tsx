@@ -49,7 +49,7 @@ export default function PredictionsPage() {
             {[
               { icon: IconTrending, value: formatNumber(allPredictions.length), label: 'prédictions' },
               { icon: IconUsers, value: formatNumber(PLATFORM_STATS.total_votes), label: 'votes' },
-              { icon: IconChart, value: `${PLATFORM_STATS.avg_accuracy}%`, label: 'précision moy.' },
+              { icon: IconChart, value: `${PLATFORM_STATS.avg_accuracy}%`, label: 'précision moyenne' },
               { icon: IconTarget, value: String(resolved), label: 'résolues' },
             ].map((stat) => (
               <div key={stat.label} className="flex items-center gap-1.5 flex-shrink-0">

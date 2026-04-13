@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { IconLogo, IconTrending, IconChart, IconTrophy, IconUsers, IconPlus, IconTarget, IconSettings, IconSignOut } from '@/components/ui/icons'
+import { IconTrending, IconChart, IconTrophy, IconUsers, IconPlus, IconTarget, IconSettings, IconSignOut } from '@/components/ui/icons'
+import { LogoLockup } from '@/components/ui/logo'
 import { cn } from '@/lib/utils'
 
 const sidebarLinks = [
@@ -23,9 +24,10 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="flex min-h-screen bg-[var(--bg)]">
       {/* Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 fixed inset-y-0 z-30 glass" style={{ borderRight: '1px solid var(--border)' }}>
-        <div className="flex items-center gap-2.5 h-16 px-6" style={{ borderBottom: '1px solid var(--border)' }}>
-          <IconLogo size={28} />
-          <span className="font-bold gradient-text tracking-tight">ZAWIOS</span>
+        <div className="flex items-center h-16 px-6" style={{ borderBottom: '1px solid var(--border)' }}>
+          <Link href="/" aria-label="ZAWIOS — Accueil">
+            <LogoLockup className="text-base" />
+          </Link>
         </div>
 
         <nav className="flex-1 px-4 py-4 space-y-1">
