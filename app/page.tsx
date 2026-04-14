@@ -19,6 +19,7 @@ import { allPredictions, PLATFORM_STATS, mockLeaderboard } from '@/lib/mock-data
 import { CategoriesSection } from '@/components/home/categories-section'
 import { WorldViewPreview } from '@/components/home/world-view-preview'
 import { HeroVisual } from '@/components/home/hero-visual'
+import { QuestionOfDay } from '@/components/home/question-of-day'
 import { formatNumber } from '@/lib/utils'
 import { Avatar } from '@/components/ui/avatar'
 
@@ -116,6 +117,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <QuestionOfDay />
 
       {/* ── HOW IT WORKS ─────────────────────────────────────────────── */}
       <section className="py-24 bg-[var(--bg2)]">

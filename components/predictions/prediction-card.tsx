@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { formatDate, formatNumber } from '@/lib/utils'
 import { IconComment, IconShare } from '@/components/ui/icons'
 import { Avatar } from '@/components/ui/avatar'
-import { SignalVisual } from '@/components/ui/signal-visual'
+import { PredictionImage } from '@/components/ui/prediction-image'
 import type { Prediction } from '@/types'
 
 // Subtil mark décoratif en fond de carte
@@ -49,7 +49,7 @@ function ResultCard({ prediction }: { prediction: Prediction }) {
     <Link href={`/predictions/${prediction.id}`} className="block group">
       <div className="relative surface rounded-2xl overflow-hidden card-hover">
         <div style={{ height: 96, overflow: 'hidden' }}>
-          <SignalVisual category={prediction.category} />
+          <PredictionImage predictionId={prediction.id} title={prediction.title} category={prediction.category} height={96} />
         </div>
         <div className="relative p-5">
         <CardMark />
@@ -152,7 +152,7 @@ export function PredictionCard({ prediction, compact = false }: PredictionCardPr
       <div className="relative surface rounded-2xl overflow-hidden card-hover">
         {/* Thumbnail visuel généré */}
         <div style={{ height: 96, overflow: 'hidden' }}>
-          <SignalVisual category={prediction.category} />
+          <PredictionImage predictionId={prediction.id} title={prediction.title} category={prediction.category} height={96} />
         </div>
 
         <div className="relative p-5">

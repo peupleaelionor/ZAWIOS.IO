@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { IconArrows } from '@/components/ui/icons'
 import { worldViewSignals } from '@/lib/mock-data'
-import { SignalVisual } from '@/components/ui/signal-visual'
+import { PredictionImage } from '@/components/ui/prediction-image'
 
 const REGIONS = [
   { key: 'Africa',  label: 'Afrique',    color: '#f0c050' },
@@ -72,7 +72,7 @@ export function WorldViewPreview() {
                   style={{ border: '1px solid var(--border)', background: 'var(--surface)' }}
                 >
                   <div style={{ height: 56, overflow: 'hidden' }}>
-                    <SignalVisual category={signal.category} />
+                    <PredictionImage predictionId={signal.id} title={signal.title} category={signal.category} height={56} />
                   </div>
                   <div className="px-4 py-3 flex items-center justify-between gap-3">
                     <p className="text-xs font-medium line-clamp-1" style={{ color: 'var(--text)' }}>
