@@ -24,12 +24,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     try {
       const stored = localStorage.getItem('zawios_lang') as Lang | null
       if (stored === 'fr' || stored === 'en') setLangState(stored)
-    } catch {}
+    } catch { /* localStorage unavailable */ }
   }, [])
 
   const setLang = (l: Lang) => {
     setLangState(l)
-    try { localStorage.setItem('zawios_lang', l) } catch {}
+    try { localStorage.setItem('zawios_lang', l) } catch { /* localStorage unavailable */ }
   }
 
   return (
