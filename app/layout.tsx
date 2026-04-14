@@ -1,7 +1,9 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
+import { UserContextProvider } from '@/components/providers/user-context-provider'
+import { NetworkStatus } from '@/components/layout/network-status'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
 import './globals.css'
@@ -48,12 +50,6 @@ export const metadata: Metadata = {
     'max-image-preview': 'large',
     'max-video-preview': -1,
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
@@ -62,6 +58,13 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 }
 
 export default function RootLayout({
@@ -111,10 +114,13 @@ export default function RootLayout({
         />
         <AnalyticsProvider>
           <LanguageProvider>
-            <main>
-              {children}
-            </main>
-            <BottomNav />
+            <UserContextProvider>
+              <NetworkStatus />
+              <main>
+                {children}
+              </main>
+              <BottomNav />
+            </UserContextProvider>
           </LanguageProvider>
         </AnalyticsProvider>
       </body>

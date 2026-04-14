@@ -16,6 +16,7 @@ import {
   IconArrows,
 } from '@/components/ui/icons'
 import { CrowdSignalBar } from '@/components/crowd-signal-bar'
+import { CommentSection } from '@/components/predictions/comment-section'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
@@ -202,6 +203,14 @@ export default async function PredictionPage({ params }: Props) {
                   </div>
                 </div>
               )}
+            </div>
+
+            {/* Comments */}
+            <div className="surface rounded-2xl p-8">
+              <CommentSection
+                predictionId={id}
+                comments={[]}
+              />
             </div>
 
             {/* Tags */}

@@ -116,7 +116,7 @@ const LIFE_CATEGORIES: SignalCategory[] = [
 export function lifeTopicExpander(signals: Signal[], minLifeRatio = 0.1): Signal[] {
   if (signals.length === 0) return signals
   const lifeSignals = signals.filter((s) => LIFE_CATEGORIES.includes(s.category))
-  const nonLifeSignals = signals.filter((s) => !LIFE_CATEGORIES.includes(s.category))
+  const _nonLifeSignals = signals.filter((s) => !LIFE_CATEGORIES.includes(s.category))
 
   const minLife = Math.max(1, Math.ceil(signals.length * minLifeRatio))
 

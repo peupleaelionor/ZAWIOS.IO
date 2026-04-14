@@ -67,7 +67,13 @@ Respond with valid JSON only, no markdown:
       return NextResponse.json({ error: 'Empty AI response' }, { status: 500 })
     }
 
-    const insights = JSON.parse(content)
+    const insights = (() => {
+      try {
+        return JSON.parse(content)
+      } catch {
+        return [{ category: 'error', headline: 'Parse error', description: 'AI response was not valid JSON', confidence: 0 }]
+      }
+    })()
     return NextResponse.json({ insights })
   } catch {
     return NextResponse.json({ error: 'Failed to generate insights' }, { status: 500 })
