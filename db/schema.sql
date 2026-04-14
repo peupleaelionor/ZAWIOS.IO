@@ -467,12 +467,16 @@ CREATE POLICY "Admins can update media status" ON generated_media FOR UPDATE USI
 -- =====================================================
 CREATE OR REPLACE FUNCTION increment_comment_count(pred_id UUID)
 RETURNS VOID AS $$
-  UPDATE predictions SET comment_count = comment_count + 1 WHERE id = pred_id;
+  UPDATE predictions SET comment_count = comment_count + 1
+  WHERE id = pred_id
+  AND EXISTS (SELECT 1 FROM predictions WHERE id = pred_id);
 $$ LANGUAGE sql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION increment_comment_upvotes(cmt_id UUID)
 RETURNS VOID AS $$
-  UPDATE comments SET upvotes = upvotes + 1 WHERE id = cmt_id;
+  UPDATE comments SET upvotes = upvotes + 1
+  WHERE id = cmt_id
+  AND is_hidden = FALSE;
 $$ LANGUAGE sql SECURITY DEFINER;
 
 -- =====================================================

@@ -39,6 +39,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Title must be at least 5 characters' }, { status: 400 })
   }
 
+  // Sanitize user inputs to prevent prompt injection
+  const sanitize = (s: string) =>
+    s.replace(/["""'`\n\r\t\\]/g, ' ').replace(/\s+/g, ' ').trim()
+
+  const safeTitle = sanitize(title).slice(0, 200)
+  const safeCategory = sanitize(category).slice(0, 50)
+
   // Build a safe, editorial-quality prompt
   const styleGuide: Record<string, string> = {
     editorial: 'Clean editorial illustration style, minimalist, professional news graphics aesthetic',
@@ -47,7 +54,7 @@ export async function POST(request: NextRequest) {
     photorealistic: 'Photorealistic stock photography style, professional, well-lit',
   }
 
-  const prompt = `Create a visual for this prediction topic: "${title}" (category: ${category}).
+  const prompt = `Create a visual for this prediction topic: "${safeTitle}" (category: ${safeCategory}).
 Style: ${styleGuide[style] ?? styleGuide.editorial}.
 Requirements: No text, no watermarks, no logos. Safe for all audiences. 16:9 aspect ratio feel. Dark-themed background (#0C0D10) with royal blue (#4169E1) accents.`
 

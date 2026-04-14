@@ -197,7 +197,7 @@ function guessCountryFromTimezone(tz: string): string | null {
     'Africa/Algiers': 'Algeria',
     'Africa/Tunis': 'Tunisia',
     'Africa/Dakar': 'Senegal',
-    'Africa/Abidjan': 'Côte d\'Ivoire',
+    'Africa/Abidjan': "Côte d'Ivoire",
     'Africa/Douala': 'Cameroon',
     'Asia/Tokyo': 'Japan',
     'Asia/Shanghai': 'China',

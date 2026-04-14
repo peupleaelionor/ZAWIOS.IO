@@ -100,7 +100,7 @@ export function contextAdaptationAgent(input: AdaptationInput): AdaptationOutput
     Morocco: 'africa',
     Senegal: 'africa',
     Cameroon: 'africa',
-    'Côte d\'Ivoire': 'africa',
+    "Côte d'Ivoire": 'africa',
   }
 
   const userRegion = userCountry ? countryToRegion[userCountry] : null
