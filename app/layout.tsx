@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
@@ -48,12 +48,6 @@ export const metadata: Metadata = {
     'max-image-preview': 'large',
     'max-video-preview': -1,
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 5,
-    userScalable: true,
-  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
@@ -62,6 +56,13 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
   },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
 }
 
 export default function RootLayout({
