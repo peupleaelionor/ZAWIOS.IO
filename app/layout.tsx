@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
+import { UserContextProvider } from '@/components/providers/user-context-provider'
+import { NetworkStatus } from '@/components/layout/network-status'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
 import './globals.css'
@@ -112,10 +114,13 @@ export default function RootLayout({
         />
         <AnalyticsProvider>
           <LanguageProvider>
-            <main>
-              {children}
-            </main>
-            <BottomNav />
+            <UserContextProvider>
+              <NetworkStatus />
+              <main>
+                {children}
+              </main>
+              <BottomNav />
+            </UserContextProvider>
           </LanguageProvider>
         </AnalyticsProvider>
       </body>

@@ -43,6 +43,7 @@ export default [
         HTMLSpanElement: "readonly",
         HTMLParagraphElement: "readonly",
         HTMLHeadingElement: "readonly",
+        Navigator: "readonly",
         Event: "readonly",
         MouseEvent: "readonly",
         KeyboardEvent: "readonly",

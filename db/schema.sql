@@ -392,6 +392,90 @@ CREATE INDEX IF NOT EXISTS idx_reports_target ON reports(target_type, target_id)
 CREATE INDEX IF NOT EXISTS idx_comments_hidden ON comments(prediction_id) WHERE is_hidden = TRUE;
 
 -- =====================================================
+-- COMMENT VOTES (for upvoting comments)
+-- =====================================================
+CREATE TABLE comment_votes (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  comment_id UUID NOT NULL REFERENCES comments(id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, comment_id)
+);
+
+CREATE INDEX idx_comment_votes_user ON comment_votes(user_id);
+CREATE INDEX idx_comment_votes_comment ON comment_votes(comment_id);
+
+ALTER TABLE comment_votes ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view own comment votes" ON comment_votes FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own comment votes" ON comment_votes FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can delete own comment votes" ON comment_votes FOR DELETE USING (auth.uid() = user_id);
+
+-- =====================================================
+-- USER PREFERENCES (for adaptive experience)
+-- =====================================================
+CREATE TABLE user_preferences (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE,
+  preferred_categories TEXT[] DEFAULT '{}',
+  preferred_regions TEXT[] DEFAULT '{}',
+  language TEXT DEFAULT 'fr',
+  notification_email BOOLEAN DEFAULT TRUE,
+  notification_push BOOLEAN DEFAULT TRUE,
+  notification_weekly_digest BOOLEAN DEFAULT TRUE,
+  accessibility_reduced_motion BOOLEAN DEFAULT FALSE,
+  accessibility_high_contrast BOOLEAN DEFAULT FALSE,
+  accessibility_font_size TEXT DEFAULT 'normal' CHECK (accessibility_font_size IN ('small', 'normal', 'large', 'xlarge')),
+  onboarding_completed BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_user_preferences_user ON user_preferences(user_id);
+
+ALTER TABLE user_preferences ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view own preferences" ON user_preferences FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own preferences" ON user_preferences FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own preferences" ON user_preferences FOR UPDATE USING (auth.uid() = user_id);
+
+CREATE TRIGGER user_preferences_updated_at BEFORE UPDATE ON user_preferences FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- =====================================================
+-- GENERATED MEDIA (AI-generated images/videos for predictions)
+-- =====================================================
+CREATE TABLE generated_media (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  prediction_id UUID REFERENCES predictions(id) ON DELETE CASCADE,
+  generated_by UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  media_type TEXT NOT NULL DEFAULT 'image' CHECK (media_type IN ('image', 'video', 'infographic')),
+  url TEXT NOT NULL,
+  prompt TEXT,
+  revised_prompt TEXT,
+  status TEXT NOT NULL DEFAULT 'pending_review' CHECK (status IN ('pending_review', 'approved', 'rejected')),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_generated_media_prediction ON generated_media(prediction_id);
+CREATE INDEX idx_generated_media_status ON generated_media(status);
+
+ALTER TABLE generated_media ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Approved media is publicly viewable" ON generated_media FOR SELECT USING (status = 'approved' OR auth.uid() = generated_by OR is_admin());
+CREATE POLICY "Authenticated users can generate media" ON generated_media FOR INSERT WITH CHECK (auth.uid() = generated_by);
+CREATE POLICY "Admins can update media status" ON generated_media FOR UPDATE USING (is_admin());
+
+-- =====================================================
+-- HELPER FUNCTIONS for atomic increments
+-- =====================================================
+CREATE OR REPLACE FUNCTION increment_comment_count(pred_id UUID)
+RETURNS VOID AS $$
+  UPDATE predictions SET comment_count = comment_count + 1 WHERE id = pred_id;
+$$ LANGUAGE sql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION increment_comment_upvotes(cmt_id UUID)
+RETURNS VOID AS $$
+  UPDATE comments SET upvotes = upvotes + 1 WHERE id = cmt_id;
+$$ LANGUAGE sql SECURITY DEFINER;
+
+-- =====================================================
 -- SEED: CATEGORIES
 -- =====================================================
 INSERT INTO categories (name, label, description, icon, color) VALUES
