@@ -48,7 +48,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          {(Object.entries(footerStructure) as [SectionKey, typeof footerStructure[SectionKey][number][]][]).map(([section, links]) => (
+          {(Object.entries(footerStructure) as unknown as [SectionKey, { href: string; key: string }[]][]).map(([section, links]) => (
             <div key={section}>
               <h4 className="text-xs font-semibold text-[var(--text2)] mb-3 uppercase tracking-wider" style={{ fontFamily: 'var(--mono)' }}>
                 {t.footer.sections[section as keyof typeof t.footer.sections]}
