@@ -38,19 +38,16 @@ export function Navbar() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full"
-      style={{
-        background:     'rgba(13,14,20,0.88)',
-        backdropFilter: 'blur(20px) saturate(1.6)',
-        borderBottom:   '1px solid var(--border)',
-      }}
+      className="sticky top-0 z-50 w-full glass"
+      style={{ borderBottom: '1px solid var(--border)' }}
+      role="banner"
     >
-      <nav className="container">
+      <nav className="container" aria-label="Main navigation">
         <div className="flex items-center justify-between h-16">
 
           {/* ── Logo ──────────────────────────────────────────────────── */}
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg shrink-0">
-            <IconLogo size={32} />
+          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg shrink-0" aria-label="ZAWIOS Home">
+            <IconLogo size={32} aria-hidden="true" />
             <span
               className="gradient-text tracking-tight"
               style={{ fontFamily: 'var(--font)', fontWeight: 700 }}
@@ -103,7 +100,8 @@ export function Navbar() {
                 letterSpacing: '0.05em',
                 background:    'transparent',
               }}
-              aria-label="Toggle language"
+              aria-label={`Switch language to ${lang === 'en' ? 'French' : 'English'}`}
+              title={`Current language: ${lang === 'en' ? 'English' : 'French'}`}
             >
               {lang === 'en' ? 'FR' : 'EN'}
             </button>
@@ -140,7 +138,7 @@ export function Navbar() {
                 border:        '1px solid var(--border2)',
                 letterSpacing: '0.05em',
               }}
-              aria-label="Toggle language"
+              aria-label={`Switch language to ${lang === 'en' ? 'French' : 'English'}`}
             >
               {lang === 'en' ? 'FR' : 'EN'}
             </button>
@@ -151,6 +149,7 @@ export function Navbar() {
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
               aria-expanded={isOpen}
+              aria-controls="mobile-nav"
             >
               {isOpen ? (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -167,10 +166,13 @@ export function Navbar() {
 
         {/* ── Mobile menu ────────────────────────────────────────────── */}
         <div
+          id="mobile-nav"
           className={cn(
             'md:hidden overflow-hidden transition-all duration-300 ease-in-out',
             isOpen ? 'max-h-[420px] pb-4 opacity-100' : 'max-h-0 opacity-0',
           )}
+          role="navigation"
+          aria-label="Mobile navigation"
         >
           <div className="flex flex-col gap-0.5 pt-2">
             {navLinks.map((link) => {

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   },
   description:
     "Vote YES ou NO sur les sujets qui font l'actu. Compare ton signal avec la foule mondiale, construis ta réputation d'analyste.",
-  keywords: ['prédiction', 'intelligence collective', 'vote', 'réputation', 'signaux', 'actualité', 'analyse'],
+  keywords: ['prédiction', 'intelligence collective', 'vote', 'réputation', 'signaux', 'actualité', 'analyse', 'forecasting', 'crowd wisdom'],
   authors: [{ name: 'ZAWIOS' }],
   creator: 'ZAWIOS',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app'),
@@ -26,24 +26,38 @@ export const metadata: Metadata = {
     siteName:        'ZAWIOS',
     title:           'ZAWIOS — Intelligence Collective',
     description:     'Vote sur les signaux du monde. Compare avec la foule. Construis ta réputation.',
+    images: [
+      {
+        url:    '/social-cards/og-image.png',
+        width:  1200,
+        height: 630,
+        alt:    'ZAWIOS — Intelligence Collective',
+      },
+    ],
   },
   twitter: {
     card:        'summary_large_image',
     title:       'ZAWIOS — Intelligence Collective',
     description: 'Vote sur les signaux du monde. Compare avec la foule.',
+    images: ['/social-cards/twitter-image.png'],
   },
   robots: {
     index:  true,
     follow: true,
     googleBot: { index: true, follow: true },
+    'max-snippet': -1,
+    'max-image-preview': 'large',
+    'max-video-preview': -1,
   },
-  // PWA
-  manifest: '/manifest.webmanifest',
   appleWebApp: {
     capable:        true,
     statusBarStyle: 'black-translucent',
     title:          'ZAWIOS',
   },
+  formatDetection: {
+    telephone: false,
+  },
+  manifest: '/manifest.webmanifest',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -52,12 +66,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://plausible.io" />
+        <meta name="theme-color" content="#1de4de" />
+        <meta name="color-scheme" content="dark" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicons/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
         <link
           href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
         {/* PWA meta */}
-        <meta name="theme-color" content="#17D5CF" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -80,7 +99,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }
         `}</Script>
       </head>
-      <body className="antialiased has-bottom-nav" style={{ fontFamily: 'var(--font)' }}>
+      <body className="antialiased has-bottom-nav" style={{ fontFamily: 'var(--font)' }} role="application">
         <Toaster
           theme="dark"
           position="bottom-right"

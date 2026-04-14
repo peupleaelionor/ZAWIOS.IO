@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { IconMark, IconArrows } from '@/components/ui/icons'
+import { IconArrows, IconLogo } from '@/components/ui/icons'
 import { SignalCard } from '@/components/signals/signal-card'
 import { getTrendingSignals } from '@/lib/signals-data'
 
@@ -76,26 +76,24 @@ export function HeroSection() {
 
       <div className="container relative">
         <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+
           {/* ── Text column ─────────────────────────────────────────── */}
           <div className="flex-1 text-center lg:text-left max-w-xl mx-auto lg:mx-0">
-            {/* Mark */}
+
+            {/* Logo mark */}
             <div className="flex justify-center lg:justify-start mb-6">
-              <IconMark
-                width={52}
-                leftColor="rgba(255,255,255,0.85)"
-                rightColor="rgba(29,228,222,0.85)"
-              />
+              <IconLogo size={48} />
             </div>
 
-            {/* Badge */}
+            {/* Live badge */}
             <div className="flex justify-center lg:justify-start mb-4">
               <span
                 className="inline-flex items-center gap-2 text-[11px] font-semibold px-3 py-1.5 rounded-full"
                 style={{
-                  background:  'rgba(29,228,222,0.08)',
-                  border:      '1px solid rgba(29,228,222,0.2)',
-                  color:       'var(--teal)',
-                  fontFamily:  'var(--mono)',
+                  background:    'rgba(29,228,222,0.08)',
+                  border:        '1px solid rgba(29,228,222,0.2)',
+                  color:         'var(--teal)',
+                  fontFamily:    'var(--mono)',
                   letterSpacing: '0.05em',
                 }}
               >

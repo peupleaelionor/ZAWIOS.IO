@@ -9,8 +9,15 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Predictions',
-  description: 'Browse all predictions on ZAWIOS. Vote, predict, and compare your views with the crowd.',
+  title: 'Predictions | ZAWIOS',
+  description: 'Browse all predictions on ZAWIOS. Vote, predict, and compare your views with the crowd. Participate in collective intelligence and build your reputation as an analyst.',
+  keywords: ['predictions', 'forecasting', 'voting', 'crowd intelligence', 'analysis', 'signals'],
+  openGraph: {
+    title: 'Predictions | ZAWIOS',
+    description: 'Browse all predictions on ZAWIOS. Vote, predict, and compare your views with the crowd.',
+    type: 'website',
+    url: 'https://zawios.netlify.app/predictions',
+  },
 }
 
 const categories = [
@@ -33,7 +40,7 @@ export default function PredictionsPage() {
       <Navbar />
 
       {/* Header */}
-      <div style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg2)' }}>
+      <section style={{ borderBottom: '1px solid var(--border)', background: 'var(--bg2)' }} aria-label="Page header">
         <div className="container py-10">
           <div className="flex items-start justify-between gap-4">
             <div>
@@ -54,7 +61,7 @@ export default function PredictionsPage() {
           </div>
 
           {/* Stats bar */}
-          <div className="flex items-center gap-6 mt-7 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
+          <div className="flex items-center gap-6 mt-7 pt-6" style={{ borderTop: '1px solid var(--border)' }} role="region" aria-label="Platform statistics">
             {[
               { icon: IconTrending, value: formatNumber(mockPredictions.length), label: 'predictions' },
               { icon: IconUsers, value: formatNumber(PLATFORM_STATS.total_votes), label: 'total votes' },
@@ -62,7 +69,7 @@ export default function PredictionsPage() {
               { icon: IconTarget, value: String(resolved), label: 'resolved' },
             ].map((stat) => (
               <div key={stat.label} className="flex items-center gap-2">
-                <stat.icon size={14} style={{ color: 'var(--text3)' }} />
+                <stat.icon size={14} style={{ color: 'var(--text3)' }} aria-hidden="true" />
                 <span className="text-sm font-semibold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>
                   {stat.value}
                 </span>
@@ -71,11 +78,11 @@ export default function PredictionsPage() {
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
-      <main className="container py-8">
+      <main className="container py-8" role="main">
         {/* Category filters */}
-        <div className="flex gap-2 flex-wrap mb-8">
+        <div className="flex gap-2 flex-wrap mb-8" role="region" aria-label="Category filters">
           {categories.map((cat, i) => (
             <button
               key={cat.value}
@@ -107,13 +114,13 @@ export default function PredictionsPage() {
         </div>
 
         {/* Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5" role="region" aria-label="Predictions list">
           {mockPredictions.map((prediction) => (
             <PredictionCard key={prediction.id} prediction={prediction} />
           ))}
         </div>
       </main>
-      <Footer />
+      <footer><Footer /></footer>
     </div>
   )
 }

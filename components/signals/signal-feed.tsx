@@ -19,17 +19,27 @@ import { useUIStore } from '@/lib/stores/ui'
 // ── Category tabs ─────────────────────────────────────────────────────────────
 const CATEGORY_TABS: { id: SignalCategory | 'all'; labelFr: string; emoji?: string }[] = [
   { id: 'all',           labelFr: 'Tous' },
-  { id: 'worldview',     labelFr: 'World View',      emoji: '🌍' },
-  { id: 'news',          labelFr: 'Actu',             emoji: '📰' },
-  { id: 'tech',          labelFr: 'Tech & IA',        emoji: '🤖' },
-  { id: 'business',      labelFr: 'Business',         emoji: '📈' },
-  { id: 'crypto',        labelFr: 'Crypto',           emoji: '🔐' },
-  { id: 'sports',        labelFr: 'Sport',            emoji: '⚽' },
-  { id: 'culture',       labelFr: 'Culture',          emoji: '🎭' },
-  { id: 'society',       labelFr: 'Société',          emoji: '👥' },
-  { id: 'entertainment', labelFr: 'Divertissement',   emoji: '🎬' },
-  { id: 'trends',        labelFr: 'Tendances',        emoji: '🔥' },
-  { id: 'fun',           labelFr: 'Fun',              emoji: '😄' },
+  { id: 'worldview',     labelFr: 'World View',    emoji: '🌍' },
+  { id: 'news',          labelFr: 'Actu',           emoji: '📰' },
+  { id: 'tech',          labelFr: 'Tech & IA',      emoji: '🤖' },
+  { id: 'business',      labelFr: 'Business',       emoji: '📈' },
+  { id: 'crypto',        labelFr: 'Crypto',         emoji: '🔐' },
+  { id: 'sports',        labelFr: 'Sport',          emoji: '⚽' },
+  { id: 'culture',       labelFr: 'Culture',        emoji: '🎭' },
+  { id: 'society',       labelFr: 'Société',        emoji: '👥' },
+  { id: 'entertainment', labelFr: 'Divertissement', emoji: '🎬' },
+  { id: 'trends',        labelFr: 'Tendances',      emoji: '🔥' },
+  { id: 'fun',           labelFr: 'Fun',            emoji: '😄' },
+  { id: 'work',          labelFr: 'Travail',        emoji: '💼' },
+  { id: 'education',     labelFr: 'Éducation',      emoji: '🎓' },
+  { id: 'health',        labelFr: 'Santé',          emoji: '🏥' },
+  { id: 'housing',       labelFr: 'Logement',       emoji: '🏠' },
+  { id: 'climate',       labelFr: 'Climat',         emoji: '🌱' },
+  { id: 'relationships', labelFr: 'Relations',      emoji: '💬' },
+  { id: 'youth',         labelFr: 'Jeunesse',       emoji: '✨' },
+  { id: 'spirituality',  labelFr: 'Spiritualité',   emoji: '🙏' },
+  { id: 'finance',       labelFr: 'Finances',       emoji: '💰' },
+  { id: 'geopolitics',   labelFr: 'Géopolitique',   emoji: '🗺️' },
 ]
 
 const SORT_TABS = [
@@ -82,9 +92,9 @@ export function SignalFeed() {
                 active ? 'text-[var(--bg)]' : 'text-[var(--text2)] hover:text-[var(--text)]',
               )}
               style={{
-                background:  active ? 'var(--text)' : 'var(--surface)',
-                border:      active ? '1px solid transparent' : '1px solid var(--border2)',
-                fontFamily:  'var(--font)',
+                background: active ? 'var(--text)' : 'var(--surface)',
+                border:     active ? '1px solid transparent' : '1px solid var(--border2)',
+                fontFamily: 'var(--font)',
               }}
             >
               {tab.label}
@@ -104,10 +114,10 @@ export function SignalFeed() {
               onClick={() => setFeedCategory(tab.id)}
               className="flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap transition-all duration-150 min-h-[32px]"
               style={{
-                fontFamily:  'var(--mono)',
-                background:  active ? col.bg : 'var(--surface)',
-                color:        active ? col.text : 'var(--text3)',
-                border:       active ? `1px solid ${col.text}40` : '1px solid var(--border)',
+                fontFamily: 'var(--mono)',
+                background: active ? col.bg : 'var(--surface)',
+                color:      active ? col.text : 'var(--text3)',
+                border:     active ? `1px solid ${col.text}40` : '1px solid var(--border)',
               }}
             >
               {tab.emoji && <span style={{ fontSize: 11 }}>{tab.emoji}</span>}
@@ -125,10 +135,10 @@ export function SignalFeed() {
             'px-3 py-1 rounded-full text-[11px] font-medium whitespace-nowrap transition-all duration-150',
           )}
           style={{
-            fontFamily:  'var(--mono)',
-            background:  feedRegion === 'all' ? 'var(--surface3)' : 'transparent',
-            border:      feedRegion === 'all' ? '1px solid var(--border3)' : '1px solid transparent',
-            color:       feedRegion === 'all' ? 'var(--text)' : 'var(--text3)',
+            fontFamily: 'var(--mono)',
+            background: feedRegion === 'all' ? 'var(--surface3)' : 'transparent',
+            border:     feedRegion === 'all' ? '1px solid var(--border3)' : '1px solid transparent',
+            color:      feedRegion === 'all' ? 'var(--text)' : 'var(--text3)',
           }}
         >
           🌐 Toutes régions
@@ -139,10 +149,10 @@ export function SignalFeed() {
             onClick={() => setFeedRegion(r.id as SignalRegion)}
             className="px-3 py-1 rounded-full text-[11px] font-medium whitespace-nowrap transition-all duration-150"
             style={{
-              fontFamily:  'var(--mono)',
-              background:  feedRegion === r.id ? 'var(--surface3)' : 'transparent',
-              border:      feedRegion === r.id ? '1px solid var(--border3)' : '1px solid transparent',
-              color:       feedRegion === r.id ? 'var(--text)' : 'var(--text3)',
+              fontFamily: 'var(--mono)',
+              background: feedRegion === r.id ? 'var(--surface3)' : 'transparent',
+              border:     feedRegion === r.id ? '1px solid var(--border3)' : '1px solid transparent',
+              color:      feedRegion === r.id ? 'var(--text)' : 'var(--text3)',
             }}
           >
             {r.labelFr}
@@ -165,11 +175,7 @@ export function SignalFeed() {
             <span className="text-sm font-semibold" style={{ color: 'var(--text)' }}>🌍 World View</span>
             <span
               className="text-[10px] px-2 py-0.5 rounded-full"
-              style={{
-                background:  'rgba(29,228,222,0.12)',
-                color:       'var(--teal)',
-                fontFamily:  'var(--mono)',
-              }}
+              style={{ background: 'rgba(29,228,222,0.12)', color: 'var(--teal)', fontFamily: 'var(--mono)' }}
             >
               Comment le monde pense ?
             </span>
@@ -224,10 +230,7 @@ export function SignalFeed() {
           className="text-center py-16 rounded-2xl"
           style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
         >
-          <p
-            className="text-sm mb-3"
-            style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}
-          >
+          <p className="text-sm mb-3" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
             Aucun signal pour ces filtres.
           </p>
           <button

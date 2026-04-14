@@ -1,12 +1,12 @@
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { HeroSection } from '@/components/landing/hero-section'
-import { SocialProofSection } from '@/components/landing/social-proof-section'
-import { StepsSection } from '@/components/landing/steps-section'
 import { CategoriesSection } from '@/components/landing/categories-section'
 import { WorldViewSection } from '@/components/landing/world-view-section'
 import { AmbassadorSection } from '@/components/landing/ambassador-section'
 import { CTASection } from '@/components/landing/cta-section'
+import { SocialProofSection } from '@/components/landing/social-proof-section'
+import { StepsSection } from '@/components/landing/steps-section'
 import { SignalFeed } from '@/components/signals/signal-feed'
 import { SignalCard } from '@/components/signals/signal-card'
 import { getResolvedSignals, getTrendingSignals } from '@/lib/signals-data'
@@ -19,7 +19,7 @@ export default function HomePage() {
     <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
 
-      {/* Hero + live signal preview */}
+      {/* Hero — app-style header with live stats */}
       <HeroSection />
 
       {/* Stats band */}
@@ -31,7 +31,7 @@ export default function HomePage() {
       {/* ── Live Feed ─────────────────────────────────────────────────────── */}
       <section id="feed" className="py-12 md:py-20" style={{ background: 'var(--bg)' }}>
         <div className="container">
-          <div className="mb-6 md:mb-8">
+          <div className="mb-5 md:mb-6">
             <p className="section-label">Live</p>
             <h2
               className="text-xl md:text-3xl font-bold mt-1"
@@ -100,10 +100,10 @@ export default function HomePage() {
                 </p>
                 <div className="space-y-2">
                   {[
-                    { label: 'Signaux actifs', value: '184' },
-                    { label: 'Votes aujourd\'hui', value: '12 847' },
-                    { label: 'Précision moyenne', value: '64%' },
-                    { label: 'Pays représentés', value: '94' },
+                    { label: 'Signaux actifs',     value: '184' },
+                    { label: "Votes aujourd'hui",  value: '12 847' },
+                    { label: 'Précision moyenne',  value: '64%' },
+                    { label: 'Pays représentés',   value: '94' },
                   ].map((item) => (
                     <div key={item.label} className="flex justify-between items-baseline">
                       <span className="text-[11px]" style={{ color: 'var(--text3)' }}>{item.label}</span>
@@ -146,9 +146,9 @@ export default function HomePage() {
       <WorldViewSection />
 
       {/* Resolved signals */}
-      <section className="py-10 md:py-16" style={{ background: 'var(--bg2)', borderTop: '1px solid var(--border)' }}>
+      <section className="py-8 md:py-14" style={{ background: 'var(--bg2)', borderTop: '1px solid var(--border)' }}>
         <div className="container">
-          <div className="mb-6 md:mb-8">
+          <div className="mb-5 md:mb-6">
             <p className="section-label">Résultats</p>
             <h2 className="text-xl md:text-3xl font-bold mt-1" style={{ color: 'var(--text)', letterSpacing: '-0.02em' }}>
               Signaux résolus
@@ -158,7 +158,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid gap-4 feed-grid">
             {resolvedSignals.map((signal) => (
               <SignalCard key={signal.id} signal={signal} />
             ))}
