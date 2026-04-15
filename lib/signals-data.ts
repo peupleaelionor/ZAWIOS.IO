@@ -324,7 +324,7 @@ export const mockSignals: Signal[] = [
     description: 'ChatGPT has been growing at record pace since launch.',
     category: 'tech', region: 'usa', status: 'active',
     yesPercent: 71, noPercent: 29, totalVotes: 15678,
-    createdBy: 'u2', creatorName: 'M. Chen', creatorAvatar: '/avatars/chen.jpg',
+    createdBy: 'u2', creatorName: 'M. Chen', creatorAvatar: '/avatars/chen.svg',
     verified: true, timeAgo: '3h ago', expiresIn: '8 months',
   },
   {
@@ -341,7 +341,7 @@ export const mockSignals: Signal[] = [
     description: 'La startup francaise leve des milliards. Peut-elle rivaliser avec OpenAI ?',
     category: 'tech', region: 'france', status: 'active',
     yesPercent: 51, noPercent: 49, totalVotes: 8456,
-    createdBy: 'u8', creatorName: 'C. Dubois', creatorAvatar: '/avatars/dubois.jpg',
+    createdBy: 'u8', creatorName: 'C. Dubois', creatorAvatar: '/avatars/dubois.svg',
     verified: true, trending: true, timeAgo: '2h ago', expiresIn: '1 year',
   },
   {
@@ -350,7 +350,7 @@ export const mockSignals: Signal[] = [
     description: 'Quantum supremacy is progressing fast. Are our systems at risk?',
     category: 'tech', region: 'global', status: 'active',
     yesPercent: 34, noPercent: 66, totalVotes: 19234,
-    createdBy: 'u10', creatorName: 'T. Nguyen', creatorAvatar: '/avatars/nguyen.jpg',
+    createdBy: 'u10', creatorName: 'T. Nguyen', creatorAvatar: '/avatars/nguyen.svg',
     verified: true, timeAgo: '4h ago', expiresIn: '4 years',
   },
 
@@ -403,7 +403,7 @@ export const mockSignals: Signal[] = [
     description: 'The flippening has been predicted many times. Will it finally happen?',
     category: 'crypto', region: 'global', status: 'active',
     yesPercent: 22, noPercent: 78, totalVotes: 19876,
-    createdBy: 'u4', creatorName: 'S. Gupta', creatorAvatar: '/avatars/gupta.jpg',
+    createdBy: 'u4', creatorName: 'S. Gupta', creatorAvatar: '/avatars/gupta.svg',
     verified: true, timeAgo: '5h ago', expiresIn: '2 years',
   },
   {
@@ -412,7 +412,7 @@ export const mockSignals: Signal[] = [
     description: 'Following El Salvador, Africa could be next. Which country?',
     category: 'crypto', region: 'africa', status: 'active',
     yesPercent: 47, noPercent: 53, totalVotes: 14321,
-    createdBy: 'u11', creatorName: 'E. Diallo', creatorAvatar: '/avatars/diallo.jpg',
+    createdBy: 'u11', creatorName: 'E. Diallo', creatorAvatar: '/avatars/diallo.svg',
     timeAgo: '6h ago', expiresIn: '1 year',
   },
 
@@ -447,7 +447,7 @@ export const mockSignals: Signal[] = [
     description: 'After a strong AFCON showing, Senegal looks strong.',
     category: 'sports', region: 'africa', status: 'active',
     yesPercent: 76, noPercent: 24, totalVotes: 7823,
-    createdBy: 'u11', creatorName: 'E. Diallo', creatorAvatar: '/avatars/diallo.jpg',
+    createdBy: 'u11', creatorName: 'E. Diallo', creatorAvatar: '/avatars/diallo.svg',
     timeAgo: '8h ago', expiresIn: '3 months',
   },
 
@@ -466,7 +466,7 @@ export const mockSignals: Signal[] = [
     description: 'Burna Boy, Wizkid, Tems — African music is taking over the world.',
     category: 'culture', region: 'africa', status: 'active',
     yesPercent: 54, noPercent: 46, totalVotes: 11234,
-    createdBy: 'u5', creatorName: 'H. Al-Fassi', creatorAvatar: '/avatars/alfassi.jpg',
+    createdBy: 'u5', creatorName: 'H. Al-Fassi', creatorAvatar: '/avatars/alfassi.svg',
     timeAgo: '3h ago', expiresIn: '2 years',
   },
   {
@@ -475,7 +475,7 @@ export const mockSignals: Signal[] = [
     description: 'BTS, BLACKPINK, NewJeans — the Korean wave shows no signs of stopping.',
     category: 'culture', region: 'global', status: 'active',
     yesPercent: 43, noPercent: 57, totalVotes: 17890,
-    createdBy: 'u6', creatorName: 'L. Tanaka', creatorAvatar: '/avatars/tanaka.jpg',
+    createdBy: 'u6', creatorName: 'L. Tanaka', creatorAvatar: '/avatars/tanaka.svg',
     timeAgo: '5h ago', expiresIn: '1 year',
   },
 
@@ -502,7 +502,7 @@ export const mockSignals: Signal[] = [
     description: 'Linear TV audiences are collapsing. Is the end near?',
     category: 'entertainment', region: 'global', status: 'active',
     yesPercent: 72, noPercent: 28, totalVotes: 23456,
-    createdBy: 'u12', creatorName: "K. O'Connell", creatorAvatar: '/avatars/oconnell.jpg',
+    createdBy: 'u12', creatorName: "K. O'Connell", creatorAvatar: '/avatars/oconnell.svg',
     timeAgo: '4h ago', expiresIn: '4 years',
   },
 
@@ -537,7 +537,7 @@ export const mockSignals: Signal[] = [
     description: 'Finland, Kenya, USA — UBI pilots are spreading. Is full adoption next?',
     category: 'society', region: 'global', status: 'active',
     yesPercent: 33, noPercent: 67, totalVotes: 16789,
-    createdBy: 'u3', creatorName: 'J. Schmidt', creatorAvatar: '/avatars/schmidt.jpg',
+    createdBy: 'u3', creatorName: 'J. Schmidt', creatorAvatar: '/avatars/schmidt.svg',
     verified: true, timeAgo: '6h ago', expiresIn: '4 years',
   },
 
@@ -556,7 +556,7 @@ export const mockSignals: Signal[] = [
     description: 'AI is creating text, images, video at scale. The internet is changing.',
     category: 'trends', region: 'global', status: 'active',
     yesPercent: 68, noPercent: 32, totalVotes: 22345,
-    createdBy: 'u1', creatorName: 'A. Adebayo', creatorAvatar: '/avatars/adebayo.jpg',
+    createdBy: 'u1', creatorName: 'A. Adebayo', creatorAvatar: '/avatars/adebayo.svg',
     verified: true, timeAgo: '6h ago', expiresIn: '2 years',
   },
   {
@@ -565,7 +565,7 @@ export const mockSignals: Signal[] = [
     description: 'Meta Quest, Apple Vision Pro — immersive travel is becoming real.',
     category: 'trends', region: 'global', status: 'active',
     yesPercent: 21, noPercent: 79, totalVotes: 18456,
-    createdBy: 'u7', creatorName: 'R. Rodriguez', creatorAvatar: '/avatars/rodriguez.jpg',
+    createdBy: 'u7', creatorName: 'R. Rodriguez', creatorAvatar: '/avatars/rodriguez.svg',
     timeAgo: '8h ago', expiresIn: '4 years',
   },
 
@@ -576,7 +576,7 @@ export const mockSignals: Signal[] = [
     description: 'The eternal debate. Where do you stand?',
     category: 'fun', region: 'global', status: 'active',
     yesPercent: 34, noPercent: 66, totalVotes: 42567,
-    createdBy: 'u9', creatorName: 'W. Running Bear', creatorAvatar: '/avatars/runningbear.jpg',
+    createdBy: 'u9', creatorName: 'W. Running Bear', creatorAvatar: '/avatars/runningbear.svg',
     timeAgo: '12h ago',
   },
   {
@@ -765,7 +765,7 @@ export const extendedSignals: Signal[] = [
     description: "Avec 15 millions d'habitants, Kinshasa est la plus grande ville francophone du monde. La tech peut-elle y exploser ?",
     category: 'tech', region: 'rdc', status: 'active',
     yesPercent: 47, noPercent: 53, totalVotes: 11234,
-    createdBy: 'u11', creatorName: 'E. Diallo', creatorAvatar: '/avatars/diallo.jpg',
+    createdBy: 'u11', creatorName: 'E. Diallo', creatorAvatar: '/avatars/diallo.svg',
     trending: true, timeAgo: '3h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 47, africa: 62, france: 44, europe: 41, usa: 38 },
   },
@@ -783,7 +783,7 @@ export const extendedSignals: Signal[] = [
     description: "Ressources naturelles colossales, population jeune. Le potentiel est là — les institutions suivront-elles ?",
     category: 'business', region: 'rdc', status: 'active',
     yesPercent: 52, noPercent: 48, totalVotes: 14321,
-    createdBy: 'u1', creatorName: 'A. Adebayo', creatorAvatar: '/avatars/adebayo.jpg',
+    createdBy: 'u1', creatorName: 'A. Adebayo', creatorAvatar: '/avatars/adebayo.svg',
     trending: true, timeAgo: '4h ago', expiresIn: '14 years',
     regionalBreakdown: { global: 52, africa: 68, france: 49, europe: 45, usa: 41 },
   },
@@ -842,7 +842,7 @@ export const extendedSignals: Signal[] = [
     description: "Station F, la French Tech... Paris défie Londres et Berlin sur la scène tech européenne.",
     category: 'tech', region: 'france', status: 'active',
     yesPercent: 53, noPercent: 47, totalVotes: 19234,
-    createdBy: 'u8', creatorName: 'C. Dubois', creatorAvatar: '/avatars/dubois.jpg',
+    createdBy: 'u8', creatorName: 'C. Dubois', creatorAvatar: '/avatars/dubois.svg',
     verified: true, trending: true, timeAgo: '3h ago', expiresIn: '2 years',
     regionalBreakdown: { global: 53, africa: 48, france: 71, europe: 56, usa: 44 },
   },

@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { type RegionalBreakdown } from '@/lib/signals-data'
 import { IconRegion } from '@/components/ui/icons'
@@ -10,12 +11,17 @@ interface WorldViewComparisonProps {
   className?: string
 }
 
-const REGIONS: { key: keyof RegionalBreakdown; label: string; flag: string }[] = [
-  { key: 'global',  label: 'Monde',   flag: '🌍' },
-  { key: 'africa',  label: 'Afrique', flag: '🌍' },
-  { key: 'france',  label: 'France',  flag: '🇫🇷' },
-  { key: 'europe',  label: 'Europe',  flag: '🇪🇺' },
-  { key: 'usa',     label: 'USA',     flag: '🇺🇸' },
+// Safe-by-default regions (always visible)
+const SAFE_REGIONS: { key: keyof RegionalBreakdown; label: string }[] = [
+  { key: 'global',  label: 'Global' },
+]
+
+// Opt-in regions (hidden by default)
+const COMPARE_REGIONS: { key: keyof RegionalBreakdown; label: string }[] = [
+  { key: 'africa',  label: 'Afrique' },
+  { key: 'france',  label: 'France' },
+  { key: 'europe',  label: 'Europe' },
+  { key: 'usa',     label: 'USA' },
 ]
 
 export function WorldViewComparison({
@@ -23,6 +29,14 @@ export function WorldViewComparison({
   userRegion = 'global',
   className,
 }: WorldViewComparisonProps) {
+  const [showCompare, setShowCompare] = useState(false)
+  const regions = showCompare ? [...SAFE_REGIONS, ...COMPARE_REGIONS] : SAFE_REGIONS
+
+  // Compute divergence label
+  const vals = [breakdown.global, breakdown.africa, breakdown.france, breakdown.europe, breakdown.usa]
+  const spread = Math.max(...vals) - Math.min(...vals)
+  const divergenceLabel = spread < 10 ? 'consensus' : spread < 20 ? 'écart modéré' : 'divergence'
+
   return (
     <div
       className={cn('rounded-xl overflow-hidden', className)}
@@ -44,7 +58,7 @@ export function WorldViewComparison({
 
       {/* Region rows */}
       <div className="divide-y divide-[var(--border)]">
-        {REGIONS.map(({ key, label }) => {
+        {regions.map(({ key, label }) => {
           const yes = breakdown[key]
           const no = 100 - yes
           const isUser = key === userRegion
@@ -107,10 +121,42 @@ export function WorldViewComparison({
         })}
       </div>
 
+      {/* Opt-in to compare regions */}
+      {!showCompare && (
+        <div className="px-4 py-2.5 border-t border-[var(--border)]">
+          <button
+            onClick={() => setShowCompare(true)}
+            className="text-[10px] font-semibold text-[var(--text3)] hover:text-[var(--teal)] transition-colors"
+            style={{ fontFamily: 'var(--mono)' }}
+          >
+            Comparer Afrique / Europe / USA →
+          </button>
+        </div>
+      )}
+
+      {/* Divergence label (only when comparing) */}
+      {showCompare && (
+        <div className="px-4 py-2 border-t border-[var(--border)] flex items-center gap-2">
+          <span
+            className={cn(
+              'text-[9px] px-2 py-0.5 rounded-full font-semibold',
+              divergenceLabel === 'consensus'
+                ? 'bg-[var(--teal)]/10 text-[var(--teal)]'
+                : divergenceLabel === 'divergence'
+                  ? 'bg-[var(--amber)]/10 text-[var(--amber)]'
+                  : 'bg-[var(--accent)]/10 text-[var(--accent)]',
+            )}
+            style={{ fontFamily: 'var(--mono)' }}
+          >
+            {divergenceLabel} ({spread}pts)
+          </span>
+        </div>
+      )}
+
       {/* Footer note */}
       <div className="px-4 py-2 border-t border-[var(--border)]">
         <p className="text-[9px] text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
-          Données agrégées · mis à jour en temps réel
+          Données agrégées · anonymes · indicatives
         </p>
       </div>
     </div>
