@@ -65,6 +65,7 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
+  viewportFit: 'cover',
 }
 
 export default function RootLayout({
@@ -101,7 +102,7 @@ export default function RootLayout({
       <body className="antialiased has-bottom-nav" style={{ fontFamily: "var(--font)" }} role="application">
         <Toaster
           theme="dark"
-          position="bottom-right"
+          position="top-center"
           toastOptions={{
             style: {
               background: 'var(--surface2)',

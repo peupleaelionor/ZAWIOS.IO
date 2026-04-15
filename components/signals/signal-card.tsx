@@ -13,6 +13,7 @@ import {
 import { Avatar } from '@/components/ui/avatar'
 import { IconTrending, IconCheck } from '@/components/ui/icons'
 import { WorldViewComparison } from '@/components/signals/world-view-comparison'
+import { MiniAvis } from '@/components/signals/mini-avis'
 
 export type TriVote = 'yes' | 'neutral' | 'no'
 
@@ -402,6 +403,13 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               )}
             </div>
           )}
+        </div>
+      )}
+
+      {/* ── Mini-avis (after vote only) ── */}
+      {voted && !isResolved && (
+        <div className="mt-3">
+          <MiniAvis signalId={signal.id} />
         </div>
       )}
 

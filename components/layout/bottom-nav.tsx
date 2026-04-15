@@ -17,7 +17,7 @@ export function BottomNav() {
   const pathname = usePathname()
 
   return (
-    <nav className="bottom-nav md:hidden safe-bottom" aria-label="Mobile navigation">
+    <nav className="bottom-nav safe-bottom" aria-label="Mobile navigation">
       <div className="flex items-center justify-around h-16">
         {navItems.map(({ href, label, icon: Icon }) => {
           const isActive = pathname === href || (href !== '/' && pathname.startsWith(href))
