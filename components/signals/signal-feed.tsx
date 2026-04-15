@@ -1,8 +1,9 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { cn } from '@/lib/utils'
 import { SignalCard } from './signal-card'
+import { VoteGating } from './vote-gating'
 import { WorldViewComparison } from './world-view-comparison'
 import {
   mockSignals,
@@ -52,6 +53,11 @@ export function SignalFeed() {
   const [category, setCategory]       = useState<SignalCategory | 'all'>('all')
   const [region, setRegion]           = useState<SignalRegion | 'all'>('all')
   const [showWorldView, setShowWV]    = useState(false)
+  const [voteCount, setVoteCount]     = useState(0)
+
+  const handleVote = useCallback(() => {
+    setVoteCount((c) => c + 1)
+  }, [])
 
   const worldViewSignals = useMemo(() => getWorldViewSignals(3), [])
 
@@ -246,12 +252,14 @@ export function SignalFeed() {
         ))}
       </div>
 
-      {/* ── Signal cards ── */}
-      <div className="grid gap-4 feed-grid">
-        {filteredSignals.map((signal) => (
-          <SignalCard key={signal.id} signal={signal} />
-        ))}
-      </div>
+      {/* ── Signal cards with vote gating ── */}
+      <VoteGating voteCount={voteCount}>
+        <div className="grid gap-4 feed-grid">
+          {filteredSignals.map((signal) => (
+            <SignalCard key={signal.id} signal={signal} onVote={handleVote} />
+          ))}
+        </div>
+      </VoteGating>
 
       {filteredSignals.length === 0 && (
         <div className="text-center py-16">

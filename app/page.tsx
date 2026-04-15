@@ -3,7 +3,6 @@ import { Footer } from '@/components/layout/footer'
 import { HeroSection } from '@/components/landing/hero-section'
 import { CategoriesSection } from '@/components/landing/categories-section'
 import { WorldViewSection } from '@/components/landing/world-view-section'
-import { AmbassadorSection } from '@/components/landing/ambassador-section'
 import { CTASection } from '@/components/landing/cta-section'
 import { SignalFeed } from '@/components/signals/signal-feed'
 import { SignalCard } from '@/components/signals/signal-card'
@@ -16,7 +15,7 @@ export default function HomePage() {
     <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
 
-      {/* Hero — app-style header with live stats */}
+      {/* Hero — app-style header with live signal */}
       <HeroSection />
 
       {/* Live Feed — immediately after hero, app-like */}
@@ -33,7 +32,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* World View */}
+      {/* World View — safe-by-default */}
       <WorldViewSection />
 
       {/* Resolved signals */}
@@ -56,9 +55,6 @@ export default function HomePage() {
 
       {/* Categories */}
       <CategoriesSection />
-
-      {/* Ambassador map */}
-      <AmbassadorSection />
 
       {/* CTA */}
       <CTASection />
