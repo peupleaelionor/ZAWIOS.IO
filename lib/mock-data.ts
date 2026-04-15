@@ -2,7 +2,7 @@ import type { Prediction, Profile, LeaderboardEntry, CategoryInsight, InsightTre
 
 // ── ZAWIOS Avatar System — 12 canonical personas ──────────────────────────
 // Named after the official Avatar Guideline Board
-// Photos: /avatars/adebayo.jpg etc. (add real images when available)
+// Photos: /avatars/adebayo.svg etc. (add real images when available)
 
 export const mockProfiles: Profile[] = [
   {
@@ -10,7 +10,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u1',
     username: 'adebayo_a',
     full_name: 'A. Adebayo',
-    avatar_url: '/avatars/adebayo.jpg',
+    avatar_url: '/avatars/adebayo.svg',
     bio: 'Macro strategist & data analyst. 12 years tracking global markets.',
     location: 'Lagos, Nigeria',
     is_premium: true,
@@ -23,7 +23,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u2',
     username: 'mchen',
     full_name: 'M. Chen',
-    avatar_url: '/avatars/chen.jpg',
+    avatar_url: '/avatars/chen.svg',
     bio: 'Tech journalist & future-spotter. 78% accuracy on tech signals.',
     location: 'Singapore',
     is_premium: true,
@@ -36,7 +36,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u3',
     username: 'j_schmidt',
     full_name: 'J. Schmidt',
-    avatar_url: '/avatars/schmidt.jpg',
+    avatar_url: '/avatars/schmidt.svg',
     bio: 'Senior economist. Former IMF. Tracking macro trends since 2001.',
     location: 'Berlin, Germany',
     is_premium: true,
@@ -49,7 +49,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u4',
     username: 'sgupta',
     full_name: 'S. Gupta',
-    avatar_url: '/avatars/gupta.jpg',
+    avatar_url: '/avatars/gupta.svg',
     bio: 'Crypto researcher & fintech analyst. Building Web3 signals.',
     location: 'Mumbai, India',
     is_premium: false,
@@ -62,7 +62,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u5',
     username: 'h_alfassi',
     full_name: 'H. Al-Fassi',
-    avatar_url: '/avatars/alfassi.jpg',
+    avatar_url: '/avatars/alfassi.svg',
     bio: 'Cultural researcher & society analyst. Global perspectives.',
     location: 'Casablanca, Morocco',
     is_premium: false,
@@ -75,7 +75,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u6',
     username: 'l_tanaka',
     full_name: 'L. Tanaka',
-    avatar_url: '/avatars/tanaka.jpg',
+    avatar_url: '/avatars/tanaka.svg',
     bio: 'Behavioral economist. Predicting collective behavior since 2005.',
     location: 'Tokyo, Japan',
     is_premium: true,
@@ -88,7 +88,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u7',
     username: 'r_rodriguez',
     full_name: 'R. Rodriguez',
-    avatar_url: '/avatars/rodriguez.jpg',
+    avatar_url: '/avatars/rodriguez.svg',
     bio: 'Political scientist & geopolitics analyst. LatAm & global trends.',
     location: 'Mexico City, Mexico',
     is_premium: false,
@@ -101,7 +101,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u8',
     username: 'c_dubois',
     full_name: 'C. Dubois',
-    avatar_url: '/avatars/dubois.jpg',
+    avatar_url: '/avatars/dubois.svg',
     bio: 'Paris School of Economics. Specialist in European markets & society.',
     location: 'Paris, France',
     is_premium: true,
@@ -114,7 +114,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u9',
     username: 'w_runningbear',
     full_name: 'W. Running Bear',
-    avatar_url: '/avatars/runningbear.jpg',
+    avatar_url: '/avatars/runningbear.svg',
     bio: 'Environmental analyst & sustainability signals curator.',
     location: 'Vancouver, Canada',
     is_premium: false,
@@ -127,7 +127,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u10',
     username: 't_nguyen',
     full_name: 'T. Nguyen',
-    avatar_url: '/avatars/nguyen.jpg',
+    avatar_url: '/avatars/nguyen.svg',
     bio: 'Software engineer & AI researcher. Building the intelligence layer.',
     location: 'Ho Chi Minh City, Vietnam',
     is_premium: true,
@@ -140,7 +140,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u11',
     username: 'e_diallo',
     full_name: 'E. Diallo',
-    avatar_url: '/avatars/diallo.jpg',
+    avatar_url: '/avatars/diallo.svg',
     bio: 'Veteran journalist. Pan-African signals & geopolitics.',
     location: 'Dakar, Senegal',
     is_premium: false,
@@ -153,7 +153,7 @@ export const mockProfiles: Profile[] = [
     user_id: 'u12',
     username: 'k_oconnell',
     full_name: "K. O'Connell",
-    avatar_url: '/avatars/oconnell.jpg',
+    avatar_url: '/avatars/oconnell.svg',
     bio: 'UX researcher & trend forecaster. Lifestyle & culture signals.',
     location: 'Dublin, Ireland',
     is_premium: false,
@@ -310,14 +310,14 @@ export const mockPredictions: Prediction[] = [
 
 // Extended leaderboard with personas matching design boards
 const leaderboardPersonas = [
-  { full_name: 'C. Laurent', username: 'c_laurent', avatar_url: '/avatars/laurent.jpg', location: 'Paris, France' },
-  { full_name: 'L. Faye', username: 'l_faye', avatar_url: '/avatars/faye.jpg', location: 'Dakar, Sénégal' },
-  { full_name: 'T. Diop', username: 't_diop', avatar_url: '/avatars/diop.jpg', location: 'Abidjan, CI' },
-  { full_name: 'R. Moreau', username: 'r_moreau', avatar_url: '/avatars/moreau.jpg', location: 'Lyon, France' },
-  { full_name: 'S. Diallo', username: 's_diallo', avatar_url: '/avatars/diallo2.jpg', location: 'Conakry, Guinée' },
-  { full_name: 'Peli & James', username: 'peli_james', avatar_url: '/avatars/peli.jpg', location: 'Kinshasa, RDC' },
-  { full_name: 'Guely', username: 'guely', avatar_url: '/avatars/guely.jpg', location: 'Bruxelles, Belgique' },
-  { full_name: 'A. Adebayo', username: 'adebayo_a', avatar_url: '/avatars/adebayo.jpg', location: 'Lagos, Nigeria' },
+  { full_name: 'C. Laurent', username: 'c_laurent', avatar_url: '/avatars/laurent.svg', location: 'Paris, France' },
+  { full_name: 'L. Faye', username: 'l_faye', avatar_url: '/avatars/faye.svg', location: 'Dakar, Sénégal' },
+  { full_name: 'T. Diop', username: 't_diop', avatar_url: '/avatars/diop.svg', location: 'Abidjan, CI' },
+  { full_name: 'R. Moreau', username: 'r_moreau', avatar_url: '/avatars/moreau.svg', location: 'Lyon, France' },
+  { full_name: 'S. Diallo', username: 's_diallo', avatar_url: '/avatars/diallo2.svg', location: 'Conakry, Guinée' },
+  { full_name: 'Peli & James', username: 'peli_james', avatar_url: '/avatars/peli.svg', location: 'Kinshasa, RDC' },
+  { full_name: 'Guely', username: 'guely', avatar_url: '/avatars/guely.svg', location: 'Bruxelles, Belgique' },
+  { full_name: 'A. Adebayo', username: 'adebayo_a', avatar_url: '/avatars/adebayo.svg', location: 'Lagos, Nigeria' },
 ]
 
 export const mockLeaderboard: LeaderboardEntry[] = [
