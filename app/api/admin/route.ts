@@ -14,7 +14,6 @@ async function requireAdmin() {
 
   if (!user) return null
 
-  // Check admin role in user metadata or a dedicated table
   const isAdmin =
     user.app_metadata?.role === 'admin' ||
     user.user_metadata?.role === 'admin'
@@ -28,10 +27,15 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
+  let adminClient
+  try {
+    adminClient = createAdminClient()
+  } catch {
+    return NextResponse.json({ error: 'Service not configured' }, { status: 503 })
+  }
+
   const { searchParams } = new URL(request.url)
   const resource = searchParams.get('resource')
-
-  const adminClient = createAdminClient()
 
   if (resource === 'users') {
     const { data, error } = await adminClient.auth.admin.listUsers()
@@ -51,6 +55,13 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
+  let adminClient
+  try {
+    adminClient = createAdminClient()
+  } catch {
+    return NextResponse.json({ error: 'Service not configured' }, { status: 503 })
+  }
+
   let body: unknown
   try {
     body = await request.json()
@@ -64,7 +75,6 @@ export async function DELETE(request: NextRequest) {
     return NextResponse.json({ error: 'userId is required' }, { status: 400 })
   }
 
-  const adminClient = createAdminClient()
   const { error } = await adminClient.auth.admin.deleteUser(payload.userId)
 
   if (error) {
