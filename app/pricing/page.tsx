@@ -14,16 +14,18 @@ import type { PlanTier, BillingCycle } from '@/types'
 
 const planIcons: Record<PlanTier, React.ReactNode> = {
   free: <IconZap className="w-5 h-5" size={20} />,
+  pro: <IconArrows className="w-5 h-5" size={20} />,
   premium: <IconChart className="w-5 h-5" size={20} />,
   creator: <IconTrophy className="w-5 h-5" size={20} />,
   business: <IconShield className="w-5 h-5" size={20} />,
 }
 
 const planAccents: Record<PlanTier, string> = {
-  free: 'var(--text3)',
+  free: 'var(--text-subtle)',
+  pro: 'var(--primary)',
   premium: 'var(--accent)',
-  creator: 'var(--teal)',
-  business: 'var(--amber)',
+  creator: 'var(--positive)',
+  business: 'var(--warn)',
 }
 
 export default function PricingPage() {

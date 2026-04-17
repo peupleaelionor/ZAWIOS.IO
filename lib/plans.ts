@@ -216,7 +216,8 @@ export const FEATURE_ACCESS: Record<string, PlanTier[]> = {
   'custom-integrations': ['business'],
 }
 
-export function hasAccess(feature: string, plan: PlanTier): boolean {
+/** @deprecated Use hasAccess() from @/lib/features for ZAWIOS plan logic */
+export function hasPlanAccess(feature: string, plan: PlanTier): boolean {
   const allowed = FEATURE_ACCESS[feature]
   if (!allowed) return false
   return allowed.includes(plan)

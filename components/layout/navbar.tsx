@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
 import { LogoLockup } from '@/components/ui/logo'
+import { ThemeToggle } from '@/components/ui/theme-toggle'
 import { useLanguage } from '@/components/providers/language-provider'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
@@ -22,10 +23,12 @@ export function Navbar() {
   }, [])
 
   const navLinks = [
-    { href: '/predictions', label: t.nav.signals },
-    { href: '/leaderboard', label: t.nav.leaderboard },
-    { href: '/insights',    label: t.nav.insights },
-    { href: '/about',       label: t.nav.about },
+    { href: '/predictions',  label: t.nav.signals },
+    { href: '/leaderboard',  label: t.nav.leaderboard },
+    { href: '/insights',     label: t.nav.insights },
+    { href: '/intelligence', label: 'Intelligence' },
+    { href: '/support',      label: 'Soutenir' },
+    { href: '/about',        label: t.nav.about },
   ]
 
   return (
@@ -60,12 +63,13 @@ export function Navbar() {
 
           {/* Actions */}
           <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
             <button
               onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
               className="text-[10px] font-bold px-2 py-1 rounded-md transition-colors"
               style={{
                 fontFamily: 'var(--mono)',
-                color: 'var(--text3)',
+                color: 'var(--text-subtle)',
                 border: '1px solid var(--border)',
                 letterSpacing: '0.08em',
               }}

@@ -3,19 +3,19 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { IconHome, IconTrending, IconCreate, IconLeaderboard, IconProfile } from '@/components/ui/icons'
-import { cn } from '@/lib/utils'
 import { useLanguage } from '@/components/providers/language-provider'
+import { cn } from '@/lib/utils'
 
 export function BottomNav() {
   const pathname = usePathname()
   const { t } = useLanguage()
 
   const navItems = [
-    { href: '/', label: t.nav.home, icon: IconHome },
-    { href: '/predictions', label: t.nav.signals, icon: IconTrending },
-    { href: '/predictions/create', label: t.nav.create, icon: IconCreate },
-    { href: '/leaderboard', label: t.nav.leaderboard, icon: IconLeaderboard },
-    { href: '/profile', label: t.nav.profile, icon: IconProfile },
+    { href: '/',                   label: t.nav.home,        icon: IconHome },
+    { href: '/predictions',        label: t.nav.signals,     icon: IconTrending },
+    { href: '/predictions/create', label: t.nav.create,      icon: IconCreate },
+    { href: '/leaderboard',        label: t.nav.leaderboard, icon: IconLeaderboard },
+    { href: '/profile',            label: t.nav.profile,     icon: IconProfile },
   ]
 
   return (
@@ -29,7 +29,7 @@ export function BottomNav() {
               href={href}
               className={cn(
                 'flex flex-col items-center justify-center gap-0.5 min-w-[48px] min-h-[48px] transition-colors duration-150',
-                isActive ? 'text-[var(--teal)]' : 'text-[var(--text3)]',
+                isActive ? 'text-[var(--primary)]' : 'text-[var(--text-subtle)]',
               )}
             >
               <Icon size={20} className="w-5 h-5" />

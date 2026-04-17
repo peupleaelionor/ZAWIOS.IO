@@ -3,6 +3,7 @@ import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
 import { UserContextProvider } from '@/components/providers/user-context-provider'
+import { ThemeProvider } from '@/components/providers/theme-provider'
 import { NetworkStatus } from '@/components/layout/network-status'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
@@ -89,11 +90,13 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://plausible.io" />
-        <meta name="theme-color" content="#17D5CF" />
-        <meta name="color-scheme" content="dark" />
-        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#1C39BB" />
+        <meta name="color-scheme" content="light dark" />
+        <link rel="manifest" href="/manifest.webmanifest" />
+        {/* Anti-flash: set theme before first paint */}
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('zawios-theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}})()` }} />
         <link
-          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
         {/* Plausible — single global script, no duplicates */}
@@ -109,29 +112,31 @@ export default function RootLayout({
       </head>
       <body className="antialiased has-bottom-nav" style={{ fontFamily: "var(--font)" }} role="application">
         <Toaster
-          theme="dark"
+          theme="system"
           position="top-center"
           toastOptions={{
             style: {
-              background: 'var(--surface2)',
+              background: 'var(--surface)',
               border: '1px solid var(--border2)',
-              color: 'var(--text)',
+              color: 'var(--text-strong)',
               fontFamily: 'var(--font)',
               fontSize: '13px',
             },
           }}
         />
-        <AnalyticsProvider>
-          <LanguageProvider>
-            <UserContextProvider>
-              <NetworkStatus />
-              <main>
-                {children}
-              </main>
-              <BottomNav />
-            </UserContextProvider>
-          </LanguageProvider>
-        </AnalyticsProvider>
+        <ThemeProvider>
+          <AnalyticsProvider>
+            <LanguageProvider>
+              <UserContextProvider>
+                <NetworkStatus />
+                <main>
+                  {children}
+                </main>
+                <BottomNav />
+              </UserContextProvider>
+            </LanguageProvider>
+          </AnalyticsProvider>
+        </ThemeProvider>
       </body>
     </html>
   )

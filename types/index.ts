@@ -13,7 +13,7 @@ export type Category =
   | 'africa'
   | 'future'
 
-export type Region = 'Global' | 'Africa' | 'France' | 'Europe' | 'USA'
+export type Region = 'Global' | 'Africa' | 'France' | 'Europe' | 'USA' | 'Asia' | 'LatAm' | 'MENA'
 
 export interface RegionalBreakdown {
   region: Region
@@ -27,7 +27,7 @@ export type PredictionStatus = 'open' | 'in_progress' | 'resolved' | 'archived'
 
 export type BadgeTier = 'bronze' | 'silver' | 'gold' | 'platinum'
 
-export type PlanTier = 'free' | 'premium' | 'creator' | 'business'
+export type PlanTier = 'free' | 'pro' | 'premium' | 'creator' | 'business'
 
 export type BillingCycle = 'monthly' | 'annual'
 
