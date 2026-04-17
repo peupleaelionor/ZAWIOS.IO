@@ -189,6 +189,8 @@ export function recalculateValidationScore(
 // Anti-Spam Logic
 // ═══════════════════════════════════════════════════════
 
+const COOLDOWN_DAYS = 14
+
 /**
  * Check if user can submit a new suggestion.
  *
@@ -209,7 +211,9 @@ export function canUserSubmit(
 
   // Cooldown after 3 consecutive rejections
   if (consecutiveRejections >= 3 && lastRejectionDate) {
-    const cooldownEnd = new Date(lastRejectionDate.getTime() + 14 * 24 * 60 * 60 * 1000)
+    const cooldownEnd = new Date(
+      lastRejectionDate.getTime() + COOLDOWN_DAYS * 24 * 60 * 60 * 1000,
+    )
     if (new Date() < cooldownEnd) {
       return { allowed: false, reason: 'antiSpamCooldown' }
     }

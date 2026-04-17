@@ -59,8 +59,10 @@ export async function POST(request: NextRequest) {
     // Decrement count
     try {
       await supabase.rpc('decrement_context_likes', { ctx_id: contextId })
-    } catch {
-      /* non-critical */
+    } catch (e) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('[api/signal-contexts/like] decrement error', e)
+      }
     }
 
     return NextResponse.json({ liked: false })
@@ -84,8 +86,10 @@ export async function POST(request: NextRequest) {
   // Increment count
   try {
     await supabase.rpc('increment_context_likes', { ctx_id: contextId })
-  } catch {
-    /* non-critical */
+  } catch (e) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[api/signal-contexts/like] increment error', e)
+    }
   }
 
   return NextResponse.json({ liked: true })
