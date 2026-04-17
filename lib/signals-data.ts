@@ -45,6 +45,7 @@ export interface Signal {
   status: SignalStatus
   yesPercent: number
   noPercent: number
+  neutralPercent?: number
   totalVotes: number
   createdBy: string | null
   creatorName?: string

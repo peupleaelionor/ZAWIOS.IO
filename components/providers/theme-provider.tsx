@@ -13,9 +13,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>('light')
 
   useEffect(() => {
+    // Light is the ZAWIOS default — only honour an explicit user toggle, never system preference
     const stored = localStorage.getItem('zawios-theme') as Theme | null
-    const preferred = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-    const initial = stored ?? preferred
+    const initial = stored ?? 'light'
     setTheme(initial)
     document.documentElement.setAttribute('data-theme', initial)
   }, [])

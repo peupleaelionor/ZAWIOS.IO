@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
   }
 
   const fullName = user.user_metadata?.full_name || 'there'
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.io'
 
   const html = `
 <!DOCTYPE html>

@@ -466,3 +466,48 @@ export function IconHome(props: IconProps) {
     </svg>
   )
 }
+
+export function IconSend(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <line x1="22" y1="2" x2="11" y2="13" />
+      <polygon points="22 2 15 22 11 13 2 9 22 2" />
+    </svg>
+  )
+}
+
+export function IconReply(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <polyline points="9 17 4 12 9 7" />
+      <path d="M20 18v-2a4 4 0 00-4-4H4" />
+    </svg>
+  )
+}
+
+export function IconMoreHoriz(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <circle cx="5" cy="12" r="1" fill="currentColor" />
+      <circle cx="12" cy="12" r="1" fill="currentColor" />
+      <circle cx="19" cy="12" r="1" fill="currentColor" />
+    </svg>
+  )
+}
+
+export function IconBookmark(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+    </svg>
+  )
+}
+
+export function IconFire(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M12 2c0 0-5 4-5 9a5 5 0 0010 0c0-5-5-9-5-9z" />
+      <path d="M12 12c0 0-2 1.5-2 3a2 2 0 004 0c0-1.5-2-3-2-3z" />
+    </svg>
+  )
+}
