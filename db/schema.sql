@@ -239,41 +239,110 @@ CREATE INDEX idx_notifications_user ON notifications(user_id);
 CREATE INDEX idx_notifications_read ON notifications(user_id, read) WHERE read = FALSE;
 
 -- =====================================================
+-- HELPER FUNCTION: is_admin()
+-- =====================================================
+-- Returns TRUE when the current JWT user has is_admin = true in profiles.
+-- Used by RLS policies. SECURITY DEFINER so it can always read profiles.
+CREATE OR REPLACE FUNCTION is_admin()
+RETURNS BOOLEAN AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM profiles WHERE user_id = auth.uid() AND is_admin = TRUE
+  );
+$$ LANGUAGE sql SECURITY DEFINER STABLE;
+
+-- =====================================================
 -- ROW LEVEL SECURITY (RLS)
 -- =====================================================
 
--- Profiles: public read, own write
+-- ----- Categories: public read, admin-only write -----
+ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Categories are publicly viewable" ON categories FOR SELECT USING (TRUE);
+CREATE POLICY "Admins can insert categories" ON categories FOR INSERT WITH CHECK (is_admin());
+CREATE POLICY "Admins can update categories" ON categories FOR UPDATE USING (is_admin());
+CREATE POLICY "Admins can delete categories" ON categories FOR DELETE USING (is_admin());
+
+-- ----- Profiles: public read, own write -----
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Profiles are publicly viewable" ON profiles FOR SELECT USING (TRUE);
-CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can insert own profile" ON profiles FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own profile" ON profiles FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own profile" ON profiles FOR DELETE USING (auth.uid() = user_id);
 
--- Predictions: public read, authenticated create, own update
+-- ----- Predictions: public read, own write, admin moderation -----
 ALTER TABLE predictions ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Predictions are publicly viewable" ON predictions FOR SELECT USING (TRUE);
-CREATE POLICY "Authenticated users can create predictions" ON predictions FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
-CREATE POLICY "Users can update own predictions" ON predictions FOR UPDATE USING (auth.uid() = created_by);
+CREATE POLICY "Authenticated users can create predictions" ON predictions FOR INSERT WITH CHECK (auth.uid() = created_by);
+CREATE POLICY "Users can update own predictions" ON predictions FOR UPDATE USING (auth.uid() = created_by OR is_admin());
+CREATE POLICY "Users can delete own predictions" ON predictions FOR DELETE USING (auth.uid() = created_by OR is_admin());
 
--- Votes: own read/write, public count access
+-- ----- Prediction options: public read, prediction owner write -----
+ALTER TABLE prediction_options ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Prediction options are publicly viewable" ON prediction_options FOR SELECT USING (TRUE);
+CREATE POLICY "Prediction owner can insert options" ON prediction_options FOR INSERT
+  WITH CHECK (
+    EXISTS (SELECT 1 FROM predictions WHERE id = prediction_id AND created_by = auth.uid())
+  );
+CREATE POLICY "Prediction owner can update options" ON prediction_options FOR UPDATE
+  USING (
+    EXISTS (SELECT 1 FROM predictions WHERE id = prediction_id AND created_by = auth.uid()) OR is_admin()
+  );
+CREATE POLICY "Prediction owner can delete options" ON prediction_options FOR DELETE
+  USING (
+    EXISTS (SELECT 1 FROM predictions WHERE id = prediction_id AND created_by = auth.uid()) OR is_admin()
+  );
+
+-- ----- Votes: own read/write, enforce user_id match -----
 ALTER TABLE votes ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view own votes" ON votes FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Authenticated users can vote" ON votes FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Users can insert own votes" ON votes FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "Users can update own votes" ON votes FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own votes" ON votes FOR DELETE USING (auth.uid() = user_id);
 
--- Reputation scores: public read
+-- ----- Reputation scores: public read -----
 ALTER TABLE reputation_scores ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Reputation scores are public" ON reputation_scores FOR SELECT USING (TRUE);
 
--- Comments: public read, authenticated write
-ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Comments are publicly viewable" ON comments FOR SELECT USING (NOT is_hidden);
-CREATE POLICY "Authenticated users can comment" ON comments FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
-CREATE POLICY "Users can update own comments" ON comments FOR UPDATE USING (auth.uid() = user_id);
+-- ----- Badges: public read, admin-only write -----
+ALTER TABLE badges ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Badges are publicly viewable" ON badges FOR SELECT USING (TRUE);
+CREATE POLICY "Admins can insert badges" ON badges FOR INSERT WITH CHECK (is_admin());
+CREATE POLICY "Admins can update badges" ON badges FOR UPDATE USING (is_admin());
+CREATE POLICY "Admins can delete badges" ON badges FOR DELETE USING (is_admin());
 
--- Notifications: own only
+-- ----- User badges: public read (awarded by system/triggers via service role) -----
+ALTER TABLE user_badges ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "User badges are publicly viewable" ON user_badges FOR SELECT USING (TRUE);
+CREATE POLICY "Admins can manage user badges" ON user_badges FOR INSERT WITH CHECK (is_admin());
+CREATE POLICY "Admins can delete user badges" ON user_badges FOR DELETE USING (is_admin());
+
+-- ----- Comments: public read (non-hidden), own write, admin moderation -----
+ALTER TABLE comments ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Comments are publicly viewable" ON comments FOR SELECT USING (is_admin() OR auth.uid() = user_id OR NOT is_hidden);
+CREATE POLICY "Authenticated users can comment" ON comments FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own comments" ON comments FOR UPDATE USING (auth.uid() = user_id OR is_admin());
+CREATE POLICY "Users can delete own comments" ON comments FOR DELETE USING (auth.uid() = user_id OR is_admin());
+
+-- ----- Reports: own insert/read, admin full access -----
+ALTER TABLE reports ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view own reports" ON reports FOR SELECT USING (auth.uid() = reporter_id OR is_admin());
+CREATE POLICY "Authenticated users can create reports" ON reports FOR INSERT WITH CHECK (auth.uid() = reporter_id);
+CREATE POLICY "Admins can update reports" ON reports FOR UPDATE USING (is_admin());
+CREATE POLICY "Admins can delete reports" ON reports FOR DELETE USING (is_admin());
+
+-- ----- Subscriptions: own read, admin full access -----
+ALTER TABLE subscriptions ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view own subscription" ON subscriptions FOR SELECT USING (auth.uid() = user_id OR is_admin());
+CREATE POLICY "Users can update own subscription" ON subscriptions FOR UPDATE USING (auth.uid() = user_id);
+
+-- ----- Audit logs: admin-only read (inserts via service role) -----
+ALTER TABLE audit_logs ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Admins can view audit logs" ON audit_logs FOR SELECT USING (is_admin());
+
+-- ----- Notifications: own only -----
 ALTER TABLE notifications ENABLE ROW LEVEL SECURITY;
 CREATE POLICY "Users can view own notifications" ON notifications FOR SELECT USING (auth.uid() = user_id);
 CREATE POLICY "Users can update own notifications" ON notifications FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own notifications" ON notifications FOR DELETE USING (auth.uid() = user_id);
 
 -- =====================================================
 -- FUNCTIONS & TRIGGERS
@@ -312,6 +381,103 @@ $$ LANGUAGE plpgsql;
 CREATE TRIGGER profiles_updated_at BEFORE UPDATE ON profiles FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER predictions_updated_at BEFORE UPDATE ON predictions FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER votes_updated_at BEFORE UPDATE ON votes FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+CREATE TRIGGER comments_updated_at BEFORE UPDATE ON comments FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+CREATE TRIGGER subscriptions_updated_at BEFORE UPDATE ON subscriptions FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- =====================================================
+-- RECOMMENDED INDEXES (for RLS policy performance)
+-- =====================================================
+CREATE INDEX IF NOT EXISTS idx_profiles_is_admin ON profiles(user_id) WHERE is_admin = TRUE;
+CREATE INDEX IF NOT EXISTS idx_reports_target ON reports(target_type, target_id);
+CREATE INDEX IF NOT EXISTS idx_comments_hidden ON comments(prediction_id) WHERE is_hidden = TRUE;
+
+-- =====================================================
+-- COMMENT VOTES (for upvoting comments)
+-- =====================================================
+CREATE TABLE comment_votes (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  comment_id UUID NOT NULL REFERENCES comments(id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, comment_id)
+);
+
+CREATE INDEX idx_comment_votes_user ON comment_votes(user_id);
+CREATE INDEX idx_comment_votes_comment ON comment_votes(comment_id);
+
+ALTER TABLE comment_votes ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view own comment votes" ON comment_votes FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own comment votes" ON comment_votes FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can delete own comment votes" ON comment_votes FOR DELETE USING (auth.uid() = user_id);
+
+-- =====================================================
+-- USER PREFERENCES (for adaptive experience)
+-- =====================================================
+CREATE TABLE user_preferences (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE,
+  preferred_categories TEXT[] DEFAULT '{}',
+  preferred_regions TEXT[] DEFAULT '{}',
+  language TEXT DEFAULT 'fr',
+  notification_email BOOLEAN DEFAULT TRUE,
+  notification_push BOOLEAN DEFAULT TRUE,
+  notification_weekly_digest BOOLEAN DEFAULT TRUE,
+  accessibility_reduced_motion BOOLEAN DEFAULT FALSE,
+  accessibility_high_contrast BOOLEAN DEFAULT FALSE,
+  accessibility_font_size TEXT DEFAULT 'normal' CHECK (accessibility_font_size IN ('small', 'normal', 'large', 'xlarge')),
+  onboarding_completed BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_user_preferences_user ON user_preferences(user_id);
+
+ALTER TABLE user_preferences ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view own preferences" ON user_preferences FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own preferences" ON user_preferences FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own preferences" ON user_preferences FOR UPDATE USING (auth.uid() = user_id);
+
+CREATE TRIGGER user_preferences_updated_at BEFORE UPDATE ON user_preferences FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- =====================================================
+-- GENERATED MEDIA (AI-generated images/videos for predictions)
+-- =====================================================
+CREATE TABLE generated_media (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  prediction_id UUID REFERENCES predictions(id) ON DELETE CASCADE,
+  generated_by UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  media_type TEXT NOT NULL DEFAULT 'image' CHECK (media_type IN ('image', 'video', 'infographic')),
+  url TEXT NOT NULL,
+  prompt TEXT,
+  revised_prompt TEXT,
+  status TEXT NOT NULL DEFAULT 'pending_review' CHECK (status IN ('pending_review', 'approved', 'rejected')),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_generated_media_prediction ON generated_media(prediction_id);
+CREATE INDEX idx_generated_media_status ON generated_media(status);
+
+ALTER TABLE generated_media ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Approved media is publicly viewable" ON generated_media FOR SELECT USING (status = 'approved' OR auth.uid() = generated_by OR is_admin());
+CREATE POLICY "Authenticated users can generate media" ON generated_media FOR INSERT WITH CHECK (auth.uid() = generated_by);
+CREATE POLICY "Admins can update media status" ON generated_media FOR UPDATE USING (is_admin());
+
+-- =====================================================
+-- HELPER FUNCTIONS for atomic increments
+-- =====================================================
+CREATE OR REPLACE FUNCTION increment_comment_count(pred_id UUID)
+RETURNS VOID AS $$
+  UPDATE predictions SET comment_count = comment_count + 1
+  WHERE id = pred_id
+  AND EXISTS (SELECT 1 FROM predictions WHERE id = pred_id);
+$$ LANGUAGE sql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION increment_comment_upvotes(cmt_id UUID)
+RETURNS VOID AS $$
+  UPDATE comments SET upvotes = upvotes + 1
+  WHERE id = cmt_id
+  AND is_hidden = FALSE;
+$$ LANGUAGE sql SECURITY DEFINER;
 
 -- =====================================================
 -- SEED: CATEGORIES

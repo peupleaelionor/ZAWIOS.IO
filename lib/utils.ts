@@ -5,6 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+/**
+ * Returns the app URL (browser-safe).
+ * Uses NEXT_PUBLIC_APP_URL when available, falls back to window.location.origin.
+ */
+export function getAppUrl(): string {
+  if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL
+  if (typeof window !== 'undefined') return window.location.origin
+  return 'https://zawios.netlify.app'
+}
+
 export function formatNumber(num: number): string {
   if (num >= 1_000_000) return `${(num / 1_000_000).toFixed(1)}M`
   if (num >= 1_000) return `${(num / 1_000).toFixed(1)}K`

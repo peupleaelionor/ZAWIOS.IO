@@ -8,6 +8,7 @@ const footerStructure = {
     { href: '/predictions', key: 'Predictions' },
     { href: '/leaderboard', key: 'Leaderboard' },
     { href: '/insights', key: 'Insights' },
+    { href: '/product-system', key: 'Système' },
     { href: '/pricing', key: 'Pricing' },
     { href: '/premium', key: 'Premium' },
     { href: '/creator', key: 'Creator' },
@@ -21,6 +22,7 @@ const footerStructure = {
   Legal: [
     { href: '/privacy', key: 'Privacy Policy' },
     { href: '/terms', key: 'Terms of Service' },
+    { href: '/methodology', key: 'Methodology' },
   ],
 } as const
 
@@ -31,12 +33,12 @@ export function Footer() {
   const { t } = useLanguage()
 
   return (
-    <footer style={{ borderTop: '1px solid var(--border)' }} className="bg-[var(--bg)]">
-      <div className="container py-12 md:py-16">
+    <footer style={{ borderTop: '1px solid var(--border)' }} className="bg-[var(--bg)]" role="contentinfo">
+      <div className="container py-8 md:py-12 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="inline-block mb-3">
+            <Link href="/" className="inline-block mb-3" aria-label="ZAWIOS Home">
               <LogoLockup className="text-lg" />
             </Link>
             <p className="text-sm text-[var(--text3)] max-w-xs leading-relaxed">
@@ -49,11 +51,11 @@ export function Footer() {
 
           {/* Links */}
           {(Object.entries(footerStructure) as unknown as [SectionKey, { href: string; key: string }[]][]).map(([section, links]) => (
-            <div key={section}>
+            <nav key={section} aria-label={`${section} links`}>
               <h4 className="text-xs font-semibold text-[var(--text2)] mb-3 uppercase tracking-wider" style={{ fontFamily: 'var(--mono)' }}>
                 {t.footer.sections[section as keyof typeof t.footer.sections]}
               </h4>
-              <ul className="space-y-2">
+              <ul className="space-y-2" role="list">
                 {links.map((link) => (
                   <li key={link.href}>
                     <Link
@@ -65,7 +67,7 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
           ))}
         </div>
       </div>

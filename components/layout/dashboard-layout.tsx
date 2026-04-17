@@ -1,9 +1,9 @@
 'use client'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
-import { IconTrending, IconChart, IconTrophy, IconUsers, IconPlus, IconTarget, IconSettings, IconSignOut } from '@/components/ui/icons'
-import { LogoLockup } from '@/components/ui/logo'
+import { usePathname, useRouter } from 'next/navigation'
+import { IconLogo, IconTrending, IconChart, IconTrophy, IconUsers, IconPlus, IconTarget, IconSettings, IconSignOut } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
+import { createClient } from '@/lib/supabase/client'
 
 const sidebarLinks = [
   { href: '/dashboard', label: 'Home', icon: IconTarget },
@@ -19,15 +19,22 @@ interface DashboardLayoutProps {
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
   const pathname = usePathname()
+  const router = useRouter()
+
+  const handleSignOut = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    router.push('/')
+    router.refresh()
+  }
 
   return (
     <div className="flex min-h-screen bg-[var(--bg)]">
       {/* Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 fixed inset-y-0 z-30 glass" style={{ borderRight: '1px solid var(--border)' }}>
-        <div className="flex items-center h-16 px-6" style={{ borderBottom: '1px solid var(--border)' }}>
-          <Link href="/" aria-label="ZAWIOS — Accueil">
-            <LogoLockup className="text-base" />
-          </Link>
+        <div className="flex items-center gap-2.5 h-16 px-6" style={{ borderBottom: '1px solid var(--border)' }}>
+          <IconLogo size={28} />
+          <span className="tracking-tighter text-white" style={{ fontFamily: 'var(--font)', fontWeight: 800, fontSize: '1.2rem', letterSpacing: '-0.02em' }}>ZAWIOS</span>
         </div>
 
         <nav className="flex-1 px-4 py-4 space-y-1">
@@ -38,8 +45,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               className={cn(
                 'flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors',
                 pathname === href
-                  ? 'bg-[var(--accent)]/10 text-[var(--accent2)]'
-                  : 'text-[var(--text2)] hover:bg-white/[0.04] hover:text-[var(--text)]'
+                  ? 'bg-[var(--accent)]/10 text-[var(--accent)]'
+                  : 'text-[var(--text2)] hover:bg-white/[0.04] hover:text-white'
               )}
             >
               <Icon className="w-4 h-4" size={16} />
@@ -63,7 +70,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <IconSettings className="w-4 h-4" size={16} />
             Settings
           </Link>
-          <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--text2)] hover:bg-white/[0.04] transition-colors">
+          <button onClick={handleSignOut} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--text2)] hover:bg-white/[0.04] transition-colors">
             <IconSignOut className="w-4 h-4" size={16} />
             Sign out
           </button>

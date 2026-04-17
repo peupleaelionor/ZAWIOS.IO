@@ -17,6 +17,8 @@ export function SignupForm() {
     setError('')
 
     const supabase = createClient()
+    const { getAppUrl } = await import('@/lib/utils')
+    const appUrl = getAppUrl()
     const { error: err } = await supabase.auth.signUp({
       email: form.email,
       password: form.password,
@@ -25,6 +27,7 @@ export function SignupForm() {
           full_name: form.name,
           username: form.username,
         },
+        emailRedirectTo: `${appUrl}/auth/callback`,
       },
     })
 

@@ -7,6 +7,7 @@ import { IconTrophy, IconTarget, IconTrending, IconUsers, IconArrows, IconUpvote
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
+import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -21,24 +22,64 @@ const recentActivity = [
   { icon: IconTarget, text: '"UK general election" resolved — your prediction was correct', time: 'Yesterday', color: 'var(--teal)' },
 ]
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
   const trendingPredictions = mockPredictions.filter((p) => p.featured).slice(0, 3)
   const topPredictor = mockLeaderboard[0]
+
+  // Try to fetch real user data
+  let userName = ''
+  let userScore = 4218
+  let userAccuracy = '67%'
+  let userPredictions = 42
+  let userRank = '#24'
+
+  try {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+    if (user) {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('full_name, username')
+        .eq('user_id', user.id)
+        .single()
+
+      if (profile) {
+        userName = profile.full_name || profile.username || ''
+      }
+
+      const { data: reputation } = await supabase
+        .from('reputation_scores')
+        .select('*')
+        .eq('user_id', user.id)
+        .single()
+
+      if (reputation) {
+        userScore = reputation.total_score ?? userScore
+        userAccuracy = `${reputation.accuracy_rate ?? 67}%`
+        userPredictions = reputation.prediction_count ?? userPredictions
+        userRank = `#${reputation.global_rank ?? 24}`
+      }
+    }
+  } catch {
+    /* Fallback to mock data */
+  }
+
+  const greeting = userName ? `Welcome back, ${userName.split(' ')[0]}` : 'Good morning'
 
   return (
     <DashboardLayout>
       {/* Greeting */}
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[var(--text)]">Good morning</h1>
+        <h1 className="text-2xl font-bold text-[var(--text)]">{greeting}</h1>
         <p className="text-[var(--text2)] mt-1">Here&apos;s what&apos;s happening on ZAWIOS today.</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard label="Your score" value={4218} icon={IconTrophy} trend={12} />
-        <StatCard label="Accuracy rate" value="67%" icon={IconTarget} />
-        <StatCard label="Predictions" value={42} icon={IconTrending} trend={3} />
-        <StatCard label="Global rank" value="#24" icon={IconUsers} />
+        <StatCard label="Your score" value={userScore} icon={IconTrophy} trend={12} />
+        <StatCard label="Accuracy rate" value={userAccuracy} icon={IconTarget} />
+        <StatCard label="Predictions" value={userPredictions} icon={IconTrending} trend={3} />
+        <StatCard label="Global rank" value={userRank} icon={IconUsers} />
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6 mb-8">
