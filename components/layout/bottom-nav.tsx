@@ -6,11 +6,11 @@ import { IconHome, IconTrending, IconCreate, IconLeaderboard, IconProfile } from
 import { cn } from '@/lib/utils'
 
 const navItems = [
-  { href: '/', label: 'Accueil', icon: IconHome },
-  { href: '/predictions', label: 'Signaux', icon: IconTrending },
-  { href: '/predictions/create', label: 'Créer', icon: IconCreate },
-  { href: '/leaderboard', label: 'Top', icon: IconLeaderboard },
-  { href: '/profile', label: 'Profil', icon: IconProfile },
+  { href: '/',                  label: 'Accueil', icon: IconHome },
+  { href: '/predictions',       label: 'Signaux', icon: IconTrending },
+  { href: '/predictions/create', label: 'Créer',  icon: IconCreate },
+  { href: '/leaderboard',       label: 'Top',     icon: IconLeaderboard },
+  { href: '/profile',           label: 'Profil',  icon: IconProfile },
 ]
 
 export function BottomNav() {
@@ -27,7 +27,7 @@ export function BottomNav() {
               href={href}
               className={cn(
                 'flex flex-col items-center justify-center gap-0.5 min-w-[48px] min-h-[48px] transition-colors duration-150',
-                isActive ? 'text-[var(--teal)]' : 'text-[var(--text3)]',
+                isActive ? 'text-[var(--primary)]' : 'text-[var(--text-subtle)]',
               )}
             >
               <Icon size={20} className="w-5 h-5" />
