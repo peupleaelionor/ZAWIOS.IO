@@ -22,14 +22,19 @@ export function Navbar() {
     } catch {}
   }, [])
 
-  const navLinks = [
+  // Primary: always visible on desktop
+  const primaryLinks = [
     { href: '/predictions',  label: t.nav.signals },
     { href: '/leaderboard',  label: t.nav.leaderboard },
-    { href: '/insights',     label: t.nav.insights },
     { href: '/intelligence', label: 'Intelligence' },
+  ]
+  // Secondary: visible on lg+, always in mobile menu
+  const secondaryLinks = [
+    { href: '/insights',     label: t.nav.insights },
     { href: '/support',      label: 'Soutenir' },
     { href: '/about',        label: t.nav.about },
   ]
+  const navLinks = [...primaryLinks, ...secondaryLinks]
 
   return (
     <header
@@ -47,14 +52,14 @@ export function Navbar() {
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-0.5">
-            {navLinks.map((link) => (
+            {primaryLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className="px-3 py-2 text-sm font-medium rounded-lg transition-colors"
-                style={{ color: 'var(--text3)' }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
-                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text3)')}
+                style={{ color: 'var(--text-subtle)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text-strong)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-subtle)')}
               >
                 {link.label}
               </Link>
@@ -90,7 +95,7 @@ export function Navbar() {
             ) : (
               <>
                 <Link href="/auth/login">
-                  <Button variant="ghost" size="sm" style={{ color: 'var(--text3)' }}>
+                  <Button variant="ghost" size="sm" style={{ color: 'var(--text-subtle)' }}>
                     {t.nav.signin}
                   </Button>
                 </Link>
@@ -108,7 +113,7 @@ export function Navbar() {
               className="text-[10px] font-bold px-2 py-1 rounded-md"
               style={{
                 fontFamily: 'var(--mono)',
-                color: 'var(--text3)',
+                color: 'var(--text-subtle)',
                 border: '1px solid var(--border)',
                 letterSpacing: '0.08em',
               }}
@@ -118,7 +123,7 @@ export function Navbar() {
             </button>
             <button
               className="p-2 rounded-lg transition-colors"
-              style={{ color: 'var(--text2)' }}
+              style={{ color: 'var(--text-muted)' }}
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
               aria-expanded={isOpen}
@@ -145,7 +150,7 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className="px-3 py-2.5 text-sm font-medium rounded-lg transition-colors"
-                style={{ color: 'var(--text2)' }}
+                style={{ color: 'var(--text-muted)' }}
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}
