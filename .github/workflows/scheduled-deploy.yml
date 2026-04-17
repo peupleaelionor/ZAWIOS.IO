@@ -1,4 +1,4 @@
-name: Scheduled Rebuild
+name: Scheduled Build
 
 on:
   schedule:
@@ -6,8 +6,11 @@ on:
     - cron: "0 6 * * *"
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
-  trigger-deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
