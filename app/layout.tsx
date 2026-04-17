@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   },
   description:
     "Vote YES ou NO sur les sujets qui font l'actu. Compare ton signal avec la foule mondiale, construis ta réputation d'analyste.",
-  keywords: ['prédiction', 'intelligence collective', 'vote', 'réputation', 'signaux', 'actualité', 'analyse', 'forecasting', 'crowd wisdom'],
+  keywords: ['signal', 'intelligence collective', 'vote', 'réputation', 'signaux', 'actualité', 'analyse', 'projection', 'crowd wisdom'],
   authors: [{ name: 'ZAWIOS' }],
   creator: 'ZAWIOS',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.io'),

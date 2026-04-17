@@ -23,7 +23,7 @@ export default function TermsPage() {
               },
               {
                 title: '2. No monetary gambling',
-                content: 'ZAWIOS is strictly a prediction and reputation platform. There is no real money, no cryptocurrency, no tokens of monetary value, and no financial prizes. All points and scores are non-monetary. Using ZAWIOS is not gambling.',
+                content: 'ZAWIOS is strictly a signal analysis and reputation platform. There is no real money, no cryptocurrency, no tokens of monetary value, and no financial prizes. All points and scores are non-monetary. Using ZAWIOS is not gambling.',
               },
               {
                 title: '3. Eligibility',
@@ -31,15 +31,15 @@ export default function TermsPage() {
               },
               {
                 title: '4. User conduct',
-                content: 'You agree not to post false or misleading information, harass other users, attempt to manipulate the platform, or engage in any activity that disrupts the integrity of predictions. Violations may result in account suspension.',
+                content: 'You agree not to post false or misleading information, harass other users, attempt to manipulate the platform, or engage in any activity that disrupts the integrity of signals. Violations may result in account suspension.',
               },
               {
                 title: '5. Content ownership',
-                content: 'You retain ownership of the predictions and content you create. By posting on ZAWIOS, you grant us a license to display and use that content to operate the platform.',
+                content: 'You retain ownership of the signals and content you create. By posting on ZAWIOS, you grant us a license to display and use that content to operate the platform.',
               },
               {
                 title: '6. Accuracy and resolution',
-                content: 'ZAWIOS makes reasonable efforts to resolve predictions accurately using public verifiable sources. We are not responsible for disagreements about outcomes. Our moderation decisions on prediction resolution are final.',
+                content: 'ZAWIOS makes reasonable efforts to resolve signals accurately using public verifiable sources. We are not responsible for disagreements about outcomes. Our moderation decisions on signal resolution are final.',
               },
               {
                 title: '7. Termination',

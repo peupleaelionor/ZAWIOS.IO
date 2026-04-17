@@ -8,7 +8,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Insights',
-  description: 'Explore trends, crowd signals, and analytics from the ZAWIOS prediction community.',
+  description: 'Explorez les tendances, signaux collectifs et analyses de la communauté ZAWIOS.',
 }
 
 export default function InsightsPage() {
@@ -17,20 +17,20 @@ export default function InsightsPage() {
       <Navbar />
       <main className="container py-12">
         <div className="mb-10">
-          <p className="section-label">Platform insights</p>
-          <h1 className="text-3xl font-bold text-[var(--text)]">Data &amp; Trends</h1>
+          <p className="section-label">Analyses de la plateforme</p>
+          <h1 className="text-3xl font-bold text-[var(--text)]">Données &amp; Tendances</h1>
           <p className="mt-2 text-[var(--text2)]">
-            What the crowd is predicting, and where accuracy is highest
+            Ce que le collectif analyse, et où la précision est la plus élevée
           </p>
         </div>
 
         {/* Platform stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {[
-            { label: 'Total predictors', value: formatNumber(PLATFORM_STATS.total_users), icon: IconUsers, color: 'var(--accent)' },
-            { label: 'Predictions made', value: formatNumber(PLATFORM_STATS.total_predictions), icon: IconTrending, color: 'var(--accent2)' },
-            { label: 'Votes cast', value: formatNumber(PLATFORM_STATS.total_votes), icon: IconChart, color: 'var(--teal)' },
-            { label: 'Avg accuracy', value: `${PLATFORM_STATS.avg_accuracy}%`, icon: IconZap, color: 'var(--amber)' },
+            { label: 'Analystes', value: formatNumber(PLATFORM_STATS.total_users), icon: IconUsers, color: 'var(--accent)' },
+            { label: 'Signaux émis', value: formatNumber(PLATFORM_STATS.total_predictions), icon: IconTrending, color: 'var(--accent2)' },
+            { label: 'Votes', value: formatNumber(PLATFORM_STATS.total_votes), icon: IconChart, color: 'var(--teal)' },
+            { label: 'Précision moy.', value: `${PLATFORM_STATS.avg_accuracy}%`, icon: IconZap, color: 'var(--amber)' },
           ].map((stat) => (
             <div key={stat.label} className="surface rounded-2xl p-6">
               <div
