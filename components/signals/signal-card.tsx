@@ -346,9 +346,9 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 <span
                   className="font-bold"
                   style={{
-                    color: voted === 'yes' ? 'var(--teal)'
+                    color: voted === 'yes' ? 'var(--yes)'
                          : voted === 'neutral' ? 'var(--text3)'
-                         : 'var(--text)',
+                         : 'var(--no)',
                   }}
                 >
                   {voted === 'yes' ? t.vote.yes.toUpperCase() : voted === 'neutral' ? t.vote.neutral.toUpperCase() : t.vote.no.toUpperCase()}
@@ -371,7 +371,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                   className="w-full py-3 rounded-xl text-sm font-semibold transition-all duration-150 active:scale-[0.98]"
                   style={{
                     fontFamily: 'var(--font)',
-                    background: 'var(--teal)',
+                    background: 'var(--yes)',
                     color: '#fff',
                   }}
                 >
@@ -398,7 +398,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             <span className="text-[11px] text-[var(--text3)] font-medium flex items-center gap-0.5">
               {signal.creatorName}
               {signal.verified && (
-                <IconCheck size={10} className="inline-block w-2.5 h-2.5 text-[var(--teal)]" />
+                <IconCheck size={10} className="inline-block w-2.5 h-2.5 text-[var(--yes)]" />
               )}
             </span>
           </div>

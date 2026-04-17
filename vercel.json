@@ -1,0 +1,25 @@
+{
+  "framework": "nextjs",
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "headers": [
+    {
+      "source": "/brand-kit/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+      ]
+    },
+    {
+      "source": "/app-icons/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, immutable" }
+      ]
+    },
+    {
+      "source": "/favicons/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, immutable" }
+      ]
+    }
+  ]
+}
