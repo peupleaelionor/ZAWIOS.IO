@@ -220,15 +220,27 @@ function ComposeBox({
             marginBottom: 8,
             borderRadius: 12,
             overflow: 'hidden',
-            maxWidth: 200,
+            maxWidth: 240,
             border: '1px solid var(--border2)',
+            background: 'var(--surface2)',
           }}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={selectedGif.preview}
             alt={selectedGif.title}
-            style={{ width: '100%', display: 'block' }}
+            style={{ width: '100%', display: 'block', minHeight: 60, objectFit: 'contain', backgroundColor: 'var(--surface2)' }}
+            onError={(e) => {
+              const target = e.currentTarget
+              target.style.display = 'none'
+              const parent = target.parentElement
+              if (parent) {
+                const fallback = document.createElement('div')
+                fallback.style.cssText = 'padding:12px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);'
+                fallback.textContent = `GIF: ${selectedGif.title}`
+                parent.insertBefore(fallback, parent.firstChild)
+              }
+            }}
           />
           <button
             type="button"
@@ -464,7 +476,7 @@ function CommentItem({
           >
             <span
               style={{
-                fontSize: depth > 0 ? 12 : 13,
+                fontSize: depth > 0 ? 13 : 14,
                 fontWeight: 600,
                 color: 'var(--text)',
               }}
@@ -477,7 +489,7 @@ function CommentItem({
             />
             <span
               style={{
-                fontSize: 11,
+                fontSize: 12,
                 color: 'var(--text3)',
                 fontFamily: 'var(--mono)',
               }}
@@ -505,8 +517,8 @@ function CommentItem({
           {comment.content && (
             <p
               style={{
-                fontSize: depth > 0 ? 13 : 14,
-                lineHeight: 1.6,
+                fontSize: depth > 0 ? 14 : 15,
+                lineHeight: 1.65,
                 color: 'var(--text2)',
                 marginBottom: comment.gif_url ? 8 : 6,
                 wordBreak: 'break-word',
@@ -520,11 +532,12 @@ function CommentItem({
           {comment.gif_url && (
             <div
               style={{
-                maxWidth: 240,
+                maxWidth: 280,
                 borderRadius: 12,
                 overflow: 'hidden',
                 marginBottom: 8,
                 border: '1px solid var(--border)',
+                background: 'var(--surface2)',
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -535,6 +548,22 @@ function CommentItem({
                 style={{
                   width: '100%',
                   display: 'block',
+                  minHeight: 80,
+                  objectFit: 'contain',
+                  backgroundColor: 'var(--surface2)',
+                }}
+                onError={(e) => {
+                  const target = e.currentTarget
+                  target.style.display = 'none'
+                  const parent = target.parentElement
+                  if (parent) {
+                    parent.style.display = 'flex'
+                    parent.style.alignItems = 'center'
+                    parent.style.justifyContent = 'center'
+                    parent.style.padding = '16px'
+                    parent.style.minHeight = '60px'
+                    parent.innerHTML = '<span style="font-size:12px;color:var(--text3);font-family:var(--mono)">GIF unavailable</span>'
+                  }
                 }}
               />
             </div>

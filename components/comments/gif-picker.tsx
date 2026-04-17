@@ -51,7 +51,9 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
         position: 'absolute',
         bottom: '100%',
         left: 0,
-        right: 0,
+        width: '100%',
+        minWidth: 280,
+        maxWidth: 400,
         marginBottom: 8,
         background: 'var(--surface)',
         border: '1px solid var(--border2)',
@@ -118,9 +120,9 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
               onClick={() => setActiveCategory(cat.id)}
               style={{
                 flexShrink: 0,
-                padding: '4px 10px',
+                padding: '5px 12px',
                 borderRadius: 8,
-                fontSize: 11,
+                fontSize: 12,
                 fontWeight: 600,
                 fontFamily: 'var(--mono)',
                 letterSpacing: '0.02em',
@@ -149,7 +151,7 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: 4,
           padding: '0 6px 6px',
-          maxHeight: 220,
+          maxHeight: 240,
           overflowY: 'auto',
         }}
       >
@@ -194,6 +196,17 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
                 height: '100%',
                 objectFit: 'cover',
               }}
+              onError={(e) => {
+                const target = e.currentTarget
+                target.style.display = 'none'
+                const parent = target.parentElement
+                if (parent) {
+                  const fallback = document.createElement('span')
+                  fallback.textContent = gif.title
+                  fallback.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text3);font-family:var(--mono);padding:4px;text-align:center;'
+                  parent.appendChild(fallback)
+                }
+              }}
             />
             {/* Title overlay */}
             <span
@@ -204,7 +217,7 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
                 right: 0,
                 padding: '12px 4px 3px',
                 background: 'linear-gradient(transparent, rgba(0,0,0,0.7))',
-                fontSize: 9,
+                fontSize: 10,
                 color: '#fff',
                 fontFamily: 'var(--mono)',
                 textAlign: 'center',
@@ -232,12 +245,12 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
       {/* Powered by notice */}
       <div
         style={{
-          padding: '4px 14px 8px',
+          padding: '6px 14px 8px',
           textAlign: 'right',
-          fontSize: 9,
+          fontSize: 10,
           color: 'var(--text3)',
           fontFamily: 'var(--mono)',
-          opacity: 0.6,
+          opacity: 0.7,
         }}
       >
         Powered by GIPHY
