@@ -21,8 +21,8 @@
 
   /* ── Texte ── */
   --text:  #F4F4FF;
-  --text2: #B8BAD0;
-  --text3: #52546A;
+  --text2: #C8CAE0;
+  --text3: #6E7090;
 
   /* ── Accent unique — Indigo électrique ── */
   --accent:      #6B6EF8;
@@ -93,6 +93,10 @@ html {
   color-scheme: dark;
 }
 
+@media (max-width: 480px) {
+  html { font-size: 106.25%; }
+}
+
 body {
   background: var(--bg);
   color: var(--text);
@@ -100,9 +104,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
-  line-height: 1.6;
+  line-height: 1.65;
   min-height: 100dvh;
   min-height: -webkit-fill-available;
+  font-weight: 400;
 }
 
 ::selection { background: rgba(107,110,248,0.3); color: #fff; }
@@ -147,7 +152,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
