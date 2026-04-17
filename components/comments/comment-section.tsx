@@ -15,6 +15,59 @@ interface CommentSectionProps {
   commentCount: number
 }
 
+// ── GIF Image with error fallback ────────────────────────────────────────
+function GifImage({ src, alt, maxWidth = 280, minHeight = 80 }: { src: string; alt: string; maxWidth?: number; minHeight?: number }) {
+  const [failed, setFailed] = useState(false)
+  if (failed) {
+    return (
+      <div
+        style={{
+          maxWidth,
+          borderRadius: 12,
+          overflow: 'hidden',
+          marginBottom: 8,
+          border: '1px solid var(--border)',
+          background: 'var(--surface2)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: 16,
+          minHeight: 60,
+        }}
+      >
+        <span style={{ fontSize: 12, color: 'var(--text3)', fontFamily: 'var(--mono)' }}>GIF unavailable</span>
+      </div>
+    )
+  }
+  return (
+    <div
+      style={{
+        maxWidth,
+        borderRadius: 12,
+        overflow: 'hidden',
+        marginBottom: 8,
+        border: '1px solid var(--border)',
+        background: 'var(--surface2)',
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        style={{
+          width: '100%',
+          display: 'block',
+          minHeight,
+          objectFit: 'contain',
+          backgroundColor: 'var(--surface2)',
+        }}
+        onError={() => setFailed(true)}
+      />
+    </div>
+  )
+}
+
 // ── Avatar ───────────────────────────────────────────────────────────────
 function CommentAvatar({ name, size = 32 }: { name: string; size?: number }) {
   const initials = name
@@ -171,6 +224,7 @@ function ComposeBox({
   const [authorName, setAuthorName] = useState('')
   const [gifOpen, setGifOpen] = useState(false)
   const [selectedGif, setSelectedGif] = useState<GifItem | null>(null)
+  const [gifPreviewFailed, setGifPreviewFailed] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const textareaRef = useRef<HTMLTextAreaElement>(null)
 
@@ -186,6 +240,7 @@ function ComposeBox({
 
   const handleGifSelect = (gif: GifItem) => {
     setSelectedGif(gif)
+    setGifPreviewFailed(false)
     textareaRef.current?.focus()
   }
 
@@ -225,26 +280,22 @@ function ComposeBox({
             background: 'var(--surface2)',
           }}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={selectedGif.preview}
-            alt={selectedGif.title}
-            style={{ width: '100%', display: 'block', minHeight: 60, objectFit: 'contain', backgroundColor: 'var(--surface2)' }}
-            onError={(e) => {
-              const target = e.currentTarget
-              target.style.display = 'none'
-              const parent = target.parentElement
-              if (parent) {
-                const fallback = document.createElement('div')
-                fallback.style.cssText = 'padding:12px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);'
-                fallback.textContent = `GIF: ${selectedGif.title}`
-                parent.insertBefore(fallback, parent.firstChild)
-              }
-            }}
-          />
+          {gifPreviewFailed ? (
+            <div style={{ padding: 12, textAlign: 'center', fontSize: 12, color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
+              GIF: {selectedGif.title}
+            </div>
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={selectedGif.preview}
+              alt={selectedGif.title}
+              style={{ width: '100%', display: 'block', minHeight: 60, objectFit: 'contain', backgroundColor: 'var(--surface2)' }}
+              onError={() => setGifPreviewFailed(true)}
+            />
+          )}
           <button
             type="button"
-            onClick={() => setSelectedGif(null)}
+            onClick={() => { setSelectedGif(null); setGifPreviewFailed(false) }}
             style={{
               position: 'absolute',
               top: 4,
@@ -530,43 +581,7 @@ function CommentItem({
 
           {/* GIF */}
           {comment.gif_url && (
-            <div
-              style={{
-                maxWidth: 280,
-                borderRadius: 12,
-                overflow: 'hidden',
-                marginBottom: 8,
-                border: '1px solid var(--border)',
-                background: 'var(--surface2)',
-              }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={comment.gif_url}
-                alt={comment.gif_title ?? 'GIF'}
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  display: 'block',
-                  minHeight: 80,
-                  objectFit: 'contain',
-                  backgroundColor: 'var(--surface2)',
-                }}
-                onError={(e) => {
-                  const target = e.currentTarget
-                  target.style.display = 'none'
-                  const parent = target.parentElement
-                  if (parent) {
-                    parent.style.display = 'flex'
-                    parent.style.alignItems = 'center'
-                    parent.style.justifyContent = 'center'
-                    parent.style.padding = '16px'
-                    parent.style.minHeight = '60px'
-                    parent.innerHTML = '<span style="font-size:12px;color:var(--text3);font-family:var(--mono)">GIF unavailable</span>'
-                  }
-                }}
-              />
-            </div>
+            <GifImage src={comment.gif_url} alt={comment.gif_title ?? 'GIF'} />
           )}
 
           {/* Reactions + actions */}

@@ -94,7 +94,7 @@ html {
 }
 
 @media (max-width: 480px) {
-  html { font-size: 17px; }
+  html { font-size: 106.25%; }
 }
 
 body {

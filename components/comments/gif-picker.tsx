@@ -12,6 +12,7 @@ interface GifPickerProps {
 export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
   const [search, setSearch] = useState('')
   const [activeCategory, setActiveCategory] = useState('reactions')
+  const [failedPreviews, setFailedPreviews] = useState<Set<string>>(new Set())
   const panelRef = useRef<HTMLDivElement>(null)
 
   // Close on outside click
@@ -184,30 +185,42 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
             }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={gif.preview}
-              alt={gif.title}
-              loading="lazy"
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-              }}
-              onError={(e) => {
-                const target = e.currentTarget
-                target.style.display = 'none'
-                const parent = target.parentElement
-                if (parent) {
-                  const fallback = document.createElement('span')
-                  fallback.textContent = gif.title
-                  fallback.style.cssText = 'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--text3);font-family:var(--mono);padding:4px;text-align:center;'
-                  parent.appendChild(fallback)
-                }
-              }}
-            />
+            {failedPreviews.has(gif.id) ? (
+              <span
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 10,
+                  color: 'var(--text3)',
+                  fontFamily: 'var(--mono)',
+                  padding: 4,
+                  textAlign: 'center',
+                }}
+              >
+                {gif.title}
+              </span>
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={gif.preview}
+                alt={gif.title}
+                loading="lazy"
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                }}
+                onError={() => {
+                  setFailedPreviews((prev) => new Set(prev).add(gif.id))
+                }}
+              />
+            )}
             {/* Title overlay */}
             <span
               style={{
