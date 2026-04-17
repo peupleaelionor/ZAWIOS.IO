@@ -22,7 +22,7 @@ export function Navbar() {
   }, [])
 
   const navLinks = [
-    { href: '/predictions', label: t.nav.predictions },
+    { href: '/predictions', label: t.nav.signals },
     { href: '/leaderboard', label: t.nav.leaderboard },
     { href: '/insights',    label: t.nav.insights },
     { href: '/about',       label: t.nav.about },

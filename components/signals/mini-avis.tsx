@@ -5,8 +5,9 @@ import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { Avatar } from '@/components/ui/avatar'
 import { IconComment, IconUpvote } from '@/components/ui/icons'
+import { useLanguage } from '@/components/providers/language-provider'
 
-interface MiniAvis {
+interface MiniAvisItem {
   id: string
   author: string
   authorAvatar?: string
@@ -21,11 +22,11 @@ interface MiniAvisProps {
 }
 
 // Mock data for mini-avis
-const MOCK_AVIS: Record<string, MiniAvis[]> = {
+const MOCK_AVIS: Record<string, MiniAvisItem[]> = {
   default: [
     { id: 'a1', author: 'C. Laurent', authorAvatar: '/avatars/laurent.svg', content: "Tendance confirmée par les derniers chiffres. Pas de surprise.", likes: 12, timeAgo: '2h' },
     { id: 'a2', author: 'L. Faye', authorAvatar: '/avatars/faye.svg', content: "Intéressant — les résultats diffèrent selon les régions.", likes: 8, timeAgo: '4h' },
-    { id: 'a3', author: 'T. Diop', authorAvatar: '/avatars/diop.svg', content: "Je pense que c'est plus nuancé que YES/NO. Le contexte compte.", likes: 5, timeAgo: '6h' },
+    { id: 'a3', author: 'T. Diop', authorAvatar: '/avatars/diop.svg', content: "Je pense que c'est plus nuancé que OUI/NON. Le contexte compte.", likes: 5, timeAgo: '6h' },
   ],
 }
 
@@ -43,6 +44,7 @@ export function MiniAvis({ signalId, className }: MiniAvisProps) {
   const [newAvis, setNewAvis] = useState('')
   const [showInput, setShowInput] = useState(false)
   const [likedIds, setLikedIds] = useState<Set<string>>(new Set())
+  const { t } = useLanguage()
 
   const avis = MOCK_AVIS.default // In prod: fetch from API by signalId
 
@@ -56,7 +58,7 @@ export function MiniAvis({ signalId, className }: MiniAvisProps) {
     // In prod: POST to /api/comments with signal_id
     setNewAvis('')
     setShowInput(false)
-    toast.success('Avis publié')
+    toast.success(t.miniAvis.published)
   }
 
   return (
@@ -71,7 +73,7 @@ export function MiniAvis({ signalId, className }: MiniAvisProps) {
         }}
       >
         <IconComment size={12} className="w-3 h-3" />
-        {expanded ? 'Masquer avis' : `Voir avis (${avis.length})`}
+        {expanded ? t.miniAvis.hide : `${t.miniAvis.show} (${avis.length})`}
       </button>
 
       {expanded && (
@@ -105,9 +107,9 @@ export function MiniAvis({ signalId, className }: MiniAvisProps) {
                   <button
                     className="text-[9px] text-[var(--text3)] hover:text-[var(--zred)] transition-colors"
                     style={{ fontFamily: 'var(--mono)' }}
-                    title="Signaler"
+                    title={t.miniAvis.report}
                   >
-                    signaler
+                    {t.miniAvis.report.toLowerCase()}
                   </button>
                 </div>
               </div>
@@ -125,7 +127,7 @@ export function MiniAvis({ signalId, className }: MiniAvisProps) {
                 border: '1px dashed var(--border2)',
               }}
             >
-              + Ajouter un mini-avis
+              {t.miniAvis.add}
             </button>
           ) : (
             <div
@@ -135,7 +137,7 @@ export function MiniAvis({ signalId, className }: MiniAvisProps) {
               <textarea
                 value={newAvis}
                 onChange={(e) => setNewAvis(e.target.value.slice(0, MAX_CHARS))}
-                placeholder="Ton argument ou ressenti... (max 160 car.)"
+                placeholder={t.miniAvis.placeholder}
                 rows={2}
                 className="w-full resize-none text-[12px] leading-relaxed bg-transparent outline-none placeholder:text-[var(--text3)]"
                 style={{ color: 'var(--text)', fontFamily: 'var(--font)' }}
@@ -151,7 +153,7 @@ export function MiniAvis({ signalId, className }: MiniAvisProps) {
                     className="text-[10px] text-[var(--text3)] hover:text-[var(--text2)]"
                     style={{ fontFamily: 'var(--mono)' }}
                   >
-                    Annuler
+                    {t.miniAvis.cancel}
                   </button>
                   <button
                     onClick={handleSubmit}
@@ -163,7 +165,7 @@ export function MiniAvis({ signalId, className }: MiniAvisProps) {
                       color: '#fff',
                     }}
                   >
-                    Publier
+                    {t.miniAvis.post}
                   </button>
                 </div>
               </div>

@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { SIGNAL_CATEGORIES, CATEGORY_COLORS } from '@/lib/signals-data'
+import { useLanguage } from '@/components/providers/language-provider'
 
 // Signal counts per category (approx from data)
 const CATEGORY_COUNTS: Record<string, number> = {
@@ -224,21 +227,22 @@ function MiniAsset({ category }: { category: string }) {
 
 export function CategoriesSection() {
   const displayCategories = SIGNAL_CATEGORIES.filter((c) => c.id !== 'worldview')
+  const { t } = useLanguage()
 
   return (
     <section className="py-12 md:py-20" style={{ background: 'var(--bg)' }}>
       <div className="container">
         {/* Header */}
         <div className="mb-8 md:mb-10">
-          <p className="section-label">Catégories</p>
+          <p className="section-label">{t.categories.label}</p>
           <h2
             className="text-2xl md:text-4xl font-bold text-[var(--text)] mt-1 leading-tight"
             style={{ letterSpacing: '-0.03em' }}
           >
-            Tous les sujets.<br className="md:hidden" /> Toutes les régions.
+            {t.categories.title}
           </h2>
           <p className="mt-2 text-sm text-[var(--text2)] max-w-md leading-relaxed">
-            De la tech aux sports, de l&apos;Afrique au USA — il y a toujours un sujet qui t&apos;intéresse.
+            {t.categories.subtitle}
           </p>
         </div>
 
@@ -280,7 +284,7 @@ export function CategoriesSection() {
                     className="text-[11px] font-medium whitespace-nowrap"
                     style={{ fontFamily: 'var(--mono)', color: 'var(--text3)' }}
                   >
-                    {count} sujets actifs
+                    {count} {t.categories.activeSignals}
                   </span>
                   <span
                     className="text-[10px] font-bold opacity-0 group-hover:opacity-100 transition-opacity"
@@ -310,7 +314,7 @@ export function CategoriesSection() {
               fontFamily: 'var(--font)',
             }}
           >
-            Commencer maintenant
+            {t.categories.cta}
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

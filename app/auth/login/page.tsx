@@ -1,11 +1,14 @@
 import Link from 'next/link'
 import { LoginForm } from '@/components/auth/login-form'
 import { LogoLockup } from '@/components/ui/logo'
+import { copy } from '@/lib/i18n.copy'
 import type { Metadata } from 'next'
 
+const c = copy.fr
+
 export const metadata: Metadata = {
-  title: 'Sign in',
-  description: 'Sign in to your ZAWIOS account.',
+  title: c.auth.loginTitle,
+  description: c.auth.loginSubtitle,
 }
 
 export default function LoginPage() {
@@ -17,9 +20,9 @@ export default function LoginPage() {
             <LogoLockup className="text-lg" />
           </Link>
           <h1 className="mt-7 text-2xl font-bold text-[var(--text)]" style={{ letterSpacing: '-0.01em' }}>
-            Welcome back
+            {c.auth.loginTitle}
           </h1>
-          <p className="mt-1.5 text-sm text-[var(--text2)]">Sign in to continue building your track record</p>
+          <p className="mt-1.5 text-sm text-[var(--text2)]">{c.auth.loginSubtitle}</p>
         </div>
 
         <div className="surface rounded-2xl p-7" style={{ border: '1px solid var(--border2)' }}>
@@ -27,9 +30,9 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-sm text-[var(--text3)] mt-6">
-          No account yet?{' '}
+          {c.auth.noAccount}{' '}
           <Link href="/auth/signup" className="font-medium text-[var(--accent)] hover:text-[var(--accent2)] transition-colors">
-            Create one for free
+            {c.auth.createFree}
           </Link>
         </p>
       </div>

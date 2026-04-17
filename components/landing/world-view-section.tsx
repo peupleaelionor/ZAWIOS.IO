@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { getWorldViewSignals } from '@/lib/signals-data'
+import { useLanguage } from '@/components/providers/language-provider'
 
 // Minimal SVG world map — continent silhouettes, very subtle
 function MinimalWorldMap({ activeRegion }: { activeRegion: string }) {
@@ -81,6 +82,7 @@ export function WorldViewSection() {
   const [activeRegion, setActiveRegion] = useState('global')
   const [compareOptIn, setCompareOptIn] = useState(false)
   const signals = getWorldViewSignals(3)
+  const { t } = useLanguage()
 
   const getRegionStats = (region: string) => {
     if (!signals.length || !signals[0].regionalBreakdown) return { yes: 54, no: 46 }
@@ -98,7 +100,7 @@ export function WorldViewSection() {
 
   // Safe-by-default: only "Ma région" + "Global" visible. Others behind opt-in.
   const SAFE_REGIONS = [
-    { id: 'global', label: 'Global résumé', votes: '2M' },
+    { id: 'global', label: t.worldView.globalSummary, votes: '2M' },
   ]
   const COMPARE_REGIONS = [
     { id: 'africa', label: 'Afrique', votes: '980K' },
@@ -117,15 +119,15 @@ export function WorldViewSection() {
     >
       <div className="container">
         <div className="mb-8">
-          <p className="section-label">World View</p>
+          <p className="section-label">{t.worldView.title}</p>
           <h2
             className="text-2xl md:text-3xl font-bold text-[var(--text)] mt-1"
             style={{ letterSpacing: '-0.025em' }}
           >
-            Comment le monde pense
+            {t.worldView.howWorldThinks}
           </h2>
           <p className="mt-2 text-sm text-[var(--text2)]">
-            Résumé global agrégé — données anonymes et indicatives.
+            {t.worldView.sectionSubtitle}
           </p>
         </div>
 
@@ -183,7 +185,7 @@ export function WorldViewSection() {
                   {stats.yes}%
                 </p>
                 <p className="text-[10px] text-[var(--teal)] font-semibold mt-0.5" style={{ fontFamily: 'var(--mono)' }}>
-                  YES
+                  {t.vote.yes.toUpperCase()}
                 </p>
               </div>
               <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: 'var(--surface3)' }}>
@@ -203,7 +205,7 @@ export function WorldViewSection() {
                   {stats.no}%
                 </p>
                 <p className="text-[10px] text-[var(--text3)] font-semibold mt-0.5" style={{ fontFamily: 'var(--mono)' }}>
-                  NO
+                  {t.vote.no.toUpperCase()}
                 </p>
               </div>
             </div>
@@ -213,7 +215,7 @@ export function WorldViewSection() {
               className="mt-3 text-[9px] text-[var(--text3)] opacity-60"
               style={{ fontFamily: 'var(--mono)' }}
             >
-              Données agrégées, anonymes, indicatives.
+              {t.worldView.safetyNote}
             </p>
           </div>
 
