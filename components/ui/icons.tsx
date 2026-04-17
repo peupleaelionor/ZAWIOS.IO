@@ -266,15 +266,15 @@ export function IconCheckCircle(props: IconProps) {
 }
 
 /**
- * IconMark — the raw ZAWIOS butterfly mark (no background).
- * Two fans of lines converging at center: left = light, right = accent.
- * viewBox 56×34, aspect ratio preserved. Pass `width` to control size.
+ * IconMark — the raw ZAWIOS convergence mark (no background).
+ * 8 lines per wing converging at center. viewBox 64×64.
+ * Source of truth: /public/brand/logo/zawios-mark.svg
  */
 export function IconMark({
   className,
-  width = 56,
-  leftColor = '#F2F2F7', // Blanc légèrement grisé
-  rightColor = '#4169E1', // Bleu Roi (Royal Blue)
+  width = 64,
+  leftColor = '#FFFFFF',
+  rightColor = '#17D5CF',
   style,
 }: {
   className?: string
@@ -283,66 +283,47 @@ export function IconMark({
   rightColor?: string
   style?: React.CSSProperties
 }) {
-  const n = 11
-  const ys = Array.from({ length: n }, (_, i) => (i / (n - 1)) * 34)
-  const h = (width * 34) / 56
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
-      height={h}
-      viewBox="0 0 56 34"
+      height={width}
+      viewBox="0 0 64 64"
       fill="none"
       className={className}
       style={style}
     >
-      {ys.map((y, i) => (
-        <line key={`L${i}`} x1={28} y1={17} x2={0} y2={y} stroke={leftColor} strokeWidth="0.9" strokeLinecap="round" />
-      ))}
-      {ys.map((y, i) => (
-        <line key={`R${i}`} x1={28} y1={17} x2={56} y2={y} stroke={rightColor} strokeWidth="0.9" strokeLinecap="round" />
-      ))}
+      {/* Left wing */}
+      <g stroke={leftColor} strokeWidth="2" strokeLinecap="round">
+        <path d="M8 18 L30 31"/><path d="M8 22 L30 32"/><path d="M8 26 L30 33"/><path d="M8 30 L30 34"/>
+        <path d="M8 34 L30 35"/><path d="M8 38 L30 36"/><path d="M8 42 L30 37"/><path d="M8 46 L30 38"/>
+      </g>
+      {/* Right wing */}
+      <g stroke={rightColor} strokeWidth="2" strokeLinecap="round">
+        <path d="M56 18 L34 31"/><path d="M56 22 L34 32"/><path d="M56 26 L34 33"/><path d="M56 30 L34 34"/>
+        <path d="M56 34 L34 35"/><path d="M56 38 L34 36"/><path d="M56 42 L34 37"/><path d="M56 46 L34 38"/>
+      </g>
+      <circle cx="32" cy="34" r="2.2" fill={rightColor}/>
     </svg>
   )
 }
 
 /**
- * IconLogo — carré app icon : fond sombre + mark ailes courbes.
- * Utilisé en navbar, footer, auth, favicon placeholder.
+ * IconLogo — ZAWIOS mark rendered as an <img> from the canonical SVG.
+ * Used in dashboard sidebar, auth pages, etc.
  */
 export function IconLogo({ className, size = 32, style }: IconProps) {
-  const sw = Math.max(1.2, 1.8 * Math.min(1, size / 32))
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/brand/logo/zawios-mark.svg"
+      alt=""
       width={size}
       height={size}
-      viewBox="0 0 32 32"
-      fill="none"
+      aria-hidden="true"
       className={className}
-      style={style}
-    >
-      <rect width="32" height="32" rx={Math.round(32 * 0.22)} fill="#08080F"/>
-      {/* Aile gauche — blanc */}
-      <g stroke="#FFFFFF" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M16 16 C13.8 15.2 11.6 13.0 9.0 9.2"/>
-        <path d="M16 16 C13.6 15.8 11.0 14.4 7.8 12.0"/>
-        <path d="M16 16 C13.6 16.0 10.8 16.0 6.2 16.0"/>
-        <path d="M16 16 C13.6 16.2 11.0 17.6 7.8 20.0"/>
-        <path d="M16 16 C13.8 16.8 11.6 19.0 9.0 22.8"/>
-        <path d="M16 16 C14.6 17.6 13.2 20.0 12.0 24.0"/>
-      </g>
-      {/* Aile droite — indigo */}
-      <g stroke="#6B6EF8" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
-        <path d="M16 16 C18.2 15.2 20.4 13.0 23.0 9.2"/>
-        <path d="M16 16 C18.4 15.8 21.0 14.4 24.2 12.0"/>
-        <path d="M16 16 C18.4 16.0 21.2 16.0 25.8 16.0"/>
-        <path d="M16 16 C18.4 16.2 21.0 17.6 24.2 20.0"/>
-        <path d="M16 16 C18.2 16.8 20.4 19.0 23.0 22.8"/>
-        <path d="M16 16 C17.4 17.6 18.8 20.0 20.0 24.0"/>
-      </g>
-      <path d="M15.5 16 L16.5 16" stroke="#FFFFFF" strokeWidth={sw} strokeLinecap="round"/>
-    </svg>
+      style={{ display: 'block', ...style }}
+    />
   )
 }
 
