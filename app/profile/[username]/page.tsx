@@ -168,20 +168,20 @@ export default async function ProfilePage({ params }: Props) {
                 <Badge variant="default" className="mt-3">{planLabel}</Badge>
               )}
 
-              {p.bio && (
+              {Boolean(p.bio) && (
                 <p className="mt-4 text-sm leading-relaxed" style={{ color: 'var(--text2)' }}>
                   {p.bio as string}
                 </p>
               )}
 
               <div className="flex flex-col gap-2.5 mt-5 text-sm" style={{ color: 'var(--text3)' }}>
-                {p.location && (
+                {Boolean(p.location) && (
                   <span className="flex items-center justify-center gap-1.5">
                     <IconPin size={14} />
                     {p.location as string}
                   </span>
                 )}
-                {p.website && (
+                {Boolean(p.website) && (
                   <a
                     href={p.website as string}
                     target="_blank"

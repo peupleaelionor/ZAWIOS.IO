@@ -25,7 +25,7 @@ async function fetchSignals(params: SignalFeedParams): Promise<ApiSignal[]> {
 
   // API returns DB rows (snake_case) — map to Signal shape (camelCase)
   if (json.source === 'db' && Array.isArray(json.signals)) {
-    return json.signals.map(mapDbRow)
+    return (json.signals as unknown as Record<string, unknown>[]).map(mapDbRow)
   }
 
   // DB not available → fall back to mock data with client-side filtering

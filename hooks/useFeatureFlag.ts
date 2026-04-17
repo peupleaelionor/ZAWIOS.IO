@@ -16,5 +16,5 @@ export function useFeatureFlag(flag: FeatureFlag): boolean {
  * useFeatureFlags — Read multiple flags at once.
  */
 export function useFeatureFlags<T extends FeatureFlag>(flags: T[]): Record<T, boolean> {
-  return Object.fromEntries(flags.map((f) => [f, FLAGS[f]])) as Record<T, boolean>
+  return Object.fromEntries(flags.map((f) => [f, FLAGS[f]])) as unknown as Record<T, boolean>
 }

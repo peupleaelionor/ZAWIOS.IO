@@ -55,7 +55,7 @@ export default function AdminDashboardPage() {
     .filter((s) => s.regionalBreakdown)
     .map((s) => ({
       signal: s,
-      score: regionalDivergenceScore(s.regionalBreakdown!),
+      score: regionalDivergenceScore(s.regionalBreakdown! as unknown as Record<string, number>),
     }))
     .sort((a, b) => b.score - a.score)
     .slice(0, 5)

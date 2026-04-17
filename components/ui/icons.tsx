@@ -273,8 +273,8 @@ export function IconCheckCircle(props: IconProps) {
 export function IconMark({
   className,
   width = 56,
-  leftColor = '#ffffff',
-  rightColor = '#17D5CF',
+  leftColor = '#F2F2F7', // Blanc légèrement grisé
+  rightColor = '#4169E1', // Bleu Roi (Royal Blue)
   style,
 }: {
   className?: string
@@ -331,10 +331,10 @@ export function IconLogo({ className, size = 32, style }: IconProps) {
     >
       <rect width={size} height={size} rx={size * 0.22} fill="#0C0D10" />
       {ys.map((y, i) => (
-        <line key={`L${i}`} x1={cx} y1={cy} x2={xL} y2={y} stroke="#ffffff" strokeWidth={size * 0.026} strokeLinecap="round" />
+        <line key={`L${i}`} x1={cx} y1={cy} x2={xL} y2={y} stroke="#F2F2F7" strokeWidth={size * 0.026} strokeLinecap="round" />
       ))}
       {ys.map((y, i) => (
-        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#17D5CF" strokeWidth={size * 0.026} strokeLinecap="round" />
+        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#4169E1" strokeWidth={size * 0.026} strokeLinecap="round" />
       ))}
     </svg>
   )

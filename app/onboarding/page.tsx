@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { IconMark, IconArrows, IconCheck } from '@/components/ui/icons'
-import { SignalCard } from '@/components/signals/signal-card'
+import { SignalCard, type TriVote } from '@/components/signals/signal-card'
 import { SIGNAL_CATEGORIES, SIGNAL_REGIONS, getTrendingSignals, CATEGORY_COLORS, type SignalCategory, type SignalRegion } from '@/lib/signals-data'
 
 type Step = 'interests' | 'vote' | 'result'
@@ -32,8 +32,8 @@ export default function OnboardingPage() {
     )
   }
 
-  const handleVote = (_signalId: string, vote: 'yes' | 'no') => {
-    setUserVote(vote)
+  const handleVote = (_signalId: string, vote: TriVote) => {
+    setUserVote(vote === 'neutral' ? null : vote)
     setHasVoted(true)
     // Delay to let the vote animation play
     setTimeout(() => setStep('result'), 800)

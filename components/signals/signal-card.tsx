@@ -13,12 +13,16 @@ import {
 import { Avatar } from '@/components/ui/avatar'
 import { IconTrending, IconCheck, IconShare, IconBookmark, IconComment, IconFire } from '@/components/ui/icons'
 import { WorldViewComparison } from '@/components/signals/world-view-comparison'
+import { MiniAvis } from '@/components/signals/mini-avis'
 import { SignalComments } from '@/components/signals/signal-comments'
+
+export type TriVote = 'yes' | 'neutral' | 'no'
 
 interface SignalCardProps {
   signal:   Signal
   compact?: boolean
-  onVote?:  (signalId: string, vote: 'yes' | 'no' | 'neutral') => void
+  onVote?:  (signalId: string, vote: TriVote) => void
+  onNext?:  () => void
 }
 
 const getCategoryLabel = (id: string) =>
@@ -30,7 +34,6 @@ const getRegionLabel = (id: string) =>
 const SWIPE_THRESHOLD    = 50
 const SWIPE_UP_THRESHOLD = -60
 
-// Reaction definitions
 const REACTIONS = [
   { key: 'fire',    emoji: '🔥', label: 'Hot' },
   { key: 'wow',     emoji: '😮', label: 'Wow' },
@@ -40,13 +43,13 @@ const REACTIONS = [
 ] as const
 type ReactionKey = typeof REACTIONS[number]['key']
 
-export function SignalCard({ signal, compact = false, onVote }: SignalCardProps) {
-  const [voted, setVoted] = useState<'yes' | 'no' | 'neutral' | null>(null)
-  const [yes, setYes]         = useState(signal.yesPercent)
-  const [no, setNo]           = useState(signal.noPercent)
-  const [neutral, setNeutral] = useState(signal.neutralPercent ?? 0)
-  const [swipeHint, setSwipeHint] = useState<'yes' | 'no' | 'neutral' | null>(null)
-  const [bookmarked, setBookmarked]  = useState(false)
+export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCardProps) {
+  const [voted, setVoted]               = useState<TriVote | null>(null)
+  const [yes, setYes]                   = useState(signal.yesPercent)
+  const [no, setNo]                     = useState(signal.noPercent)
+  const [neutral, setNeutral]           = useState(signal.neutralPercent ?? 0)
+  const [swipeHint, setSwipeHint]       = useState<TriVote | null>(null)
+  const [bookmarked, setBookmarked]     = useState(false)
   const [activeReaction, setActiveReaction] = useState<ReactionKey | null>(null)
   const [reactionCounts, setReactionCounts] = useState<Record<ReactionKey, number>>({
     fire: 0, wow: 0, think: 0, skeptic: 0, clap: 0,
@@ -56,11 +59,10 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
   const isResolved = signal.status === 'resolved'
   const catStyle   = CATEGORY_COLORS[signal.category]
 
-  // ── Vote ────────────────────────────────────────────────────────────────────
-  const handleVote = (choice: 'yes' | 'no' | 'neutral') => {
+  // ── Vote ─────────────────────────────────────────────────────────────────────
+  const handleVote = (choice: TriVote) => {
     if (voted || isResolved) return
     setVoted(choice)
-
     if (choice === 'yes') {
       setYes((p) => Math.min(97, p + 1))
       setNo((p)  => Math.max(1, p - 1))
@@ -74,20 +76,26 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
     setSwipeHint(null)
     onVote?.(signal.id, choice)
 
-    const label =
-      choice === 'yes' ? 'Signal YES enregistré'
-      : choice === 'no' ? 'Signal NO enregistré'
-      : 'Position neutre enregistrée'
+    const majority =
+      choice === 'neutral' ? null :
+      (choice === 'yes' && yes > 50) || (choice === 'no' && no > 50)
 
-    toast.success(label, {
-      description:
-        choice === 'neutral'
-          ? 'Ton abstention est comptabilisée séparément.'
-          : 'Compare ton signal avec la foule mondiale.',
-    })
+    toast.success(
+      choice === 'yes'     ? 'Signal YES enregistré'
+      : choice === 'no'    ? 'Signal NO enregistré'
+      : 'Position neutre enregistrée',
+      {
+        description:
+          choice === 'neutral'
+            ? 'Abstention comptabilisée séparément.'
+            : majority
+              ? 'Aligné avec la majorité.'
+              : 'Contre la majorité.',
+      },
+    )
   }
 
-  // ── Swipe ───────────────────────────────────────────────────────────────────
+  // ── Swipe ────────────────────────────────────────────────────────────────────
   const handleTouchStart = (e: React.TouchEvent) => {
     if (voted || isResolved) return
     touchStart.current = { x: e.touches[0].clientX, y: e.touches[0].clientY }
@@ -121,7 +129,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
     }
   }
 
-  // ── Reaction ────────────────────────────────────────────────────────────────
+  // ── Reaction ─────────────────────────────────────────────────────────────────
   const handleReaction = (key: ReactionKey) => {
     if (activeReaction === key) {
       setActiveReaction(null)
@@ -135,7 +143,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
     }
   }
 
-  // ── Share ───────────────────────────────────────────────────────────────────
+  // ── Share ────────────────────────────────────────────────────────────────────
   const handleShare = async () => {
     const url  = `${typeof window !== 'undefined' ? window.location.origin : ''}/signals/${signal.id}`
     const text = `"${signal.title}" — Vote YES ou NO sur ZAWIOS`
@@ -147,13 +155,12 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
     }
   }
 
-  // ── Bookmark ────────────────────────────────────────────────────────────────
+  // ── Bookmark ─────────────────────────────────────────────────────────────────
   const handleBookmark = () => {
     setBookmarked(!bookmarked)
     toast.success(bookmarked ? 'Retiré des favoris' : 'Ajouté aux favoris')
   }
 
-  // Swipe overlay color
   const swipeOverlayBg =
     swipeHint === 'yes'     ? 'rgba(29,228,222,0.07)' :
     swipeHint === 'no'      ? 'rgba(255,107,157,0.07)' :
@@ -172,17 +179,17 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
     <div
       className="social-card relative overflow-hidden flex flex-col"
       style={{
-        background:  swipeHint ? swipeOverlayBg : 'var(--surface)',
-        border:      cardBorder,
+        background:   swipeHint ? swipeOverlayBg : 'var(--surface)',
+        border:       cardBorder,
         borderRadius: 'var(--radius)',
-        padding:     compact ? '14px' : '16px 18px 14px',
-        transition:  'background 0.15s, border-color 0.2s, transform 0.2s, box-shadow 0.2s',
+        padding:      compact ? '14px' : '16px 18px 14px',
+        transition:   'background 0.15s, border-color 0.2s, transform 0.2s, box-shadow 0.2s',
       }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* ── Swipe hint badge ─────────────────────────────────────────────── */}
+      {/* Swipe hint overlay */}
       {swipeHint && (
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
           <span
@@ -194,8 +201,9 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
                 swipeHint === 'no'      ? 'var(--pink)' :
                 'rgba(168,168,192,0.35)',
               color: swipeHint === 'neutral' ? 'var(--text)' : 'var(--bg)',
-              boxShadow: swipeHint === 'yes' ? '0 0 20px rgba(29,228,222,0.4)' :
-                         swipeHint === 'no'  ? '0 0 20px rgba(255,107,157,0.4)' : 'none',
+              boxShadow:
+                swipeHint === 'yes' ? '0 0 20px rgba(29,228,222,0.4)' :
+                swipeHint === 'no'  ? '0 0 20px rgba(255,107,157,0.4)' : 'none',
             }}
           >
             {swipeHint === 'yes' ? 'YES' : swipeHint === 'no' ? 'NO' : 'NEUTRE'}
@@ -203,7 +211,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
         </div>
       )}
 
-      {/* ── HOT accent line ──────────────────────────────────────────────── */}
+      {/* HOT accent line */}
       {signal.hot && (
         <div
           className="absolute top-0 left-0 right-0 h-[2px]"
@@ -211,7 +219,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
         />
       )}
 
-      {/* ── Header row ──────────────────────────────────────────────────── */}
+      {/* Header */}
       <div className="flex items-start justify-between gap-2 mb-3">
         <div className="flex items-center gap-1.5 flex-wrap">
           <span
@@ -231,8 +239,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
               className="flex items-center gap-0.5 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
               style={{ fontFamily: 'var(--mono)', background: 'rgba(255,112,67,0.12)', color: 'var(--fire-color)' }}
             >
-              <IconFire size={9} />
-              HOT
+              <IconFire size={9} />HOT
             </span>
           )}
           {isResolved && (
@@ -244,43 +251,38 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
             </span>
           )}
         </div>
-
         <div className="flex items-center gap-1.5 shrink-0">
-          <span
-            className="text-[10px] text-[var(--text3)]"
-            style={{ fontFamily: 'var(--mono)' }}
-          >
+          <span className="text-[10px] text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
             {signal.timeAgo}
           </span>
           <button
             onClick={handleBookmark}
+            aria-label={bookmarked ? 'Retirer des favoris' : 'Ajouter aux favoris'}
             className="p-1 rounded-lg transition-colors"
             style={{
               color:      bookmarked ? 'var(--teal)' : 'var(--text3)',
               background: bookmarked ? 'rgba(29,228,222,0.08)' : 'transparent',
             }}
-            title={bookmarked ? 'Retirer des favoris' : 'Ajouter aux favoris'}
           >
             <IconBookmark size={13} />
           </button>
         </div>
       </div>
 
-      {/* ── Title ───────────────────────────────────────────────────────── */}
+      {/* Title */}
       <h3
         className={cn('font-bold leading-snug', compact ? 'text-sm' : 'text-[15px]')}
         style={{ color: 'var(--text)', letterSpacing: '-0.01em' }}
       >
         {signal.title}
       </h3>
-
       {!compact && signal.description && (
         <p className="mt-1.5 text-[12px] leading-relaxed line-clamp-2" style={{ color: 'var(--text2)' }}>
           {signal.description}
         </p>
       )}
 
-      {/* ── Resolved result ─────────────────────────────────────────────── */}
+      {/* Resolved result */}
       {isResolved && signal.resolvedResult !== undefined && (
         <div className="mt-4 flex items-center gap-4">
           <div>
@@ -316,11 +318,10 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
         </div>
       )}
 
-      {/* ── Active signal: vote section ──────────────────────────────────── */}
+      {/* Active signal: vote section */}
       {!isResolved && (
         <div className="mt-auto pt-4">
-
-          {/* Percentage stats */}
+          {/* Stats */}
           <div className="flex items-baseline gap-3 mb-2">
             <div className="flex items-baseline gap-1">
               <span
@@ -350,7 +351,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
             )}
           </div>
 
-          {/* Tri-segment progress bar */}
+          {/* Tri-segment bar */}
           <div className="w-full h-2 rounded-full overflow-hidden flex mb-4" style={{ background: 'var(--surface3)' }}>
             <div
               className="h-full transition-all duration-500"
@@ -389,7 +390,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
             {formatNumber(signal.totalVotes)} signaux
           </div>
 
-          {/* YES / NEUTRAL / NO vote buttons */}
+          {/* YES / NEUTRAL / NO buttons */}
           {!voted ? (
             <div className="grid grid-cols-3 gap-2">
               <VoteButton label="YES" onClick={() => handleVote('yes')} variant="yes" />
@@ -414,9 +415,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
                 <span style={{ color: 'var(--text2)' }}>Signal enregistré : </span>
                 <span
                   className="font-bold"
-                  style={{
-                    color: voted === 'yes' ? 'var(--teal)' : voted === 'neutral' ? 'var(--text2)' : 'var(--pink)',
-                  }}
+                  style={{ color: voted === 'yes' ? 'var(--teal)' : voted === 'neutral' ? 'var(--text2)' : 'var(--pink)' }}
                 >
                   {voted === 'yes' ? 'YES' : voted === 'no' ? 'NO' : 'NEUTRE'}
                 </span>
@@ -435,12 +434,28 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
               {signal.regionalBreakdown && (
                 <WorldViewComparison breakdown={signal.regionalBreakdown} neutralGlobal={neutral} />
               )}
+              {onNext && (
+                <button
+                  onClick={onNext}
+                  className="w-full py-3 rounded-xl text-sm font-semibold transition-all duration-150 active:scale-[0.98]"
+                  style={{ fontFamily: 'var(--font)', background: 'var(--teal)', color: '#fff' }}
+                >
+                  Suivant →
+                </button>
+              )}
             </div>
           )}
         </div>
       )}
 
-      {/* ── Reactions row ────────────────────────────────────────────────── */}
+      {/* Mini-avis (optional, post-vote only) */}
+      {voted && !isResolved && (
+        <div className="mt-3">
+          <MiniAvis signalId={signal.id} />
+        </div>
+      )}
+
+      {/* Reactions */}
       <div
         className="mt-4 pt-3 flex items-center gap-1.5 overflow-x-auto scrollbar-none"
         style={{ borderTop: '1px solid var(--border)' }}
@@ -452,10 +467,8 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
             <button
               key={r.key}
               onClick={() => handleReaction(r.key)}
-              className={cn(
-                'reaction-btn flex-shrink-0',
-                active && 'active',
-              )}
+              className={cn('reaction-btn flex-shrink-0', active && 'active')}
+              aria-label={r.label}
               title={r.label}
             >
               <span style={{ fontSize: 13 }}>{r.emoji}</span>
@@ -467,22 +480,14 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
             </button>
           )
         })}
-
-        {/* Spacer */}
         <div className="flex-1" />
-
-        {/* Share */}
-        <button
-          onClick={handleShare}
-          className="reaction-btn flex-shrink-0"
-          title="Partager"
-        >
+        <button onClick={handleShare} className="reaction-btn flex-shrink-0" aria-label="Partager">
           <IconShare size={12} />
           <span className="text-[11px]">Partager</span>
         </button>
       </div>
 
-      {/* ── Footer: creator + trending + comment toggle ──────────────────── */}
+      {/* Footer: creator + comment toggle */}
       <div
         className="mt-3 flex items-center justify-between gap-2"
         style={{ borderTop: '1px solid var(--border)', paddingTop: '10px' }}
@@ -493,29 +498,23 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
               <Avatar src={signal.creatorAvatar} name={signal.creatorName} size="xs" />
               <span className="text-[11px] font-medium flex items-center gap-0.5" style={{ color: 'var(--text3)' }}>
                 {signal.creatorName}
-                {signal.verified && (
-                  <IconCheck size={10} className="inline-block text-[var(--teal)]" />
-                )}
+                {signal.verified && <IconCheck size={10} className="inline-block text-[var(--teal)]" />}
               </span>
             </>
           ) : (
             <div />
           )}
         </div>
-
         <div className="flex items-center gap-2">
           {signal.trending && !isResolved && (
-            <span
-              className="flex items-center gap-1 text-[10px] font-semibold"
-              style={{ fontFamily: 'var(--mono)', color: 'var(--accent2)' }}
-            >
-              <IconTrending size={10} />
-              trending
+            <span className="flex items-center gap-1 text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--accent2)' }}>
+              <IconTrending size={10} />trending
             </span>
           )}
           <button
             onClick={() => setShowComments(!showComments)}
             className="flex items-center gap-1.5 text-[11px] font-semibold reaction-btn"
+            aria-label="Voir les commentaires"
             style={{ color: showComments ? 'var(--teal)' : 'var(--text3)' }}
           >
             <IconComment size={12} />
@@ -526,7 +525,7 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
         </div>
       </div>
 
-      {/* ── Comments section ─────────────────────────────────────────────── */}
+      {/* Comments */}
       {showComments && (
         <SignalComments
           signalId={signal.id}
@@ -538,17 +537,17 @@ export function SignalCard({ signal, compact = false, onVote }: SignalCardProps)
   )
 }
 
-// ── Vote Button ────────────────────────────────────────────────────────────────
+// ── VoteButton ─────────────────────────────────────────────────────────────────
 type VoteVariant = 'yes' | 'no' | 'neutral'
 type VoteState   = 'idle' | 'active' | 'dim'
 
 interface VoteButtonProps {
-  label:      string
-  sublabel?:  string
-  onClick:    () => void
-  variant:    VoteVariant
-  state?:     VoteState
-  disabled?:  boolean
+  label:     string
+  sublabel?: string
+  onClick:   () => void
+  variant:   VoteVariant
+  state?:    VoteState
+  disabled?: boolean
 }
 
 function VoteButton({ label, sublabel, onClick, variant, state = 'idle', disabled = false }: VoteButtonProps) {
@@ -557,16 +556,16 @@ function VoteButton({ label, sublabel, onClick, variant, state = 'idle', disable
 
   const styleMap = {
     yes: {
-      idle:         { bg: 'rgba(29,228,222,0.10)',    border: 'rgba(29,228,222,0.25)',  color: 'var(--teal)' },
-      active:       { bg: 'var(--teal)',               border: 'var(--teal)',             color: 'var(--bg)' },
+      idle:   { bg: 'rgba(29,228,222,0.10)',  border: 'rgba(29,228,222,0.25)',  color: 'var(--teal)' },
+      active: { bg: 'var(--teal)',             border: 'var(--teal)',             color: 'var(--bg)'   },
     },
     no: {
-      idle:         { bg: 'rgba(255,107,157,0.10)',   border: 'rgba(255,107,157,0.25)', color: 'var(--pink)' },
-      active:       { bg: 'var(--pink)',               border: 'var(--pink)',             color: '#fff' },
+      idle:   { bg: 'rgba(255,107,157,0.10)', border: 'rgba(255,107,157,0.25)', color: 'var(--pink)' },
+      active: { bg: 'var(--pink)',             border: 'var(--pink)',             color: '#fff'        },
     },
     neutral: {
-      idle:         { bg: 'rgba(168,168,192,0.08)',   border: 'rgba(168,168,192,0.18)', color: 'var(--text3)' },
-      active:       { bg: 'var(--surface3)',           border: 'var(--border3)',          color: 'var(--text2)' },
+      idle:   { bg: 'rgba(168,168,192,0.08)', border: 'rgba(168,168,192,0.18)', color: 'var(--text3)' },
+      active: { bg: 'var(--surface3)',         border: 'var(--border3)',          color: 'var(--text2)' },
     },
   }
 
@@ -576,24 +575,15 @@ function VoteButton({ label, sublabel, onClick, variant, state = 'idle', disable
     <button
       onClick={onClick}
       disabled={disabled}
+      aria-label={label}
       className={cn(
         'vote-btn flex flex-col items-center justify-center gap-0.5 min-h-[52px] py-2',
         !disabled && 'hover:brightness-110',
         isDim && 'opacity-20',
       )}
-      style={{
-        background:  s.bg,
-        border:      `1px solid ${s.border}`,
-        fontFamily:  'var(--mono)',
-        borderRadius: '12px',
-      }}
+      style={{ background: s.bg, border: `1px solid ${s.border}`, fontFamily: 'var(--mono)', borderRadius: '12px' }}
     >
-      <span
-        className="text-[14px] font-bold leading-none"
-        style={{ color: s.color }}
-      >
-        {label}
-      </span>
+      <span className="text-[14px] font-bold leading-none" style={{ color: s.color }}>{label}</span>
       {sublabel && (
         <span
           className="text-[8px] font-semibold uppercase tracking-wider"

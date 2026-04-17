@@ -86,7 +86,7 @@ export function SignalFeed() {
           return (
             <button
               key={tab.id}
-              onClick={() => setFeedSort(tab.id as SortId)}
+              onClick={() => setFeedSort(tab.id as 'trending' | 'latest' | 'popular' | 'following')}
               className={cn(
                 'px-4 py-2 rounded-full text-[12px] font-semibold whitespace-nowrap transition-all duration-150 min-h-[36px]',
                 active ? 'text-[var(--bg)]' : 'text-[var(--text2)] hover:text-[var(--text)]',

@@ -3,7 +3,6 @@ import { Footer } from '@/components/layout/footer'
 import { HeroSection } from '@/components/landing/hero-section'
 import { CategoriesSection } from '@/components/landing/categories-section'
 import { WorldViewSection } from '@/components/landing/world-view-section'
-import { AmbassadorSection } from '@/components/landing/ambassador-section'
 import { CTASection } from '@/components/landing/cta-section'
 import { SocialProofSection } from '@/components/landing/social-proof-section'
 import { StepsSection } from '@/components/landing/steps-section'
@@ -19,7 +18,7 @@ export default function HomePage() {
     <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
 
-      {/* Hero — app-style header with live stats */}
+      {/* Hero — app-style header with live signal */}
       <HeroSection />
 
       {/* Stats band */}
@@ -142,7 +141,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* World View */}
+      {/* World View — safe-by-default */}
       <WorldViewSection />
 
       {/* Resolved signals */}
@@ -168,9 +167,6 @@ export default function HomePage() {
 
       {/* Categories editorial rows */}
       <CategoriesSection />
-
-      {/* Ambassador map */}
-      <AmbassadorSection />
 
       {/* CTA */}
       <CTASection />

@@ -42,7 +42,7 @@ export function Footer() {
           <div className="col-span-2">
             <Link href="/" className="flex items-center gap-2.5 font-bold text-lg mb-3" aria-label="ZAWIOS Home">
               <IconLogo size={28} aria-hidden="true" />
-              <span className="gradient-text tracking-tight">ZAWIOS</span>
+              <span className="tracking-tighter text-white" style={{ fontFamily: 'var(--font)', fontWeight: 800, fontSize: '1.2rem', letterSpacing: '-0.02em' }}>ZAWIOS</span>
             </Link>
             <p className="text-sm text-[var(--text3)] max-w-xs leading-relaxed">
               {t.footer.tagline}
@@ -71,7 +71,7 @@ export function Footer() {
                 ))}
               </ul>
             </nav>
-          ))
+          ))}
         </div>
       </div>
     </footer>

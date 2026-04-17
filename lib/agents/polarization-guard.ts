@@ -37,9 +37,10 @@ const THRESHOLDS = {
 
 export function assessPolarization(signal: SignalSnapshot): PolarizationReport {
   const polIndex = polarizationIndex({
-    yesPercent: signal.yesPercent,
-    noPercent: signal.noPercent,
-    neutralPercent: signal.neutralPercent,
+    yes:     signal.yesPercent,
+    no:      signal.noPercent,
+    neutral: signal.neutralPercent,
+    total:   100,
   })
 
   const divergence = signal.regionalBreakdown

@@ -234,7 +234,7 @@ export function getUpgradePath(currentPlan: PlanTier): PlanTier | null {
   return null
 }
 
-export function formatPrice(price: number, cycle: 'monthly' | 'annual' = 'monthly'): string {
+export function formatPrice(price: number, _cycle: 'monthly' | 'annual' = 'monthly'): string {
   if (price === 0) return '$0'
   return `$${price}`
 }

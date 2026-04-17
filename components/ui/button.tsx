@@ -13,12 +13,12 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'inline-flex items-center justify-center font-medium transition-all duration-150 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed select-none'
 
     const variants = {
-      primary: 'bg-[var(--teal)] text-[var(--bg)] hover:brightness-110 focus-visible:ring-[var(--teal)]',
+      primary: 'bg-[var(--accent)] text-white hover:brightness-110 focus-visible:ring-[var(--accent)] shadow-lg shadow-blue-600/20',
       secondary:
-        'bg-[var(--surface2)] text-[var(--text)] hover:bg-[var(--surface3)] border border-[var(--border2)]',
+        'bg-[var(--surface2)] text-[var(--text2)] hover:bg-[var(--surface3)] border border-[var(--border2)]',
       outline:
-        'border border-[var(--border2)] bg-transparent text-[var(--text2)] hover:bg-white/[0.04] hover:text-[var(--text)]',
-      ghost: 'bg-transparent hover:bg-white/[0.04] text-[var(--text2)] hover:text-[var(--text)]',
+        'border border-[var(--border2)] bg-transparent text-[var(--text2)] hover:bg-white/[0.04] hover:text-white',
+      ghost: 'bg-transparent hover:bg-white/[0.04] text-[var(--text2)] hover:text-white',
       danger: 'bg-[var(--zred)] text-white hover:brightness-110 focus-visible:ring-[var(--zred)]',
     }
 

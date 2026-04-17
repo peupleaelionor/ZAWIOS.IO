@@ -1,8 +1,10 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
+import { UserContextProvider } from '@/components/providers/user-context-provider'
+import { NetworkStatus } from '@/components/layout/network-status'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
 import './globals.css'
@@ -60,6 +62,14 @@ export const metadata: Metadata = {
   manifest: '/manifest.webmanifest',
 }
 
+export const viewport: Viewport = {
+  width:          'device-width',
+  initialScale:   1,
+  maximumScale:   5,
+  userScalable:   true,
+  viewportFit:    'cover',
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
@@ -102,7 +112,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="antialiased has-bottom-nav" style={{ fontFamily: 'var(--font)' }} role="application">
         <Toaster
           theme="dark"
-          position="bottom-right"
+          position="top-center"
           toastOptions={{
             style: {
               background:  'var(--surface2)',
@@ -116,8 +126,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <QueryProvider>
           <AnalyticsProvider>
             <LanguageProvider>
-              {children}
-              <BottomNav />
+              <UserContextProvider>
+                <NetworkStatus />
+                {children}
+                <BottomNav />
+              </UserContextProvider>
             </LanguageProvider>
           </AnalyticsProvider>
         </QueryProvider>
