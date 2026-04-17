@@ -84,6 +84,24 @@ export const copy = {
       published: 'Avis publié',
     },
 
+    /* ── Signal context (structured analysis) ── */
+    signalContext: {
+      positionRecorded: '✔ Position enregistrée.',
+      addAnalysis: 'Ajouter une analyse (facultatif)',
+      placeholder: 'Précisez votre analyse en une phrase (180 car. max).',
+      submit: 'Publier',
+      cancel: 'Annuler',
+      published: 'Analyse publiée.',
+      sectionTitle: 'Analyses stratégiques',
+      like: 'Utile',
+      report: 'Signaler',
+      nuanceIndex: 'Indice de contextualisation',
+      nuancePercent: 'des votes incluent une analyse',
+      synthesisTitle: 'Synthèse stratégique',
+      synthesisNote: 'Synthèse générée à partir des contextes utilisateurs.',
+      charCount: 'caractères',
+    },
+
     /* ── World View ── */
     worldView: {
       title: 'Lecture régionale',
@@ -297,6 +315,24 @@ export const copy = {
       add: '+ Add a short opinion',
       cancel: 'Cancel',
       published: 'Opinion posted',
+    },
+
+    /* ── Signal context (structured analysis) ── */
+    signalContext: {
+      positionRecorded: '✔ Position recorded.',
+      addAnalysis: 'Add an analysis (optional)',
+      placeholder: 'Summarize your analysis in one sentence (180 char max).',
+      submit: 'Post',
+      cancel: 'Cancel',
+      published: 'Analysis posted.',
+      sectionTitle: 'Strategic analyses',
+      like: 'Helpful',
+      report: 'Report',
+      nuanceIndex: 'Contextualization index',
+      nuancePercent: 'of votes include an analysis',
+      synthesisTitle: 'Strategic synthesis',
+      synthesisNote: 'Synthesis generated from user contexts.',
+      charCount: 'characters',
     },
 
     /* ── World View ── */

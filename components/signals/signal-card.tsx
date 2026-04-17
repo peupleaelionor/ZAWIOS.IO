@@ -13,7 +13,13 @@ import {
 import { Avatar } from '@/components/ui/avatar'
 import { IconTrending, IconCheck } from '@/components/ui/icons'
 import { WorldViewComparison } from '@/components/signals/world-view-comparison'
-import { MiniAvis } from '@/components/signals/mini-avis'
+import {
+  StrategicContextInput,
+  StrategicAnalyses,
+  NuanceIndex,
+  StrategicSynthesis,
+} from '@/components/signals/strategic-context'
+import { useSignalContexts } from '@/hooks/use-signal-contexts'
 import { useLanguage } from '@/components/providers/language-provider'
 
 export type TriVote = 'yes' | 'neutral' | 'no'
@@ -39,6 +45,17 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
   const isResolved = signal.status === 'resolved'
   const catStyle = CATEGORY_COLORS[signal.category]
   const { t } = useLanguage()
+
+  // Structured context hook
+  const {
+    topContexts,
+    hasSubmitted,
+    submitContext,
+    toggleLike,
+    likedIds,
+    nuanceIndex,
+    synthesis,
+  } = useSignalContexts(signal.id, signal.totalVotes)
 
   const handleVote = (choice: TriVote) => {
     if (voted || isResolved) return
@@ -383,10 +400,28 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
         </div>
       )}
 
-      {/* ── Mini-avis (after vote only) ── */}
+      {/* ── Structured context (after vote only) ── */}
       {voted && !isResolved && (
-        <div className="mt-3">
-          <MiniAvis signalId={signal.id} />
+        <div className="mt-3 space-y-3">
+          {/* Post-vote analysis input */}
+          <StrategicContextInput
+            voteType={voted}
+            onSubmit={submitContext}
+            hasSubmitted={hasSubmitted}
+          />
+
+          {/* Top strategic analyses */}
+          <StrategicAnalyses
+            contexts={topContexts}
+            likedIds={likedIds}
+            onLike={toggleLike}
+          />
+
+          {/* Nuance index */}
+          <NuanceIndex percentage={nuanceIndex} />
+
+          {/* Aggregated synthesis */}
+          <StrategicSynthesis synthesis={synthesis} />
         </div>
       )}
 
