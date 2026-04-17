@@ -1,8 +1,13 @@
+'use client'
+
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { IconArrows } from '@/components/ui/icons'
+import { useLanguage } from '@/components/providers/language-provider'
 
 export function CTASection() {
+  const { t } = useLanguage()
+
   return (
     <section className="py-16 md:py-24" style={{ background: 'var(--bg)' }}>
       <div className="container">
@@ -20,23 +25,23 @@ export function CTASection() {
           />
 
           <p className="section-label mb-5" style={{ justifyContent: 'center' }}>
-            Rejoindre
+            {t.cta.label}
           </p>
 
           <h2
             className="font-bold mb-3 leading-tight"
             style={{ fontSize: 'clamp(1.5rem, 5vw, 2.4rem)', letterSpacing: '-0.025em', color: 'var(--text)' }}
           >
-            Commence à construire<br />ta réputation.
+            {t.cta.title}
           </h2>
 
           <p className="text-sm mb-8 max-w-xs mx-auto leading-relaxed" style={{ color: 'var(--text2)' }}>
-            47 000 analystes votent chaque jour. Gratuit. Pour toujours.
+            {t.cta.subtitle}
           </p>
 
           <Link href="/onboarding">
             <Button size="lg" className="gap-2 px-8">
-              Commencer maintenant <IconArrows size={15} />
+              {t.cta.button} <IconArrows size={15} />
             </Button>
           </Link>
         </div>

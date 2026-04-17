@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import type { CSSProperties } from 'react'
 
 interface LogoProps {
@@ -5,12 +6,12 @@ interface LogoProps {
   style?: CSSProperties
 }
 
-/* Right wing uses Royal Signal Blue via CSS var (adapts to theme) */
+/* Right wing: Royal Signal Blue via CSS var (adapts to both themes) */
 const ACCENT = 'var(--primary)'
 
-/* ── Mark 64×64 — 8 courbes par aile, monoline premium ──────────────────────
-   Left wing: currentColor (dark in light mode, light in dark mode)
-   Right wing: var(--primary) Royal Signal Blue */
+/* ── Mark 64×64 — inline SVG, adapts to theme ─────────────────────────────
+   Left wing:  currentColor (dark in light mode, light in dark mode)
+   Right wing: var(--primary) = Royal Signal Blue / indigo in dark */
 export function LogoMark({ className, style }: LogoProps) {
   return (
     <svg
@@ -46,7 +47,7 @@ export function LogoMark({ className, style }: LogoProps) {
   )
 }
 
-/* ── Mark 32×32 — 6 courbes par aile ─────────────────────────────────────── */
+/* ── Mark 32×32 — 6 curves, optimized for small sizes ─────────────────── */
 export function LogoTiny({ className, style }: LogoProps) {
   return (
     <svg
@@ -78,7 +79,22 @@ export function LogoTiny({ className, style }: LogoProps) {
   )
 }
 
-/* ── App icon — fond sombre arrondi + mark (32–512px) ── */
+/* ── Mono mark — all currentColor, for monochrome contexts ─────────────── */
+export function LogoMono({ className, style }: LogoProps) {
+  return (
+    <Image
+      src="/brand/logo/zawios-mark-mono.svg"
+      alt=""
+      width={64}
+      height={64}
+      aria-hidden
+      className={className}
+      style={{ display: 'block', ...style }}
+    />
+  )
+}
+
+/* ── App icon — dark rounded square background + Royal Signal Blue wing ─── */
 export function LogoAppIcon({ size = 32, className, style }: LogoProps & { size?: number }) {
   const scale = size / 32
   const sw = Math.max(1.2, 1.8 * Math.min(1, scale))
@@ -115,11 +131,11 @@ export function LogoAppIcon({ size = 32, className, style }: LogoProps & { size?
   )
 }
 
-/* ── Lockup : mark + wordmark ─────────────────────────────────────────────── */
+/* ── Lockup: inline mark + wordmark, fully theme-aware ─────────────────── */
 export function LogoLockup({ className, style }: LogoProps) {
   return (
     <span
-      className={`inline-flex items-center gap-2 font-bold ${className ?? ''}`}
+      className={`inline-flex items-center gap-2 ${className ?? ''}`}
       style={{ color: 'var(--text-strong)', ...style }}
       aria-label="ZAWIOS"
     >

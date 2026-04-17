@@ -7,7 +7,7 @@ import { allPredictions } from '@/lib/mock-data'
 import { RegionalComparison } from '@/components/world-view/regional-comparison'
 import { PredictionImage } from '@/components/ui/prediction-image'
 import { VotePanel } from '@/components/predictions/vote-panel'
-import { CommentSection } from '@/components/predictions/comment-section'
+import { CommentSection } from '@/components/comments/comment-section'
 import { formatDate, formatNumber } from '@/lib/utils'
 import {
   IconCalendar,

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/client'
+import { useLanguage } from '@/components/providers/language-provider'
 
 export function SignupForm() {
   const [showPassword, setShowPassword] = useState(false)
@@ -10,6 +11,7 @@ export function SignupForm() {
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
   const [form, setForm] = useState({ name: '', username: '', email: '', password: '' })
+  const { t } = useLanguage()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -50,9 +52,9 @@ export function SignupForm() {
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <p className="text-sm font-semibold text-[var(--text)] mb-1">Check your email</p>
+        <p className="text-sm font-semibold text-[var(--text)] mb-1">{t.auth.checkEmail}</p>
         <p className="text-sm text-[var(--text2)]">
-          We sent a confirmation link to{' '}
+          {t.auth.confirmSent}{' '}
           <span className="font-medium text-[var(--text)]">{form.email}</span>.
         </p>
       </div>
@@ -71,7 +73,7 @@ export function SignupForm() {
       )}
 
       <Input
-        label="Full name"
+        label={t.auth.nameLabel}
         type="text"
         placeholder="Alex Chen"
         value={form.name}
@@ -80,16 +82,16 @@ export function SignupForm() {
         autoComplete="name"
       />
       <Input
-        label="Username"
+        label={t.auth.usernameLabel}
         type="text"
         placeholder="alexchen"
         value={form.username}
         onChange={(e) => setForm({ ...form, username: e.target.value })}
         required
-        hint="Letters, numbers, and underscores only"
+        hint={t.auth.usernameHint}
       />
       <Input
-        label="Email address"
+        label={t.auth.emailLabel}
         type="email"
         placeholder="you@example.com"
         value={form.email}
@@ -99,9 +101,9 @@ export function SignupForm() {
       />
       <div className="relative">
         <Input
-          label="Password"
+          label={t.auth.passwordLabel}
           type={showPassword ? 'text' : 'password'}
-          placeholder="Minimum 8 characters"
+          placeholder={t.auth.passwordPlaceholder}
           value={form.password}
           onChange={(e) => setForm({ ...form, password: e.target.value })}
           required
@@ -130,7 +132,7 @@ export function SignupForm() {
       </div>
 
       <Button type="submit" className="w-full" loading={loading}>
-        Create free account
+        {t.auth.createAccount}
       </Button>
     </form>
   )

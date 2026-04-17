@@ -502,3 +502,121 @@ INSERT INTO badges (name, description, icon, tier) VALUES
   ('Tech oracle', 'Top 10% accuracy in Technology category', 'cpu', 'gold'),
   ('Finance guru', 'Top 10% accuracy in Finance category', 'dollar-sign', 'gold'),
   ('Legend', 'Top 1% of all predictors globally', 'crown', 'platinum');
+
+-- =====================================================
+-- SIGNAL CONTEXTS (structured mini-analyses per vote)
+-- =====================================================
+CREATE TABLE signal_contexts (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  signal_id UUID NOT NULL REFERENCES predictions(id) ON DELETE CASCADE,
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  vote_type TEXT NOT NULL CHECK (vote_type IN ('yes', 'no', 'neutral')),
+  context_text VARCHAR(180) NOT NULL CHECK (char_length(context_text) BETWEEN 3 AND 180),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  likes_count INTEGER DEFAULT 0,
+  is_featured BOOLEAN DEFAULT FALSE,
+  UNIQUE(signal_id, user_id) -- one context per vote per signal
+);
+
+CREATE INDEX idx_signal_contexts_signal ON signal_contexts(signal_id);
+CREATE INDEX idx_signal_contexts_user ON signal_contexts(user_id);
+CREATE INDEX idx_signal_contexts_likes ON signal_contexts(signal_id, likes_count DESC);
+CREATE INDEX idx_signal_contexts_featured ON signal_contexts(signal_id) WHERE is_featured = TRUE;
+
+ALTER TABLE signal_contexts ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Signal contexts are publicly viewable" ON signal_contexts FOR SELECT USING (TRUE);
+CREATE POLICY "Users can insert own context" ON signal_contexts FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own context within 10 min" ON signal_contexts FOR UPDATE
+  USING (auth.uid() = user_id AND created_at > NOW() - INTERVAL '10 minutes');
+CREATE POLICY "Admins can manage contexts" ON signal_contexts FOR DELETE USING (is_admin());
+
+CREATE TRIGGER signal_contexts_updated_at BEFORE UPDATE ON signal_contexts FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- =====================================================
+-- SIGNAL CONTEXT LIKES
+-- =====================================================
+CREATE TABLE signal_context_likes (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  context_id UUID NOT NULL REFERENCES signal_contexts(id) ON DELETE CASCADE,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, context_id)
+);
+
+CREATE INDEX idx_signal_context_likes_user ON signal_context_likes(user_id);
+CREATE INDEX idx_signal_context_likes_context ON signal_context_likes(context_id);
+
+ALTER TABLE signal_context_likes ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Users can view context likes" ON signal_context_likes FOR SELECT USING (TRUE);
+CREATE POLICY "Users can insert own context likes" ON signal_context_likes FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can delete own context likes" ON signal_context_likes FOR DELETE USING (auth.uid() = user_id);
+
+-- Helper: increment signal context likes
+CREATE OR REPLACE FUNCTION increment_context_likes(ctx_id UUID)
+RETURNS VOID AS $$
+  UPDATE signal_contexts SET likes_count = likes_count + 1
+  WHERE id = ctx_id;
+$$ LANGUAGE sql SECURITY DEFINER;
+
+CREATE OR REPLACE FUNCTION decrement_context_likes(ctx_id UUID)
+RETURNS VOID AS $$
+  UPDATE signal_contexts SET likes_count = GREATEST(0, likes_count - 1)
+  WHERE id = ctx_id;
+$$ LANGUAGE sql SECURITY DEFINER;
+
+-- =====================================================
+-- SUGGESTED SIGNALS (community subject proposals)
+-- =====================================================
+CREATE TABLE suggested_signals (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  title VARCHAR(120) NOT NULL CHECK (char_length(title) BETWEEN 10 AND 120),
+  description VARCHAR(300) CHECK (char_length(description) <= 300),
+  category TEXT NOT NULL,
+  time_horizon TEXT NOT NULL CHECK (time_horizon IN ('short', 'medium', 'long')),
+  validation_score NUMERIC(5, 4) DEFAULT 0,
+  validation_votes INTEGER DEFAULT 0,
+  rejection_votes INTEGER DEFAULT 0,
+  status TEXT NOT NULL DEFAULT 'pending' CHECK (
+    status IN ('pending', 'community_validated', 'editorial_review', 'approved', 'rejected')
+  ),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_suggested_signals_user ON suggested_signals(user_id);
+CREATE INDEX idx_suggested_signals_status ON suggested_signals(status);
+CREATE INDEX idx_suggested_signals_score ON suggested_signals(validation_score DESC);
+CREATE INDEX idx_suggested_signals_created ON suggested_signals(created_at DESC);
+
+ALTER TABLE suggested_signals ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Suggestions are publicly viewable" ON suggested_signals FOR SELECT USING (TRUE);
+CREATE POLICY "Users can insert own suggestions" ON suggested_signals FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own pending suggestions" ON suggested_signals FOR UPDATE
+  USING (auth.uid() = user_id AND status = 'pending');
+CREATE POLICY "Admins can manage suggestions" ON suggested_signals FOR UPDATE USING (is_admin());
+CREATE POLICY "Admins can delete suggestions" ON suggested_signals FOR DELETE USING (is_admin());
+
+CREATE TRIGGER suggested_signals_updated_at BEFORE UPDATE ON suggested_signals FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+
+-- =====================================================
+-- SUGGESTION VOTES (reputation-weighted validation)
+-- =====================================================
+CREATE TABLE suggestion_votes (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  suggestion_id UUID NOT NULL REFERENCES suggested_signals(id) ON DELETE CASCADE,
+  is_positive BOOLEAN NOT NULL,
+  weight NUMERIC(4, 2) DEFAULT 1.0,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  UNIQUE(user_id, suggestion_id)
+);
+
+CREATE INDEX idx_suggestion_votes_user ON suggestion_votes(user_id);
+CREATE INDEX idx_suggestion_votes_suggestion ON suggestion_votes(suggestion_id);
+
+ALTER TABLE suggestion_votes ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Suggestion votes are viewable" ON suggestion_votes FOR SELECT USING (TRUE);
+CREATE POLICY "Users can insert own suggestion votes" ON suggestion_votes FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can delete own suggestion votes" ON suggestion_votes FOR DELETE USING (auth.uid() = user_id);

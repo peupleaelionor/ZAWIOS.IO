@@ -3,9 +3,12 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion'
+import { useLanguage } from '@/components/providers/language-provider'
+import { staggerContainer, staggerItem } from '@/lib/motion'
 
 export function HeroSection() {
+  const { t } = useLanguage()
+
   return (
     <section className="pt-16 pb-12 md:pt-24 md:pb-16" style={{ background: 'var(--background)' }}>
       <div className="container">
@@ -15,7 +18,7 @@ export function HeroSection() {
           initial="initial"
           animate="animate"
         >
-          {/* Label */}
+          {/* Section label */}
           <motion.p
             variants={staggerItem}
             className="section-label mb-5 justify-center sm:justify-start"
@@ -23,7 +26,7 @@ export function HeroSection() {
             Intelligence Collective
           </motion.p>
 
-          {/* H1 */}
+          {/* H1 — institutional copy */}
           <motion.h1
             variants={staggerItem}
             className="font-bold leading-[1.08] mb-5"
@@ -50,19 +53,19 @@ export function HeroSection() {
             et la précision des signaux collectifs.
           </motion.p>
 
-          {/* CTAs */}
+          {/* CTAs — full-width mobile, auto desktop */}
           <motion.div
             variants={staggerItem}
             className="flex flex-col sm:flex-row gap-3 justify-center sm:justify-start"
           >
             <Link href="/onboarding" className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto">
-                Commencer l&apos;analyse
+                {t.hero.cta}
               </Button>
             </Link>
             <Link href="#feed" className="w-full sm:w-auto">
               <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Explorer les signaux
+                {t.hero.ctaSecondary}
               </Button>
             </Link>
           </motion.div>

@@ -7,6 +7,9 @@ import { CTASection } from '@/components/landing/cta-section'
 import { SignalFeed } from '@/components/signals/signal-feed'
 import { SignalCard } from '@/components/signals/signal-card'
 import { getResolvedSignals } from '@/lib/signals-data'
+import { copy } from '@/lib/i18n.copy'
+
+const c = copy.fr
 
 export default function HomePage() {
   const resolvedSignals = getResolvedSignals(3)
@@ -22,9 +25,9 @@ export default function HomePage() {
       <section id="feed" className="py-8 md:py-14" style={{ background: 'var(--bg)' }}>
         <div className="container">
           <div className="mb-5 md:mb-6">
-            <p className="section-label">Live</p>
+            <p className="section-label">{c.feed.live}</p>
             <h2 className="text-xl md:text-2xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
-              Signaux en direct
+              {c.feed.liveSignals}
             </h2>
           </div>
 
@@ -39,9 +42,9 @@ export default function HomePage() {
       <section className="py-8 md:py-14" style={{ background: 'var(--bg2)', borderTop: '1px solid var(--border)' }}>
         <div className="container">
           <div className="mb-5 md:mb-6">
-            <p className="section-label">Résultats</p>
+            <p className="section-label">{c.feed.results}</p>
             <h2 className="text-xl md:text-2xl font-bold text-[var(--text)] mt-1" style={{ letterSpacing: '-0.02em' }}>
-              Signaux résolus
+              {c.feed.resolvedSignals}
             </h2>
           </div>
 
