@@ -85,7 +85,7 @@ export function evaluateViralTrigger(
     subline: ctx.signalTitle,
     stat: `${Math.round(ctx.userPrecision * 100)}%`,
     statLabel: 'précision catégorie',
-    shareUrl: `/predictions/${ctx.signalId}`,
+    shareUrl: `/signals/${ctx.signalId}`,
     hashtags: ['ZAWIOS', ctx.category, ctx.region],
   }
 
