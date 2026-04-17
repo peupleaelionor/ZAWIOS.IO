@@ -85,8 +85,8 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
       {/* HOT accent line */}
       {signal.hot && (
         <div
-          className="absolute top-0 left-0 right-0 h-[2px]"
-          style={{ background: 'linear-gradient(90deg, var(--teal), var(--accent), var(--teal))' }}
+          className="absolute top-0 left-0 right-0 h-[1px]"
+          style={{ background: 'linear-gradient(90deg, transparent, var(--accent) 50%, transparent)' }}
         />
       )}
 
@@ -117,8 +117,8 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
               style={{
                 fontFamily: 'var(--mono)',
-                background: 'rgba(240,96,112,0.12)',
-                color: 'var(--zred)',
+                background: 'rgba(107,110,248,0.12)',
+                color: 'var(--accent)',
               }}
             >
               HOT
@@ -129,8 +129,8 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
               style={{
                 fontFamily: 'var(--mono)',
-                background: 'rgba(23,213,207,0.1)',
-                color: 'var(--teal)',
+                background: 'rgba(78,228,154,0.10)',
+                color: 'var(--win)',
               }}
             >
               Résolu
@@ -175,7 +175,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 <span
                   className={cn(
                     'text-sm font-bold',
-                    signal.yesPercent > 50 ? 'text-[var(--accent)]' : 'text-white',
+                    signal.yesPercent > 50 ? 'text-[var(--yes)]' : 'text-white',
                   )}
                   style={{ fontFamily: 'var(--mono)' }}
                 >
@@ -196,8 +196,8 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               className={cn(
                 'inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold',
                 signal.resolvedResult
-                  ? 'bg-[var(--teal)]/15 text-[var(--teal)]'
-                  : 'bg-[var(--zred)]/15 text-[var(--zred)]',
+                  ? 'bg-[var(--win)]/10 text-[var(--win)]'
+                  : 'bg-[var(--no)]/10 text-[var(--no)]',
               )}
               style={{ fontFamily: 'var(--mono)' }}
             >
@@ -211,48 +211,28 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
       {!isResolved && (
         <div className="mt-auto pt-4">
           {/* Stats row — tri-state */}
-          <div className="flex items-baseline gap-3 mb-2.5">
+          <div className="flex items-baseline gap-4 mb-3">
             <div className="flex items-baseline gap-1">
               <span
-                className="text-[22px] font-bold text-[var(--text)]"
-                style={{ fontFamily: 'var(--mono)', lineHeight: 1 }}
+                className="text-[22px] font-bold"
+                style={{ fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--yes)' }}
               >
                 {yesPercent}%
               </span>
-              <span
-                className="text-[10px] text-[var(--teal)] font-semibold"
-                style={{ fontFamily: 'var(--mono)' }}
-              >
-                YES
-              </span>
+              <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--yes)', opacity: 0.7 }}>YES</span>
+            </div>
+            <div className="flex items-baseline gap-1">
+              <span className="text-[13px] font-medium" style={{ fontFamily: 'var(--mono)', color: 'var(--text3)', lineHeight: 1 }}>{neutralPercent}%</span>
+              <span className="text-[10px]" style={{ fontFamily: 'var(--mono)', color: 'var(--text3)' }}>—</span>
             </div>
             <div className="flex items-baseline gap-1">
               <span
-                className="text-[13px] font-semibold text-[var(--text3)]"
-                style={{ fontFamily: 'var(--mono)', lineHeight: 1 }}
-              >
-                {neutralPercent}%
-              </span>
-              <span
-                className="text-[10px] text-[var(--text3)] font-semibold"
-                style={{ fontFamily: 'var(--mono)' }}
-              >
-                —
-              </span>
-            </div>
-            <div className="flex items-baseline gap-1">
-              <span
-                className="text-[15px] font-semibold text-[var(--text2)]"
-                style={{ fontFamily: 'var(--mono)', lineHeight: 1 }}
+                className="text-[15px] font-semibold"
+                style={{ fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--no)', opacity: 0.75 }}
               >
                 {noPercent}%
               </span>
-              <span
-                className="text-[10px] text-[var(--text3)] font-semibold"
-                style={{ fontFamily: 'var(--mono)' }}
-              >
-                NO
-              </span>
+              <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--no)', opacity: 0.6 }}>NO</span>
             </div>
           </div>
 
@@ -265,23 +245,21 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               className="h-full transition-all duration-500"
               style={{
                 width: `${yesPercent}%`,
-                background: voted === 'yes' ? 'var(--teal)' : 'linear-gradient(90deg, var(--teal), var(--teal2))',
+                background: 'var(--yes)',
+                opacity: voted === 'yes' ? 1 : 0.5,
                 borderRadius: '9999px 0 0 9999px',
               }}
             />
             <div
               className="h-full transition-all duration-500"
-              style={{
-                width: `${neutralPercent}%`,
-                background: 'var(--text3)',
-                opacity: 0.3,
-              }}
+              style={{ width: `${neutralPercent}%`, background: 'var(--surface3)' }}
             />
             <div
               className="h-full transition-all duration-500"
               style={{
                 width: `${noPercent}%`,
-                background: voted === 'no' ? 'var(--text)' : 'rgba(255,255,255,0.15)',
+                background: 'var(--no)',
+                opacity: voted === 'no' ? 1 : 0.4,
                 borderRadius: '0 9999px 9999px 0',
               }}
             />
@@ -299,19 +277,19 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 onClick={() => handleVote('yes')}
                 disabled={voted !== null}
                 className={cn(
-                  'min-w-[48px] h-12 rounded-full text-[13px] font-bold transition-all duration-150 flex items-center justify-center',
+                  'min-w-[52px] h-11 rounded-full text-[12px] font-bold transition-all duration-150 flex items-center justify-center',
                   voted === 'yes'
-                    ? 'bg-[var(--teal)] text-white scale-105 shadow-[0_0_12px_rgba(23,213,207,0.35)]'
+                    ? 'scale-105'
                     : voted === null
-                      ? 'text-[var(--teal)] hover:bg-[var(--teal)]/10 active:scale-95'
-                      : 'text-[var(--text3)] opacity-30 cursor-not-allowed',
+                      ? 'active:scale-95'
+                      : 'opacity-25 cursor-not-allowed',
                 )}
                 style={{
                   fontFamily: 'var(--mono)',
-                  border:
-                    voted === 'yes'
-                      ? '2px solid var(--teal)'
-                      : '2px solid rgba(23,213,207,0.25)',
+                  background: voted === 'yes' ? 'var(--yes)' : 'transparent',
+                  color: voted === 'yes' ? '#fff' : 'var(--yes)',
+                  border: voted === 'yes' ? '2px solid var(--yes)' : '2px solid rgba(20,200,190,0.3)',
+                  boxShadow: voted === 'yes' ? '0 0 14px rgba(20,200,190,0.25)' : 'none',
                 }}
               >
                 YES
@@ -320,15 +298,13 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 onClick={() => handleVote('neutral')}
                 disabled={voted !== null}
                 className={cn(
-                  'min-w-[48px] h-12 rounded-full text-[11px] font-bold transition-all duration-150 flex items-center justify-center',
-                  voted === 'neutral'
-                    ? 'bg-[var(--surface3)] text-[var(--text2)] scale-105'
-                    : voted === null
-                      ? 'text-[var(--text3)] hover:bg-[var(--surface3)] active:scale-95'
-                      : 'text-[var(--text3)] opacity-30 cursor-not-allowed',
+                  'min-w-[44px] h-11 rounded-full text-[14px] font-bold transition-all duration-150 flex items-center justify-center',
+                  voted === 'neutral' ? 'scale-105' : voted === null ? 'active:scale-95' : 'opacity-25 cursor-not-allowed',
                 )}
                 style={{
                   fontFamily: 'var(--mono)',
+                  background: voted === 'neutral' ? 'var(--surface3)' : 'transparent',
+                  color: 'var(--text3)',
                   border: voted === 'neutral' ? '2px solid var(--border3)' : '2px solid var(--border)',
                 }}
               >
@@ -338,16 +314,15 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 onClick={() => handleVote('no')}
                 disabled={voted !== null}
                 className={cn(
-                  'min-w-[48px] h-12 rounded-full text-[13px] font-bold transition-all duration-150 flex items-center justify-center',
-                  voted === 'no'
-                    ? 'bg-[var(--text)] text-[var(--bg)] scale-105'
-                    : voted === null
-                      ? 'text-[var(--text2)] hover:bg-[var(--text)]/10 active:scale-95'
-                      : 'text-[var(--text3)] opacity-30 cursor-not-allowed',
+                  'min-w-[52px] h-11 rounded-full text-[12px] font-bold transition-all duration-150 flex items-center justify-center',
+                  voted === 'no' ? 'scale-105' : voted === null ? 'active:scale-95' : 'opacity-25 cursor-not-allowed',
                 )}
                 style={{
                   fontFamily: 'var(--mono)',
-                  border: voted === 'no' ? '2px solid var(--text)' : '2px solid var(--border2)',
+                  background: voted === 'no' ? 'var(--no)' : 'transparent',
+                  color: voted === 'no' ? '#fff' : 'var(--no)',
+                  border: voted === 'no' ? '2px solid var(--no)' : '2px solid rgba(240,64,78,0.3)',
+                  boxShadow: voted === 'no' ? '0 0 14px rgba(240,64,78,0.2)' : 'none',
                 }}
               >
                 NO

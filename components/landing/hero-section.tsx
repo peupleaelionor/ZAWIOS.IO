@@ -10,80 +10,86 @@ export function HeroSection() {
   const heroSignal = getTrendingSignals(1)[0]
 
   return (
-    <section className="relative pt-20 pb-6 md:pt-24 md:pb-10">
+    <section className="relative pt-16 pb-6 md:pt-24 md:pb-10">
+      {/* Ambient glow */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 600,
+          height: 300,
+          background: 'radial-gradient(ellipse at center top, rgba(107,110,248,0.10) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }}
+      />
+
       <div className="container relative">
-        {/* App-style header — strong title, minimal subtext */}
-        <div className="max-w-xl mx-auto text-center mb-6 md:mb-8">
-          <h1
-            className="text-2xl md:text-4xl lg:text-5xl font-bold text-[var(--text)] leading-[1.12] tracking-tight mb-3"
-            style={{ fontFamily: 'var(--font)', letterSpacing: '-0.03em' }}
-          >
-            Vote sur l&apos;actu.
-            <br />
-            Compare avec la foule.
-          </h1>
-
-          <p className="text-sm md:text-base text-[var(--text2)] mb-5 max-w-sm mx-auto leading-relaxed">
-            Intelligence collective en temps réel. YES ou NO, compare ton signal avec le monde.
-          </p>
-
-          {/* Live stats block */}
-          <div
-            className="inline-flex items-center gap-4 px-4 py-2 rounded-full mb-5"
-            style={{
-              background: 'var(--surface)',
-              border: '1px solid var(--border2)',
-            }}
-          >
-            <span className="flex items-center gap-1.5">
-              <span
-                className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]"
-                style={{ boxShadow: '0 0 6px var(--accent)' }}
-              />
-              <span
-                className="text-[11px] font-semibold text-[var(--accent)]"
-                style={{ fontFamily: 'var(--mono)' }}
-              >
-                47K+ actifs
-              </span>
-            </span>
+        <div className="max-w-lg mx-auto text-center mb-8 md:mb-10">
+          {/* Live indicator */}
+          <div className="inline-flex items-center gap-2 mb-6">
             <span
-              className="text-[11px] text-[var(--text3)]"
-              style={{ fontFamily: 'var(--mono)' }}
-            >
-              94 pays
-            </span>
+              style={{
+                width: 6,
+                height: 6,
+                borderRadius: '50%',
+                background: 'var(--yes)',
+                boxShadow: '0 0 8px var(--yes)',
+                animation: 'pulse-dot 2s ease-in-out infinite',
+              }}
+            />
             <span
-              className="text-[11px] text-[var(--text3)]"
-              style={{ fontFamily: 'var(--mono)' }}
+              className="text-[10px] font-semibold uppercase tracking-widest"
+              style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}
             >
-              32 signaux/jour
+              47 000 actifs · 94 pays
             </span>
           </div>
 
-          {/* CTAs */}
+          <h1
+            className="font-bold leading-[1.08] mb-4"
+            style={{
+              fontSize: 'clamp(2rem, 7vw, 3.5rem)',
+              letterSpacing: '-0.03em',
+              color: 'var(--text)',
+            }}
+          >
+            Vote. Compare.
+            <br />
+            <span style={{ color: 'var(--accent)' }}>Prédit l&apos;avenir.</span>
+          </h1>
+
+          <p
+            className="text-sm md:text-base mb-7 leading-relaxed max-w-sm mx-auto"
+            style={{ color: 'var(--text2)' }}
+          >
+            Intelligence collective mondiale. Construis ta réputation sur la précision de tes prédictions.
+          </p>
+
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/onboarding" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto gap-2 px-8">
-                Commencer <IconArrows className="w-4 h-4" size={16} />
+              <Button size="lg" className="w-full sm:w-auto gap-2 px-7">
+                Commencer gratuitement <IconArrows size={15} />
               </Button>
             </Link>
             <Link href="#feed" className="w-full sm:w-auto">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto px-8">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto px-7">
                 Voir les signaux
               </Button>
             </Link>
           </div>
         </div>
 
-        {/* Live signal preview — immediate data, app-like */}
+        {/* Live signal preview */}
         {heroSignal && (
-          <div className="max-w-md mx-auto">
+          <div className="max-w-sm mx-auto">
             <p
-              className="text-[10px] font-semibold text-[var(--text3)] uppercase tracking-wider mb-2 text-center"
-              style={{ fontFamily: 'var(--mono)' }}
+              className="section-label mb-3 justify-center"
+              style={{ justifyContent: 'center' }}
             >
-              Signal en direct
+              Signal du moment
             </p>
             <SignalCard signal={heroSignal} />
           </div>

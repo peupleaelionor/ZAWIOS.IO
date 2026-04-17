@@ -8,104 +8,119 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Leaderboard',
-  description: 'See the top predictors on ZAWIOS ranked by accuracy and reputation score.',
+  title: 'Classement',
+  description: 'Les meilleurs prévisionnistes ZAWIOS classés par précision.',
 }
 
-const rankColors = ['var(--amber)', 'var(--text3)', '#cd7f32']
+const rankColors = ['var(--warn)', 'var(--text2)', '#A0724A']
+
+function accuracyColor(rate: number) {
+  if (rate >= 72) return 'var(--win)'
+  if (rate >= 60) return 'var(--warn)'
+  return 'var(--text2)'
+}
 
 export default function LeaderboardPage() {
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
       <main className="container py-8 md:py-12">
-        <div className="max-w-3xl mx-auto">
-          <div className="text-center mb-8 md:mb-10 relative">
-            <div
-              className="w-12 h-12 md:w-14 md:h-14 rounded-xl flex items-center justify-center mx-auto mb-3 md:mb-4"
-              style={{ background: 'rgba(250,204,21,0.1)', color: 'var(--amber)' }}
+        <div className="max-w-2xl mx-auto">
+
+          {/* Header */}
+          <div className="mb-8 md:mb-10">
+            <p className="section-label mb-3">Classement</p>
+            <h1
+              className="text-2xl md:text-3xl font-bold mb-2"
+              style={{ color: 'var(--text)', letterSpacing: '-0.025em' }}
             >
-              <IconTrophy className="w-6 h-6 md:w-7 md:h-7" size={24} />
-            </div>
-            <h1 className="text-2xl md:text-3xl font-bold text-[var(--text)]">Leaderboard</h1>
-            <p className="mt-2 text-sm text-[var(--text2)]">
-              Top predictors ranked by accuracy and reputation
+              Top prévisionnistes
+            </h1>
+            <p className="text-sm" style={{ color: 'var(--text3)' }}>
+              Classés par précision de prédiction.
             </p>
 
-            {/* Quick stats */}
-            <div className="flex items-center justify-center gap-4 md:gap-6 mt-5 md:mt-6 flex-wrap">
+            {/* Stats */}
+            <div
+              className="flex items-center gap-5 mt-5 py-3 px-4 rounded-xl"
+              style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+            >
               {[
-                { icon: IconUsers, value: formatNumber(PLATFORM_STATS.total_users), label: 'Predictors' },
-                { icon: IconChart, value: `${PLATFORM_STATS.avg_accuracy}%`, label: 'Avg accuracy' },
-                { icon: IconTrending, value: formatNumber(PLATFORM_STATS.total_predictions), label: 'Predictions' },
+                { icon: IconUsers,   value: formatNumber(PLATFORM_STATS.total_users),       label: 'analystes' },
+                { icon: IconChart,   value: `${PLATFORM_STATS.avg_accuracy}%`,              label: 'précision moy.' },
+                { icon: IconTrending, value: formatNumber(PLATFORM_STATS.total_predictions), label: 'prédictions' },
               ].map((s) => (
                 <div key={s.label} className="flex items-center gap-1.5">
-                  <s.icon size={13} style={{ color: 'var(--text3)' }} />
-                  <span className="text-xs font-semibold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>
+                  <s.icon size={12} style={{ color: 'var(--text3)' }} />
+                  <span className="text-xs font-bold" style={{ color: 'var(--text)', fontFamily: 'var(--mono)' }}>
                     {s.value}
                   </span>
-                  <span className="text-[10px] text-[var(--text3)]">{s.label}</span>
+                  <span className="text-[10px]" style={{ color: 'var(--text3)' }}>{s.label}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Mobile: card-based layout */}
-          <div className="md:hidden space-y-3">
+          {/* Mobile cards */}
+          <div className="md:hidden space-y-2">
             {mockLeaderboard.map((entry, index) => (
               <Link
-                href={`/profile/${entry.user.username}`}
                 key={entry.user.id}
+                href={`/profile/${entry.user.username}`}
                 className="surface rounded-xl p-4 flex items-center gap-3 card-hover block"
               >
-                <div className="flex-shrink-0 w-8 text-center">
+                <div className="w-7 text-center shrink-0">
                   {index < 3 ? (
-                    <IconMedal className="w-5 h-5 mx-auto" size={20} style={{ color: rankColors[index] }} />
+                    <IconMedal size={16} style={{ color: rankColors[index] }} />
                   ) : (
-                    <span className="text-sm font-bold text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
+                    <span className="text-xs font-bold" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
                       {index + 1}
                     </span>
                   )}
                 </div>
                 <Avatar src={entry.user.avatar_url} name={entry.user.full_name} size="sm" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-[var(--text)] truncate">{entry.user.full_name}</p>
-                  <p className="text-[10px] text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
-                    {formatNumber(entry.score)} pts · {entry.accuracy_rate}% accuracy
+                  <p className="text-sm font-semibold truncate" style={{ color: 'var(--text)' }}>{entry.user.full_name}</p>
+                  <p className="text-[10px]" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
+                    {formatNumber(entry.score)} pts
                   </p>
                 </div>
-                <span className={`text-sm font-semibold`} style={{
-                  color: entry.accuracy_rate >= 70 ? 'var(--teal)' : entry.accuracy_rate >= 60 ? 'var(--amber)' : 'var(--text2)',
-                  fontFamily: 'var(--mono)',
-                }}>
+                <span className="text-sm font-bold" style={{ color: accuracyColor(entry.accuracy_rate), fontFamily: 'var(--mono)' }}>
                   {entry.accuracy_rate}%
                 </span>
               </Link>
             ))}
           </div>
 
-          {/* Desktop: table layout */}
-          <div className="hidden md:block surface rounded-xl overflow-hidden">
-            <div className="grid grid-cols-12 px-6 py-3 border-b text-xs font-medium text-[var(--text3)] uppercase tracking-wider" style={{ background: 'var(--surface2)', borderColor: 'var(--border2)', fontFamily: 'var(--mono)' }}>
-              <div className="col-span-1">Rank</div>
-              <div className="col-span-5">Predictor</div>
+          {/* Desktop table */}
+          <div
+            className="hidden md:block rounded-xl overflow-hidden"
+            style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+          >
+            {/* Header row */}
+            <div
+              className="grid grid-cols-12 px-5 py-3 text-[10px] font-bold uppercase tracking-widest"
+              style={{ background: 'var(--surface2)', borderBottom: '1px solid var(--border)', color: 'var(--text3)', fontFamily: 'var(--mono)' }}
+            >
+              <div className="col-span-1">#</div>
+              <div className="col-span-5">Analyste</div>
               <div className="col-span-2 text-right">Score</div>
-              <div className="col-span-2 text-right">Accuracy</div>
-              <div className="col-span-2 text-right">Predictions</div>
+              <div className="col-span-2 text-right">Précision</div>
+              <div className="col-span-2 text-right">Signaux</div>
             </div>
 
             {mockLeaderboard.map((entry, index) => (
               <Link
-                href={`/profile/${entry.user.username}`}
                 key={entry.user.id}
-                className={`grid grid-cols-12 items-center px-6 py-4 hover:bg-white/[0.02] transition-colors`}
+                href={`/profile/${entry.user.username}`}
+                className="grid grid-cols-12 items-center px-5 py-3.5 transition-colors hover:bg-white/[0.02]"
                 style={{ borderBottom: index < mockLeaderboard.length - 1 ? '1px solid var(--border)' : 'none' }}
               >
                 <div className="col-span-1">
                   {index < 3 ? (
-                    <IconMedal className="w-5 h-5" size={20} style={{ color: rankColors[index] }} />
+                    <IconMedal size={16} style={{ color: rankColors[index] }} />
                   ) : (
-                    <span className="text-sm font-bold text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
+                    <span className="text-sm font-bold" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
                       {index + 1}
                     </span>
                   )}
@@ -113,30 +128,34 @@ export default function LeaderboardPage() {
                 <div className="col-span-5 flex items-center gap-3">
                   <Avatar src={entry.user.avatar_url} name={entry.user.full_name} size="sm" />
                   <div>
-                    <p className="text-sm font-semibold text-[var(--text)]">{entry.user.full_name}</p>
-                    <p className="text-xs text-[var(--text3)]">@{entry.user.username}</p>
+                    <p className="text-sm font-semibold" style={{ color: 'var(--text)' }}>{entry.user.full_name}</p>
+                    <p className="text-[10px]" style={{ color: 'var(--text3)' }}>@{entry.user.username}</p>
                   </div>
                 </div>
                 <div className="col-span-2 text-right">
-                  <span className="text-sm font-bold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>{formatNumber(entry.score)}</span>
+                  <span className="text-sm font-bold" style={{ color: 'var(--text)', fontFamily: 'var(--mono)' }}>
+                    {formatNumber(entry.score)}
+                  </span>
                 </div>
                 <div className="col-span-2 text-right">
-                  <span className={`text-sm font-semibold`} style={{
-                    color: entry.accuracy_rate >= 70 ? 'var(--teal)' : entry.accuracy_rate >= 60 ? 'var(--amber)' : 'var(--text2)',
-                    fontFamily: 'var(--mono)',
-                  }}>
+                  <span className="text-sm font-semibold" style={{ color: accuracyColor(entry.accuracy_rate), fontFamily: 'var(--mono)' }}>
                     {entry.accuracy_rate}%
                   </span>
                 </div>
                 <div className="col-span-2 text-right">
-                  <span className="text-sm text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>{entry.prediction_count}</span>
+                  <span className="text-sm" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
+                    {entry.prediction_count}
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
 
-          <p className="text-center text-sm text-[var(--text3)] mt-6" style={{ fontFamily: 'var(--mono)', fontSize: '11px' }}>
-            Rankings update based on prediction accuracy and volume
+          <p
+            className="text-center mt-5"
+            style={{ fontSize: '11px', color: 'var(--text3)', fontFamily: 'var(--mono)' }}
+          >
+            Classement mis à jour en continu · basé sur la précision et le volume de prédictions
           </p>
         </div>
       </main>

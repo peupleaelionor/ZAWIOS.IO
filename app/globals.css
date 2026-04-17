@@ -1,95 +1,96 @@
 @import "tailwindcss";
 
-/* ═══════════════════════════════════════════
-   ZAWIOS Design System — Dark Data-Intelligence
-   Sora + IBM Plex Mono · Zero emojis
-   ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   ZAWIOS — Système de design
+   Noir profond · Indigo électrique · Intelligence collective
+   Sora + IBM Plex Mono
+   ═══════════════════════════════════════════════════════════ */
 
 :root {
-  --bg: #0C0D10;
-  --bg2: #101116;
-  --surface: #13141a;
-  --surface2: #191a22;
-  --surface3: #1f2028;
-  --border: rgba(255,255,255,0.05);
+  /* ── Fonds ── */
+  --bg:      #05050A;
+  --bg2:     #08090F;
+  --surface: #0C0D14;
+  --surface2: #10111A;
+  --surface3: #161722;
+
+  /* ── Bordures ── */
+  --border:  rgba(255,255,255,0.05);
   --border2: rgba(255,255,255,0.09);
-  --border3: rgba(255,255,255,0.14);
-  --text: #FFFFFF; /* Blanc fort pour les parties conversationnelles */
-  --text2: #F2F2F7; /* Blanc légèrement grisé */
-  --text3: #A0A0B8;
-  --accent: #4169E1; /* Bleu Roi (Royal Blue) */
-  --accent2: #4D79FF;
-  --accent3: #7094FF;
-  --teal: #17D5CF; /* Teal — primary CTA color */
-  --teal2: #14B8B3;
-  --zred: #FF3B30;
-  --amber: #FFCC00;
-  --blue: #4169E1;
-  --font: 'Sora', sans-serif;
-  --mono: 'IBM Plex Mono', monospace;
+  --border3: rgba(255,255,255,0.15);
+
+  /* ── Texte ── */
+  --text:  #F4F4FF;
+  --text2: #B8BAD0;
+  --text3: #52546A;
+
+  /* ── Accent unique — Indigo électrique ── */
+  --accent:      #6B6EF8;
+  --accent2:     #8486F9;
+  --accent3:     #A5A7FB;
+  --accent-glow: rgba(107,110,248,0.18);
+
+  /* ── Sémantique — usage strict ── */
+  --yes:   #14C8BE;  /* vote YES */
+  --no:    #F0404E;  /* vote NO */
+  --win:   #4EE49A;  /* résolu / correct */
+  --warn:  #F0B429;  /* alerte */
+
+  /* ── Aliases backwards-compat ── */
+  --teal:   var(--yes);
+  --teal2:  #0FB3A9;
+  --zred:   var(--no);
+  --amber:  var(--warn);
+  --blue:   var(--accent);
+  --violet2: var(--accent2);
+
+  /* ── Typographie ── */
+  --font:   'Sora', sans-serif;
+  --mono:   'IBM Plex Mono', monospace;
   --radius: 12px;
 
-  /* Shadow levels (l0 subtle, l1 medium) */
-  --shadow-l0: 0 1px 2px rgba(0,0,0,0.25);
-  --shadow-l1: 0 2px 8px rgba(0,0,0,0.35);
-
-  /* Spacing rhythm (16px base) */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 20px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-10: 40px;
-  --space-12: 48px;
-
-  /* Compat aliases for existing components */
-  --background: #0C0D10;
-  --foreground: #eaeaf0;
-  --primary: #4169E1;
-  --primary-foreground: #FFFFFF;
-  --secondary: #191a22;
-  --secondary-foreground: #F2F2F7;
-  --muted: #1f2028;
-  --muted-foreground: #A0A0B8;
-  --accent-foreground: #FFFFFF;
-  --card: #13141a;
-  --card-foreground: #FFFFFF;
-  --ring: #4169E1;
-  --success: #4169E1;
-  --warning: #f0c050;
-  --danger: #f06070;
+  /* ── Aliases Tailwind / composants ── */
+  --background:           var(--bg);
+  --foreground:           var(--text);
+  --primary:              var(--accent);
+  --primary-foreground:   #FFFFFF;
+  --secondary:            var(--surface2);
+  --secondary-foreground: var(--text2);
+  --muted:                var(--surface2);
+  --muted-foreground:     var(--text3);
+  --accent-foreground:    #FFFFFF;
+  --card:                 var(--surface);
+  --card-foreground:      var(--text);
+  --ring:                 var(--accent);
+  --success:              var(--win);
+  --warning:              var(--warn);
+  --danger:               var(--no);
 }
 
-/* Dark is the default — no .dark class needed */
 .dark {
-  --background: #0C0D10;
-  --foreground: #eaeaf0;
-  --primary: #17D5CF;
-  --primary-foreground: #0C0D10;
-  --secondary: #191a22;
-  --secondary-foreground: #eaeaf0;
-  --muted: #1f2028;
-  --muted-foreground: #a0a0b8;
+  --background: var(--bg);
+  --foreground:  var(--text);
+  --primary:     var(--accent);
+  --primary-foreground: #ffffff;
+  --secondary:   var(--surface2);
+  --secondary-foreground: var(--text2);
+  --muted:       var(--surface2);
+  --muted-foreground: var(--text3);
   --accent-foreground: #ffffff;
-  --border: rgba(255,255,255,0.05);
-  --ring: #17D5CF;
-  --card: #13141a;
-  --card-foreground: #eaeaf0;
+  --border:      rgba(255,255,255,0.05);
+  --ring:        var(--accent);
+  --card:        var(--surface);
+  --card-foreground: var(--text);
 }
 
-*, *::before, *::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+/* ─── Reset ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  /* Fix iOS 100vh issue with address bar */
   height: -webkit-fill-available;
+  color-scheme: dark;
 }
 
 body {
@@ -104,151 +105,133 @@ body {
   min-height: -webkit-fill-available;
 }
 
-::selection {
-  background: var(--accent);
-  color: #fff;
-}
+::selection { background: rgba(107,110,248,0.3); color: #fff; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
-:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--text3); border-radius: 5px; }
-::-webkit-scrollbar-thumb:hover { background: var(--text2); }
-
-/* ─── ANIMATIONS (minimal, performance-safe) ─── */
-@keyframes revealUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-@keyframes convergence-pulse {
-  0%, 100% { opacity: .05; transform: scale(1); }
-  50% { opacity: .12; transform: scale(1.03); }
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-7px); }
-}
-@keyframes glow-pulse {
-  0%, 100% { opacity: .10; }
-  50% { opacity: .20; }
-}
-
-.rv { animation: revealUp .5s cubic-bezier(.16,1,.3,1) both; }
-
-/* ─── LAYOUT (mobile-first) ─── */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 var(--space-4);
-}
-
-/* ─── TEXT EFFECTS ─── */
-.gradient-text {
-  background: linear-gradient(135deg, var(--teal) 0%, var(--accent) 100%);
-  background-size: 200% 200%;
-  animation: shimmer 5s ease infinite;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.section-label {
-  font-size: 10.5px;
-  font-weight: 700;
-  color: var(--teal);
-  text-transform: uppercase;
-  letter-spacing: .14em;
-  margin-bottom: 10px;
-  font-family: var(--mono);
-}
-
-/* ─── GLASS / SURFACE ─── */
-.glass {
-  background: rgba(12, 13, 16, 0.85);
-  backdrop-filter: blur(20px) saturate(1.4);
-  border: 1px solid var(--border);
-}
-
-.surface {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-l0);
-}
-
-/* ─── CARD ─── */
-.card-hover {
-  transition: all 150ms ease;
-}
-.card-hover:hover {
-  transform: translateY(-1px);
-  border-color: rgba(255,255,255,0.09);
-  box-shadow: var(--shadow-l1);
-}
-
-/* ─── BADGE MONO ─── */
-.badge-mono {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 9px;
-  border-radius: 5px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  font-family: var(--mono);
-}
-
-/* ─── ACCENT LINE ─── */
-.accent-line-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-}
-
-/* ─── SCROLLBAR HIDE ─── */
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 4px; }
 .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
-/* ─── MOBILE TAP ─── */
-@media (hover: none) {
-  .card-hover:active { transform: scale(0.985); }
-  button:active { transform: scale(0.97); }
+/* ─── Container ─── */
+.container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+@media (min-width: 640px)  { .container { padding: 0 32px; } }
+@media (min-width: 1024px) { .container { padding: 0 48px; } }
+
+/* ─── Glass ─── */
+.glass {
+  background: rgba(5,5,10,0.82);
+  backdrop-filter: blur(20px) saturate(1.3);
+  -webkit-backdrop-filter: blur(20px) saturate(1.3);
 }
 
-/* ─── BOTTOM NAV (mobile) ─── */
+/* ─── Surface ─── */
+.surface { background: var(--surface); border: 1px solid var(--border); }
+
+/* ─── Card hover ─── */
+.card-hover { transition: border-color 200ms ease, transform 200ms ease; will-change: transform; }
+.card-hover:hover { border-color: var(--border2) !important; transform: translateY(-1px); }
+@media (hover: none) { .card-hover:active { transform: scale(0.99); } }
+
+/* ─── Bar animate ─── */
+.bar-settle {
+  transform-origin: left;
+  animation: barSettle 700ms cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes barSettle { from { width: 0 !important; } }
+
+/* ─── Section label ─── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-family: var(--mono);
+  color: var(--accent);
+}
+.section-label::before {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background: var(--accent);
+  opacity: 0.6;
+}
+
+/* ─── Animations ─── */
+@keyframes revealUp    { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes revealFade  { from { opacity:0; } to { opacity:1; } }
+@keyframes shimmer     { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes pulse-dot   { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.45; transform:scale(0.75); } }
+
+/* ─── Skeleton ─── */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface2) 25%, var(--surface3) 50%, var(--surface2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease infinite;
+  border-radius: var(--radius);
+}
+
+/* ─── Accent line top ─── */
+.accent-line-top {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent) 50%, transparent);
+  opacity: 0.4;
+}
+
+/* ─── Bottom nav ─── */
 .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  background: rgba(12, 13, 16, 0.88);
-  backdrop-filter: blur(20px) saturate(1.4);
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  background: rgba(5,5,10,0.94);
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
   border-top: 1px solid var(--border);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* ─── iOS SAFE AREA ─── */
+/* ─── iOS safe area ─── */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 }
 
-/* ─── PERFORMANCE: reduce motion ─── */
+/* ─── App shell ─── */
+.app-shell { max-width: 480px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; background: var(--bg); }
+.app-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 80px; }
+
+/* ─── Mobile padding bottom nav ─── */
+@media (max-width: 767px) { .has-bottom-nav { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); } }
+
+/* ─── Desktop — app look ─── */
+@media (min-width: 768px) {
+  body { background: #030306; }
+  .bottom-nav { max-width: 480px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+}
+
+/* ─── Feed grid ─── */
+@media (max-width: 767px)  { .feed-grid { grid-template-columns: 1fr; } }
+@media (min-width: 768px) and (max-width: 1023px) { .feed-grid { grid-template-columns: repeat(2,1fr); } }
+@media (min-width: 1024px) {
+  .feed-grid { grid-template-columns: repeat(3,1fr); }
+  .desktop-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+  .desktop-side-panel { position: sticky; top: 80px; }
+}
+@media (max-width: 767px) { .desktop-side-panel { display: none; } }
+
+/* ─── Offline banner ─── */
+.network-offline-banner {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--no); color: white; text-align: center;
+  padding: 6px 16px; font-size: 11px; font-weight: 600;
+  font-family: var(--mono); letter-spacing: 0.06em;
+  animation: revealUp 0.3s ease;
+}
+
+/* ─── Reduce motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -257,149 +240,5 @@ body {
   }
 }
 
-/* ─── APP SHELL (mobile standalone) ─── */
-.app-shell {
-  max-width: 480px;
-  margin: 0 auto;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg);
-}
-
-.app-content {
-  flex: 1;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 80px;
-}
-
-/* ─── MOBILE BODY PADDING for bottom nav ─── */
-@media (max-width: 767px) {
-  .has-bottom-nav { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
-}
-
-/* ─── Desktop: constrain to mobile-app look ─── */
-@media (min-width: 768px) {
-  body {
-    background: #08090b;
-  }
-  /* Show bottom nav on desktop too for app-like feel */
-  .bottom-nav {
-    max-width: 480px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 16px 16px 0 0;
-  }
-}
-
-/* ─── DEVICE ADAPTATION ─── */
-
-/* Mobile: immersive vertical feed */
-@media (max-width: 767px) {
-  .feed-grid {
-    grid-template-columns: 1fr;
-  }
-  .desktop-side-panel {
-    display: none;
-  }
-}
-
-/* Tablet: two-column feed layout */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .feed-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-/* Desktop: three-column layout with side panel */
-@media (min-width: 1024px) {
-  .feed-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .desktop-layout {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 24px;
-    align-items: start;
-  }
-  .desktop-side-panel {
-    position: sticky;
-    top: 80px;
-  }
-}
-
-/* Low bandwidth / reduced data */
-@media (prefers-reduced-data: reduce) {
-  .animation-enabled { animation: none !important; }
-  .transition-enabled { transition: none !important; }
-}
-
-/* High-performance devices get smooth transitions */
-@media (prefers-reduced-motion: no-preference) {
-  .smooth-transition {
-    transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1);
-  }
-}
-
-/* ─── COGNITIVE LOAD MANAGEMENT ─── */
-
-/* Progressive disclosure: hide secondary info on smaller screens */
-@media (max-width: 767px) {
-  .cognitive-secondary { display: none; }
-  .cognitive-compact { font-size: 13px; line-height: 1.4; }
-}
-
-/* Night mode: reduce brightness for late-night browsing */
-@media (prefers-color-scheme: dark) {
-  .night-dimmer {
-    filter: brightness(0.92);
-  }
-}
-
-/* Touch-friendly hit targets */
-@media (pointer: coarse) {
-  .touch-target {
-    min-height: 44px;
-    min-width: 44px;
-    padding: 12px;
-  }
-}
-
-/* ─── ACCESSIBILITY FONT SCALING ─── */
-.font-size-small { font-size: 14px; }
-.font-size-normal { font-size: 16px; }
-.font-size-large { font-size: 18px; }
-.font-size-xlarge { font-size: 20px; }
-
-/* ─── NETWORK-AWARE STYLES ─── */
-.network-offline-banner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  background: var(--zred);
-  color: white;
-  text-align: center;
-  padding: 6px 16px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: var(--mono);
-  letter-spacing: 0.04em;
-  animation: revealUp 0.3s ease;
-}
-
-/* ─── ADAPTIVE CARD DENSITY ─── */
-.density-compact .card-hover { padding: 12px; }
-.density-comfortable .card-hover { padding: 18px; }
-.density-spacious .card-hover { padding: 24px; }
-
-/* ─── SKELETON LOADING ─── */
-.skeleton {
-  background: linear-gradient(90deg, var(--surface2) 25%, var(--surface3) 50%, var(--surface2) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s ease infinite;
-  border-radius: var(--radius);
-}
-
+/* ─── Touch targets ─── */
+@media (pointer: coarse) { .touch-target { min-height: 44px; min-width: 44px; } }

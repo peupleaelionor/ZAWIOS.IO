@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
-import { IconLogo } from '@/components/ui/icons'
+import { LogoLockup } from '@/components/ui/logo'
 import { useLanguage } from '@/components/providers/language-provider'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
@@ -15,60 +15,65 @@ export function Navbar() {
   const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
-    const supabase = createClient()
-    supabase.auth.getUser().then(({ data }) => {
-      setUser(data.user)
-    })
+    try {
+      const supabase = createClient()
+      supabase.auth.getUser().then(({ data }) => setUser(data.user))
+    } catch {}
   }, [])
 
   const navLinks = [
     { href: '/predictions', label: t.nav.predictions },
     { href: '/leaderboard', label: t.nav.leaderboard },
-    { href: '/insights', label: t.nav.insights },
-    { href: '/pricing', label: t.nav.pricing },
-    { href: '/about', label: t.nav.about },
+    { href: '/insights',    label: t.nav.insights },
+    { href: '/about',       label: t.nav.about },
   ]
 
   return (
-    <header className="sticky top-0 z-50 w-full glass" style={{ borderBottom: '1px solid var(--border)' }} role="banner">
-      <nav className="container" aria-label="Main navigation">
-        <div className="flex items-center justify-between h-16">
+    <header
+      className="sticky top-0 z-50 w-full glass"
+      style={{ borderBottom: '1px solid var(--border)' }}
+      role="banner"
+    >
+      <nav className="container" aria-label="Navigation principale">
+        <div className="flex items-center justify-between h-14 md:h-16">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 font-bold text-lg" aria-label="ZAWIOS Home">
-            <IconLogo size={32} aria-hidden="true" />
-            <span className="tracking-tighter text-white" style={{ fontFamily: 'var(--font)', fontWeight: 800, fontSize: '1.4rem', letterSpacing: '-0.03em' }}>ZAWIOS</span>
+          <Link href="/" aria-label="ZAWIOS — accueil">
+            <LogoLockup className="text-base md:text-lg" />
           </Link>
 
-          {/* Desktop nav */}
-          <div className="hidden md:flex items-center gap-1">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2 text-sm font-medium text-[var(--text2)] hover:text-[var(--text)] rounded-lg hover:bg-white/[0.04] transition-colors"
+                className="px-3 py-2 text-sm font-medium rounded-lg transition-colors"
+                style={{ color: 'var(--text3)' }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--text)')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text3)')}
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          {/* CTA + lang toggle */}
-          <div className="hidden md:flex items-center gap-3">
-            {/* Language toggle */}
+          {/* Actions */}
+          <div className="hidden md:flex items-center gap-2">
             <button
               onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
-              className="text-xs font-semibold px-2 py-1 rounded-md transition-colors"
+              className="text-[10px] font-bold px-2 py-1 rounded-md transition-colors"
               style={{
                 fontFamily: 'var(--mono)',
                 color: 'var(--text3)',
                 border: '1px solid var(--border)',
-                letterSpacing: '0.05em',
+                letterSpacing: '0.08em',
               }}
-              aria-label={`Switch language to ${lang === 'en' ? 'French' : 'English'}`}
-              title={`Current language: ${lang === 'en' ? 'English' : 'French'}`}
+              aria-label={`Langue : passer en ${lang === 'en' ? 'français' : 'anglais'}`}
             >
               {lang === 'en' ? 'FR' : 'EN'}
             </button>
+
             {user ? (
               <Link href="/dashboard" className="flex items-center gap-2">
                 <Avatar
@@ -81,7 +86,9 @@ export function Navbar() {
             ) : (
               <>
                 <Link href="/auth/login">
-                  <Button variant="ghost" size="sm">{t.nav.signin}</Button>
+                  <Button variant="ghost" size="sm" style={{ color: 'var(--text3)' }}>
+                    {t.nav.signin}
+                  </Button>
                 </Link>
                 <Link href="/auth/signup">
                   <Button size="sm">{t.nav.join}</Button>
@@ -90,53 +97,51 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile actions */}
           <div className="md:hidden flex items-center gap-2">
             <button
               onClick={() => setLang(lang === 'en' ? 'fr' : 'en')}
-              className="text-xs font-semibold px-2 py-1 rounded-md"
+              className="text-[10px] font-bold px-2 py-1 rounded-md"
               style={{
                 fontFamily: 'var(--mono)',
                 color: 'var(--text3)',
                 border: '1px solid var(--border)',
-                letterSpacing: '0.05em',
+                letterSpacing: '0.08em',
               }}
-              aria-label="Toggle language"
+              aria-label="Toggle langue"
             >
               {lang === 'en' ? 'FR' : 'EN'}
             </button>
             <button
-              className="p-2 rounded-lg hover:bg-white/[0.04] transition-colors text-[var(--text2)]"
+              className="p-2 rounded-lg transition-colors"
+              style={{ color: 'var(--text2)' }}
               onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              aria-label={isOpen ? 'Fermer le menu' : 'Ouvrir le menu'}
               aria-expanded={isOpen}
               aria-controls="mobile-nav"
             >
               {isOpen ? (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
               ) : (
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h18"/><path d="M3 6h18"/><path d="M3 18h18"/></svg>
               )}
             </button>
           </div>
         </div>
 
-        {/* Mobile nav */}
+        {/* Mobile dropdown */}
         <div
           id="mobile-nav"
-          className={cn(
-            'md:hidden overflow-hidden transition-all duration-300',
-            isOpen ? 'max-h-96 pb-4' : 'max-h-0'
-          )}
-          role="navigation"
-          aria-label="Mobile navigation"
+          className={cn('md:hidden overflow-hidden transition-all duration-250', isOpen ? 'max-h-80 pb-3' : 'max-h-0')}
+          aria-hidden={!isOpen}
         >
-          <div className="flex flex-col gap-1 pt-2">
+          <div className="flex flex-col gap-0.5 pt-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="px-3 py-2.5 text-sm font-medium text-[var(--text2)] hover:text-[var(--text)] rounded-lg hover:bg-white/[0.04]"
+                className="px-3 py-2.5 text-sm font-medium rounded-lg transition-colors"
+                style={{ color: 'var(--text2)' }}
                 onClick={() => setIsOpen(false)}
               >
                 {link.label}

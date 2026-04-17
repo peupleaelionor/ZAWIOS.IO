@@ -26,9 +26,8 @@ export default function AboutPage() {
               Intelligence is collective. <br />Reputation should be verifiable.
             </h1>
             <p className="text-lg text-[var(--text2)] leading-relaxed">
-              ZAWIOS was built on a simple premise: the best information about the future comes from aggregating
-              many perspectives, not from a single analyst. We built the infrastructure to make that signal accessible
-              — and to reward the people who get it right.
+              ZAWIOS was built on one premise: aggregating many independent perspectives produces better forecasts
+              than any single analyst. We built the platform to measure that — and to recognize the people who get it right, consistently.
             </p>
           </div>
         </section>
@@ -57,7 +56,7 @@ export default function AboutPage() {
                 <div key={value.title} className="text-center rv">
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center mx-auto mb-4"
-                    style={{ background: 'rgba(124,110,240,0.1)', color: 'var(--accent2)' }}
+                    style={{ background: 'rgba(23,213,207,0.1)', color: 'var(--accent)' }}
                   >
                     {value.icon}
                   </div>
@@ -75,13 +74,13 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold text-[var(--text)] mb-6">The story</h2>
             <div className="space-y-4 text-[var(--text2)] leading-relaxed">
               <p>
-                ZAWIOS started from a frustration: the most valuable insights about the future were locked in
-                expensive research reports, proprietary models, and private channels. Meanwhile, millions of smart,
-                well-informed people had great intuitions about the world — and nowhere to put them.
+                ZAWIOS started from a frustration: the most valuable forecasting insights were reserved for expensive
+                research reports, proprietary models, and private networks. Meanwhile, millions of informed people
+                had accurate intuitions about the world — and no way to prove it.
               </p>
               <p>
-                We built ZAWIOS to fix that. A platform where every person can take a position, compete on accuracy,
-                and build a verified track record over time. No money, no bets — just signal.
+                We built ZAWIOS to fix that. A platform where anyone can take a position, compete on accuracy,
+                and build a verified track record. No money, no bets — just public predictions and a score that reflects reality.
               </p>
               <p>
                 We believe that collective intelligence, properly structured and measured, produces better forecasts

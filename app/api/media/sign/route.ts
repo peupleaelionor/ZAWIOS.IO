@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
   const paramsToSign = `folder=${folder}&timestamp=${timestamp}`
 
   const signature = crypto
-    .createHash('sha256')
+    .createHash('sha1')
     .update(paramsToSign + apiSecret)
     .digest('hex')
 

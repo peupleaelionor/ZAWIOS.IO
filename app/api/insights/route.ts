@@ -30,7 +30,7 @@ export async function GET() {
     .limit(20)
 
   const predictionContext = predictions?.length
-    ? predictions.map((p) => `${p.category}: "${p.title}" (${p.status}, ${p.vote_count ?? 0} votes)`).join('\n')
+    ? predictions.map((p: { category: string; title: string; status: string; vote_count: number | null }) => `${p.category}: "${p.title}" (${p.status}, ${p.vote_count ?? 0} votes)`).join('\n')
     : 'No recent predictions available.'
 
   const prompt = `You are the ZAWIOS AI analyst. Based on recent prediction activity on the platform, generate exactly 4 crowd intelligence insights. Each insight should have a category, headline, description (1-2 sentences), and confidence score (0-100).

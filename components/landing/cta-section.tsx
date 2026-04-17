@@ -4,33 +4,41 @@ import { IconArrows } from '@/components/ui/icons'
 
 export function CTASection() {
   return (
-    <section className="py-12 md:py-20 bg-[var(--bg)]">
+    <section className="py-16 md:py-24" style={{ background: 'var(--bg)' }}>
       <div className="container">
         <div
-          className="max-w-xl mx-auto text-center surface py-10 md:py-14 px-6 md:px-8 rounded-xl relative overflow-hidden"
-          style={{ border: '1px solid var(--border2)' }}
+          className="max-w-xl mx-auto text-center px-6 py-12 md:py-16 rounded-2xl relative overflow-hidden"
+          style={{ background: 'var(--surface)', border: '1px solid var(--border2)' }}
         >
           <div
-            className="absolute top-0 left-0 right-0 h-px"
-            style={{ background: 'linear-gradient(90deg, transparent, var(--accent), transparent)' }}
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              top: 0, left: '20%', right: '20%', height: 1,
+              background: 'linear-gradient(90deg, transparent, var(--accent), transparent)',
+            }}
           />
-          <h2
-            className="text-xl md:text-3xl font-bold text-[var(--text)] mb-3"
-            style={{ letterSpacing: '-0.02em' }}
-          >
-            Pret a voter ?
-          </h2>
-          <p className="text-sm text-[var(--text2)] mb-6 md:mb-7 max-w-sm mx-auto leading-relaxed">
-            Rejoins 47 000+ personnes qui votent chaque jour sur les sujets du moment.
-            Gratuit. Pour toujours.
+
+          <p className="section-label mb-5" style={{ justifyContent: 'center' }}>
+            Rejoindre
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Link href="/onboarding" className="w-full sm:w-auto">
-              <Button size="lg" className="w-full sm:w-auto gap-2 px-8">
-                Commencer maintenant <IconArrows className="w-4 h-4" size={16} />
-              </Button>
-            </Link>
-          </div>
+
+          <h2
+            className="font-bold mb-3 leading-tight"
+            style={{ fontSize: 'clamp(1.5rem, 5vw, 2.4rem)', letterSpacing: '-0.025em', color: 'var(--text)' }}
+          >
+            Commence à construire<br />ta réputation.
+          </h2>
+
+          <p className="text-sm mb-8 max-w-xs mx-auto leading-relaxed" style={{ color: 'var(--text2)' }}>
+            47 000 analystes votent chaque jour. Gratuit. Pour toujours.
+          </p>
+
+          <Link href="/onboarding">
+            <Button size="lg" className="gap-2 px-8">
+              Commencer maintenant <IconArrows size={15} />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

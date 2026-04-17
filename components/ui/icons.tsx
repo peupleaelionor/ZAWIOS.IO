@@ -307,35 +307,41 @@ export function IconMark({
 }
 
 /**
- * IconLogo — square app icon: dark background + butterfly mark.
- * Used in navbar, footer, auth pages, and as the favicon placeholder.
+ * IconLogo — carré app icon : fond sombre + mark ailes courbes.
+ * Utilisé en navbar, footer, auth, favicon placeholder.
  */
 export function IconLogo({ className, size = 32, style }: IconProps) {
-  const n = 11
-  // y positions for mark endpoints, centered vertically in the icon with padding
-  const pad = size * 0.23
-  const ys = Array.from({ length: n }, (_, i) => pad + (i / (n - 1)) * (size - 2 * pad))
-  const cx = size / 2
-  const cy = size / 2
-  const xL = size * 0.06
-  const xR = size * 0.94
+  const sw = Math.max(1.2, 1.8 * Math.min(1, size / 32))
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
-      viewBox={`0 0 ${size} ${size}`}
+      viewBox="0 0 32 32"
       fill="none"
       className={className}
       style={style}
     >
-      <rect width={size} height={size} rx={size * 0.22} fill="#0C0D10" />
-      {ys.map((y, i) => (
-        <line key={`L${i}`} x1={cx} y1={cy} x2={xL} y2={y} stroke="#F2F2F7" strokeWidth={size * 0.026} strokeLinecap="round" />
-      ))}
-      {ys.map((y, i) => (
-        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#4169E1" strokeWidth={size * 0.026} strokeLinecap="round" />
-      ))}
+      <rect width="32" height="32" rx={Math.round(32 * 0.22)} fill="#08080F"/>
+      {/* Aile gauche — blanc */}
+      <g stroke="#FFFFFF" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 16 C13.8 15.2 11.6 13.0 9.0 9.2"/>
+        <path d="M16 16 C13.6 15.8 11.0 14.4 7.8 12.0"/>
+        <path d="M16 16 C13.6 16.0 10.8 16.0 6.2 16.0"/>
+        <path d="M16 16 C13.6 16.2 11.0 17.6 7.8 20.0"/>
+        <path d="M16 16 C13.8 16.8 11.6 19.0 9.0 22.8"/>
+        <path d="M16 16 C14.6 17.6 13.2 20.0 12.0 24.0"/>
+      </g>
+      {/* Aile droite — indigo */}
+      <g stroke="#6B6EF8" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 16 C18.2 15.2 20.4 13.0 23.0 9.2"/>
+        <path d="M16 16 C18.4 15.8 21.0 14.4 24.2 12.0"/>
+        <path d="M16 16 C18.4 16.0 21.2 16.0 25.8 16.0"/>
+        <path d="M16 16 C18.4 16.2 21.0 17.6 24.2 20.0"/>
+        <path d="M16 16 C18.2 16.8 20.4 19.0 23.0 22.8"/>
+        <path d="M16 16 C17.4 17.6 18.8 20.0 20.0 24.0"/>
+      </g>
+      <path d="M15.5 16 L16.5 16" stroke="#FFFFFF" strokeWidth={sw} strokeLinecap="round"/>
     </svg>
   )
 }
