@@ -154,10 +154,6 @@ export function aggregateContext(signalId: string): AggregateResult[] {
       (a, b) => b[1] - a[1],
     )[0]
 
-    const topTheme = Object.entries(themeCounts).sort(
-      (a, b) => b[1] - a[1],
-    )[0]
-
     if (topTheme != null) {
       const label =
         vt === 'yes' ? 'OUI' : vt === 'no' ? 'NON' : 'NEUTRE'

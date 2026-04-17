@@ -239,7 +239,7 @@ export function StrategicAnalyses({
                 style={{
                   fontFamily: 'var(--mono)',
                   color: likedIds.has(ctx.id) ? ROYAL_BLUE : 'var(--text3)',
-                }}}
+                }}
               >
                 <IconUpvote size={10} className="w-2.5 h-2.5" />
                 {ctx.likesCount}

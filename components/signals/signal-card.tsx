@@ -19,8 +19,20 @@ import {
   NuanceIndex,
   StrategicSynthesis,
 } from '@/components/signals/strategic-context'
+import {
+  DivergenceGauge,
+  ImpactBadge,
+  ConvictionSelector,
+  ReasonSelector,
+  PersonalProjectionPrompt,
+  OfficialDoubtBadge,
+  AccelerationBadge,
+} from '@/components/signals/signal-intelligence-ui'
 import { useSignalContexts } from '@/hooks/use-signal-contexts'
 import { useLanguage } from '@/components/providers/language-provider'
+import { getDefaultReasons } from '@/lib/signal-intelligence'
+import type { ConvictionLevel } from '@/lib/editorial-calendar'
+import type { PersonalImpact } from '@/lib/signal-intelligence'
 
 export type TriVote = 'yes' | 'neutral' | 'no'
 
@@ -56,6 +68,12 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
     nuanceIndex,
     synthesis,
   } = useSignalContexts(signal.id, signal.totalVotes)
+
+  // Signal intelligence state
+  const [conviction, setConviction] = useState<ConvictionLevel | null>(null)
+  const [selectedReason, setSelectedReason] = useState<string | null>(null)
+  const [personalImpact, setPersonalImpact] = useState<PersonalImpact | null>(null)
+  const defaultReasons = getDefaultReasons()
 
   const handleVote = (choice: TriVote) => {
     if (voted || isResolved) return
@@ -130,18 +148,9 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
           >
             {getRegionLabel(signal.region)}
           </span>
-          {/* HOT badge */}
+          {/* HOT → Acceleration badge */}
           {signal.hot && (
-            <span
-              className="text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
-              style={{
-                fontFamily: 'var(--mono)',
-                background: 'rgba(107,110,248,0.12)',
-                color: 'var(--accent)',
-              }}
-            >
-              HOT
-            </span>
+            <AccelerationBadge accelerating={true} />
           )}
           {isResolved && (
             <span
@@ -179,6 +188,14 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
         <p className="mt-1.5 text-[12px] text-[var(--text2)] line-clamp-2 leading-relaxed">
           {signal.description}
         </p>
+      )}
+
+      {/* ── Signal Intelligence: Impact + Doubt badges ── */}
+      {!compact && (
+        <div className="flex items-center gap-1.5 mt-2 flex-wrap">
+          <ImpactBadge level="structurel" />
+          <OfficialDoubtBadge doubt={null} />
+        </div>
       )}
 
       {/* ── Resolved result ── */}
@@ -286,9 +303,13 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
 
           {/* Vote buttons + vote count */}
           <div className="flex items-center justify-between gap-3">
-            <div className="flex items-center gap-1.5 text-[10px] text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
-              <IconTrending size={10} className="w-2.5 h-2.5 shrink-0" />
-              {formatNumber(signal.totalVotes)} {t.signal.votes}
+            <div className="flex flex-col gap-1">
+              <div className="flex items-center gap-1.5 text-[10px] text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
+                <IconTrending size={10} className="w-2.5 h-2.5 shrink-0" />
+                {formatNumber(signal.totalVotes)} {t.signal.votes}
+              </div>
+              {/* Divergence gauge */}
+              <DivergenceGauge yesPercent={yesPercent} noPercent={noPercent} />
             </div>
 
             <div className="flex items-center gap-2">
@@ -349,7 +370,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             </div>
           </div>
 
-          {/* Post-vote feedback + World View breakdown + Next */}
+          {/* Post-vote feedback + Intelligence layers + World View breakdown + Next */}
           {voted && (
             <div className="mt-3 space-y-3">
               <div
@@ -379,6 +400,26 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                       : t.vote.againstMajority}
                 </span>
               </div>
+
+              {/* Conviction selector */}
+              <ConvictionSelector value={conviction} onChange={setConviction} />
+
+              {/* Reason selector (only for yes/no votes) */}
+              {voted !== 'neutral' && (
+                <ReasonSelector
+                  reasons={voted === 'yes' ? defaultReasons.yes : defaultReasons.no}
+                  voteType={voted}
+                  selected={selectedReason}
+                  onSelect={setSelectedReason}
+                />
+              )}
+
+              {/* Personal projection */}
+              <PersonalProjectionPrompt
+                value={personalImpact}
+                onChange={setPersonalImpact}
+              />
+
               {signal.regionalBreakdown && (
                 <WorldViewComparison breakdown={signal.regionalBreakdown} />
               )}
@@ -441,13 +482,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
           <div />
         )}
         {signal.trending && !isResolved && (
-          <span
-            className="flex items-center gap-1 text-[10px] font-semibold"
-            style={{ fontFamily: 'var(--mono)', color: 'var(--accent2)' }}
-          >
-            <IconTrending size={10} className="w-2.5 h-2.5" />
-            {t.signal.trending}
-          </span>
+          <AccelerationBadge accelerating={true} />
         )}
       </div>
     </div>
