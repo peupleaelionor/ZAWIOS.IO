@@ -241,9 +241,9 @@ export const GIF_CATEGORIES: GifCategory[] = [
       {
         id: 'g-clock',
         title: 'Tick Tock',
-        preview: 'https://media.giphy.com/media/l0HlBO7eyXzSZkJri/200w.gif',
-        url: 'https://media.giphy.com/media/l0HlBO7eyXzSZkJri/giphy.gif',
-        width: 480, height: 366,
+        preview: 'https://media.giphy.com/media/3oriO04qxVReM5rJEA/200w.gif',
+        url: 'https://media.giphy.com/media/3oriO04qxVReM5rJEA/giphy.gif',
+        width: 480, height: 269,
       },
       {
         id: 'g-lets-see',

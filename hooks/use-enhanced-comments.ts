@@ -55,9 +55,11 @@ export function useEnhancedComments(predictionId: string): UseEnhancedCommentsSt
     const seed = getEnhancedComments(predictionId)
     const local = loadLocal<EnhancedComment[]>(storageKey(predictionId, 'comments'), [])
     const reactions = loadLocal<Record<string, ReactionType>>(storageKey(predictionId, 'reactions'), {})
+    const savedReplies = loadLocal<Record<string, EnhancedComment[]>>(storageKey(predictionId, 'replies'), {})
     setTopLevel(seed)
     setLocalComments(local)
     setUserReactions(reactions)
+    setLocalReplies(savedReplies)
   }, [predictionId])
 
   // Sorted top-level comments
@@ -111,6 +113,10 @@ export function useEnhancedComments(predictionId: string): UseEnhancedCommentsSt
       if (parentId) {
         setLocalReplies((prev) => {
           const updated = { ...prev, [parentId]: [...(prev[parentId] ?? []), newComment] }
+          localStorage.setItem(
+            storageKey(predictionId, 'replies'),
+            JSON.stringify(updated),
+          )
           return updated
         })
         // Auto-expand replies for the parent

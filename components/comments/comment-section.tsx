@@ -420,6 +420,7 @@ function CommentItem({
   onReply,
   onReact,
   userReaction,
+  userReactions,
   depth = 0,
 }: {
   comment: EnhancedComment
@@ -429,6 +430,7 @@ function CommentItem({
   onReply: (content: string, authorName: string, gifUrl?: string, gifTitle?: string) => void
   onReact: (type: ReactionType) => void
   userReaction?: ReactionType | null
+  userReactions?: Record<string, ReactionType>
   depth?: number
 }) {
   const [showReplyBox, setShowReplyBox] = useState(false)
@@ -668,7 +670,8 @@ function CommentItem({
                   onToggleReplies={() => {}}
                   onReply={() => {}}
                   onReact={(type) => onReact(type)}
-                  userReaction={null}
+                  userReaction={userReactions?.[reply.id] ?? null}
+                  userReactions={userReactions}
                   depth={1}
                 />
               ))}
@@ -793,6 +796,7 @@ export function CommentSection({ predictionId, commentCount }: CommentSectionPro
                 }
                 onReact={(type) => toggleReaction(comment.id, type)}
                 userReaction={userReactions[comment.id] ?? null}
+                userReactions={userReactions}
               />
             )
           })}
