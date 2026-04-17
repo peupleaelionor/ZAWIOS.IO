@@ -61,6 +61,8 @@ export async function POST(request: NextRequest) {
     )
   }
 
+  const PG_UNIQUE_VIOLATION = '23505'
+
   const { data: context, error: insertError } = await supabase
     .from('signal_contexts')
     .insert({
@@ -76,7 +78,7 @@ export async function POST(request: NextRequest) {
 
   if (insertError) {
     // Unique constraint = already submitted
-    if (insertError.code === '23505') {
+    if (insertError.code === PG_UNIQUE_VIOLATION) {
       return NextResponse.json(
         { error: 'You have already submitted an analysis for this signal' },
         { status: 409 },

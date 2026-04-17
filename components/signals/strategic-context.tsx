@@ -235,16 +235,11 @@ export function StrategicAnalyses({
             <div className="flex items-center gap-3 mt-1.5">
               <button
                 onClick={() => onLike(ctx.id)}
-                className={cn(
-                  'flex items-center gap-0.5 text-[10px] transition-colors',
-                  likedIds.has(ctx.id)
-                    ? `text-[${ROYAL_BLUE}]`
-                    : 'text-[var(--text3)] hover:text-[var(--text2)]',
-                )}
+                className="flex items-center gap-0.5 text-[10px] transition-colors"
                 style={{
                   fontFamily: 'var(--mono)',
-                  color: likedIds.has(ctx.id) ? ROYAL_BLUE : undefined,
-                }}
+                  color: likedIds.has(ctx.id) ? ROYAL_BLUE : 'var(--text3)',
+                }}}
               >
                 <IconUpvote size={10} className="w-2.5 h-2.5" />
                 {ctx.likesCount}

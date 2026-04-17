@@ -76,7 +76,11 @@ const MOCK_CONTEXTS: Record<string, SignalContext[]> = {
 export function getTopContexts(signalId: string, limit = 3): SignalContext[] {
   const contexts = MOCK_CONTEXTS[signalId] ?? MOCK_CONTEXTS.default
   return [...contexts]
-    .sort((a, b) => b.likesCount - a.likesCount)
+    .sort((a, b) => {
+      if (b.likesCount !== a.likesCount) return b.likesCount - a.likesCount
+      // Recency: lower index = more recent in mock, use createdAt string comparison
+      return a.createdAt.localeCompare(b.createdAt)
+    })
     .slice(0, limit)
 }
 
@@ -150,7 +154,11 @@ export function aggregateContext(signalId: string): AggregateResult[] {
       (a, b) => b[1] - a[1],
     )[0]
 
-    if (topTheme) {
+    const topTheme = Object.entries(themeCounts).sort(
+      (a, b) => b[1] - a[1],
+    )[0]
+
+    if (topTheme != null) {
       const label =
         vt === 'yes' ? 'OUI' : vt === 'no' ? 'NON' : 'NEUTRE'
       results.push({
