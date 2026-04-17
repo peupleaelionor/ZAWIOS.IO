@@ -5,102 +5,136 @@ interface LogoProps {
   style?: CSSProperties
 }
 
-// Canonical butterfly mark — 11 lines per fan
-// Right fan = teal (primary), left fan = white
-// ViewBox: 56×34, scale via CSS width/height
+const WHITE  = '#FFFFFF'
+const ACCENT = '#6B6EF8'  // indigo électrique — sync avec --accent dans globals.css
+
+// ── Mark 64×64 — 8 courbes par aile, monoline premium ──────────────────────
 export function LogoMark({ className, style }: LogoProps) {
-  const cx = 28, cy = 17
-  const n = 11
-  const ys = Array.from({ length: n }, (_, i) => (i / (n - 1)) * 34)
   return (
     <svg
-      viewBox="0 0 56 34"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
       fill="none"
       aria-hidden="true"
       className={className}
       style={{ display: 'block', ...style }}
     >
-      {ys.map((y, i) => (
-        <line key={`L${i}`} x1={cx} y1={cy} x2={0} y2={y}
-          stroke="white" strokeWidth="1.6" strokeLinecap="round" />
-      ))}
-      {ys.map((y, i) => (
-        <line key={`R${i}`} x1={cx} y1={cy} x2={56} y2={y}
-          stroke="#17D5CF" strokeWidth="1.6" strokeLinecap="round" />
-      ))}
+      {/* Aile gauche — blanc */}
+      <g stroke={WHITE} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M32 32 C27.8 30.6 23.6 26.8 18.8 20.6"/>
+        <path d="M32 32 C27.4 31.2 22.8 28.8 16.8 24.6"/>
+        <path d="M32 32 C27.2 32.0 22.0 32.0 13.0 32.0"/>
+        <path d="M32 32 C27.4 32.8 22.8 35.2 16.8 39.4"/>
+        <path d="M32 32 C27.8 33.4 23.6 37.2 18.8 43.4"/>
+        <path d="M32 32 C29.6 34.8 27.4 38.8 25.6 45.6"/>
+        <path d="M32 32 C30.4 34.2 29.2 37.0 28.2 40.8"/>
+        <path d="M32 32 C31.0 33.4 30.2 35.2 29.6 37.6"/>
+      </g>
+      {/* Aile droite — indigo */}
+      <g stroke={ACCENT} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M32 32 C36.2 30.6 40.4 26.8 45.2 20.6"/>
+        <path d="M32 32 C36.6 31.2 41.2 28.8 47.2 24.6"/>
+        <path d="M32 32 C36.8 32.0 42.0 32.0 51.0 32.0"/>
+        <path d="M32 32 C36.6 32.8 41.2 35.2 47.2 39.4"/>
+        <path d="M32 32 C36.2 33.4 40.4 37.2 45.2 43.4"/>
+        <path d="M32 32 C34.4 34.8 36.6 38.8 38.4 45.6"/>
+        <path d="M32 32 C33.6 34.2 34.8 37.0 35.8 40.8"/>
+        <path d="M32 32 C33.0 33.4 33.8 35.2 34.4 37.6"/>
+      </g>
+      {/* Noyau */}
+      <path d="M31.2 32 L32.8 32" stroke={WHITE} strokeWidth="2" strokeLinecap="round"/>
     </svg>
   )
 }
 
-// Tiny mark — 5 lines per fan, heavier strokes, readable at 16–24px
+// ── Mark 32×32 simplifié — 6 courbes par aile, lisible petit ───────────────
 export function LogoTiny({ className, style }: LogoProps) {
-  const cx = 28, cy = 17
-  const n = 5
-  const ys = Array.from({ length: n }, (_, i) => (i / (n - 1)) * 34)
   return (
     <svg
-      viewBox="0 0 56 34"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 32 32"
       fill="none"
       aria-hidden="true"
       className={className}
       style={{ display: 'block', ...style }}
     >
-      {ys.map((y, i) => (
-        <line key={`L${i}`} x1={cx} y1={cy} x2={0} y2={y}
-          stroke="white" strokeWidth="3.5" strokeLinecap="round" />
-      ))}
-      {ys.map((y, i) => (
-        <line key={`R${i}`} x1={cx} y1={cy} x2={56} y2={y}
-          stroke="#17D5CF" strokeWidth="3.5" strokeLinecap="round" />
-      ))}
+      <g stroke={WHITE} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 16 C13.8 15.2 11.6 13.0 9.0 9.2"/>
+        <path d="M16 16 C13.6 15.8 11.0 14.4 7.8 12.0"/>
+        <path d="M16 16 C13.6 16.0 10.8 16.0 6.2 16.0"/>
+        <path d="M16 16 C13.6 16.2 11.0 17.6 7.8 20.0"/>
+        <path d="M16 16 C13.8 16.8 11.6 19.0 9.0 22.8"/>
+        <path d="M16 16 C14.6 17.6 13.2 20.0 12.0 24.0"/>
+      </g>
+      <g stroke={ACCENT} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 16 C18.2 15.2 20.4 13.0 23.0 9.2"/>
+        <path d="M16 16 C18.4 15.8 21.0 14.4 24.2 12.0"/>
+        <path d="M16 16 C18.4 16.0 21.2 16.0 25.8 16.0"/>
+        <path d="M16 16 C18.4 16.2 21.0 17.6 24.2 20.0"/>
+        <path d="M16 16 C18.2 16.8 20.4 19.0 23.0 22.8"/>
+        <path d="M16 16 C17.4 17.6 18.8 20.0 20.0 24.0"/>
+      </g>
+      <path d="M15.5 16 L16.5 16" stroke={WHITE} strokeWidth="1.8" strokeLinecap="round"/>
     </svg>
   )
 }
 
-// App icon — dark rounded square + mark (for 32px+)
+// ── App icon — fond sombre arrondi + mark simplifié (32–512px) ─────────────
 export function LogoAppIcon({ size = 32, className, style }: LogoProps & { size?: number }) {
-  const cx = size / 2, cy = size / 2
-  const pad = size * 0.16
-  const n = 11
-  const ys = Array.from({ length: n }, (_, i) => pad + (i / (n - 1)) * (size - 2 * pad))
-  const sw = size * 0.028
+  const scale = size / 32
+  const sw = Math.max(1.2, 1.8 * Math.min(1, scale))
   return (
     <svg
-      width={size} height={size}
-      viewBox={`0 0 ${size} ${size}`}
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 32 32"
       fill="none"
       aria-hidden="true"
       className={className}
       style={style}
     >
-      <rect width={size} height={size} rx={size * 0.22} fill="#08080f" />
-      {ys.map((y, i) => (
-        <line key={`L${i}`} x1={cx} y1={cy} x2={size * 0.06} y2={y}
-          stroke="white" strokeWidth={sw} strokeLinecap="round" />
-      ))}
-      {ys.map((y, i) => (
-        <line key={`R${i}`} x1={cx} y1={cy} x2={size * 0.94} y2={y}
-          stroke="#17D5CF" strokeWidth={sw} strokeLinecap="round" />
-      ))}
+      <rect width="32" height="32" rx={size * 0.22 / scale} fill="#08080F"/>
+      <g stroke={WHITE} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 16 C13.8 15.2 11.6 13.0 9.0 9.2"/>
+        <path d="M16 16 C13.6 15.8 11.0 14.4 7.8 12.0"/>
+        <path d="M16 16 C13.6 16.0 10.8 16.0 6.2 16.0"/>
+        <path d="M16 16 C13.6 16.2 11.0 17.6 7.8 20.0"/>
+        <path d="M16 16 C13.8 16.8 11.6 19.0 9.0 22.8"/>
+        <path d="M16 16 C14.6 17.6 13.2 20.0 12.0 24.0"/>
+      </g>
+      <g stroke={ACCENT} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
+        <path d="M16 16 C18.2 15.2 20.4 13.0 23.0 9.2"/>
+        <path d="M16 16 C18.4 15.8 21.0 14.4 24.2 12.0"/>
+        <path d="M16 16 C18.4 16.0 21.2 16.0 25.8 16.0"/>
+        <path d="M16 16 C18.4 16.2 21.0 17.6 24.2 20.0"/>
+        <path d="M16 16 C18.2 16.8 20.4 19.0 23.0 22.8"/>
+        <path d="M16 16 C17.4 17.6 18.8 20.0 20.0 24.0"/>
+      </g>
+      <path d="M15.5 16 L16.5 16" stroke={WHITE} strokeWidth={sw} strokeLinecap="round"/>
     </svg>
   )
 }
 
-// Lockup: mark + ZAWIOS wordmark, baseline-aligned
-// Usage: Navbar — pass className for font-size
+// ── Lockup : mark + wordmark ────────────────────────────────────────────────
 export function LogoLockup({ className, style }: LogoProps) {
   return (
     <span
-      className={`inline-flex items-center gap-2.5 font-bold ${className ?? ''}`}
+      className={`inline-flex items-center gap-2 font-bold ${className ?? ''}`}
       style={style}
       aria-label="ZAWIOS"
     >
-      <span style={{ width: 38, height: 23, display: 'inline-block', flexShrink: 0 }}>
+      <span style={{ width: 28, height: 28, display: 'inline-block', flexShrink: 0 }}>
         <LogoMark style={{ width: '100%', height: '100%' }} />
       </span>
       <span
-        className="gradient-text tracking-tight"
-        style={{ fontFamily: 'var(--font)', letterSpacing: '-0.02em', lineHeight: 1 }}
+        style={{
+          fontFamily: 'var(--font)',
+          fontWeight: 800,
+          letterSpacing: '-0.025em',
+          lineHeight: 1,
+          color: 'var(--text)',
+        }}
       >
         ZAWIOS
       </span>
