@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { Navbar } from '@/components/layout/navbar'
+import { Footer } from '@/components/layout/footer'
 
 export const metadata: Metadata = {
   title: 'Principes — ZAWIOS',
@@ -51,7 +53,9 @@ const principles = [
 
 export default function PrinciplesPage() {
   return (
-    <main className="container py-16 max-w-3xl">
+    <div className="min-h-screen" style={{ background: 'var(--background)' }}>
+      <Navbar />
+      <main className="container py-16 max-w-3xl">
       <header className="mb-14">
         <p className="text-xs font-semibold tracking-widest uppercase mb-3" style={{ color: 'var(--teal)', fontFamily: 'var(--mono)' }}>
           Fondations
@@ -94,5 +98,7 @@ export default function PrinciplesPage() {
         </div>
       </footer>
     </main>
+    <Footer />
+    </div>
   )
 }

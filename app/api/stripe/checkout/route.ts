@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
   const Stripe = (await import('stripe')).default
   const stripe = new Stripe(stripeKey)
 
-  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app'
+  const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.io'
   const isMonthly = frequency === 'monthly'
 
   try {
