@@ -57,6 +57,10 @@ export interface Signal {
   timeAgo: string
   expiresIn?: string
   regionalBreakdown?: RegionalBreakdown
+  /** Horizon temporel — e.g. "2030", "2035", "6 mois" */
+  horizon?: string
+  /** Niveau d'impact: faible, structurel, civilisationnel */
+  impact?: 'faible' | 'structurel' | 'civilisationnel'
 }
 
 export const SIGNAL_CATEGORIES: { id: SignalCategory; label: string; labelFr: string }[] = [
@@ -110,6 +114,7 @@ export const mockSignals: Signal[] = [
     category: 'worldview', region: 'global', status: 'active',
     yesPercent: 61, noPercent: 39, totalVotes: 52340,
     createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '4 years',
+    horizon: '2030', impact: 'civilisationnel',
     regionalBreakdown: { global: 61, africa: 48, france: 67, europe: 65, usa: 58 },
   },
   {
@@ -119,6 +124,7 @@ export const mockSignals: Signal[] = [
     category: 'worldview', region: 'global', status: 'active',
     yesPercent: 74, noPercent: 26, totalVotes: 67891,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '3 years',
+    horizon: '2035', impact: 'civilisationnel',
     regionalBreakdown: { global: 74, africa: 81, france: 78, europe: 76, usa: 54 },
   },
   {
@@ -128,6 +134,7 @@ export const mockSignals: Signal[] = [
     category: 'worldview', region: 'global', status: 'active',
     yesPercent: 68, noPercent: 32, totalVotes: 43210,
     createdBy: null, trending: true, timeAgo: '3h ago', expiresIn: '1 year',
+    horizon: '2027', impact: 'structurel',
     regionalBreakdown: { global: 68, africa: 72, france: 61, europe: 64, usa: 71 },
   },
   {
@@ -137,6 +144,7 @@ export const mockSignals: Signal[] = [
     category: 'worldview', region: 'global', status: 'active',
     yesPercent: 58, noPercent: 42, totalVotes: 89432,
     createdBy: null, hot: true, timeAgo: '30m ago', expiresIn: '6 months',
+    horizon: '6 mois', impact: 'structurel',
     regionalBreakdown: { global: 58, africa: 44, france: 63, europe: 61, usa: 57 },
   },
   {
@@ -146,6 +154,7 @@ export const mockSignals: Signal[] = [
     category: 'worldview', region: 'global', status: 'active',
     yesPercent: 55, noPercent: 45, totalVotes: 38762,
     createdBy: null, trending: true, timeAgo: '4h ago', expiresIn: '2 years',
+    horizon: '2030', impact: 'civilisationnel',
     regionalBreakdown: { global: 55, africa: 71, france: 48, europe: 51, usa: 38 },
   },
   {
@@ -155,6 +164,7 @@ export const mockSignals: Signal[] = [
     category: 'worldview', region: 'global', status: 'active',
     yesPercent: 52, noPercent: 48, totalVotes: 31456,
     createdBy: null, timeAgo: '5h ago', expiresIn: '4 years',
+    horizon: '2030', impact: 'structurel',
     regionalBreakdown: { global: 52, africa: 34, france: 58, europe: 56, usa: 63 },
   },
   {
@@ -164,6 +174,7 @@ export const mockSignals: Signal[] = [
     category: 'worldview', region: 'global', status: 'active',
     yesPercent: 49, noPercent: 51, totalVotes: 27890,
     createdBy: null, timeAgo: '6h ago', expiresIn: '5 years',
+    horizon: '2035', impact: 'structurel',
     regionalBreakdown: { global: 49, africa: 41, france: 72, europe: 53, usa: 46 },
   },
   {

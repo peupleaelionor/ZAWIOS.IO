@@ -81,7 +81,7 @@ export default function HomePage() {
               </h2>
             </div>
             <Link
-              href="/predictions"
+              href="/signals"
               className="text-sm font-medium shrink-0"
               style={{ color: 'var(--primary)', fontFamily: 'var(--mono)', letterSpacing: '0.02em' }}
             >

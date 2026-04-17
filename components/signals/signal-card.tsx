@@ -27,6 +27,7 @@ import {
   PersonalProjectionPrompt,
   OfficialDoubtBadge,
   AccelerationBadge,
+  GreyZoneOption,
 } from '@/components/signals/signal-intelligence-ui'
 import { useSignalContexts } from '@/hooks/use-signal-contexts'
 import { useLanguage } from '@/components/providers/language-provider'
@@ -73,6 +74,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
   const [conviction, setConviction] = useState<ConvictionLevel | null>(null)
   const [selectedReason, setSelectedReason] = useState<string | null>(null)
   const [personalImpact, setPersonalImpact] = useState<PersonalImpact | null>(null)
+  const [tooEarly, setTooEarly] = useState(false)
   const defaultReasons = getDefaultReasons()
 
   const handleVote = (choice: TriVote) => {
@@ -190,10 +192,23 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
         </p>
       )}
 
-      {/* ── Signal Intelligence: Impact + Doubt badges ── */}
+      {/* ── Signal Intelligence: Horizon + Impact + Doubt badges ── */}
       {!compact && (
         <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-          <ImpactBadge level="structurel" />
+          {signal.horizon && (
+            <span
+              className="inline-flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+              style={{
+                fontFamily: 'var(--mono)',
+                color: 'var(--info)',
+                background: 'var(--info-soft)',
+              }}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width={8} height={8} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5} strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {signal.horizon}
+            </span>
+          )}
+          <ImpactBadge level={signal.impact || 'structurel'} />
           <OfficialDoubtBadge doubt={null} />
         </div>
       )}
@@ -370,7 +385,23 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             </div>
           </div>
 
-          {/* Post-vote feedback + Intelligence layers + World View breakdown + Next */}
+          {/* Grey zone: "Trop tôt pour conclure" */}
+          {!voted && (
+            <div className="mt-2">
+              <GreyZoneOption
+                selected={tooEarly}
+                onSelect={() => {
+                  setTooEarly(!tooEarly)
+                  if (!tooEarly) {
+                    handleVote('neutral')
+                    toast.info('Signal enregistré : Trop tôt pour conclure', {
+                      description: 'Votre réserve est comptabilisée.',
+                    })
+                  }
+                }}
+              />
+            </div>
+          )}
           {voted && (
             <div className="mt-3 space-y-3">
               <div

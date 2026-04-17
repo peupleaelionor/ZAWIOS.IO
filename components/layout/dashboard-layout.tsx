@@ -6,11 +6,11 @@ import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 
 const sidebarLinks = [
-  { href: '/dashboard', label: 'Home', icon: IconTarget },
-  { href: '/dashboard/predictions', label: 'Predictions', icon: IconTrending },
-  { href: '/dashboard/insights', label: 'Insights', icon: IconChart },
-  { href: '/leaderboard', label: 'Leaderboard', icon: IconTrophy },
-  { href: '/dashboard/profile', label: 'Profile', icon: IconUsers },
+  { href: '/dashboard', label: 'Accueil', icon: IconTarget },
+  { href: '/dashboard/signals', label: 'Signaux', icon: IconTrending },
+  { href: '/dashboard/insights', label: 'Analyses', icon: IconChart },
+  { href: '/leaderboard', label: 'Classement', icon: IconTrophy },
+  { href: '/profile', label: 'Profil', icon: IconUsers },
 ]
 
 interface DashboardLayoutProps {
@@ -57,22 +57,22 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
         <div className="px-4 py-4 space-y-1" style={{ borderTop: '1px solid var(--border)' }}>
           <Link
-            href="/predictions/create"
+            href="/signals/create"
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors"
           >
             <IconPlus className="w-4 h-4" size={16} />
-            New prediction
+            Nouveau signal
           </Link>
           <Link
             href="/dashboard/settings"
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--text2)] hover:bg-white/[0.04] transition-colors"
           >
             <IconSettings className="w-4 h-4" size={16} />
-            Settings
+            Paramètres
           </Link>
           <button onClick={handleSignOut} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--text2)] hover:bg-white/[0.04] transition-colors">
             <IconSignOut className="w-4 h-4" size={16} />
-            Sign out
+            Déconnexion
           </button>
         </div>
       </aside>

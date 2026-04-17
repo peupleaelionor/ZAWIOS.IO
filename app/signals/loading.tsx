@@ -1,4 +1,4 @@
-export default function PredictionsLoading() {
+export default function SignalsLoading() {
   return (
     <div className="min-h-screen bg-[var(--bg)]">
       <div className="h-16" style={{ borderBottom: '1px solid var(--border)' }} />

@@ -24,9 +24,9 @@ export function Navbar() {
 
   // Primary: always visible on desktop
   const primaryLinks = [
-    { href: '/predictions',  label: t.nav.signals },
-    { href: '/leaderboard',  label: t.nav.leaderboard },
-    { href: '/intelligence', label: 'Intelligence' },
+    { href: '/signals',       label: t.nav.signals },
+    { href: '/leaderboard',   label: t.nav.leaderboard },
+    { href: '/intelligence',  label: 'Intelligence' },
   ]
   // Secondary: visible on lg+, always in mobile menu
   const secondaryLinks = [

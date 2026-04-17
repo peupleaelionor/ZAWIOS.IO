@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { IconHome, IconTrending, IconCreate, IconLeaderboard, IconProfile } from '@/components/ui/icons'
+import { IconHome, IconTrending, IconLeaderboard, IconProfile } from '@/components/ui/icons'
 import { useLanguage } from '@/components/providers/language-provider'
 import { cn } from '@/lib/utils'
 
@@ -11,11 +11,10 @@ export function BottomNav() {
   const { t } = useLanguage()
 
   const navItems = [
-    { href: '/',                   label: t.nav.home,        icon: IconHome },
-    { href: '/predictions',        label: t.nav.signals,     icon: IconTrending },
-    { href: '/predictions/create', label: t.nav.create,      icon: IconCreate },
-    { href: '/leaderboard',        label: t.nav.leaderboard, icon: IconLeaderboard },
-    { href: '/profile',            label: t.nav.profile,     icon: IconProfile },
+    { href: '/',                label: t.nav.home,        icon: IconHome },
+    { href: '/signals',         label: t.nav.signals,     icon: IconTrending },
+    { href: '/leaderboard',     label: t.nav.leaderboard, icon: IconLeaderboard },
+    { href: '/profile',         label: t.nav.profile,     icon: IconProfile },
   ]
 
   return (
