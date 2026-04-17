@@ -1,0 +1,952 @@
+[
+  {
+    "id": 1,
+    "title": "Signal 2035 — Fin du cash",
+    "hypothesis": "Les paiements en espèces deviendront minoritaires",
+    "category": "finance",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Adoption massive du mobile money", "Pression des fintechs", "Politiques cashless"],
+      "no": ["Résistance culturelle", "Exclusion numérique", "Économie informelle"]
+    },
+    "status": "ready",
+    "day": 1
+  },
+  {
+    "id": 2,
+    "title": "Signal 2030 — Travail indépendant",
+    "hypothesis": "Le travail indépendant dépassera 40% des actifs",
+    "category": "finance",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Plateformes numériques", "Flexibilité recherchée", "Pression économique"],
+      "no": ["Besoin de stabilité", "Protection sociale insuffisante", "Régulation du travail"]
+    },
+    "status": "ready",
+    "day": 2
+  },
+  {
+    "id": 3,
+    "title": "Signal 2035 — Pôle tech africain",
+    "hypothesis": "L'Afrique deviendra un pôle technologique majeur",
+    "category": "tech",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Démographie jeune", "Investissements croissants", "Écosystème startup dynamique"],
+      "no": ["Infrastructures insuffisantes", "Fuite des talents", "Instabilité politique"]
+    },
+    "status": "ready",
+    "day": 3
+  },
+  {
+    "id": 4,
+    "title": "Signal 2035 — Télétravail dominant",
+    "hypothesis": "Le télétravail restera le mode dominant dans 10 ans",
+    "category": "society",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Productivité prouvée", "Économie de coûts", "Préférence générationnelle"],
+      "no": ["Besoin de lien social", "Management inadapté", "Inégalité d'accès"]
+    },
+    "status": "ready",
+    "day": 4
+  },
+  {
+    "id": 5,
+    "title": "Signal 2030 — Monnaies numériques publiques",
+    "hypothesis": "Les CBDC remplaceront partiellement le cash",
+    "category": "finance",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Technologie & Pouvoir",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Volonté des banques centrales", "Traçabilité fiscale", "Innovation monétaire"],
+      "no": ["Résistance populaire", "Risque de surveillance", "Complexité technique"]
+    },
+    "status": "ready",
+    "day": 5
+  },
+  {
+    "id": 6,
+    "title": "Signal 2035 — Prix du logement",
+    "hypothesis": "Le prix du logement baissera durablement dans les grandes villes",
+    "category": "finance",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": "Données insuffisantes",
+    "silent": false,
+    "reasons": {
+      "yes": ["Télétravail et exode urbain", "Politiques de logement", "Démographie décroissante"],
+      "no": ["Rareté foncière", "Inflation durable", "Investissement refuge"]
+    },
+    "status": "ready",
+    "day": 6
+  },
+  {
+    "id": 7,
+    "title": "Signal 2035 — Capital PME africaines",
+    "hypothesis": "Les PME africaines accéderont plus facilement au capital",
+    "category": "business",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": true,
+    "reasons": {
+      "yes": ["Fintech africaine", "Investisseurs internationaux", "Intégration régionale"],
+      "no": ["Risque perçu élevé", "Régulation fragmentée", "Manque d'infrastructure financière"]
+    },
+    "status": "ready",
+    "day": 7
+  },
+  {
+    "id": 8,
+    "title": "Signal 2030 — Plateformes comme employeurs",
+    "hypothesis": "Les plateformes numériques deviendront les principaux employeurs",
+    "category": "tech",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Technologie & Pouvoir",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Croissance de la gig economy", "Coûts réduits", "Flexibilité"],
+      "no": ["Régulation du travail", "Mouvement syndical", "Précarité croissante"]
+    },
+    "status": "ready",
+    "day": 8
+  },
+  {
+    "id": 9,
+    "title": "Signal 2030 — Renouveau du commerce local",
+    "hypothesis": "Le commerce local connaîtra un renouveau durable",
+    "category": "society",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "faible",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Conscience écologique", "Proximité valorisée", "Circuit court tendance"],
+      "no": ["Domination du e-commerce", "Prix moins compétitifs", "Habitudes ancrées"]
+    },
+    "status": "ready",
+    "day": 9
+  },
+  {
+    "id": 10,
+    "title": "Signal 2040 — Intégration économique panafricaine",
+    "hypothesis": "Une intégration économique panafricaine forte émergera",
+    "category": "geopolitics",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["ZLECAf en vigueur", "Volonté politique croissante", "Marché de 1.4 milliard"],
+      "no": ["Fragmentation politique", "Barrières logistiques", "Diversité réglementaire"]
+    },
+    "status": "ready",
+    "day": 10
+  },
+  {
+    "id": 11,
+    "title": "Signal 2030 — Automatisation administrative",
+    "hypothesis": "L'IA remplacera 30% des tâches administratives",
+    "category": "tech",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Technologie & Pouvoir",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Évolution technologique rapide", "Pression économique", "Gains de productivité"],
+      "no": ["Résistance organisationnelle", "Complexité des processus", "Régulation protectrice"]
+    },
+    "status": "ready",
+    "day": 11
+  },
+  {
+    "id": 12,
+    "title": "Signal 2040 — Fin des smartphones",
+    "hypothesis": "Les smartphones seront remplacés par un nouveau paradigme",
+    "category": "tech",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "civilisationnel",
+    "doubt": "Hypothèse fragile",
+    "silent": false,
+    "reasons": {
+      "yes": ["Réalité augmentée mature", "Interfaces neurales", "Lassitude des écrans"],
+      "no": ["Inertie industrielle", "Coût de transition", "Adoption progressive"]
+    },
+    "status": "ready",
+    "day": 12
+  },
+  {
+    "id": 13,
+    "title": "Signal 2035 — IA obligatoire à l'école",
+    "hypothesis": "L'IA deviendra un outil obligatoire dans l'enseignement",
+    "category": "education",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Technologie & Pouvoir",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Personnalisation pédagogique", "Pression économique", "Adoption rapide"],
+      "no": ["Résistance syndicale", "Fracture numérique", "Éthique éducative"]
+    },
+    "status": "ready",
+    "day": 13
+  },
+  {
+    "id": 14,
+    "title": "Signal 2035 — Véhicules autonomes urbains",
+    "hypothesis": "Les véhicules autonomes domineront les grandes villes",
+    "category": "tech",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": "Données insuffisantes",
+    "silent": false,
+    "reasons": {
+      "yes": ["Progrès technologique", "Sécurité routière", "Investissements massifs"],
+      "no": ["Cadre juridique absent", "Infrastructure inadaptée", "Acceptabilité sociale"]
+    },
+    "status": "ready",
+    "day": 14
+  },
+  {
+    "id": 15,
+    "title": "Signal 2030 — Cybersécurité priorité n°1",
+    "hypothesis": "La cybersécurité deviendra la priorité stratégique n°1 des États",
+    "category": "geopolitics",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Technologie & Pouvoir",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Cyberattaques croissantes", "Dépendance numérique", "Souveraineté menacée"],
+      "no": ["Budgets limités", "Priorités concurrentes", "Complexité technique"]
+    },
+    "status": "ready",
+    "day": 15
+  },
+  {
+    "id": 16,
+    "title": "Signal 2030 — Assistants IA personnels permanents",
+    "hypothesis": "Les assistants IA deviendront personnels et permanents",
+    "category": "tech",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Progrès IA rapide", "Utilité quotidienne prouvée", "Investissements massifs"],
+      "no": ["Vie privée menacée", "Dépendance technologique", "Coût d'accès"]
+    },
+    "status": "ready",
+    "day": 16
+  },
+  {
+    "id": 17,
+    "title": "Signal 2035 — Fin des écrans classiques",
+    "hypothesis": "La réalité augmentée remplacera les écrans classiques",
+    "category": "tech",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "civilisationnel",
+    "doubt": "Hypothèse fragile",
+    "silent": false,
+    "reasons": {
+      "yes": ["Lunettes AR matures", "Immersion supérieure", "Industrie en accélération"],
+      "no": ["Confort visuel", "Prix prohibitif", "Habitudes bien ancrées"]
+    },
+    "status": "ready",
+    "day": 17
+  },
+  {
+    "id": 18,
+    "title": "Signal 2040 — Survie des réseaux sociaux actuels",
+    "hypothesis": "Les réseaux sociaux actuels n'existeront plus dans 15 ans",
+    "category": "society",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Fatigue des utilisateurs", "Régulation croissante", "Nouveaux paradigmes"],
+      "no": ["Effet de réseau puissant", "Diversification", "Monopole économique"]
+    },
+    "status": "ready",
+    "day": 18
+  },
+  {
+    "id": 19,
+    "title": "Signal 2030 — Données personnelles rémunérées",
+    "hypothesis": "Les données personnelles deviendront un actif rémunéré",
+    "category": "tech",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Technologie & Pouvoir",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Pression réglementaire", "Modèles économiques émergents", "Conscience citoyenne"],
+      "no": ["Lobbying tech", "Complexité technique", "Acceptation passive"]
+    },
+    "status": "ready",
+    "day": 19
+  },
+  {
+    "id": 20,
+    "title": "Signal 2035 — Cloud africain indépendant",
+    "hypothesis": "Les infrastructures cloud africaines deviendront indépendantes",
+    "category": "tech",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Souveraineté numérique", "Investissements locaux", "Demande croissante"],
+      "no": ["Domination AWS/Azure/GCP", "Coût d'infrastructure", "Dépendance technologique"]
+    },
+    "status": "ready",
+    "day": 20
+  },
+  {
+    "id": 21,
+    "title": "Signal 2040 — Diplôme universitaire obsolète",
+    "hypothesis": "Le diplôme universitaire ne sera plus indispensable",
+    "category": "education",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Votre futur personnel",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Compétences > diplômes", "Formation en ligne", "Recrutement par portfolio"],
+      "no": ["Signal social persistant", "Régulation des professions", "Inertie institutionnelle"]
+    },
+    "status": "ready",
+    "day": 21
+  },
+  {
+    "id": 22,
+    "title": "Signal 2030 — Renouveau des villes moyennes",
+    "hypothesis": "Les villes moyennes connaîtront un renouveau durable",
+    "category": "housing",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "faible",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Télétravail", "Qualité de vie", "Coût immobilier"],
+      "no": ["Emplois concentrés en métropole", "Services limités", "Attractivité culturelle"]
+    },
+    "status": "ready",
+    "day": 22
+  },
+  {
+    "id": 23,
+    "title": "Signal 2030 — Travail hybride norme définitive",
+    "hypothesis": "Le travail hybride deviendra la norme définitive",
+    "category": "work",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Préférence unanime", "Productivité maintenue", "Économies immobilières"],
+      "no": ["Retour au bureau forcé", "Culture managériale", "Inégalités d'accès"]
+    },
+    "status": "ready",
+    "day": 23
+  },
+  {
+    "id": 24,
+    "title": "Signal 2035 — Génération investisseuse",
+    "hypothesis": "Les jeunes générations investiront davantage que leurs aînés",
+    "category": "finance",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Votre futur personnel",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Fintechs accessibles", "Culture financière digitale", "Méfiance envers le salariat"],
+      "no": ["Précarité économique", "Crises répétées", "Consommation prioritaire"]
+    },
+    "status": "ready",
+    "day": 24
+  },
+  {
+    "id": 25,
+    "title": "Signal 2035 — Mobilité internationale restreinte",
+    "hypothesis": "La mobilité internationale deviendra plus restreinte",
+    "category": "geopolitics",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Tensions géopolitiques", "Protectionnisme", "Sécurité sanitaire"],
+      "no": ["Globalisation irréversible", "Besoins économiques", "Accords bilatéraux"]
+    },
+    "status": "ready",
+    "day": 25
+  },
+  {
+    "id": 26,
+    "title": "Signal 2040 — Natalité africaine",
+    "hypothesis": "La natalité africaine restera en forte croissance",
+    "category": "society",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Transition démographique lente", "Culture familiale", "Urbanisation progressive"],
+      "no": ["Éducation des femmes", "Urbanisation rapide", "Accès à la contraception"]
+    },
+    "status": "ready",
+    "day": 26
+  },
+  {
+    "id": 27,
+    "title": "Signal 2030 — Contrôle numérique étatique",
+    "hypothesis": "Les États renforceront le contrôle numérique",
+    "category": "geopolitics",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Technologie & Pouvoir",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Sécurité nationale", "Fiscalité numérique", "Précédents chinois"],
+      "no": ["Résistance citoyenne", "Innovation bridée", "Complexité technique"]
+    },
+    "status": "ready",
+    "day": 27
+  },
+  {
+    "id": 28,
+    "title": "Signal 2030 — Stabilité vs croissance",
+    "hypothesis": "Les citoyens privilégieront la stabilité à la croissance",
+    "category": "society",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": true,
+    "reasons": {
+      "yes": ["Fatigue post-crise", "Valeurs décroissantes", "Sécurité prioritaire"],
+      "no": ["Ambition intacte", "Entrepreneuriat", "Compétition mondiale"]
+    },
+    "status": "ready",
+    "day": 28
+  },
+  {
+    "id": 29,
+    "title": "Signal 2035 — Éducation en ligne dominante",
+    "hypothesis": "L'éducation en ligne dominera l'enseignement traditionnel",
+    "category": "education",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Accessibilité globale", "Coût réduit", "Personnalisation IA"],
+      "no": ["Socialisation nécessaire", "Qualité variable", "Fracture numérique"]
+    },
+    "status": "ready",
+    "day": 29
+  },
+  {
+    "id": 30,
+    "title": "Signal 2030 — Confiance médiatique en déclin",
+    "hypothesis": "La confiance dans les médias traditionnels continuera de baisser",
+    "category": "society",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Désinformation croissante", "Alternatives numériques", "Polarisation"],
+      "no": ["Régulation des fakes", "Journalisme de qualité", "Besoin de vérité"]
+    },
+    "status": "ready",
+    "day": 30
+  },
+  {
+    "id": 31,
+    "title": "Signal 2040 — Monnaie numérique panafricaine",
+    "hypothesis": "Une monnaie numérique panafricaine émergera",
+    "category": "crypto",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "civilisationnel",
+    "doubt": "Hypothèse fragile",
+    "silent": false,
+    "reasons": {
+      "yes": ["Intégration ZLECAf", "Précédent e-Naira", "Souveraineté monétaire"],
+      "no": ["Fragmentation politique", "Résistance CFA", "Complexité technique"]
+    },
+    "status": "ready",
+    "day": 31
+  },
+  {
+    "id": 32,
+    "title": "Signal 2035 — 1 milliard d'internautes africains",
+    "hypothesis": "Le continent atteindra 1 milliard d'internautes en 10 ans",
+    "category": "tech",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Démographie + smartphones", "Investissements télécoms", "Starlink et satellites"],
+      "no": ["Électrification insuffisante", "Coût des données", "Zones rurales isolées"]
+    },
+    "status": "ready",
+    "day": 32
+  },
+  {
+    "id": 33,
+    "title": "Signal 2035 — 100 licornes africaines",
+    "hypothesis": "Les startups africaines dépasseront 100 licornes",
+    "category": "business",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Croissance des marchés", "Talent abondant", "Capital VC en hausse"],
+      "no": ["Marchés fragmentés", "Risque réglementaire", "Exit limités"]
+    },
+    "status": "ready",
+    "day": 33
+  },
+  {
+    "id": 34,
+    "title": "Signal 2035 — Agriculture technologique d'export",
+    "hypothesis": "L'agriculture technologique dominera les exportations africaines",
+    "category": "business",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["AgriTech en croissance", "Terres arables disponibles", "Demande mondiale"],
+      "no": ["Changement climatique", "Infrastructures logistiques", "Concurrence mondiale"]
+    },
+    "status": "ready",
+    "day": 34
+  },
+  {
+    "id": 35,
+    "title": "Signal 2035 — Énergies renouvelables majoritaires en Afrique",
+    "hypothesis": "Les énergies renouvelables deviendront majoritaires sur le continent",
+    "category": "climate",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": "Données insuffisantes",
+    "silent": false,
+    "reasons": {
+      "yes": ["Potentiel solaire immense", "Investissements verts", "Leapfrog énergétique"],
+      "no": ["Fossiles encore dominants", "Coût initial élevé", "Réseau de distribution"]
+    },
+    "status": "ready",
+    "day": 35
+  },
+  {
+    "id": 36,
+    "title": "Signal 2040 — Intégration ferroviaire continentale",
+    "hypothesis": "L'intégration ferroviaire continentale progressera significativement",
+    "category": "geopolitics",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": true,
+    "reasons": {
+      "yes": ["Projets BRI chinois", "Intégration économique", "Désenclavement nécessaire"],
+      "no": ["Coûts colossaux", "Instabilité régionale", "Maintenance complexe"]
+    },
+    "status": "ready",
+    "day": 36
+  },
+  {
+    "id": 37,
+    "title": "Signal 2030 — Afrique leader du mobile money mondial",
+    "hypothesis": "L'Afrique deviendra le leader mondial des paiements mobiles",
+    "category": "finance",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["M-Pesa et suiveurs", "Non-bancarisation massive", "Innovation locale"],
+      "no": ["Concurrence asiatique", "Régulation bancaire", "Interopérabilité limitée"]
+    },
+    "status": "ready",
+    "day": 37
+  },
+  {
+    "id": 38,
+    "title": "Signal 2035 — Universités africaines influentes",
+    "hypothesis": "Les universités africaines gagneront en influence mondiale",
+    "category": "education",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Investissements croissants", "Diaspora engagée", "Recherche locale valorisée"],
+      "no": ["Fuite des cerveaux", "Sous-financement chronique", "Rankings biaisés"]
+    },
+    "status": "ready",
+    "day": 38
+  },
+  {
+    "id": 39,
+    "title": "Signal 2030 — Diasporas économiquement centrales",
+    "hypothesis": "Les diasporas joueront un rôle économique central en Afrique",
+    "category": "finance",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Afrique 2040",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Transferts record", "Investissement direct", "Expertise de retour"],
+      "no": ["Déconnexion culturelle", "Cadre fiscal dissuasif", "Instabilité politique"]
+    },
+    "status": "ready",
+    "day": 39
+  },
+  {
+    "id": 40,
+    "title": "Signal 2035 — Hubs tech africains vs Europe",
+    "hypothesis": "Les hubs technologiques africains rivaliseront avec l'Europe",
+    "category": "tech",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Afrique 2040",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Dynamisme entrepreneurial", "Marché intérieur immense", "Talent jeune"],
+      "no": ["Écart d'infrastructure", "Environnement juridique", "Fuite des talents"]
+    },
+    "status": "ready",
+    "day": 40
+  },
+  {
+    "id": 41,
+    "title": "Signal 2035 — Votre domaine professionnel dans 10 ans",
+    "hypothesis": "Vous travaillerez encore dans votre domaine actuel dans 10 ans",
+    "category": "work",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Votre futur personnel",
+    "impact": "faible",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Expertise construite", "Secteur en croissance", "Passion durable"],
+      "no": ["Automatisation du secteur", "Reconversion nécessaire", "Nouvelles opportunités"]
+    },
+    "status": "ready",
+    "day": 41
+  },
+  {
+    "id": 42,
+    "title": "Signal 2040 — Fin de la voiture personnelle",
+    "hypothesis": "Vous n'achèterez plus de voiture personnelle dans 15 ans",
+    "category": "society",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Votre futur personnel",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["MaaS et transport partagé", "Coût total de possession", "Conscience écologique"],
+      "no": ["Liberté de mobilité", "Zones rurales", "Statut social"]
+    },
+    "status": "ready",
+    "day": 42
+  },
+  {
+    "id": 43,
+    "title": "Signal 2030 — Investir davantage en Afrique",
+    "hypothesis": "Vous investirez davantage en Afrique d'ici 5 ans",
+    "category": "finance",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "faible",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Opportunités croissantes", "Lien diaspora", "Rendements attractifs"],
+      "no": ["Risque perçu", "Manque d'information", "Alternatives plus sûres"]
+    },
+    "status": "ready",
+    "day": 43
+  },
+  {
+    "id": 44,
+    "title": "Signal 2035 — Mobilité résidentielle",
+    "hypothesis": "Vous vivrez dans une autre ville dans 10 ans",
+    "category": "housing",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Votre futur personnel",
+    "impact": "faible",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Opportunités professionnelles", "Qualité de vie", "Télétravail libérateur"],
+      "no": ["Racines familiales", "Réseau social local", "Coût de déménagement"]
+    },
+    "status": "ready",
+    "day": 44
+  },
+  {
+    "id": 45,
+    "title": "Signal 2030 — IA dans les décisions quotidiennes",
+    "hypothesis": "L'IA influencera vos décisions quotidiennes",
+    "category": "tech",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Assistants omniprésents", "Recommandations algorithmiques", "Praticité évidente"],
+      "no": ["Méfiance persistante", "Désir d'autonomie", "Complexité des choix humains"]
+    },
+    "status": "ready",
+    "day": 45
+  },
+  {
+    "id": 46,
+    "title": "Signal 2040 — Propriété individuelle minoritaire",
+    "hypothesis": "La propriété individuelle deviendra minoritaire",
+    "category": "housing",
+    "horizon": "2040",
+    "horizonYears": 15,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "civilisationnel",
+    "doubt": "Hypothèse fragile",
+    "silent": false,
+    "reasons": {
+      "yes": ["Prix inaccessibles", "Modèles locatifs", "Mobilité prioritaire"],
+      "no": ["Valeur refuge", "Patrimoine familial", "Aspiration universelle"]
+    },
+    "status": "ready",
+    "day": 46
+  },
+  {
+    "id": 47,
+    "title": "Signal 2030 — Compétences > diplômes",
+    "hypothesis": "Les compétences techniques primeront sur les diplômes",
+    "category": "work",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Recrutement par compétences", "Certifications alternatives", "Tech sans diplôme"],
+      "no": ["Filtrage RH traditionnel", "Signal social du diplôme", "Régulations professionnelles"]
+    },
+    "status": "ready",
+    "day": 47
+  },
+  {
+    "id": 48,
+    "title": "Signal 2035 — Revenu universel",
+    "hypothesis": "Le revenu universel deviendra réalité dans au moins un pays G20",
+    "category": "society",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Automatisation massive", "Expérimentations positives", "Pression sociale"],
+      "no": ["Coût budgétaire", "Opposition politique", "Culture du mérite"]
+    },
+    "status": "ready",
+    "day": 48
+  },
+  {
+    "id": 49,
+    "title": "Signal 2030 — Semaine de 4 jours",
+    "hypothesis": "La semaine de 4 jours deviendra standard dans les économies avancées",
+    "category": "work",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Votre futur personnel",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["Expérimentations réussies", "Productivité maintenue", "Bien-être prioritaire"],
+      "no": ["Résistance patronale", "Secteurs incompatibles", "Compétitivité mondiale"]
+    },
+    "status": "ready",
+    "day": 49
+  },
+  {
+    "id": 50,
+    "title": "Signal 2035 — Santé préventive dominante",
+    "hypothesis": "La santé préventive dominera la médecine curative",
+    "category": "health",
+    "horizon": "2035",
+    "horizonYears": 10,
+    "cycle": "long",
+    "series": "Projection 2035",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "reasons": {
+      "yes": ["IA diagnostic", "Wearables omniprésents", "Économie de santé"],
+      "no": ["Accès inégal", "Culture du curatif", "Lobbying pharmaceutique"]
+    },
+    "status": "ready",
+    "day": 50
+  }
+]
