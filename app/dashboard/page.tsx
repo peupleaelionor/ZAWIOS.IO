@@ -16,10 +16,10 @@ export const metadata: Metadata = {
 
 const recentActivity = [
   { icon: IconUpvote, text: 'You voted Yes on "Will AI surpass human benchmarks by end 2025?"', time: '2 min ago', color: 'var(--teal)' },
-  { icon: IconTrending, text: 'Your prediction on Bitcoin is trending — 9.2K votes', time: '1 hour ago', color: 'var(--accent)' },
+  { icon: IconTrending, text: 'Your signal on Bitcoin is trending — 9.2K votes', time: '1 hour ago', color: 'var(--accent)' },
   { icon: IconTrophy, text: 'You moved up to rank #24 on the global leaderboard', time: '3 hours ago', color: 'var(--amber)' },
-  { icon: IconComment, text: 'New comment on your Fed Funds Rate prediction', time: '5 hours ago', color: 'var(--accent2)' },
-  { icon: IconTarget, text: '"UK general election" resolved — your prediction was correct', time: 'Yesterday', color: 'var(--teal)' },
+  { icon: IconComment, text: 'New comment on your Fed Funds Rate signal', time: '5 hours ago', color: 'var(--accent2)' },
+  { icon: IconTarget, text: '"UK general election" resolved — your signal was correct', time: 'Yesterday', color: 'var(--teal)' },
 ]
 
 export default async function DashboardPage() {
@@ -78,7 +78,7 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
         <StatCard label="Your score" value={userScore} icon={IconTrophy} trend={12} />
         <StatCard label="Accuracy rate" value={userAccuracy} icon={IconTarget} />
-        <StatCard label="Predictions" value={userPredictions} icon={IconTrending} trend={3} />
+        <StatCard label="Signals" value={userPredictions} icon={IconTrending} trend={3} />
         <StatCard label="Global rank" value={userRank} icon={IconUsers} />
       </div>
 
@@ -110,10 +110,10 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* Quick stats + top predictor */}
+        {/* Quick stats + top analyst */}
         <div className="space-y-4">
           <div className="surface rounded-2xl p-6">
-            <p className="text-sm text-[var(--text3)] mb-1">New predictions today</p>
+            <p className="text-sm text-[var(--text3)] mb-1">New signals today</p>
             <p className="text-3xl font-bold text-[var(--text)]" style={{ fontFamily: 'var(--mono)' }}>23</p>
             <Badge variant="success" className="mt-2">+8 today</Badge>
           </div>
@@ -123,7 +123,7 @@ export default async function DashboardPage() {
             <Badge variant="success" className="mt-2">+12% vs yesterday</Badge>
           </div>
           <div className="surface rounded-2xl p-6">
-            <p className="text-sm text-[var(--text3)] mb-3">Top predictor today</p>
+            <p className="text-sm text-[var(--text3)] mb-3">Top analyst today</p>
             <div className="flex items-center gap-3">
               <Avatar src={topPredictor.user.avatar_url} name={topPredictor.user.full_name} size="sm" />
               <div>
@@ -139,7 +139,7 @@ export default async function DashboardPage() {
       <section>
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-lg font-semibold text-[var(--text)]">Trending predictions</h2>
+            <h2 className="text-lg font-semibold text-[var(--text)]">Trending signals</h2>
             <p className="text-sm text-[var(--text3)]">Most active in the last 24 hours</p>
           </div>
           <Link href="/predictions">

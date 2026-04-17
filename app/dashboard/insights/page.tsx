@@ -23,7 +23,7 @@ export default function DashboardInsightsPage() {
     <DashboardLayout>
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-[var(--text)]">My Insights</h1>
-        <p className="text-[var(--text2)] mt-1">Your personal prediction analytics</p>
+        <p className="text-[var(--text2)] mt-1">Your personal signal analytics</p>
       </div>
 
       {/* Personal stats */}
@@ -74,7 +74,7 @@ export default function DashboardInsightsPage() {
           </div>
           <div className="flex items-center justify-between mt-4 pt-4" style={{ borderTop: '1px solid var(--border)' }}>
             <p className="text-sm text-[var(--text2)]">
-              <span className="font-semibold text-[var(--text)]">69</span> correct out of <span className="font-semibold text-[var(--text)]">94</span> predictions
+              <span className="font-semibold text-[var(--text)]">69</span> correct out of <span className="font-semibold text-[var(--text)]">94</span> signals
             </p>
             <Badge variant="success">73% overall</Badge>
           </div>

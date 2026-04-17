@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 }
 
 const creatorFeatures = [
-  { icon: IconTrophy, title: 'Creator badge', description: 'A visible badge on your profile and predictions that signals your commitment to quality analysis.', color: 'var(--teal)' },
-  { icon: IconChart, title: 'Publish analyses', description: 'Write and publish in-depth analyses attached to your predictions. Share your reasoning with the community.', color: 'var(--accent)' },
-  { icon: IconTarget, title: 'Personal dashboard', description: 'A public-facing dashboard that showcases your track record, accuracy, and top predictions.', color: '#22d3ee' },
+  { icon: IconTrophy, title: 'Creator badge', description: 'A visible badge on your profile and signals that shows your commitment to quality analysis.', color: 'var(--teal)' },
+  { icon: IconChart, title: 'Publish analyses', description: 'Write and publish in-depth analyses attached to your signals. Share your reasoning with the community.', color: 'var(--accent)' },
+  { icon: IconTarget, title: 'Personal dashboard', description: 'A public-facing dashboard that showcases your track record, accuracy, and top signals.', color: '#22d3ee' },
   { icon: IconMedal, title: 'Enriched profile', description: 'Enhanced profile with detailed stats, category breakdowns, and visual credibility indicators.', color: 'var(--amber)' },
   { icon: IconTrending, title: 'Featured in rankings', description: 'Get priority placement in category rankings and discovery feeds. More visibility, more credibility.', color: 'var(--teal)' },
   { icon: IconEye, title: 'Detailed credibility stats', description: 'Deep analytics on your credibility: accuracy by category, confidence calibration, and trend lines.', color: '#f472b6' },
-  { icon: IconGlobe, title: 'Shareable profile links', description: 'Clean, branded links to share your profile and predictions on social media and other platforms.', color: '#60a5fa' },
-  { icon: IconUsers, title: 'Priority in search', description: 'Your predictions and profile appear higher in search results and recommendation feeds.', color: 'var(--accent2)' },
+  { icon: IconGlobe, title: 'Shareable profile links', description: 'Clean, branded links to share your profile and signals on social media and other platforms.', color: '#60a5fa' },
+  { icon: IconUsers, title: 'Priority in search', description: 'Your signals and profile appear higher in search results and recommendation feeds.', color: 'var(--accent2)' },
 ]
 
 export default function CreatorPage() {
@@ -40,7 +40,7 @@ export default function CreatorPage() {
             </Badge>
 
             <h1 className="text-4xl md:text-5xl font-bold text-[var(--text)] leading-tight mb-6">
-              Your predictions deserve<br />
+              Your signals deserve<br />
               <span className="gradient-text">an audience</span>
             </h1>
             <p className="text-lg text-[var(--text2)] max-w-xl mx-auto leading-relaxed mb-8">
@@ -134,7 +134,7 @@ export default function CreatorPage() {
 
                 <div className="grid grid-cols-4 gap-4 p-4 rounded-xl" style={{ background: 'var(--surface2)' }}>
                   {[
-                    { value: '342', label: 'Predictions', color: 'var(--text)' },
+                    { value: '342', label: 'Signals', color: 'var(--text)' },
                     { value: '78%', label: 'Accuracy', color: 'var(--teal)' },
                     { value: '#12', label: 'Global rank', color: 'var(--text)' },
                     { value: '4,210', label: 'Score', color: 'var(--accent)' },

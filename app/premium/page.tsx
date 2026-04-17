@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 }
 
 const premiumFeatures = [
-  { icon: IconDatabase, title: 'Full prediction history', description: 'Access your complete track record — every prediction, every outcome, every detail. No 30-day limit.', color: 'var(--accent)' },
-  { icon: IconChart, title: 'Advanced accuracy analytics', description: 'Deep breakdowns of your accuracy by category, time period, prediction type, and confidence level.', color: 'var(--teal)' },
-  { icon: IconTarget, title: 'Category & period filters', description: 'Slice and filter predictions by topic, date range, accuracy threshold, and more.', color: 'var(--amber)' },
-  { icon: IconZap, title: 'Smart alerts', description: 'Get notified when predictions you follow are trending, resolving, or shifting in crowd sentiment.', color: '#fb923c' },
+  { icon: IconDatabase, title: 'Full signal history', description: 'Access your complete track record — every signal, every outcome, every detail. No 30-day limit.', color: 'var(--accent)' },
+  { icon: IconChart, title: 'Advanced accuracy analytics', description: 'Deep breakdowns of your accuracy by category, time period, signal type, and confidence level.', color: 'var(--teal)' },
+  { icon: IconTarget, title: 'Category & period filters', description: 'Slice and filter signals by topic, date range, accuracy threshold, and more.', color: 'var(--amber)' },
+  { icon: IconZap, title: 'Smart alerts', description: 'Get notified when signals you follow are trending, resolving, or shifting in crowd sentiment.', color: '#fb923c' },
   { icon: IconTrending, title: 'Crowd trend analysis', description: 'See how crowd opinion evolves over time. Spot shifts before they become obvious.', color: 'var(--teal)' },
-  { icon: IconUsers, title: 'Compare with top predictors', description: 'Benchmark your performance against the leaderboard. See where you lead and where you can improve.', color: '#f472b6' },
-  { icon: IconEye, title: 'CSV export', description: 'Export your prediction data for personal analysis or to share with others.', color: '#60a5fa' },
-  { icon: IconMedal, title: 'Premium badge', description: 'A visible mark on your profile that signals commitment to serious prediction and analysis.', color: 'var(--accent2)' },
+  { icon: IconUsers, title: 'Compare with top analysts', description: 'Benchmark your performance against the leaderboard. See where you lead and where you can improve.', color: '#f472b6' },
+  { icon: IconEye, title: 'CSV export', description: 'Export your signal data for personal analysis or to share with others.', color: '#60a5fa' },
+  { icon: IconMedal, title: 'Premium badge', description: 'A visible mark on your profile that shows commitment to serious analysis.', color: 'var(--accent2)' },
 ]
 
 export default function PremiumPage() {
@@ -45,7 +45,7 @@ export default function PremiumPage() {
             </h1>
             <p className="text-lg text-[var(--text2)] max-w-xl mx-auto leading-relaxed mb-8">
               Premium unlocks the full depth of ZAWIOS — complete history, advanced analytics,
-              crowd trends, and tools that let you go deeper into every prediction.
+              crowd trends, and tools that let you go deeper into every signal.
             </p>
 
             <div className="flex items-center justify-center gap-2 mb-4">
@@ -79,7 +79,7 @@ export default function PremiumPage() {
                 Everything you get with Premium
               </h2>
               <p className="text-[var(--text2)] max-w-md mx-auto">
-                More depth, more clarity, more signal. Every feature is designed to make you a better predictor.
+                More depth, more clarity, more signal. Every feature is designed to make you a better analyst.
               </p>
             </div>
 
@@ -117,9 +117,9 @@ export default function PremiumPage() {
                 ))}
               </div>
               <p className="text-[var(--text2)] italic text-lg">
-                &ldquo;Premium changed how I approach predictions. The analytics alone are worth it.&rdquo;
+                &ldquo;Premium changed how I approach signals. The analytics alone are worth it.&rdquo;
               </p>
-              <p className="text-sm text-[var(--text3)] mt-2" style={{ fontFamily: 'var(--mono)' }}>— Top 50 predictor</p>
+              <p className="text-sm text-[var(--text3)] mt-2" style={{ fontFamily: 'var(--mono)' }}>— Top 50 analyst</p>
             </div>
           </div>
         </section>

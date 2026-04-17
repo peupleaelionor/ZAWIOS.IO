@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!profile) return { title: 'Profile not found' }
   return {
     title: `${profile.full_name} (@${profile.username})`,
-    description: profile.bio || `${profile.full_name}'s prediction profile on ZAWIOS`,
+    description: profile.bio || `${profile.full_name}'s signal profile on ZAWIOS`,
   }
 }
 
@@ -83,7 +83,7 @@ export default async function ProfilePage({ params }: Props) {
                   {[
                     { icon: IconAward, label: 'Score', value: formatNumber(leaderboardEntry.score), color: 'var(--amber)' },
                     { icon: IconTarget, label: 'Accuracy', value: `${leaderboardEntry.accuracy_rate}%`, color: leaderboardEntry.accuracy_rate >= 70 ? 'var(--teal)' : 'var(--text2)' },
-                    { icon: IconTrending, label: 'Predictions', value: String(leaderboardEntry.prediction_count), color: 'var(--accent2)' },
+                    { icon: IconTrending, label: 'Signals', value: String(leaderboardEntry.prediction_count), color: 'var(--accent2)' },
                     { icon: IconTrophy, label: 'Global rank', value: `#${leaderboardEntry.rank}`, color: 'var(--accent)' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between">
@@ -101,11 +101,11 @@ export default async function ProfilePage({ params }: Props) {
             )}
           </div>
 
-          {/* ── Predictions ─────────────────────────────── */}
+          {/* ── Signals ─────────────────────────────────── */}
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-semibold text-[var(--text)]" style={{ letterSpacing: '-0.01em' }}>
-                Predictions
+                Signals
               </h2>
               {userPredictions.length > 0 && (
                 <span className="text-sm text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
@@ -128,7 +128,7 @@ export default async function ProfilePage({ params }: Props) {
                 >
                   <IconTrending size={22} />
                 </div>
-                <p className="text-sm text-[var(--text3)]">No predictions yet</p>
+                <p className="text-sm text-[var(--text3)]">No signals yet</p>
               </div>
             )}
           </div>

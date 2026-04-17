@@ -238,10 +238,10 @@ body {
 .scrollbar-none::-webkit-scrollbar { display: none; }
 
 /* ─── Container ── */
-.container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 20px; }
-@media (min-width: 640px)  { .container { padding: 0 32px; } }
-@media (min-width: 1024px) { .container { padding: 0 48px; } }
-@media (min-width: 1280px) { .container { padding: 0 56px; } }
+.container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 16px; }
+@media (min-width: 640px)  { .container { padding: 0 24px; } }
+@media (min-width: 1024px) { .container { padding: 0 32px; } }
+@media (min-width: 1280px) { .container { padding: 0 48px; } }
 
 /* ─── Typographie sophistiquée ── */
 .display-xl {
@@ -525,7 +525,10 @@ body {
 }
 
 /* ─── Touch targets ── */
-@media (pointer: coarse) { .touch-target { min-height: 44px; min-width: 44px; } }
+@media (pointer: coarse) {
+  .touch-target { min-height: 44px; min-width: 44px; }
+  nav a, nav button { min-height: 44px; }
+}
 
 /* ─── Code ── */
 code, pre {

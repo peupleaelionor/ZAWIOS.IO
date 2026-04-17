@@ -65,9 +65,9 @@ function AdminPageContent() {
         setProposalText('')
         toast.success(
           action === 'approve'
-            ? 'Prediction approved'
+            ? 'Signal approved'
             : action === 'reject'
-              ? 'Prediction rejected'
+              ? 'Signal rejected'
               : 'Edit suggestion sent',
         )
       } else {
@@ -105,7 +105,7 @@ function AdminPageContent() {
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <StatCard label="Total users" value={PLATFORM_STATS.total_users} icon={IconUsers} trend={8} />
-          <StatCard label="Total predictions" value={PLATFORM_STATS.total_predictions} icon={IconTrending} trend={15} />
+          <StatCard label="Total signals" value={PLATFORM_STATS.total_predictions} icon={IconTrending} trend={15} />
           <StatCard label="Total votes" value={PLATFORM_STATS.total_votes} icon={IconChart} trend={22} />
           <StatCard label="Resolved today" value={12} icon={IconCheck} trend={4} />
         </div>

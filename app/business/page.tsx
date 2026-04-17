@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 }
 
 const businessFeatures = [
-  { icon: IconTarget, title: 'Private team dashboard', description: 'A dedicated workspace for your team to track predictions, monitor trends, and collaborate on insights.', color: 'var(--teal)' },
+  { icon: IconTarget, title: 'Private team dashboard', description: 'A dedicated workspace for your team to track signals, monitor trends, and collaborate on insights.', color: 'var(--teal)' },
   { icon: IconChart, title: 'Weekly & monthly reports', description: 'Automated reports with aggregated signals, accuracy trends, and category-level analysis delivered to your inbox.', color: 'var(--accent)' },
   { icon: IconTrending, title: 'Aggregated category insights', description: 'See aggregated crowd sentiment and accuracy data across any category — finance, tech, politics, and more.', color: 'var(--accent2)' },
   { icon: IconDatabase, title: 'API access', description: 'Programmatic access to ZAWIOS data for integration into your existing tools, dashboards, and workflows.', color: '#22d3ee' },
   { icon: IconShield, title: 'Anonymized cohort data', description: 'Access aggregated, anonymized data sets to identify patterns and signals without compromising privacy.', color: 'var(--amber)' },
   { icon: IconGlobe, title: 'Market & community signals', description: 'Real-time signals from the ZAWIOS community — crowd confidence shifts, emerging trends, and consensus data.', color: '#f472b6' },
-  { icon: IconUsers, title: 'Multi-user workspace', description: 'Invite team members to collaborate. Share dashboards, annotate predictions, and track team accuracy.', color: '#60a5fa' },
+  { icon: IconUsers, title: 'Multi-user workspace', description: 'Invite team members to collaborate. Share dashboards, annotate signals, and track team accuracy.', color: '#60a5fa' },
   { icon: IconShield, title: 'Dedicated support', description: 'Priority support with a dedicated account manager for onboarding, integration, and custom needs.', color: 'var(--accent2)' },
 ]
 

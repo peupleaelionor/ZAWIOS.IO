@@ -8,7 +8,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Learn about ZAWIOS — the collective intelligence platform for predictions and reputation.',
+  description: 'Learn about ZAWIOS — the collective intelligence platform for signals and reputation.',
 }
 
 export default function AboutPage() {
@@ -26,7 +26,7 @@ export default function AboutPage() {
               Intelligence is collective. <br />Reputation should be verifiable.
             </h1>
             <p className="text-lg text-[var(--text2)] leading-relaxed">
-              ZAWIOS was built on one premise: aggregating many independent perspectives produces better forecasts
+              ZAWIOS was built on one premise: aggregating many independent perspectives produces better projections
               than any single analyst. We built the platform to measure that — and to recognize the people who get it right, consistently.
             </p>
           </div>
@@ -40,7 +40,7 @@ export default function AboutPage() {
                 {
                   icon: <IconGlobe className="w-6 h-6" size={24} />,
                   title: 'Open & Global',
-                  description: 'No gatekeepers. Predictors from 94 countries participate on equal terms. The best ideas win, regardless of credential or location.',
+                  description: 'No gatekeepers. Analysts from 94 countries participate on equal terms. The best ideas win, regardless of credential or location.',
                 },
                 {
                   icon: <IconTarget className="w-6 h-6" size={24} />,
@@ -74,16 +74,16 @@ export default function AboutPage() {
             <h2 className="text-2xl font-bold text-[var(--text)] mb-6">The story</h2>
             <div className="space-y-4 text-[var(--text2)] leading-relaxed">
               <p>
-                ZAWIOS started from a frustration: the most valuable forecasting insights were reserved for expensive
+                ZAWIOS started from a frustration: the most valuable analytical insights were reserved for expensive
                 research reports, proprietary models, and private networks. Meanwhile, millions of informed people
                 had accurate intuitions about the world — and no way to prove it.
               </p>
               <p>
                 We built ZAWIOS to fix that. A platform where anyone can take a position, compete on accuracy,
-                and build a verified track record. No money, no bets — just public predictions and a score that reflects reality.
+                and build a verified track record. No money, no bets — just public signals and a score that reflects reality.
               </p>
               <p>
-                We believe that collective intelligence, properly structured and measured, produces better forecasts
+                We believe that collective intelligence, properly structured and measured, produces better projections
                 than any single expert. And we believe that the people who are consistently right deserve recognition.
               </p>
             </div>

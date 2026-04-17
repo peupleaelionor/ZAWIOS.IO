@@ -9,7 +9,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Classement',
-  description: 'Les meilleurs prévisionnistes ZAWIOS classés par précision.',
+  description: 'Les meilleurs analystes ZAWIOS classés par précision.',
 }
 
 const rankColors = ['var(--warn)', 'var(--text2)', '#A0724A']
@@ -34,10 +34,10 @@ export default function LeaderboardPage() {
               className="text-2xl md:text-3xl font-bold mb-2"
               style={{ color: 'var(--text)', letterSpacing: '-0.025em' }}
             >
-              Top prévisionnistes
+              Top analystes
             </h1>
             <p className="text-sm" style={{ color: 'var(--text3)' }}>
-              Classés par précision de prédiction.
+              Classés par précision des signaux.
             </p>
 
             {/* Stats */}
@@ -48,7 +48,7 @@ export default function LeaderboardPage() {
               {[
                 { icon: IconUsers,   value: formatNumber(PLATFORM_STATS.total_users),       label: 'analystes' },
                 { icon: IconChart,   value: `${PLATFORM_STATS.avg_accuracy}%`,              label: 'précision moy.' },
-                { icon: IconTrending, value: formatNumber(PLATFORM_STATS.total_predictions), label: 'prédictions' },
+                { icon: IconTrending, value: formatNumber(PLATFORM_STATS.total_predictions), label: 'signaux' },
               ].map((s) => (
                 <div key={s.label} className="flex items-center gap-1.5">
                   <s.icon size={12} style={{ color: 'var(--text3)' }} />
@@ -155,7 +155,7 @@ export default function LeaderboardPage() {
             className="text-center mt-5"
             style={{ fontSize: '11px', color: 'var(--text3)', fontFamily: 'var(--mono)' }}
           >
-            Classement mis à jour en continu · basé sur la précision et le volume de prédictions
+            Classement mis à jour en continu · basé sur la précision et le volume de signaux
           </p>
         </div>
       </main>

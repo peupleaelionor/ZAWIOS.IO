@@ -178,10 +178,10 @@ export default function DashboardSettingsPage() {
           <h2 className="font-semibold text-[var(--text)] mb-6">Notifications</h2>
           <div className="space-y-4">
             {[
-              { label: 'Prediction resolved', description: 'When a prediction you voted on is resolved', defaultChecked: true },
-              { label: 'New predictions', description: 'Weekly digest of trending predictions', defaultChecked: true },
+              { label: 'Signal resolved', description: 'When a signal you voted on is resolved', defaultChecked: true },
+              { label: 'New signals', description: 'Weekly digest of trending signals', defaultChecked: true },
               { label: 'Rank changes', description: 'When your global rank changes', defaultChecked: false },
-              { label: 'Comments', description: 'When someone comments on your predictions', defaultChecked: true },
+              { label: 'Comments', description: 'When someone comments on your signals', defaultChecked: true },
             ].map((notif) => (
               <div key={notif.label} className="flex items-start justify-between">
                 <div>

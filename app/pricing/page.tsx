@@ -219,16 +219,16 @@ export default function PricingPage() {
                 </thead>
                 <tbody>
                   {[
-                    { feature: 'Vote on predictions', tiers: [true, true, true, true] },
+                    { feature: 'Vote on signals', tiers: [true, true, true, true] },
                     { feature: 'Public profile', tiers: [true, true, true, true] },
                     { feature: 'Leaderboard', tiers: [true, true, true, true] },
                     { feature: 'Community access', tiers: [true, true, true, true] },
-                    { feature: 'Prediction history', tiers: ['30 days', 'Full', 'Full', 'Full'] },
+                    { feature: 'Signal history', tiers: ['30 days', 'Full', 'Full', 'Full'] },
                     { feature: 'Advanced analytics', tiers: [false, true, true, true] },
                     { feature: 'Category filters', tiers: [false, true, true, true] },
                     { feature: 'Custom alerts', tiers: [false, true, true, true] },
                     { feature: 'Crowd trends', tiers: [false, true, true, true] },
-                    { feature: 'Compare predictors', tiers: [false, true, true, true] },
+                    { feature: 'Compare analysts', tiers: [false, true, true, true] },
                     { feature: 'CSV export', tiers: [false, 'Limited', 'Full', 'Full'] },
                     { feature: 'Premium badge', tiers: [false, true, true, true] },
                     { feature: 'Enriched profile', tiers: [false, false, true, true] },
@@ -326,7 +326,7 @@ export default function PricingPage() {
                   },
                   {
                     q: 'Is this gambling?',
-                    a: 'No. ZAWIOS is a reputation and intelligence platform. There is no real money wagering, no tokens, no wallets, and no speculative mechanisms. Your predictions build your reputation — not your balance.',
+                    a: 'No. ZAWIOS is a reputation and intelligence platform. There is no real money wagering, no tokens, no wallets, and no speculative mechanisms. Your signals build your reputation — not your balance.',
                   },
                   {
                     q: 'What payment methods do you accept?',
@@ -334,7 +334,7 @@ export default function PricingPage() {
                   },
                   {
                     q: 'What happens to my data if I downgrade?',
-                    a: 'Your data is never deleted. If you downgrade, you simply lose access to premium features — but your history, predictions, and reputation score remain intact.',
+                    a: 'Your data is never deleted. If you downgrade, you simply lose access to premium features — but your history, signals, and reputation score remain intact.',
                   },
                 ].map((faq) => (
                   <div key={faq.q} className="surface rounded-xl p-6">
