@@ -215,7 +215,7 @@ export function WorldViewSection() {
               className="mt-3 text-[9px] text-[var(--text3)] opacity-60"
               style={{ fontFamily: 'var(--mono)' }}
             >
-              {t.worldView.privacyNote.replace('·', ',').replace('·', ',')}
+              {t.worldView.safetyNote}
             </p>
           </div>
 

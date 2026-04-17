@@ -41,7 +41,8 @@ export const copy = {
 
     /* ── Hero ── */
     hero: {
-      title: "Vote sur l'actualité. Compare avec ton monde.",
+      titleLine1: "Vote sur l'actualité.",
+      titleLine2: 'Compare avec ton monde.',
       titleAccent: 'Compare avec ton monde.',
       subtitle:
         'Un signal collectif, structuré. Tu votes, tu expliques, tu observes les écarts.',
@@ -255,7 +256,8 @@ export const copy = {
 
     /* ── Hero ── */
     hero: {
-      title: 'Vote on what matters. Compare with your world.',
+      titleLine1: 'Vote on what matters.',
+      titleLine2: 'Compare with your world.',
       titleAccent: 'Compare with your world.',
       subtitle:
         'Structured collective signal. Vote, explain, and observe differences.',

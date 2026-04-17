@@ -58,9 +58,9 @@ export function HeroSection() {
               color: 'var(--text)',
             }}
           >
-            {t.hero.title.replace(t.hero.titleAccent, '')}
+            {t.hero.titleLine1}
             <br />
-            <span style={{ color: 'var(--accent)' }}>{t.hero.titleAccent}</span>
+            <span style={{ color: 'var(--accent)' }}>{t.hero.titleLine2}</span>
           </h1>
 
           <p
