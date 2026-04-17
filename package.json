@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "organize-assets": "node scripts/organize-assets.js"
+    "organize-assets": "node scripts/organize-assets.js",
+    "icons:gen": "node scripts/generate-icons.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
