@@ -94,7 +94,7 @@ export default function RootLayout({
         <meta name="color-scheme" content="light dark" />
         <link rel="manifest" href="/manifest.webmanifest" />
         {/* Anti-flash: set theme before first paint */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('zawios-theme')||(window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t)}catch(e){}})()` }} />
+        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('zawios-theme')||'light';document.documentElement.setAttribute('data-theme',t)}catch(e){}})()` }} />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
@@ -102,7 +102,7 @@ export default function RootLayout({
         {/* Plausible — single global script, no duplicates */}
         <Script
           defer
-          data-domain="zawios.netlify.app"
+          data-domain="zawios.io"
           src="https://plausible.io/js/script.js"
           strategy="afterInteractive"
         />
