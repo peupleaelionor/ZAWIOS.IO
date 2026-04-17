@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button'
 import { IconArrows } from '@/components/ui/icons'
 import { SignalCard } from '@/components/signals/signal-card'
 import { getTrendingSignals } from '@/lib/signals-data'
+import { useLanguage } from '@/components/providers/language-provider'
 
 export function HeroSection() {
   const heroSignal = getTrendingSignals(1)[0]
+  const { t } = useLanguage()
 
   return (
     <section className="relative pt-16 pb-6 md:pt-24 md:pb-10">
@@ -44,7 +46,7 @@ export function HeroSection() {
               className="text-[10px] font-semibold uppercase tracking-widest"
               style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}
             >
-              47 000 actifs · 94 pays
+              {t.hero.liveIndicator}
             </span>
           </div>
 
@@ -56,27 +58,27 @@ export function HeroSection() {
               color: 'var(--text)',
             }}
           >
-            Vote. Compare.
+            {t.hero.title.replace(t.hero.titleAccent, '')}
             <br />
-            <span style={{ color: 'var(--accent)' }}>Prédit l&apos;avenir.</span>
+            <span style={{ color: 'var(--accent)' }}>{t.hero.titleAccent}</span>
           </h1>
 
           <p
             className="text-sm md:text-base mb-7 leading-relaxed max-w-sm mx-auto"
             style={{ color: 'var(--text2)' }}
           >
-            Intelligence collective mondiale. Construis ta réputation sur la précision de tes prédictions.
+            {t.hero.subtitle}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/onboarding" className="w-full sm:w-auto">
               <Button size="lg" className="w-full sm:w-auto gap-2 px-7">
-                Commencer gratuitement <IconArrows size={15} />
+                {t.hero.cta} <IconArrows size={15} />
               </Button>
             </Link>
             <Link href="#feed" className="w-full sm:w-auto">
               <Button variant="outline" size="lg" className="w-full sm:w-auto px-7">
-                Voir les signaux
+                {t.hero.ctaSecondary}
               </Button>
             </Link>
           </div>
@@ -89,7 +91,7 @@ export function HeroSection() {
               className="section-label mb-3 justify-center"
               style={{ justifyContent: 'center' }}
             >
-              Signal du moment
+              {t.hero.featuredSignal}
             </p>
             <SignalCard signal={heroSignal} />
           </div>

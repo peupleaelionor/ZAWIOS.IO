@@ -14,6 +14,7 @@ import { Avatar } from '@/components/ui/avatar'
 import { IconTrending, IconCheck } from '@/components/ui/icons'
 import { WorldViewComparison } from '@/components/signals/world-view-comparison'
 import { MiniAvis } from '@/components/signals/mini-avis'
+import { useLanguage } from '@/components/providers/language-provider'
 
 export type TriVote = 'yes' | 'neutral' | 'no'
 
@@ -30,14 +31,6 @@ const getCategoryLabel = (id: string) =>
 const getRegionLabel = (id: string) =>
   SIGNAL_REGIONS.find((r) => r.id === id)?.labelFr ?? id
 
-const VOTE_FEEDBACK: Record<string, string> = {
-  'yes-majority': 'Aligné avec la majorité.',
-  'yes-minority': 'Contre la majorité.',
-  'no-majority': 'Aligné avec la majorité.',
-  'no-minority': 'Contre la majorité.',
-  'neutral': 'Abstention comptabilisée.',
-}
-
 export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCardProps) {
   const [voted, setVoted] = useState<TriVote | null>(null)
   const [yesPercent, setYesPercent] = useState(signal.yesPercent)
@@ -45,6 +38,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
   const [neutralPercent] = useState(Math.round(signal.totalVotes * 0.08 / (signal.totalVotes || 1) * 100) || 8)
   const isResolved = signal.status === 'resolved'
   const catStyle = CATEGORY_COLORS[signal.category]
+  const { t } = useLanguage()
 
   const handleVote = (choice: TriVote) => {
     if (voted || isResolved) return
@@ -64,11 +58,19 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
         ? (yesPercent > 50 ? 'yes-majority' : 'yes-minority')
         : (noPercent > 50 ? 'no-majority' : 'no-minority')
 
+    const feedbackMap: Record<string, string> = {
+      'yes-majority': t.vote.alignedMajority,
+      'yes-minority': t.vote.againstMajority,
+      'no-majority': t.vote.alignedMajority,
+      'no-minority': t.vote.againstMajority,
+      'neutral': t.vote.abstentionCounted,
+    }
+
     toast.success(
-      choice === 'yes' ? 'Signal YES enregistré'
-      : choice === 'neutral' ? 'Signal NEUTRE enregistré'
-      : 'Signal NO enregistré',
-      { description: VOTE_FEEDBACK[feedbackKey] },
+      choice === 'yes' ? t.vote.toastYes
+      : choice === 'neutral' ? t.vote.toastNeutral
+      : t.vote.toastNo,
+      { description: feedbackMap[feedbackKey] },
     )
   }
 
@@ -133,7 +135,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 color: 'var(--win)',
               }}
             >
-              Résolu
+              {t.signal.resolved}
             </span>
           )}
         </div>
@@ -170,7 +172,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               className="text-[9px] text-[var(--text3)] uppercase tracking-wider block mb-0.5"
               style={{ fontFamily: 'var(--mono)' }}
             >
-              Prédiction foule
+              {t.signal.crowdSignal}
             </span>
                 <span
                   className={cn(
@@ -179,7 +181,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                   )}
                   style={{ fontFamily: 'var(--mono)' }}
                 >
-                  {signal.yesPercent > 50 ? 'YES' : 'NO'}{' '}
+                  {signal.yesPercent > 50 ? t.vote.yes.toUpperCase() : t.vote.no.toUpperCase()}{' '}
                   <span className="text-xs font-normal text-[var(--text3)]">
                     {Math.max(signal.yesPercent, signal.noPercent)}%
                   </span>
@@ -190,7 +192,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               className="text-[9px] text-[var(--text3)] uppercase tracking-wider block mb-0.5"
               style={{ fontFamily: 'var(--mono)' }}
             >
-              Résultat réel
+              {t.signal.actualResult}
             </span>
             <span
               className={cn(
@@ -201,7 +203,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               )}
               style={{ fontFamily: 'var(--mono)' }}
             >
-              {signal.resolvedResult ? 'VRAI' : 'FAUX'}
+              {signal.resolvedResult ? t.signal.true : t.signal.false}
             </span>
           </div>
         </div>
@@ -219,7 +221,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               >
                 {yesPercent}%
               </span>
-              <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--yes)', opacity: 0.7 }}>YES</span>
+              <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--yes)', opacity: 0.7 }}>{t.vote.yes.toUpperCase()}</span>
             </div>
             <div className="flex items-baseline gap-1">
               <span className="text-[13px] font-medium" style={{ fontFamily: 'var(--mono)', color: 'var(--text3)', lineHeight: 1 }}>{neutralPercent}%</span>
@@ -232,7 +234,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               >
                 {noPercent}%
               </span>
-              <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--no)', opacity: 0.6 }}>NO</span>
+              <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--no)', opacity: 0.6 }}>{t.vote.no.toUpperCase()}</span>
             </div>
           </div>
 
@@ -265,11 +267,11 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             />
           </div>
 
-          {/* YES / NEUTRE / NO buttons + vote count */}
+          {/* Vote buttons + vote count */}
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-1.5 text-[10px] text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
               <IconTrending size={10} className="w-2.5 h-2.5 shrink-0" />
-              {formatNumber(signal.totalVotes)} votes
+              {formatNumber(signal.totalVotes)} {t.signal.votes}
             </div>
 
             <div className="flex items-center gap-2">
@@ -292,7 +294,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                   boxShadow: voted === 'yes' ? '0 0 14px rgba(20,200,190,0.25)' : 'none',
                 }}
               >
-                YES
+                {t.vote.yes.toUpperCase()}
               </button>
               <button
                 onClick={() => handleVote('neutral')}
@@ -325,7 +327,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                   boxShadow: voted === 'no' ? '0 0 14px rgba(240,64,78,0.2)' : 'none',
                 }}
               >
-                NO
+                {t.vote.no.toUpperCase()}
               </button>
             </div>
           </div>
@@ -340,7 +342,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                   border: '1px solid var(--border2)',
                 }}
               >
-                <span className="text-[var(--text2)]">Tu as voté </span>
+                <span className="text-[var(--text2)]">{t.vote.youVoted} </span>
                 <span
                   className="font-bold"
                   style={{
@@ -349,15 +351,15 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                          : 'var(--text)',
                   }}
                 >
-                  {voted === 'yes' ? 'YES' : voted === 'neutral' ? 'NEUTRE' : 'NO'}
+                  {voted === 'yes' ? t.vote.yes.toUpperCase() : voted === 'neutral' ? t.vote.neutral.toUpperCase() : t.vote.no.toUpperCase()}
                 </span>
                 <span className="text-[var(--text3)]">
                   {' — '}
                   {voted === 'neutral'
-                    ? 'Abstention comptabilisée.'
+                    ? t.vote.abstentionCounted
                     : (voted === 'yes' && yesPercent > 50) || (voted === 'no' && noPercent > 50)
-                      ? 'Aligné avec la majorité.'
-                      : 'Contre la majorité.'}
+                      ? t.vote.alignedMajority
+                      : t.vote.againstMajority}
                 </span>
               </div>
               {signal.regionalBreakdown && (
@@ -373,7 +375,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                     color: '#fff',
                   }}
                 >
-                  Suivant →
+                  {t.vote.next} →
                 </button>
               )}
             </div>
@@ -409,7 +411,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             style={{ fontFamily: 'var(--mono)', color: 'var(--accent2)' }}
           >
             <IconTrending size={10} className="w-2.5 h-2.5" />
-            trending
+            {t.signal.trending}
           </span>
         )}
       </div>

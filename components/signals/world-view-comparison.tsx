@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { type RegionalBreakdown } from '@/lib/signals-data'
 import { IconRegion } from '@/components/ui/icons'
+import { useLanguage } from '@/components/providers/language-provider'
 
 interface WorldViewComparisonProps {
   breakdown: RegionalBreakdown
@@ -31,11 +32,12 @@ export function WorldViewComparison({
 }: WorldViewComparisonProps) {
   const [showCompare, setShowCompare] = useState(false)
   const regions = showCompare ? [...SAFE_REGIONS, ...COMPARE_REGIONS] : SAFE_REGIONS
+  const { t } = useLanguage()
 
   // Compute divergence label
   const vals = [breakdown.global, breakdown.africa, breakdown.france, breakdown.europe, breakdown.usa]
   const spread = Math.max(...vals) - Math.min(...vals)
-  const divergenceLabel = spread < 10 ? 'consensus' : spread < 20 ? 'écart modéré' : 'divergence'
+  const divergenceLabel = spread < 10 ? t.worldView.consensus : spread < 20 ? t.worldView.moderateGap : t.worldView.divergence
 
   return (
     <div
@@ -49,10 +51,10 @@ export function WorldViewComparison({
           className="text-[10px] font-bold text-[var(--teal)] uppercase tracking-wider"
           style={{ fontFamily: 'var(--mono)' }}
         >
-          World View
+          {t.worldView.title}
         </span>
         <span className="text-[10px] text-[var(--text3)] ml-auto" style={{ fontFamily: 'var(--mono)' }}>
-          % YES par région
+          {t.worldView.yesPerRegion}
         </span>
       </div>
 
@@ -82,7 +84,7 @@ export function WorldViewComparison({
                   {label}
                   {isUser && (
                     <span className="ml-1 text-[9px] text-[var(--teal)] opacity-70">
-                      ← toi
+                      ← {t.worldView.you}
                     </span>
                   )}
                 </span>
@@ -129,7 +131,7 @@ export function WorldViewComparison({
             className="text-[10px] font-semibold text-[var(--text3)] hover:text-[var(--teal)] transition-colors"
             style={{ fontFamily: 'var(--mono)' }}
           >
-            Comparer Afrique / Europe / USA →
+            {t.worldView.ctaOptIn} →
           </button>
         </div>
       )}
@@ -140,9 +142,9 @@ export function WorldViewComparison({
           <span
             className={cn(
               'text-[9px] px-2 py-0.5 rounded-full font-semibold',
-              divergenceLabel === 'consensus'
+              divergenceLabel === t.worldView.consensus
                 ? 'bg-[var(--teal)]/10 text-[var(--teal)]'
-                : divergenceLabel === 'divergence'
+                : divergenceLabel === t.worldView.divergence
                   ? 'bg-[var(--amber)]/10 text-[var(--amber)]'
                   : 'bg-[var(--accent)]/10 text-[var(--accent)]',
             )}
@@ -156,7 +158,7 @@ export function WorldViewComparison({
       {/* Footer note */}
       <div className="px-4 py-2 border-t border-[var(--border)]">
         <p className="text-[9px] text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
-          Données agrégées · anonymes · indicatives
+          {t.worldView.privacyNote}
         </p>
       </div>
     </div>
