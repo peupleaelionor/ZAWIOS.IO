@@ -1,6 +1,8 @@
 // ZAWIOS SVG Icon System — Zero emojis, all custom inline SVG
 // Consistent 24x24 viewBox, strokeWidth 1.5, currentColor
 
+import Image from 'next/image'
+
 interface IconProps {
   className?: string
   size?: number
@@ -309,18 +311,17 @@ export function IconMark({
 }
 
 /**
- * IconLogo — ZAWIOS mark rendered as an <img> from the canonical SVG.
+ * IconLogo — ZAWIOS mark rendered from the canonical SVG.
  * Used in dashboard sidebar, auth pages, etc.
  */
 export function IconLogo({ className, size = 32, style }: IconProps) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src="/brand/logo/zawios-mark.svg"
       alt=""
       width={size}
       height={size}
-      aria-hidden="true"
+      aria-hidden
       className={className}
       style={{ display: 'block', ...style }}
     />

@@ -39,13 +39,12 @@ export function LogoTiny({ className, style }: LogoProps) {
 // ── Mono mark — uses currentColor for dynamic theming ───────────────────────
 export function LogoMono({ className, style }: LogoProps) {
   return (
-    // eslint-disable-next-line @next/next/no-img-element
-    <img
+    <Image
       src="/brand/logo/zawios-mark-mono.svg"
       alt=""
       width={64}
       height={64}
-      aria-hidden="true"
+      aria-hidden
       className={className}
       style={{ display: 'block', ...style }}
     />

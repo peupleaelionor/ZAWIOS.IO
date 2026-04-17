@@ -19,12 +19,17 @@ const exports = [
 ];
 
 for (const e of exports) {
-  const buf = fs.readFileSync(e.input);
-  await sharp(buf, { density: 300 })
-    .resize(e.size, e.size, { fit: "contain" })
-    .png({ compressionLevel: 9 })
-    .toFile(path.join(outDir, e.out));
-  console.log("✓", e.out);
+  try {
+    const buf = fs.readFileSync(e.input);
+    await sharp(buf, { density: 300 })
+      .resize(e.size, e.size, { fit: "contain" })
+      .png({ compressionLevel: 9 })
+      .toFile(path.join(outDir, e.out));
+    console.log("✓", e.out);
+  } catch (err) {
+    console.error(`✗ Failed to generate ${e.out} from ${e.input}:`, err.message);
+    process.exit(1);
+  }
 }
 
 console.log("\nDone. Update metadata/manifest to use /icons/*.png");
