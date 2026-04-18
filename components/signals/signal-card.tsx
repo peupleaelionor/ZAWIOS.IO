@@ -391,8 +391,9 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               <GreyZoneOption
                 selected={tooEarly}
                 onSelect={() => {
-                  setTooEarly(!tooEarly)
-                  if (!tooEarly) {
+                  const wasNotSelected = !tooEarly
+                  setTooEarly(wasNotSelected)
+                  if (wasNotSelected) {
                     handleVote('neutral')
                     toast.info('Signal enregistré : Trop tôt pour conclure', {
                       description: 'Votre réserve est comptabilisée.',
