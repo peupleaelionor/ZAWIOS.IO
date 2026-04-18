@@ -29,7 +29,7 @@ export const brand = {
     /* Texte */
     textStrong: '#0F172A',
     textMuted:  '#64748B',
-    textSubtle: '#94A3B8',
+    textSubtle: '#64748B',
 
     /* Sémantique */
     positive: '#1EC88A',

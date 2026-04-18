@@ -19,16 +19,16 @@
   --border2:  #CBD5E1;
   --border3:  #94A3B8;
 
-  /* ZAWIOS Royal Blue propriétaire */
-  --primary:       #1D4ED8;
-  --primary-hover: #1E40AF;
-  --primary-deep:  #1E3A8A;
-  --primary-soft:  #DBEAFE;
+  /* ZAWIOS Royal Signal Blue — propriétaire (#1C39BB source: brand.ts) */
+  --primary:       #1C39BB;
+  --primary-hover: #142C8E;
+  --primary-deep:  #0E1F6B;
+  --primary-soft:  #E6EBFF;
 
   /* Accent secondaire */
-  --accent:   #2563EB;
-  --accent2:  #3B82F6;
-  --accent3:  #DBEAFE;
+  --accent:   #3A86FF;
+  --accent2:  #5B9DFF;
+  --accent3:  #DDEEFF;
 
   /* Texte — jamais noir pur #000000 */
   --text-strong:  #0F172A;
@@ -70,7 +70,7 @@
   --amber:     var(--warn);
   --blue:      var(--primary);
   --violet2:   var(--accent);
-  --accent-glow: rgba(29, 78, 216, 0.10);
+  --accent-glow: rgba(28, 57, 187, 0.10);
 
   /* Tailwind aliases */
   --foreground:           var(--text-strong);
@@ -334,6 +334,14 @@ h3, .h3 {
   height: 1px;
   background: var(--primary);
   opacity: 0.5;
+}
+
+/* ─── Gradient text (brand accent) ─── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 /* ─── Motion system ─── */

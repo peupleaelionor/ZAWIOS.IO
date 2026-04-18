@@ -7,7 +7,7 @@
  *
  * Palette:
  *   Blanc profond: #FFFFFF → #F8FAFC → #F1F5F9
- *   Royal Blue propriétaire: #1E3A8A → #1D4ED8 → #2563EB
+ *   Royal Signal Blue propriétaire: #0E1F6B → #1C39BB → #3A86FF
  *   Texte principal: #0F172A (jamais #000000)
  *   Texte secondaire: #64748B
  *   Jamais : noir pur, bleu flashy, rouge agressif
@@ -29,29 +29,29 @@ export const colors = {
   /* ── Text (accent léger, jamais noir pur) ── */
   text: '#0F172A',
   text2: '#64748B',
-  text3: '#94A3B8',
+  text3: '#64748B',
 
-  /* ── Royal Blue propriétaire ── */
-  royalBlueDark: '#1E3A8A',
-  royalBlue: '#1D4ED8',
-  royalBlueLight: '#2563EB',
-  royalBlueSoft: '#DBEAFE',
+  /* ── Royal Signal Blue propriétaire (source: brand.ts #1C39BB) ── */
+  royalBlueDark: '#0E1F6B',
+  royalBlue: '#1C39BB',
+  royalBlueLight: '#3A86FF',
+  royalBlueSoft: '#E6EBFF',
 
-  /* ── Brand accents (mapped to Royal Blue) ── */
-  accent: '#1D4ED8',
-  accent2: '#2563EB',
-  accent3: '#DBEAFE',
+  /* ── Brand accents ── */
+  accent: '#3A86FF',
+  accent2: '#5B9DFF',
+  accent3: '#DDEEFF',
   teal: '#1EC88A',
   teal2: '#17A98F',
 
   /* ── Semantic ── */
   zred: '#E5484D',
   amber: '#D97706',
-  blue: '#1D4ED8',
+  blue: '#1C39BB',
   success: '#1EC88A',
   warning: '#D97706',
   danger: '#E5484D',
-  info: '#1D4ED8',
+  info: '#1C39BB',
 } as const
 
 /** CSS variable reference helpers (for inline styles) */

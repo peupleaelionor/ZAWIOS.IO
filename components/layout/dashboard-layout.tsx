@@ -1,7 +1,8 @@
 'use client'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { IconLogo, IconTrending, IconChart, IconTrophy, IconUsers, IconPlus, IconTarget, IconSettings, IconSignOut } from '@/components/ui/icons'
+import { LogoLockup } from '@/components/ui/logo'
+import { IconTrending, IconChart, IconTrophy, IconUsers, IconPlus, IconTarget, IconSettings, IconSignOut } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 import { createClient } from '@/lib/supabase/client'
 
@@ -33,8 +34,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Sidebar */}
       <aside className="hidden lg:flex flex-col w-64 fixed inset-y-0 z-30 glass" style={{ borderRight: '1px solid var(--border)' }}>
         <div className="flex items-center gap-2.5 h-16 px-6" style={{ borderBottom: '1px solid var(--border)' }}>
-          <IconLogo size={28} />
-          <span className="tracking-tighter text-white" style={{ fontFamily: 'var(--font)', fontWeight: 800, fontSize: '1.2rem', letterSpacing: '-0.02em' }}>ZAWIOS</span>
+          <Link href="/" aria-label="ZAWIOS — Accueil">
+            <LogoLockup className="text-base" />
+          </Link>
         </div>
 
         <nav className="flex-1 px-4 py-4 space-y-1">
