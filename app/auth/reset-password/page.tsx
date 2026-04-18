@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { IconLogo } from '@/components/ui/icons'
+import { LogoLockup } from '@/components/ui/logo'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/supabase/client'
@@ -43,9 +43,8 @@ export default function ResetPasswordPage() {
     <div className="min-h-screen bg-[var(--bg)] flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2.5 font-bold text-lg">
-            <IconLogo size={32} />
-            <span className="gradient-text tracking-tight">ZAWIOS</span>
+          <Link href="/" className="inline-flex items-center gap-2.5 font-bold text-lg" aria-label="ZAWIOS — Accueil">
+            <LogoLockup className="text-lg" />
           </Link>
           <h1 className="mt-7 text-2xl font-bold text-[var(--text)]" style={{ letterSpacing: '-0.01em' }}>
             Set new password

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FEF3C7"/>
+      <stop offset="100%" stop-color="#D6D3D1"/>
+    </linearGradient>
+    <linearGradient id="house" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#92400E"/>
+    </linearGradient>
+    <linearGradient id="wall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E7E5E4"/>
+    </linearGradient>
+    <linearGradient id="key" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- House 1 (main, center) -->
+  <polygon points="400,80 540,180 260,180" fill="url(#house)"/>
+  <rect x="290" y="180" width="220" height="160" fill="url(#wall)"/>
+  <!-- Door -->
+  <rect x="370" y="250" width="60" height="90" rx="4" fill="#92400E" fill-opacity="0.6"/>
+  <circle cx="420" cy="300" r="4" fill="url(#key)"/>
+  <!-- Windows -->
+  <rect x="305" y="210" width="45" height="40" rx="3" fill="#3A86FF" fill-opacity="0.3"/>
+  <rect x="450" y="210" width="45" height="40" rx="3" fill="#3A86FF" fill-opacity="0.3"/>
+  <line x1="327" y1="210" x2="327" y2="250" stroke="#F8FAFC" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="305" y1="230" x2="350" y2="230" stroke="#F8FAFC" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="472" y1="210" x2="472" y2="250" stroke="#F8FAFC" stroke-width="2" stroke-opacity="0.5"/>
+  <line x1="450" y1="230" x2="495" y2="230" stroke="#F8FAFC" stroke-width="2" stroke-opacity="0.5"/>
+  <!-- Chimney -->
+  <rect x="460" y="100" width="25" height="50" fill="#78716C"/>
+  <!-- House 2 (left, small) -->
+  <polygon points="120,200 190,160 260,200" fill="#92400E" fill-opacity="0.4"/>
+  <rect x="135" y="200" width="110" height="100" fill="#E7E5E4" fill-opacity="0.6"/>
+  <rect x="170" y="240" width="30" height="60" rx="3" fill="#92400E" fill-opacity="0.3"/>
+  <!-- House 3 (right, small) -->
+  <polygon points="630,190 690,150 750,190" fill="#92400E" fill-opacity="0.4"/>
+  <rect x="645" y="190" width="90" height="90" fill="#E7E5E4" fill-opacity="0.6"/>
+  <rect x="672" y="225" width="25" height="55" rx="3" fill="#92400E" fill-opacity="0.3"/>
+  <!-- Key motif (bottom) -->
+  <circle cx="400" cy="400" r="18" fill="none" stroke="url(#key)" stroke-width="3"/>
+  <line x1="418" y1="400" x2="470" y2="400" stroke="url(#key)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="450" y1="400" x2="450" y2="390" stroke="url(#key)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="460" y1="400" x2="460" y2="390" stroke="url(#key)" stroke-width="3" stroke-linecap="round"/>
+  <line x1="470" y1="400" x2="470" y2="388" stroke="url(#key)" stroke-width="3" stroke-linecap="round"/>
+  <!-- Merge arrows -->
+  <path d="M100 380 L170 360" stroke="#1C39BB" stroke-width="2" stroke-opacity="0.2" stroke-linecap="round"/>
+  <path d="M700 380 L630 360" stroke="#1C39BB" stroke-width="2" stroke-opacity="0.2" stroke-linecap="round"/>
+  <!-- Ground line -->
+  <line x1="60" y1="340" x2="740" y2="340" stroke="#92400E" stroke-width="1" stroke-opacity="0.15"/>
+</svg>

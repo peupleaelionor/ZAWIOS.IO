@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ECFDF5"/>
+      <stop offset="100%" stop-color="#A7F3D0"/>
+    </linearGradient>
+    <linearGradient id="scale" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C39BB"/>
+      <stop offset="100%" stop-color="#3A86FF"/>
+    </linearGradient>
+    <linearGradient id="check" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1EC88A"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Balance/Scale -->
+  <!-- Pillar -->
+  <rect x="390" y="120" width="20" height="220" rx="4" fill="url(#scale)"/>
+  <rect x="370" y="340" width="60" height="12" rx="6" fill="url(#scale)"/>
+  <!-- Beam (slightly tilted to show balance) -->
+  <line x1="220" y1="145" x2="580" y2="125" stroke="#1C39BB" stroke-width="5" stroke-linecap="round"/>
+  <!-- Left pan -->
+  <path d="M180 150 Q200 180 220 150" fill="none" stroke="#1C39BB" stroke-width="3"/>
+  <path d="M180 150 L160 200 Q200 215 240 200 L220 150 Z" fill="#3A86FF" fill-opacity="0.3"/>
+  <line x1="200" y1="145" x2="220" y2="150" stroke="#1C39BB" stroke-width="2"/>
+  <line x1="200" y1="145" x2="180" y2="150" stroke="#1C39BB" stroke-width="2"/>
+  <!-- Right pan -->
+  <path d="M540 130 Q560 160 580 130" fill="none" stroke="#1C39BB" stroke-width="3"/>
+  <path d="M540 130 L520 180 Q560 195 600 180 L580 130 Z" fill="#3A86FF" fill-opacity="0.3"/>
+  <line x1="560" y1="125" x2="580" y2="130" stroke="#1C39BB" stroke-width="2"/>
+  <line x1="560" y1="125" x2="540" y2="130" stroke="#1C39BB" stroke-width="2"/>
+  <!-- Fulcrum triangle -->
+  <polygon points="400,108 385,130 415,130" fill="url(#scale)"/>
+  <!-- Checkmark motifs scattered -->
+  <path d="M120 300 L135 318 L160 285" fill="none" stroke="#1EC88A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="140" cy="300" r="28" fill="none" stroke="#1EC88A" stroke-width="2" stroke-opacity="0.4"/>
+  <path d="M620 280 L635 298 L660 265" fill="none" stroke="#1EC88A" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="640" cy="280" r="28" fill="none" stroke="#1EC88A" stroke-width="2" stroke-opacity="0.4"/>
+  <path d="M370 400 L382 414 L400 388" fill="none" stroke="#1EC88A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.5"/>
+  <!-- Condition dots -->
+  <circle cx="200" cy="230" r="8" fill="url(#check)" fill-opacity="0.3"/>
+  <circle cx="560" cy="210" r="8" fill="url(#check)" fill-opacity="0.3"/>
+  <!-- Decorative lines -->
+  <line x1="50" y1="70" x2="150" y2="70" stroke="#1C39BB" stroke-width="1" stroke-opacity="0.1"/>
+  <line x1="650" y1="380" x2="750" y2="380" stroke="#1C39BB" stroke-width="1" stroke-opacity="0.1"/>
+</svg>

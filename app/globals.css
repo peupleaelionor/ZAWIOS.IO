@@ -19,16 +19,16 @@
   --border2:  #CBD5E1;
   --border3:  #94A3B8;
 
-  /* ZAWIOS Royal Blue propriétaire */
-  --primary:       #1D4ED8;
-  --primary-hover: #1E40AF;
-  --primary-deep:  #1E3A8A;
-  --primary-soft:  #DBEAFE;
+  /* ZAWIOS Royal Signal Blue — propriétaire (#1C39BB source: brand.ts) */
+  --primary:       #1C39BB;
+  --primary-hover: #142C8E;
+  --primary-deep:  #0E1F6B;
+  --primary-soft:  #E6EBFF;
 
   /* Accent secondaire */
-  --accent:   #2563EB;
-  --accent2:  #3B82F6;
-  --accent3:  #DBEAFE;
+  --accent:   #3A86FF;
+  --accent2:  #5B9DFF;
+  --accent3:  #DDEEFF;
 
   /* Texte — jamais noir pur #000000 */
   --text-strong:  #0F172A;
@@ -70,7 +70,7 @@
   --amber:     var(--warn);
   --blue:      var(--primary);
   --violet2:   var(--accent);
-  --accent-glow: rgba(29, 78, 216, 0.10);
+  --accent-glow: rgba(28, 57, 187, 0.10);
 
   /* Tailwind aliases */
   --foreground:           var(--text-strong);
@@ -336,6 +336,14 @@ h3, .h3 {
   opacity: 0.5;
 }
 
+/* ─── Gradient text (brand accent) ─── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 /* ─── Motion system ─── */
 @keyframes revealUp   { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes revealFade { from { opacity: 0; } to { opacity: 1; } }
@@ -482,4 +490,179 @@ h3, .h3 {
   font-size: 14px;
   color: #64748B;
   line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Signal Detail Page — Mobile-first, large text, hero image
+   ═══════════════════════════════════════════════════════════ */
+
+.signal-detail-container {
+  padding-bottom: 48px;
+}
+
+/* Hero image */
+.signal-detail-hero {
+  margin-bottom: 24px;
+}
+.signal-detail-hero-inner {
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface-alt);
+  aspect-ratio: 16 / 9;
+}
+.signal-detail-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Content layout */
+.signal-detail-content {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 0 32px;
+}
+
+/* Title — big, readable, mobile-first */
+.signal-detail-title {
+  font-family: var(--display-font);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--text-strong);
+  font-size: 24px;
+  margin-bottom: 16px;
+}
+@media (min-width: 480px)  { .signal-detail-title { font-size: 28px; } }
+@media (min-width: 640px)  { .signal-detail-title { font-size: 32px; } }
+@media (min-width: 768px)  { .signal-detail-title { font-size: 36px; } }
+@media (min-width: 1024px) { .signal-detail-title { font-size: 40px; } }
+
+/* Description — generous and readable */
+.signal-detail-description {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+@media (min-width: 480px)  { .signal-detail-description { font-size: 17px; } }
+@media (min-width: 768px)  { .signal-detail-description { font-size: 18px; line-height: 1.75; } }
+
+/* Vote card */
+.signal-detail-vote-card {
+  padding: 20px;
+  margin-bottom: 24px;
+}
+@media (min-width: 480px) { .signal-detail-vote-card { padding: 24px; } }
+@media (min-width: 768px) { .signal-detail-vote-card { padding: 32px; } }
+
+/* Vote percentage — large, clear */
+.signal-detail-vote-pct {
+  font-family: var(--mono);
+  font-weight: 700;
+  line-height: 1;
+  font-size: 28px;
+}
+@media (min-width: 480px) { .signal-detail-vote-pct { font-size: 32px; } }
+@media (min-width: 768px) { .signal-detail-vote-pct { font-size: 36px; } }
+
+/* Vote buttons — large touch targets, mobile-first */
+.signal-detail-vote-buttons {
+  display: flex;
+  gap: 12px;
+}
+.signal-detail-vote-btn {
+  flex: 1;
+  min-height: 52px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all var(--dur-fast) ease;
+  font-family: var(--font);
+}
+.signal-detail-vote-btn:active { transform: scale(0.97); }
+.signal-detail-vote-btn:disabled { cursor: default; }
+@media (min-width: 768px) {
+  .signal-detail-vote-btn { min-height: 56px; font-size: 17px; }
+}
+
+/* Section dividers */
+.signal-detail-section {
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+}
+.signal-detail-section-title {
+  font-family: var(--display-font);
+  font-weight: 600;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+  color: var(--text-strong);
+  margin-bottom: 16px;
+}
+@media (min-width: 768px) { .signal-detail-section-title { font-size: 20px; } }
+
+/* Meta info */
+.signal-detail-meta {
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+}
+.signal-detail-meta-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-subtle);
+  margin-bottom: 4px;
+}
+.signal-detail-meta-value {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-strong);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   Enhanced Mobile-First — all smartphones
+   ═══════════════════════════════════════════════════════════ */
+
+/* Small phones (320px-374px) */
+@media (max-width: 374px) {
+  .container { padding: 0 16px; }
+  h1, .h1 { font-size: 24px; }
+  h2, .h2 { font-size: 20px; }
+  .signal-detail-title { font-size: 22px; }
+  .signal-detail-vote-pct { font-size: 24px; }
+  .signal-detail-vote-btn { min-height: 48px; font-size: 15px; }
+  .signal-detail-vote-buttons { gap: 8px; }
+}
+
+/* Standard phones (375px-479px) */
+@media (min-width: 375px) and (max-width: 479px) {
+  .container { padding: 0 20px; }
+}
+
+/* Large phones / phablets (480px-639px) */
+@media (min-width: 480px) and (max-width: 639px) {
+  .container { padding: 0 24px; }
+}
+
+/* Ensure safe-area on modern phones */
+@supports (padding: env(safe-area-inset-left)) {
+  .signal-detail-container {
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+  }
+}
+
+/* Signal card image in feed */
+.signal-card-cover {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px 12px 0 0;
+  display: block;
 }
