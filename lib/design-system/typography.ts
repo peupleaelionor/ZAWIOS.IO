@@ -4,9 +4,9 @@
  * Font: Sora (headings + body) · IBM Plex Mono (data/labels)
  * Tracking: -0.02em · Line height: 1.6 body
  *
- * Never use text smaller than 14px.
  * Never use pure black (#000000).
  * Never use gray below contrast ratio 4.5:1.
+ * Minimum body/meta text: 14px. Section labels (monospace, decorative): 11px allowed.
  */
 
 export const fontFamily = {

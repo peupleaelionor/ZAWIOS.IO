@@ -34,8 +34,12 @@ interface CategoryVoteData {
 // ═══════════════════════════════════════════════════════
 
 /**
- * Compute divergence from percentage: how far from 50/50 split.
- * 50% → 100 (max divergence), 0% or 100% → 0 (consensus).
+ * Compute divergence from yes-percentage.
+ *
+ * A 50/50 split means maximum divergence (opinions are divided = 100).
+ * A 0% or 100% result means full consensus (everyone agrees = 0).
+ *
+ * Formula: (1 - |yesPercent - 50| / 50) × 100
  */
 function computeDivergence(yesPercent: number): number {
   const distance = Math.abs(yesPercent - 50)

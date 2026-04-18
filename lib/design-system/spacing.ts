@@ -55,14 +55,14 @@ export const layout = {
   mobileMaxWidth: '480px',
   borderRadius: '16px',
   cardRadius: '16px',
-  /** Minimum card internal padding */
-  cardPadding: '20px',
+  /** Minimum card internal padding (8px grid: 3 × 8) */
+  cardPadding: '24px',
   /** Minimum gap between cards */
   cardGap: '24px',
   /** Desktop padding */
   desktopPadding: '32px',
-  /** Mobile padding */
-  mobilePadding: '20px',
+  /** Mobile padding (8px grid: 3 × 8) */
+  mobilePadding: '24px',
   /** Grid: 12 columns */
   gridColumns: 12,
 } as const
