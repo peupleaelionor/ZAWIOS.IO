@@ -948,5 +948,245 @@
     },
     "status": "ready",
     "day": 50
+  },
+  {
+    "id": 51,
+    "title": "Signal 2030 — Uniforme scolaire en France",
+    "hypothesis": "L'uniforme scolaire améliorera le climat dans les écoles françaises",
+    "category": "education",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/uniforme-scolaire.svg",
+    "reasons": {
+      "yes": ["Réduction des inégalités visibles", "Moins de harcèlement vestimentaire", "Sentiment d'appartenance"],
+      "no": ["Atteinte à la liberté d'expression", "Coût pour les familles modestes", "Efficacité non prouvée"]
+    },
+    "status": "ready",
+    "day": 51
+  },
+  {
+    "id": 52,
+    "title": "Signal 2030 — RSA : un capital unique plutôt que des mensualités",
+    "hypothesis": "Verser un capital unique de 100 000 € plutôt que le RSA mensuel serait plus efficace pour sortir de la précarité",
+    "category": "finance",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "civilisationnel",
+    "doubt": "Hypothèse fragile",
+    "silent": false,
+    "coverImage": "/assets/signals/rsa-capital.svg",
+    "reasons": {
+      "yes": ["Autonomie immédiate des bénéficiaires", "Investissement possible (logement, formation)", "Fin de la dépendance administrative"],
+      "no": ["Risque de mauvaise gestion", "Coût budgétaire massif", "Absence de filet de sécurité récurrent"]
+    },
+    "status": "ready",
+    "day": 52
+  },
+  {
+    "id": 53,
+    "title": "Signal 2030 — Uniforme professionnel généralisé",
+    "hypothesis": "L'uniforme professionnel généralisé réduirait les inégalités perçues en entreprise",
+    "category": "work",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "faible",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/uniforme-travail.svg",
+    "reasons": {
+      "yes": ["Suppression de la pression vestimentaire", "Identité d'entreprise renforcée", "Économies pour les salariés"],
+      "no": ["Restriction de la personnalité", "Inadapté aux métiers créatifs", "Régression culturelle perçue"]
+    },
+    "status": "ready",
+    "day": 53
+  },
+  {
+    "id": 54,
+    "title": "Signal 2030 — Service National Universel obligatoire",
+    "hypothesis": "Le Service National Universel devrait devenir obligatoire pour tous les jeunes de 18 ans",
+    "category": "society",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/service-national.svg",
+    "reasons": {
+      "yes": ["Cohésion sociale renforcée", "Mixité sociale favorisée", "Engagement citoyen dès le plus jeune âge"],
+      "no": ["Liberté individuelle menacée", "Coût logistique élevé", "Efficacité contestée par les études"]
+    },
+    "status": "ready",
+    "day": 54
+  },
+  {
+    "id": 55,
+    "title": "Signal 2030 — Retour à la retraite à 60 ans",
+    "hypothesis": "La France devrait revenir à la retraite à 60 ans",
+    "category": "work",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/retraite-60.svg",
+    "reasons": {
+      "yes": ["Espérance de vie en bonne santé limitée", "Libérer des postes pour les jeunes", "Bien-être et dignité des seniors"],
+      "no": ["Déficit des caisses de retraite", "Allongement de la durée de vie", "Compétitivité économique en jeu"]
+    },
+    "status": "ready",
+    "day": 55
+  },
+  {
+    "id": 56,
+    "title": "Signal 2030 — Aides sociales conditionnées à une activité",
+    "hypothesis": "Les aides sociales devraient être conditionnées à une activité d'intérêt général",
+    "category": "society",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/aides-conditionnelles.svg",
+    "reasons": {
+      "yes": ["Valorisation du bénéficiaire", "Retour à l'emploi facilité", "Contribution à la collectivité"],
+      "no": ["Stigmatisation des plus fragiles", "Complexité administrative", "Droit inconditionnel à la dignité"]
+    },
+    "status": "ready",
+    "day": 56
+  },
+  {
+    "id": 57,
+    "title": "Signal 2030 — Prime de naissance de 10 000 €",
+    "hypothesis": "Une prime de naissance de 10 000 € par enfant réduirait les inégalités à la naissance",
+    "category": "finance",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/prime-naissance.svg",
+    "reasons": {
+      "yes": ["Soutien concret aux jeunes familles", "Relance démographique", "Réduction de la précarité néonatale"],
+      "no": ["Coût budgétaire massif", "Effet d'aubaine possible", "Ne résout pas les inégalités systémiques"]
+    },
+    "status": "ready",
+    "day": 57
+  },
+  {
+    "id": 58,
+    "title": "Signal 2030 — Transport en commun gratuit en France",
+    "hypothesis": "La gratuité des transports en commun devrait être généralisée dans toutes les villes françaises",
+    "category": "society",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/transport-gratuit.svg",
+    "reasons": {
+      "yes": ["Réduction de la pollution", "Accès universel à la mobilité", "Exemples réussis en Europe"],
+      "no": ["Coût pour les collectivités", "Dégradation du service", "Financement par l'impôt contesté"]
+    },
+    "status": "ready",
+    "day": 58
+  },
+  {
+    "id": 59,
+    "title": "Signal 2030 — Semaine de 32 heures",
+    "hypothesis": "La semaine de 32 heures augmenterait la productivité en France",
+    "category": "work",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/semaine-32h.svg",
+    "reasons": {
+      "yes": ["Bien-être des salariés", "Productivité concentrée", "Répartition du travail"],
+      "no": ["Compétitivité internationale", "Perte de revenus pour les bas salaires", "Secteurs non adaptés"]
+    },
+    "status": "ready",
+    "day": 59
+  },
+  {
+    "id": 60,
+    "title": "Signal 2030 — Capital de 20 000 € à 18 ans",
+    "hypothesis": "Un capital de 20 000 € versé à chaque jeune à 18 ans serait plus efficace que les bourses actuelles",
+    "category": "youth",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "structurel",
+    "doubt": "Données insuffisantes",
+    "silent": false,
+    "coverImage": "/assets/signals/capital-jeune.svg",
+    "reasons": {
+      "yes": ["Autonomie immédiate", "Liberté de choix (études, entreprise, logement)", "Égalité des chances réelle"],
+      "no": ["Risque de dilapidation", "Coût budgétaire considérable", "Inégalité de maturité financière"]
+    },
+    "status": "ready",
+    "day": 60
+  },
+  {
+    "id": 61,
+    "title": "Signal 2030 — Allocation logement unique",
+    "hypothesis": "Fusionner toutes les aides logement en une allocation unique simplifierait et améliorerait le système",
+    "category": "housing",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "structurel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/allocation-logement.svg",
+    "reasons": {
+      "yes": ["Simplification administrative", "Meilleure lisibilité pour les bénéficiaires", "Réduction des non-recours"],
+      "no": ["Risque de perdants dans la fusion", "Complexité de la transition", "Spécificités régionales ignorées"]
+    },
+    "status": "ready",
+    "day": 61
+  },
+  {
+    "id": 62,
+    "title": "Signal 2030 — Congé parental d'un an pour chaque parent",
+    "hypothesis": "Un congé parental d'un an pour chaque parent changerait durablement la société française",
+    "category": "society",
+    "horizon": "2030",
+    "horizonYears": 5,
+    "cycle": "moyen",
+    "series": "Société & Quotidien",
+    "impact": "civilisationnel",
+    "doubt": null,
+    "silent": false,
+    "coverImage": "/assets/signals/conge-parental.svg",
+    "reasons": {
+      "yes": ["Égalité parentale réelle", "Bien-être de l'enfant", "Modèle nordique éprouvé"],
+      "no": ["Coût pour les entreprises et l'État", "Impact sur la carrière", "Refus culturel d'une partie des pères"]
+    },
+    "status": "ready",
+    "day": 62
   }
 ]

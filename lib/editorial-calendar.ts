@@ -45,6 +45,12 @@ export const SERIES = [
     description: 'Gouvernance, souveraineté, contrôle numérique.',
     color: '#F0B429',
   },
+  {
+    id: 'societe-quotidien',
+    name: 'Société & Quotidien',
+    description: 'Questions sociétales qui touchent le quotidien de tous, de 18 à 60 ans.',
+    color: '#E5484D',
+  },
 ] as const
 
 export type SeriesId = (typeof SERIES)[number]['id']
@@ -85,7 +91,7 @@ export function generateEditorialCalendar(
       date: date.toISOString().split('T')[0],
       theme: dayTheme.theme,
       seriesId: dayTheme.seriesId,
-      signalId: i < 50 ? i + 1 : null, // Map to question ID
+      signalId: i < 62 ? i + 1 : null, // Map to question ID (50 original + 12 Société & Quotidien)
     })
   }
   return calendar

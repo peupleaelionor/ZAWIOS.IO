@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { formatNumber } from '@/lib/utils'
@@ -116,65 +118,81 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
         background: 'var(--surface)',
         border: '1px solid var(--border)',
         borderRadius: 'var(--radius)',
-        padding: compact ? '16px' : '20px',
+        padding: 0,
       }}
     >
-      {/* ── HEADER: Minimal metadata ── */}
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div className="flex items-center gap-2 flex-wrap">
-          {/* Category pill — minimal */}
-          <span
-            className="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wide"
-            style={{ 
-              background: 'var(--surface-alt)', 
-              color: 'var(--text-muted)',
-              fontFamily: 'var(--mono)' 
-            }}
-          >
-            {getCategoryLabel(signal.category)}
-          </span>
-          
-          {/* Horizon badge if present */}
-          {signal.horizon && (
+      {/* ── COVER IMAGE (if present) ── */}
+      {!compact && signal.coverImage && (
+        <Link href={`/signals/${signal.id}`} className="block">
+          <Image
+            src={signal.coverImage}
+            alt=""
+            width={400}
+            height={225}
+            className="signal-card-cover"
+          />
+        </Link>
+      )}
+
+      <div style={{ padding: compact ? '16px' : '20px' }}>
+        {/* ── HEADER: Minimal metadata ── */}
+        <div className="flex items-start justify-between gap-3 mb-4">
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Category pill — minimal */}
             <span
-              className="text-[10px] font-semibold uppercase tracking-wide px-2 py-1 rounded-lg"
-              style={{
-                background: 'var(--primary-soft)',
-                color: 'var(--primary)',
-                fontFamily: 'var(--mono)',
+              className="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wide"
+              style={{ 
+                background: 'var(--surface-alt)', 
+                color: 'var(--text-muted)',
+                fontFamily: 'var(--mono)' 
               }}
             >
-              {signal.horizon === 'court' ? '1-3 ans' : signal.horizon === 'moyen' ? '5-10 ans' : '15-30 ans'}
+              {getCategoryLabel(signal.category)}
             </span>
-          )}
+            
+            {/* Horizon badge if present */}
+            {signal.horizon && (
+              <span
+                className="text-[10px] font-semibold uppercase tracking-wide px-2 py-1 rounded-lg"
+                style={{
+                  background: 'var(--primary-soft)',
+                  color: 'var(--primary)',
+                  fontFamily: 'var(--mono)',
+                }}
+              >
+                {signal.horizon === 'court' ? '1-3 ans' : signal.horizon === 'moyen' ? '5-10 ans' : '15-30 ans'}
+              </span>
+            )}
+          </div>
+          
+          {/* Time — subtle */}
+          <span
+            className="text-[10px] whitespace-nowrap shrink-0"
+            style={{ fontFamily: 'var(--mono)', color: 'var(--text-subtle)' }}
+          >
+            {signal.timeAgo}
+          </span>
         </div>
-        
-        {/* Time — subtle */}
-        <span
-          className="text-[10px] whitespace-nowrap shrink-0"
-          style={{ fontFamily: 'var(--mono)', color: 'var(--text-subtle)' }}
-        >
-          {signal.timeAgo}
-        </span>
-      </div>
 
-      {/* ── TITLE: Clear hierarchy ── */}
-      <h3
-        className={cn(
-          'font-bold leading-snug mb-2',
-          compact ? 'text-[15px]' : 'text-[17px]',
+        {/* ── TITLE: Clear hierarchy, links to detail ── */}
+        <Link href={`/signals/${signal.id}`} className="block">
+          <h3
+            className={cn(
+              'font-bold leading-snug mb-2 hover:text-[var(--primary)] transition-colors',
+              compact ? 'text-[15px]' : 'text-[17px]',
+            )}
+            style={{ letterSpacing: '-0.01em', color: 'var(--text-strong)' }}
+          >
+            {signal.title}
+          </h3>
+        </Link>
+
+        {/* ── DESCRIPTION: Subtle ── */}
+        {!compact && signal.description && (
+          <p className="text-[14px] leading-relaxed mb-4 line-clamp-2" style={{ color: 'var(--text-muted)' }}>
+            {signal.description}
+          </p>
         )}
-        style={{ letterSpacing: '-0.01em', color: 'var(--text-strong)' }}
-      >
-        {signal.title}
-      </h3>
-
-      {/* ── DESCRIPTION: Subtle ── */}
-      {!compact && signal.description && (
-        <p className="text-[13px] leading-relaxed mb-4 line-clamp-2" style={{ color: 'var(--text-muted)' }}>
-          {signal.description}
-        </p>
-      )}
 
       {/* ── IMPACT + DOUBT (minimal badges) ── */}
       {!compact && (signal.impactLevel || signal.officialDoubt) && (
@@ -341,6 +359,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
           )}
         </div>
       )}
+      </div>
     </div>
   )
 }
