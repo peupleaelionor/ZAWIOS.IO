@@ -111,131 +111,116 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
 
   return (
     <div
-      className="card-hover relative overflow-hidden flex flex-col"
+      className="card-hover relative overflow-hidden flex flex-col h-full"
       style={{
         background: 'var(--surface)',
-        border: '1px solid var(--border2)',
+        border: '1px solid var(--border)',
         borderRadius: 'var(--radius)',
-        padding: compact ? '14px' : '16px 18px 14px',
+        padding: compact ? '16px' : '20px',
       }}
     >
-      {/* HOT accent line */}
-      {signal.hot && (
-        <div
-          className="absolute top-0 left-0 right-0 h-[1px]"
-          style={{ background: 'linear-gradient(90deg, transparent, var(--accent) 50%, transparent)' }}
-        />
-      )}
-
-      {/* ── Header ── */}
-      <div className="flex items-start justify-between gap-2 mb-3">
-        <div className="flex items-center gap-1.5 flex-wrap">
-          {/* Category pill */}
+      {/* ── HEADER: Minimal metadata ── */}
+      <div className="flex items-start justify-between gap-3 mb-4">
+        <div className="flex items-center gap-2 flex-wrap">
+          {/* Category pill — minimal */}
           <span
-            className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider"
-            style={{ background: catStyle.bg, color: catStyle.text, fontFamily: 'var(--mono)' }}
+            className="inline-flex items-center px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wide"
+            style={{ 
+              background: 'var(--surface-alt)', 
+              color: 'var(--text-muted)',
+              fontFamily: 'var(--mono)' 
+            }}
           >
             {getCategoryLabel(signal.category)}
           </span>
-          {/* Region pill */}
-          <span
-            className="text-[11px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded"
-            style={{
-              fontFamily: 'var(--mono)',
-              background: 'var(--surface3)',
-              color: 'var(--text3)',
-            }}
-          >
-            {getRegionLabel(signal.region)}
-          </span>
-          {/* HOT → Acceleration badge */}
-          {signal.hot && (
-            <AccelerationBadge accelerating={true} />
-          )}
-          {isResolved && (
+          
+          {/* Horizon badge if present */}
+          {signal.horizon && (
             <span
-              className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded"
+              className="text-[10px] font-semibold uppercase tracking-wide px-2 py-1 rounded-lg"
               style={{
+                background: 'var(--primary-soft)',
+                color: 'var(--primary)',
                 fontFamily: 'var(--mono)',
-                background: 'rgba(78,228,154,0.10)',
-                color: 'var(--win)',
               }}
             >
-              {t.signal.resolved}
+              {signal.horizon === 'court' ? '1-3 ans' : signal.horizon === 'moyen' ? '5-10 ans' : '15-30 ans'}
             </span>
           )}
         </div>
+        
+        {/* Time — subtle */}
         <span
-          className="text-[11px] text-[var(--text3)] whitespace-nowrap shrink-0 mt-0.5"
-          style={{ fontFamily: 'var(--mono)' }}
+          className="text-[10px] whitespace-nowrap shrink-0"
+          style={{ fontFamily: 'var(--mono)', color: 'var(--text-subtle)' }}
         >
           {signal.timeAgo}
         </span>
       </div>
 
-      {/* ── Title ── */}
+      {/* ── TITLE: Clear hierarchy ── */}
       <h3
         className={cn(
-          'font-bold text-[var(--text)] leading-snug',
-          compact ? 'text-[15px]' : 'text-base',
+          'font-bold leading-snug mb-2',
+          compact ? 'text-[15px]' : 'text-[17px]',
         )}
-        style={{ letterSpacing: '-0.01em' }}
+        style={{ letterSpacing: '-0.01em', color: 'var(--text-strong)' }}
       >
         {signal.title}
       </h3>
 
+      {/* ── DESCRIPTION: Subtle ── */}
       {!compact && signal.description && (
-        <p className="mt-1.5 text-[13px] text-[var(--text2)] line-clamp-2 leading-relaxed">
+        <p className="text-[13px] leading-relaxed mb-4 line-clamp-2" style={{ color: 'var(--text-muted)' }}>
           {signal.description}
         </p>
       )}
 
-      {/* ── Signal Intelligence: Impact + Doubt badges ── */}
-      {!compact && (
-        <div className="flex items-center gap-1.5 mt-2 flex-wrap">
-          <ImpactBadge level="structurel" />
-          <OfficialDoubtBadge doubt={null} />
+      {/* ── IMPACT + DOUBT (minimal badges) ── */}
+      {!compact && (signal.impactLevel || signal.officialDoubt) && (
+        <div className="flex items-center gap-2 mb-4 flex-wrap">
+          {signal.impactLevel && <ImpactBadge level={signal.impactLevel} />}
+          {signal.officialDoubt && <OfficialDoubtBadge doubt={signal.officialDoubt} />}
         </div>
       )}
 
-      {/* ── Resolved result ── */}
+      {/* ── RESOLVED RESULT ── */}
       {isResolved && signal.resolvedResult !== undefined && (
-        <div className="mt-4 flex items-center gap-4">
+        <div className="mt-4 mb-4 flex items-center gap-4">
           <div>
             <span
-              className="text-[10px] text-[var(--text3)] uppercase tracking-wider block mb-0.5"
+              className="text-[9px] text-[var(--text3)] uppercase tracking-wider block mb-0.5"
               style={{ fontFamily: 'var(--mono)' }}
             >
               {t.signal.crowdSignal}
             </span>
-                <span
-                  className={cn(
-                    'text-sm font-bold',
-                    signal.yesPercent > 50 ? 'text-[var(--yes)]' : 'text-white',
-                  )}
-                  style={{ fontFamily: 'var(--mono)' }}
-                >
-                  {signal.yesPercent > 50 ? t.vote.yes.toUpperCase() : t.vote.no.toUpperCase()}{' '}
-                  <span className="text-xs font-normal text-[var(--text3)]">
-                    {Math.max(signal.yesPercent, signal.noPercent)}%
-                  </span>
-                </span>
+            <span
+              className="text-sm font-bold"
+              style={{ 
+                fontFamily: 'var(--mono)',
+                color: signal.yesPercent > 50 ? 'var(--positive)' : 'var(--negative)'
+              }}
+            >
+              {signal.yesPercent > 50 ? t.vote.yes.toUpperCase() : t.vote.no.toUpperCase()}{' '}
+              <span className="text-xs font-normal text-[var(--text3)]">
+                {Math.max(signal.yesPercent, signal.noPercent)}%
+              </span>
+            </span>
           </div>
           <div>
             <span
-              className="text-[10px] text-[var(--text3)] uppercase tracking-wider block mb-0.5"
+              className="text-[9px] text-[var(--text3)] uppercase tracking-wider block mb-0.5"
               style={{ fontFamily: 'var(--mono)' }}
             >
               {t.signal.actualResult}
             </span>
             <span
-              className={cn(
-                'inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold',
-                signal.resolvedResult
-                  ? 'bg-[var(--win)]/10 text-[var(--win)]'
-                  : 'bg-[var(--no)]/10 text-[var(--no)]',
-              )}
-              style={{ fontFamily: 'var(--mono)' }}
+              className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-bold"
+              style={{
+                background: signal.resolvedResult ? 'rgba(30, 200, 138, 0.1)' : 'rgba(229, 72, 77, 0.1)',
+                color: signal.resolvedResult ? 'var(--positive)' : 'var(--negative)',
+                fontFamily: 'var(--mono)',
+              }}
             >
               {signal.resolvedResult ? t.signal.true : t.signal.false}
             </span>
@@ -243,248 +228,119 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
         </div>
       )}
 
-      {/* ── Active signal: vote section ── */}
+      {/* ── ACTIVE SIGNAL: VOTE SECTION ── */}
       {!isResolved && (
         <div className="mt-auto pt-4">
-          {/* Stats row — tri-state */}
-          <div className="flex items-baseline gap-4 mb-3">
+          {/* Vote stats — clean layout */}
+          <div className="flex items-baseline gap-3 mb-4">
             <div className="flex items-baseline gap-1">
               <span
-                className="text-[22px] font-bold"
-                style={{ fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--yes)' }}
+                className="text-[20px] font-bold"
+                style={{ fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--positive)' }}
               >
                 {yesPercent}%
               </span>
-              <span className="text-[11px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--yes)', opacity: 0.7 }}>{t.vote.yes.toUpperCase()}</span>
+              <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--positive)', opacity: 0.7 }}>
+                OUI
+              </span>
             </div>
             <div className="flex items-baseline gap-1">
-              <span className="text-[13px] font-medium" style={{ fontFamily: 'var(--mono)', color: 'var(--text3)', lineHeight: 1 }}>{neutralPercent}%</span>
-              <span className="text-[11px]" style={{ fontFamily: 'var(--mono)', color: 'var(--text3)' }}>—</span>
+              <span className="text-[12px] font-medium" style={{ fontFamily: 'var(--mono)', color: 'var(--text-subtle)', lineHeight: 1 }}>
+                {neutralPercent}%
+              </span>
+              <span className="text-[10px]" style={{ fontFamily: 'var(--mono)', color: 'var(--text-subtle)' }}>
+                —
+              </span>
             </div>
             <div className="flex items-baseline gap-1">
               <span
-                className="text-[15px] font-semibold"
-                style={{ fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--no)', opacity: 0.75 }}
+                className="text-[20px] font-bold"
+                style={{ fontFamily: 'var(--mono)', lineHeight: 1, color: 'var(--negative)' }}
               >
                 {noPercent}%
               </span>
-              <span className="text-[11px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--no)', opacity: 0.6 }}>{t.vote.no.toUpperCase()}</span>
+              <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--negative)', opacity: 0.7 }}>
+                NON
+              </span>
             </div>
           </div>
 
-          {/* Tri-segment progress bar: teal | gray | light */}
+          {/* Progress bar — clean */}
           <div
-            className="w-full h-1.5 rounded-full overflow-hidden mb-4 flex"
-            style={{ background: 'var(--surface3)' }}
+            className="w-full h-2 rounded-full overflow-hidden mb-4 flex"
+            style={{ background: 'var(--surface-alt)' }}
           >
             <div
               className="h-full transition-all duration-500"
               style={{
                 width: `${yesPercent}%`,
-                background: 'var(--yes)',
-                opacity: voted === 'yes' ? 1 : 0.5,
+                background: 'var(--positive)',
+                opacity: voted === 'yes' ? 1 : 0.6,
                 borderRadius: '9999px 0 0 9999px',
               }}
             />
             <div
               className="h-full transition-all duration-500"
-              style={{ width: `${neutralPercent}%`, background: 'var(--surface3)' }}
-            />
-            <div
-              className="h-full transition-all duration-500"
               style={{
                 width: `${noPercent}%`,
-                background: 'var(--no)',
-                opacity: voted === 'no' ? 1 : 0.4,
+                background: 'var(--negative)',
+                opacity: voted === 'no' ? 1 : 0.6,
                 borderRadius: '0 9999px 9999px 0',
               }}
             />
           </div>
 
-          {/* Vote buttons + vote count */}
-          <div className="flex items-center justify-between gap-3">
-            <div className="flex flex-col gap-1">
-              <div className="flex items-center gap-1.5 text-[11px] text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
-                <IconTrending size={10} className="w-2.5 h-2.5 shrink-0" />
-                {formatNumber(signal.totalVotes)} {t.signal.votes}
-              </div>
-              {/* Divergence gauge */}
-              <DivergenceGauge yesPercent={yesPercent} noPercent={noPercent} />
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => handleVote('yes')}
-                disabled={voted !== null}
-                className={cn(
-                  'min-w-[52px] h-11 rounded-full text-[12px] font-bold transition-all duration-150 flex items-center justify-center',
-                  voted === 'yes'
-                    ? 'scale-105'
-                    : voted === null
-                      ? 'active:scale-95'
-                      : 'opacity-25 cursor-not-allowed',
-                )}
-                style={{
-                  fontFamily: 'var(--mono)',
-                  background: voted === 'yes' ? 'var(--yes)' : 'transparent',
-                  color: voted === 'yes' ? '#fff' : 'var(--yes)',
-                  border: voted === 'yes' ? '2px solid var(--yes)' : '2px solid rgba(20,200,190,0.3)',
-                  boxShadow: voted === 'yes' ? '0 0 14px rgba(20,200,190,0.25)' : 'none',
-                }}
-              >
-                {t.vote.yes.toUpperCase()}
-              </button>
-              <button
-                onClick={() => handleVote('neutral')}
-                disabled={voted !== null}
-                className={cn(
-                  'min-w-[44px] h-11 rounded-full text-[14px] font-bold transition-all duration-150 flex items-center justify-center',
-                  voted === 'neutral' ? 'scale-105' : voted === null ? 'active:scale-95' : 'opacity-25 cursor-not-allowed',
-                )}
-                style={{
-                  fontFamily: 'var(--mono)',
-                  background: voted === 'neutral' ? 'var(--surface3)' : 'transparent',
-                  color: 'var(--text3)',
-                  border: voted === 'neutral' ? '2px solid var(--border3)' : '2px solid var(--border)',
-                }}
-              >
-                —
-              </button>
-              <button
-                onClick={() => handleVote('no')}
-                disabled={voted !== null}
-                className={cn(
-                  'min-w-[52px] h-11 rounded-full text-[12px] font-bold transition-all duration-150 flex items-center justify-center',
-                  voted === 'no' ? 'scale-105' : voted === null ? 'active:scale-95' : 'opacity-25 cursor-not-allowed',
-                )}
-                style={{
-                  fontFamily: 'var(--mono)',
-                  background: voted === 'no' ? 'var(--no)' : 'transparent',
-                  color: voted === 'no' ? '#fff' : 'var(--no)',
-                  border: voted === 'no' ? '2px solid var(--no)' : '2px solid rgba(240,64,78,0.3)',
-                  boxShadow: voted === 'no' ? '0 0 14px rgba(240,64,78,0.2)' : 'none',
-                }}
-              >
-                {t.vote.no.toUpperCase()}
-              </button>
-            </div>
+          {/* Vote buttons — minimal */}
+          <div className="flex gap-2">
+            <button
+              onClick={() => handleVote('yes')}
+              disabled={voted !== null || isResolved}
+              className="flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all"
+              style={{
+                background: voted === 'yes' ? 'var(--positive)' : 'transparent',
+                color: voted === 'yes' ? 'white' : 'var(--positive)',
+                border: `1px solid ${voted === 'yes' ? 'var(--positive)' : 'var(--border)'}`,
+                opacity: voted !== null && voted !== 'yes' ? 0.5 : 1,
+              }}
+            >
+              {t.vote.yes}
+            </button>
+            <button
+              onClick={() => handleVote('neutral')}
+              disabled={voted !== null || isResolved}
+              className="flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all"
+              style={{
+                background: voted === 'neutral' ? 'var(--surface-alt)' : 'transparent',
+                color: 'var(--text-muted)',
+                border: `1px solid ${voted === 'neutral' ? 'var(--border2)' : 'var(--border)'}`,
+                opacity: voted !== null && voted !== 'neutral' ? 0.5 : 1,
+              }}
+            >
+              —
+            </button>
+            <button
+              onClick={() => handleVote('no')}
+              disabled={voted !== null || isResolved}
+              className="flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all"
+              style={{
+                background: voted === 'no' ? 'var(--negative)' : 'transparent',
+                color: voted === 'no' ? 'white' : 'var(--negative)',
+                border: `1px solid ${voted === 'no' ? 'var(--negative)' : 'var(--border)'}`,
+                opacity: voted !== null && voted !== 'no' ? 0.5 : 1,
+              }}
+            >
+              {t.vote.no}
+            </button>
           </div>
 
-          {/* Post-vote feedback + Intelligence layers + World View breakdown + Next */}
-          {voted && (
-            <div className="mt-3 space-y-3">
-              <div
-                className="p-3 rounded-lg text-xs"
-                style={{
-                  background: 'var(--surface2)',
-                  border: '1px solid var(--border2)',
-                }}
-              >
-                <span className="text-[var(--text2)]">{t.vote.youVoted} </span>
-                <span
-                  className="font-bold"
-                  style={{
-                    color: voted === 'yes' ? 'var(--yes)'
-                         : voted === 'neutral' ? 'var(--text3)'
-                         : 'var(--no)',
-                  }}
-                >
-                  {voted === 'yes' ? t.vote.yes.toUpperCase() : voted === 'neutral' ? t.vote.neutral.toUpperCase() : t.vote.no.toUpperCase()}
-                </span>
-                <span className="text-[var(--text3)]">
-                  {' — '}
-                  {voted === 'neutral'
-                    ? t.vote.abstentionCounted
-                    : (voted === 'yes' && yesPercent > 50) || (voted === 'no' && noPercent > 50)
-                      ? t.vote.alignedMajority
-                      : t.vote.againstMajority}
-                </span>
-              </div>
-
-              {/* Conviction selector */}
-              <ConvictionSelector value={conviction} onChange={setConviction} />
-
-              {/* Reason selector (only for yes/no votes) */}
-              {voted !== 'neutral' && (
-                <ReasonSelector
-                  reasons={voted === 'yes' ? defaultReasons.yes : defaultReasons.no}
-                  voteType={voted}
-                  selected={selectedReason}
-                  onSelect={setSelectedReason}
-                />
-              )}
-
-              {/* Personal projection */}
-              <PersonalProjectionPrompt
-                value={personalImpact}
-                onChange={setPersonalImpact}
-              />
-
-              {signal.regionalBreakdown && (
-                <WorldViewComparison breakdown={signal.regionalBreakdown} />
-              )}
-              {onNext && (
-                <button
-                  onClick={onNext}
-                  className="w-full py-3 rounded-xl text-sm font-semibold transition-all duration-150 active:scale-[0.98]"
-                  style={{
-                    fontFamily: 'var(--font)',
-                    background: 'var(--yes)',
-                    color: '#fff',
-                  }}
-                >
-                  {t.vote.next} →
-                </button>
-              )}
+          {/* Divergence gauge — optional */}
+          {signal.divergenceIndex !== undefined && (
+            <div className="mt-4 pt-4 border-t border-[var(--border)]">
+              <DivergenceGauge yesPercent={yesPercent} noPercent={noPercent} />
             </div>
           )}
         </div>
       )}
-
-      {/* ── Structured context (after vote only) ── */}
-      {voted && !isResolved && (
-        <div className="mt-3 space-y-3">
-          {/* Post-vote analysis input */}
-          <StrategicContextInput
-            voteType={voted}
-            onSubmit={submitContext}
-            hasSubmitted={hasSubmitted}
-          />
-
-          {/* Top strategic analyses */}
-          <StrategicAnalyses
-            contexts={topContexts}
-            likedIds={likedIds}
-            onLike={toggleLike}
-          />
-
-          {/* Nuance index */}
-          <NuanceIndex percentage={nuanceIndex} />
-
-          {/* Aggregated synthesis */}
-          <StrategicSynthesis synthesis={synthesis} />
-        </div>
-      )}
-
-      {/* ── Footer: creator + trending ── */}
-      <div className="mt-4 pt-3 flex items-center justify-between" style={{ borderTop: '1px solid var(--border)' }}>
-        {signal.createdBy && signal.creatorName ? (
-          <div className="flex items-center gap-2">
-            <Avatar src={signal.creatorAvatar} name={signal.creatorName} size="xs" />
-            <span className="text-[12px] text-[var(--text3)] font-medium flex items-center gap-0.5">
-              {signal.creatorName}
-              {signal.verified && (
-                <IconCheck size={10} className="inline-block w-2.5 h-2.5 text-[var(--yes)]" />
-              )}
-            </span>
-          </div>
-        ) : (
-          <div />
-        )}
-        {signal.trending && !isResolved && (
-          <AccelerationBadge accelerating={true} />
-        )}
-      </div>
     </div>
   )
 }

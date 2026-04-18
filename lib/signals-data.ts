@@ -56,6 +56,13 @@ export interface Signal {
   timeAgo: string
   expiresIn?: string
   regionalBreakdown?: RegionalBreakdown
+  /* Structured Signal Fields */
+  horizon?: 'court' | 'moyen' | 'long' // 1-3 ans / 5-10 ans / 15-30 ans
+  impactLevel?: 'faible' | 'structurel' | 'civilisationnel'
+  divergenceIndex?: number // 0-100
+  conviction?: 'faible' | 'moyenne' | 'forte' | null
+  officialDoubt?: 'fragile' | 'insufficient_data' | null
+  allowTooEarly?: boolean // Enable "Trop tôt pour conclure" option
 }
 
 export const SIGNAL_CATEGORIES: { id: SignalCategory; label: string; labelFr: string }[] = [
@@ -110,6 +117,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 61, noPercent: 39, totalVotes: 52340,
     createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 61, africa: 48, france: 67, europe: 65, usa: 58 },
+    horizon: 'court',
+    impactLevel: 'faible',
+    divergenceIndex: 78,
+    allowTooEarly: true,
   },
   {
     id: 'wv2',
@@ -119,6 +130,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 74, noPercent: 26, totalVotes: 67891,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '3 years',
     regionalBreakdown: { global: 74, africa: 81, france: 78, europe: 76, usa: 54 },
+    horizon: 'long',
+    impactLevel: 'faible',
+    divergenceIndex: 52,
+    allowTooEarly: true,
   },
   {
     id: 'wv3',
@@ -128,6 +143,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 68, noPercent: 32, totalVotes: 43210,
     createdBy: null, trending: true, timeAgo: '3h ago', expiresIn: '1 year',
     regionalBreakdown: { global: 68, africa: 72, france: 61, europe: 64, usa: 71 },
+    horizon: 'court',
+    impactLevel: 'faible',
+    divergenceIndex: 63,
+    allowTooEarly: true,
   },
   {
     id: 'wv4',
@@ -137,6 +156,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 58, noPercent: 42, totalVotes: 89432,
     createdBy: null, hot: true, timeAgo: '30m ago', expiresIn: '6 months',
     regionalBreakdown: { global: 58, africa: 44, france: 63, europe: 61, usa: 57 },
+    horizon: 'long',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 84,
+    allowTooEarly: true,
   },
   {
     id: 'wv5',
@@ -146,6 +169,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 55, noPercent: 45, totalVotes: 38762,
     createdBy: null, trending: true, timeAgo: '4h ago', expiresIn: '2 years',
     regionalBreakdown: { global: 55, africa: 71, france: 48, europe: 51, usa: 38 },
+    horizon: 'long',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 89,
+    allowTooEarly: true,
   },
   {
     id: 'wv6',
@@ -155,6 +182,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 52, noPercent: 48, totalVotes: 31456,
     createdBy: null, timeAgo: '5h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 52, africa: 34, france: 58, europe: 56, usa: 63 },
+    horizon: 'moyen',
+    impactLevel: 'structurel',
+    divergenceIndex: 96,
+    allowTooEarly: true,
   },
   {
     id: 'wv7',
@@ -164,6 +195,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 49, noPercent: 51, totalVotes: 27890,
     createdBy: null, timeAgo: '6h ago', expiresIn: '5 years',
     regionalBreakdown: { global: 49, africa: 41, france: 72, europe: 53, usa: 46 },
+    horizon: 'moyen',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 98,
+    allowTooEarly: true,
   },
   {
     id: 'wv8',
@@ -173,6 +208,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 77, noPercent: 23, totalVotes: 44123,
     createdBy: null, trending: true, timeAgo: '7h ago', expiresIn: '10 years',
     regionalBreakdown: { global: 77, africa: 84, france: 73, europe: 75, usa: 68 },
+    horizon: 'moyen',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 46,
+    allowTooEarly: true,
   },
   {
     id: 'wv9',
@@ -182,6 +221,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 44, noPercent: 56, totalVotes: 71234,
     createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '9 years',
     regionalBreakdown: { global: 44, africa: 58, france: 41, europe: 39, usa: 28 },
+    horizon: 'moyen',
+    impactLevel: 'structurel',
+    divergenceIndex: 88,
+    allowTooEarly: true,
   },
   {
     id: 'wv10',
@@ -191,6 +234,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 53, noPercent: 47, totalVotes: 58901,
     createdBy: null, hot: true, timeAgo: '2h ago', expiresIn: '3 years',
     regionalBreakdown: { global: 53, africa: 67, france: 42, europe: 49, usa: 55 },
+    horizon: 'moyen',
+    impactLevel: 'structurel',
+    divergenceIndex: 94,
+    allowTooEarly: true,
   },
   {
     id: 'wv11',
@@ -200,6 +247,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 63, noPercent: 37, totalVotes: 39012,
     createdBy: null, trending: true, timeAgo: '3h ago', expiresIn: '3 years',
     regionalBreakdown: { global: 63, africa: 61, france: 66, europe: 68, usa: 57 },
+    horizon: 'long',
+    impactLevel: 'faible',
+    divergenceIndex: 74,
+    allowTooEarly: true,
   },
   {
     id: 'wv12',
@@ -209,6 +260,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 59, noPercent: 41, totalVotes: 34567,
     createdBy: null, trending: true, timeAgo: '4h ago', expiresIn: '30 years',
     regionalBreakdown: { global: 59, africa: 82, france: 48, europe: 44, usa: 41 },
+    horizon: 'moyen',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 82,
+    allowTooEarly: true,
   },
   {
     id: 'wv13',
@@ -218,6 +273,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 41, noPercent: 59, totalVotes: 22345,
     createdBy: null, timeAgo: '8h ago', expiresIn: '10 years',
     regionalBreakdown: { global: 41, africa: 52, france: 38, europe: 37, usa: 33 },
+    horizon: 'long',
+    impactLevel: 'structurel',
+    divergenceIndex: 82,
+    allowTooEarly: true,
   },
   {
     id: 'wv14',
@@ -227,6 +286,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 46, noPercent: 54, totalVotes: 18902,
     createdBy: null, timeAgo: '6h ago', expiresIn: '5 years',
     regionalBreakdown: { global: 46, africa: 39, france: 51, europe: 49, usa: 44 },
+    horizon: 'moyen',
+    impactLevel: 'faible',
+    divergenceIndex: 92,
+    allowTooEarly: true,
   },
   {
     id: 'wv15',
@@ -236,6 +299,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 18, noPercent: 82, totalVotes: 76543,
     createdBy: null, hot: true, timeAgo: '1h ago', expiresIn: '5 years',
     regionalBreakdown: { global: 18, africa: 22, france: 14, europe: 17, usa: 19 },
+    horizon: 'moyen',
+    impactLevel: 'structurel',
+    divergenceIndex: 36,
+    allowTooEarly: true,
   },
   {
     id: 'wv16',
@@ -245,6 +312,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 54, noPercent: 46, totalVotes: 41230,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '9 years',
     regionalBreakdown: { global: 54, africa: 49, france: 61, europe: 58, usa: 52 },
+    horizon: 'long',
+    impactLevel: 'faible',
+    divergenceIndex: 92,
+    allowTooEarly: true,
   },
   {
     id: 'wv17',
@@ -254,6 +325,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 62, noPercent: 38, totalVotes: 29876,
     createdBy: null, timeAgo: '5h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 62, africa: 74, france: 68, europe: 65, usa: 51 },
+    horizon: 'long',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 76,
+    allowTooEarly: true,
   },
   {
     id: 'wv18',
@@ -263,6 +338,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 69, noPercent: 31, totalVotes: 25678,
     createdBy: null, timeAgo: '9h ago', expiresIn: '50 years',
     regionalBreakdown: { global: 69, africa: 58, france: 52, europe: 66, usa: 84 },
+    horizon: 'long',
+    impactLevel: 'faible',
+    divergenceIndex: 62,
+    allowTooEarly: true,
   },
   {
     id: 'wv19',
@@ -272,6 +351,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 22, noPercent: 78, totalVotes: 54321,
     createdBy: null, timeAgo: '4h ago', expiresIn: '14 years',
     regionalBreakdown: { global: 22, africa: 34, france: 18, europe: 19, usa: 21 },
+    horizon: 'long',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 43,
+    allowTooEarly: true,
   },
   {
     id: 'wv20',
@@ -281,6 +364,10 @@ export const mockSignals: Signal[] = [
     yesPercent: 38, noPercent: 62, totalVotes: 17654,
     createdBy: null, timeAgo: '10h ago', expiresIn: '10 years',
     regionalBreakdown: { global: 38, africa: 45, france: 36, europe: 37, usa: 34 },
+    horizon: 'long',
+    impactLevel: 'structurel',
+    divergenceIndex: 76,
+    allowTooEarly: true,
   },
 
   // ─── NEWS ───
@@ -749,6 +836,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 29, noPercent: 71, totalVotes: 18432,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '1 year',
     regionalBreakdown: { global: 29, africa: 34, france: 27, europe: 25, usa: 22 },
+    horizon: 'long',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 84,
+    allowTooEarly: true,
   },
   {
     id: 'rdc2',
@@ -758,6 +849,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 64, noPercent: 36, totalVotes: 24501,
     createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '5 years',
     regionalBreakdown: { global: 64, africa: 71, france: 62, europe: 60, usa: 57 },
+    horizon: 'long',
+    impactLevel: 'faible',
+    divergenceIndex: 72,
+    allowTooEarly: true,
   },
   {
     id: 'rdc3',
@@ -768,6 +863,10 @@ export const extendedSignals: Signal[] = [
     createdBy: 'u11', creatorName: 'E. Diallo', creatorAvatar: '/avatars/diallo.svg',
     trending: true, timeAgo: '3h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 47, africa: 62, france: 44, europe: 41, usa: 38 },
+    horizon: 'moyen',
+    impactLevel: 'structurel',
+    divergenceIndex: 94,
+    allowTooEarly: true,
   },
   {
     id: 'rdc4',
@@ -786,6 +885,10 @@ export const extendedSignals: Signal[] = [
     createdBy: 'u1', creatorName: 'A. Adebayo', creatorAvatar: '/avatars/adebayo.svg',
     trending: true, timeAgo: '4h ago', expiresIn: '14 years',
     regionalBreakdown: { global: 52, africa: 68, france: 49, europe: 45, usa: 41 },
+    horizon: 'court',
+    impactLevel: 'structurel',
+    divergenceIndex: 76,
+    allowTooEarly: true,
   },
 
   // ── BELGIQUE ──
@@ -797,6 +900,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 44, noPercent: 56, totalVotes: 21345,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '5 years',
     regionalBreakdown: { global: 44, africa: 48, france: 41, europe: 39, usa: 46 },
+    horizon: 'long',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 88,
+    allowTooEarly: true,
   },
   {
     id: 'bel2',
@@ -806,6 +913,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 22, noPercent: 78, totalVotes: 17890,
     createdBy: null, timeAgo: '6h ago', expiresIn: '10 years',
     regionalBreakdown: { global: 22, africa: 28, france: 24, europe: 19, usa: 21 },
+    horizon: 'long',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 43,
+    allowTooEarly: true,
   },
   {
     id: 'bel3',
@@ -815,6 +926,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 27, noPercent: 73, totalVotes: 12456,
     createdBy: null, timeAgo: '8h ago', expiresIn: '14 years',
     regionalBreakdown: { global: 27, africa: 31, france: 29, europe: 25, usa: 26 },
+    horizon: 'court',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 54,
+    allowTooEarly: true,
   },
 
   // ── FRANCE ──
@@ -826,6 +941,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 46, noPercent: 54, totalVotes: 28901,
     createdBy: null, hot: true, timeAgo: '1h ago', expiresIn: '6 months',
     regionalBreakdown: { global: 46, africa: 41, france: 52, europe: 44, usa: 38 },
+    horizon: 'court',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 92,
+    allowTooEarly: true,
   },
   {
     id: 'fr_extra2',
@@ -835,6 +954,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 61, noPercent: 39, totalVotes: 34512,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '1 year',
     regionalBreakdown: { global: 61, africa: 55, france: 68, europe: 58, usa: 47 },
+    horizon: 'court',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 78,
+    allowTooEarly: true,
   },
   {
     id: 'fr_extra3',
@@ -845,6 +968,10 @@ export const extendedSignals: Signal[] = [
     createdBy: 'u8', creatorName: 'C. Dubois', creatorAvatar: '/avatars/dubois.svg',
     verified: true, trending: true, timeAgo: '3h ago', expiresIn: '2 years',
     regionalBreakdown: { global: 53, africa: 48, france: 71, europe: 56, usa: 44 },
+    horizon: 'moyen',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 94,
+    allowTooEarly: true,
   },
 
   // ── AFRIQUE ──
@@ -856,6 +983,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 72, noPercent: 28, totalVotes: 31245,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 72, africa: 81, france: 69, europe: 68, usa: 65 },
+    horizon: 'long',
+    impactLevel: 'structurel',
+    divergenceIndex: 56,
+    allowTooEarly: true,
   },
   {
     id: 'af_extra2',
@@ -865,6 +996,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 41, noPercent: 59, totalVotes: 16789,
     createdBy: null, trending: true, timeAgo: '4h ago', expiresIn: '1 year',
     regionalBreakdown: { global: 41, africa: 54, france: 38, europe: 37, usa: 33 },
+    horizon: 'court',
+    impactLevel: 'faible',
+    divergenceIndex: 82,
+    allowTooEarly: true,
   },
   {
     id: 'af_extra3',
@@ -874,6 +1009,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 58, noPercent: 42, totalVotes: 22341,
     createdBy: null, timeAgo: '5h ago', expiresIn: '14 years',
     regionalBreakdown: { global: 58, africa: 74, france: 55, europe: 52, usa: 48 },
+    horizon: 'long',
+    impactLevel: 'faible',
+    divergenceIndex: 84,
+    allowTooEarly: true,
   },
 
   // ── EUROPE / MONDE ──
@@ -885,6 +1024,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 34, noPercent: 66, totalVotes: 38901,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 34, africa: 38, france: 42, europe: 36, usa: 27 },
+    horizon: 'court',
+    impactLevel: 'faible',
+    divergenceIndex: 68,
+    allowTooEarly: true,
   },
   {
     id: 'world_extra1',
@@ -894,6 +1037,10 @@ export const extendedSignals: Signal[] = [
     yesPercent: 48, noPercent: 52, totalVotes: 54321,
     createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 48, africa: 61, france: 43, europe: 41, usa: 31 },
+    horizon: 'long',
+    impactLevel: 'faible',
+    divergenceIndex: 96,
+    allowTooEarly: true,
   },
 ]
 
@@ -911,6 +1058,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 42, noPercent: 58, totalVotes: 14230,
     createdBy: null, trending: true, timeAgo: '3h ago', expiresIn: '2 years',
     regionalBreakdown: { global: 42, africa: 48, france: 62, europe: 58, usa: 71 },
+    horizon: 'moyen',
+    impactLevel: 'faible',
+    divergenceIndex: 84,
+    allowTooEarly: true,
   },
   {
     id: 'life_edu1',
@@ -920,6 +1071,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 28, noPercent: 72, totalVotes: 31450,
     createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '9 years',
     regionalBreakdown: { global: 28, africa: 22, france: 31, europe: 33, usa: 35 },
+    horizon: 'moyen',
+    impactLevel: 'faible',
+    divergenceIndex: 56,
+    allowTooEarly: true,
   },
   {
     id: 'life_health1',
@@ -929,6 +1084,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 21, noPercent: 79, totalVotes: 19870,
     createdBy: null, timeAgo: '5h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 21, africa: 18, france: 24, europe: 25, usa: 22 },
+    horizon: 'moyen',
+    impactLevel: 'structurel',
+    divergenceIndex: 41,
+    allowTooEarly: true,
   },
   {
     id: 'life_housing1',
@@ -938,6 +1097,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 37, noPercent: 63, totalVotes: 28900,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '1 year',
     regionalBreakdown: { global: 37, africa: 34, france: 44, europe: 40, usa: 28 },
+    horizon: 'court',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 74,
+    allowTooEarly: true,
   },
   {
     id: 'life_climate1',
@@ -947,6 +1110,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 18, noPercent: 82, totalVotes: 45670,
     createdBy: null, hot: true, timeAgo: '1h ago', expiresIn: '5 years',
     regionalBreakdown: { global: 18, africa: 14, france: 22, europe: 24, usa: 15 },
+    horizon: 'moyen',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 36,
+    allowTooEarly: true,
   },
   {
     id: 'life_rel1',
@@ -956,6 +1123,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 64, noPercent: 36, totalVotes: 22100,
     createdBy: null, timeAgo: '4h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 64, africa: 45, france: 68, europe: 66, usa: 72 },
+    horizon: 'long',
+    impactLevel: 'faible',
+    divergenceIndex: 72,
+    allowTooEarly: true,
   },
   {
     id: 'life_youth1',
@@ -965,6 +1136,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 71, noPercent: 29, totalVotes: 26340,
     createdBy: null, trending: true, timeAgo: '2h ago', expiresIn: '4 years',
     regionalBreakdown: { global: 71, africa: 82, france: 65, europe: 63, usa: 58 },
+    horizon: 'long',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 58,
+    allowTooEarly: true,
   },
   {
     id: 'life_spirit1',
@@ -974,6 +1149,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 52, noPercent: 48, totalVotes: 18760,
     createdBy: null, timeAgo: '6h ago', expiresIn: '10 years',
     regionalBreakdown: { global: 52, africa: 28, france: 61, europe: 58, usa: 42 },
+    horizon: 'moyen',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 96,
+    allowTooEarly: true,
   },
   {
     id: 'life_fin1',
@@ -983,6 +1162,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 68, noPercent: 32, totalVotes: 33210,
     createdBy: null, trending: true, hot: true, timeAgo: '1h ago', expiresIn: '3 years',
     regionalBreakdown: { global: 68, africa: 81, france: 55, europe: 52, usa: 44 },
+    horizon: 'court',
+    impactLevel: 'structurel',
+    divergenceIndex: 63,
+    allowTooEarly: true,
   },
   {
     id: 'life_geo1',
@@ -992,6 +1175,10 @@ const lifeSignals: Signal[] = [
     yesPercent: 47, noPercent: 53, totalVotes: 51890,
     createdBy: null, trending: true, hot: true, timeAgo: '30min ago', expiresIn: '9 years',
     regionalBreakdown: { global: 47, africa: 56, france: 44, europe: 42, usa: 31 },
+    horizon: 'moyen',
+    impactLevel: 'civilisationnel',
+    divergenceIndex: 94,
+    allowTooEarly: true,
   },
 ]
 mockSignals.push(...lifeSignals)
