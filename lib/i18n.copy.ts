@@ -347,7 +347,7 @@ export const copy = {
     about: {
       metaTitle: 'À propos',
       metaDescription:
-        'Découvrez ZAWIOS — la plateforme d'intelligence collective pour les signaux et la réputation.',
+        "Découvrez ZAWIOS — la plateforme d'intelligence collective pour les signaux et la réputation.",
       mission: 'Notre mission',
       missionHeadline:
         "L'intelligence est collective.\nLa réputation doit être vérifiable.",

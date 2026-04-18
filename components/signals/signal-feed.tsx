@@ -7,6 +7,7 @@ import { VoteGating } from './vote-gating'
 import { WorldViewComparison } from './world-view-comparison'
 import {
   mockSignals,
+  SIGNAL_CATEGORIES,
   SIGNAL_REGIONS,
   CATEGORY_COLORS,
   getWorldViewSignals,
