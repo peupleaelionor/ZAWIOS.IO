@@ -1,43 +1,70 @@
 /**
  * ZAWIOS Design System — Spacing Tokens
  *
- * 4px base unit rhythm. Mirrors CSS custom properties from globals.css.
+ * Strict 8px grid system. No cramped UI. No edge overflow.
+ *
+ * Scale: 8 · 16 · 24 · 32 · 48 · 64
+ * Minimum spacing between cards: 24px
+ * Minimum padding inside cards: 20px
  */
 
 export const spacing = {
   0: '0px',
-  1: '4px',
-  2: '8px',
-  3: '12px',
-  4: '16px',
-  5: '20px',
-  6: '24px',
-  8: '32px',
-  10: '40px',
-  12: '48px',
+  1: '8px',
+  2: '16px',
+  3: '24px',
+  4: '32px',
+  5: '40px',
+  6: '48px',
+  8: '64px',
+  10: '80px',
+  12: '96px',
 } as const
 
 /** Numeric pixel values for programmatic use */
 export const spacingPx = {
   0: 0,
-  1: 4,
-  2: 8,
-  3: 12,
-  4: 16,
-  5: 20,
-  6: 24,
-  8: 32,
-  10: 40,
-  12: 48,
+  1: 8,
+  2: 16,
+  3: 24,
+  4: 32,
+  5: 40,
+  6: 48,
+  8: 64,
+  10: 80,
+  12: 96,
+} as const
+
+/** Strict 8px grid scale for fine-grained control */
+export const grid8 = {
+  1: '8px',
+  2: '16px',
+  3: '24px',
+  4: '32px',
+  6: '48px',
+  8: '64px',
 } as const
 
 /** Layout constants */
 export const layout = {
-  maxContentWidth: '1200px',
+  /** Admin max width */
+  maxAdminWidth: '1440px',
+  maxContentWidth: '1280px',
   sidebarWidth: '256px',
   bottomNavHeight: '64px',
   mobileMaxWidth: '480px',
-  borderRadius: '12px',
+  borderRadius: '16px',
+  cardRadius: '16px',
+  /** Minimum card internal padding */
+  cardPadding: '20px',
+  /** Minimum gap between cards */
+  cardGap: '24px',
+  /** Desktop padding */
+  desktopPadding: '32px',
+  /** Mobile padding */
+  mobilePadding: '20px',
+  /** Grid: 12 columns */
+  gridColumns: 12,
 } as const
 
 export type SpacingToken = keyof typeof spacing

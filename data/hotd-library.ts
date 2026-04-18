@@ -9,7 +9,7 @@
  * Géopolitique (7), Éducation (7), Environnement (7)
  */
 
-import type { Hotd } from './types'
+import type { Hotd } from '@/lib/hotd/types'
 
 export const HOTD_LIBRARY: Hotd[] = [
   // ═══════════════════════════════════════════════════════
