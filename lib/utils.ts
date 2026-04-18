@@ -12,7 +12,7 @@ export function cn(...inputs: ClassValue[]) {
 export function getAppUrl(): string {
   if (process.env.NEXT_PUBLIC_APP_URL) return process.env.NEXT_PUBLIC_APP_URL
   if (typeof window !== 'undefined') return window.location.origin
-  return 'https://zawios.netlify.app'
+  return 'https://zawios.io'
 }
 
 export function formatNumber(num: number): string {
