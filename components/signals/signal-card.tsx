@@ -36,6 +36,8 @@ import { getDefaultReasons } from '@/lib/signal-intelligence'
 import type { ConvictionLevel } from '@/lib/editorial-calendar'
 import type { PersonalImpact } from '@/lib/signal-intelligence'
 
+import type { Lang } from '@/lib/i18n'
+
 export type TriVote = 'yes' | 'neutral' | 'no'
 
 interface SignalCardProps {
@@ -45,11 +47,15 @@ interface SignalCardProps {
   onNext?: () => void
 }
 
-const getCategoryLabel = (id: string) =>
-  SIGNAL_CATEGORIES.find((c) => c.id === id)?.labelFr ?? id
+const getCategoryLabel = (id: string, lang: Lang) => {
+  const cat = SIGNAL_CATEGORIES.find((c) => c.id === id)
+  return lang === 'fr' ? (cat?.labelFr ?? id) : (cat?.label ?? id)
+}
 
-const getRegionLabel = (id: string) =>
-  SIGNAL_REGIONS.find((r) => r.id === id)?.labelFr ?? id
+const getRegionLabel = (id: string, lang: Lang) => {
+  const region = SIGNAL_REGIONS.find((r) => r.id === id)
+  return lang === 'fr' ? (region?.labelFr ?? id) : (region?.label ?? id)
+}
 
 export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCardProps) {
   const [voted, setVoted] = useState<TriVote | null>(null)
@@ -58,7 +64,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
   const [neutralPercent] = useState(Math.round(signal.totalVotes * 0.08 / (signal.totalVotes || 1) * 100) || 8)
   const isResolved = signal.status === 'resolved'
   const catStyle = CATEGORY_COLORS[signal.category]
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
 
   // Structured context hook
   const {
@@ -147,11 +153,11 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 fontFamily: 'var(--mono)' 
               }}
             >
-              {getCategoryLabel(signal.category)}
+              {getCategoryLabel(signal.category, lang)}
             </span>
             
             {/* Horizon badge if present */}
-            {signal.horizon && (
+              {signal.horizon && (
               <span
                 className="text-[10px] font-semibold uppercase tracking-wide px-2 py-1 rounded-lg"
                 style={{
@@ -160,7 +166,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                   fontFamily: 'var(--mono)',
                 }}
               >
-                {signal.horizon === 'court' ? '1-3 ans' : signal.horizon === 'moyen' ? '5-10 ans' : '15-30 ans'}
+                {signal.horizon === 'court' ? t.signal.horizonShort : signal.horizon === 'moyen' ? t.signal.horizonMedium : t.signal.horizonLong}
               </span>
             )}
           </div>
@@ -259,7 +265,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 {yesPercent}%
               </span>
               <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--positive)', opacity: 0.7 }}>
-                OUI
+                {t.vote.yes.toUpperCase()}
               </span>
             </div>
             <div className="flex items-baseline gap-1">
@@ -278,7 +284,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 {noPercent}%
               </span>
               <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--negative)', opacity: 0.7 }}>
-                NON
+                {t.vote.no.toUpperCase()}
               </span>
             </div>
           </div>

@@ -92,11 +92,11 @@ export const SIGNAL_CATEGORIES: { id: SignalCategory; label: string; labelFr: st
 ]
 
 export const SIGNAL_REGIONS: { id: SignalRegion; label: string; labelFr: string }[] = [
-  { id: 'global', label: 'Monde', labelFr: 'Monde' },
-  { id: 'africa', label: 'Afrique', labelFr: 'Afrique' },
-  { id: 'rdc', label: 'RD Congo', labelFr: 'RD Congo' },
+  { id: 'global', label: 'World', labelFr: 'Monde' },
+  { id: 'africa', label: 'Africa', labelFr: 'Afrique' },
+  { id: 'rdc', label: 'DR Congo', labelFr: 'RD Congo' },
   { id: 'france', label: 'France', labelFr: 'France' },
-  { id: 'belgique', label: 'Belgique', labelFr: 'Belgique' },
+  { id: 'belgique', label: 'Belgium', labelFr: 'Belgique' },
   { id: 'europe', label: 'Europe', labelFr: 'Europe' },
   { id: 'usa', label: 'USA', labelFr: 'USA' },
 ]
