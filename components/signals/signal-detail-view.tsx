@@ -267,7 +267,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
           {/* Regional breakdown */}
           {signal.regionalBreakdown && (
             <div className="signal-detail-section">
-              <h2 className="signal-detail-section-title">Comparaison regionale</h2>
+              <h2 className="signal-detail-section-title">Comparaison régionale</h2>
               <WorldViewComparison breakdown={signal.regionalBreakdown} />
             </div>
           )}

@@ -63,7 +63,7 @@ export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
 
   if (showBrand) {
     return (
-      /* eslint-disable-next-line */
+      /* eslint-disable-next-line @next/next/no-img-element -- Brand avatar fallback, no external URL */
       <img
         src={getBrandAvatar(name)}
         alt={name}
