@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1C39BB"/>
+      <stop offset="100%" stop-color="#3A86FF"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C39BB" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#1C39BB" stop-opacity="0.6"/>
+    </linearGradient>
+    <linearGradient id="person" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#CBD5E1"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect y="340" width="800" height="110" fill="url(#floor)"/>
+  <!-- Equality lines -->
+  <line x1="200" y1="80" x2="600" y2="80" stroke="#F8FAFC" stroke-width="3" stroke-opacity="0.2"/>
+  <line x1="200" y1="95" x2="600" y2="95" stroke="#F8FAFC" stroke-width="3" stroke-opacity="0.2"/>
+  <!-- Student 1 -->
+  <circle cx="250" cy="180" r="28" fill="url(#person)"/>
+  <rect x="225" y="215" width="50" height="70" rx="8" fill="#F8FAFC" fill-opacity="0.9"/>
+  <rect x="225" y="215" width="50" height="30" rx="8" fill="#1C39BB" fill-opacity="0.4"/>
+  <rect x="235" y="285" width="14" height="55" rx="4" fill="url(#person)"/>
+  <rect x="261" y="285" width="14" height="55" rx="4" fill="url(#person)"/>
+  <!-- Student 2 -->
+  <circle cx="370" cy="160" r="32" fill="url(#person)"/>
+  <rect x="342" y="200" width="56" height="80" rx="8" fill="#F8FAFC" fill-opacity="0.9"/>
+  <rect x="342" y="200" width="56" height="35" rx="8" fill="#1C39BB" fill-opacity="0.4"/>
+  <rect x="353" y="280" width="16" height="60" rx="4" fill="url(#person)"/>
+  <rect x="381" y="280" width="16" height="60" rx="4" fill="url(#person)"/>
+  <!-- Student 3 -->
+  <circle cx="500" cy="170" r="30" fill="url(#person)"/>
+  <rect x="474" y="208" width="52" height="75" rx="8" fill="#F8FAFC" fill-opacity="0.9"/>
+  <rect x="474" y="208" width="52" height="32" rx="8" fill="#1C39BB" fill-opacity="0.4"/>
+  <rect x="484" y="283" width="14" height="57" rx="4" fill="url(#person)"/>
+  <rect x="510" y="283" width="14" height="57" rx="4" fill="url(#person)"/>
+  <!-- Student 4 (smaller, child) -->
+  <circle cx="610" cy="195" r="24" fill="url(#person)"/>
+  <rect x="589" y="225" width="42" height="65" rx="8" fill="#F8FAFC" fill-opacity="0.9"/>
+  <rect x="589" y="225" width="42" height="26" rx="8" fill="#1C39BB" fill-opacity="0.4"/>
+  <rect x="597" y="290" width="12" height="50" rx="4" fill="url(#person)"/>
+  <rect x="619" y="290" width="12" height="50" rx="4" fill="url(#person)"/>
+  <!-- Equality symbol (= sign as circles) -->
+  <circle cx="130" cy="200" r="40" fill="none" stroke="#1EC88A" stroke-width="3" stroke-opacity="0.5"/>
+  <line x1="110" y1="193" x2="150" y2="193" stroke="#1EC88A" stroke-width="4" stroke-opacity="0.7"/>
+  <line x1="110" y1="207" x2="150" y2="207" stroke="#1EC88A" stroke-width="4" stroke-opacity="0.7"/>
+  <!-- Decorative dots -->
+  <circle cx="680" cy="120" r="6" fill="#F8FAFC" fill-opacity="0.15"/>
+  <circle cx="710" cy="100" r="4" fill="#F8FAFC" fill-opacity="0.1"/>
+  <circle cx="720" cy="140" r="8" fill="#F8FAFC" fill-opacity="0.12"/>
+  <circle cx="100" cy="350" r="5" fill="#F8FAFC" fill-opacity="0.1"/>
+  <circle cx="700" cy="380" r="7" fill="#F8FAFC" fill-opacity="0.1"/>
+</svg>

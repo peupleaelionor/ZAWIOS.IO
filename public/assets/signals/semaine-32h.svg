@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EFF6FF"/>
+      <stop offset="100%" stop-color="#FEF3C7"/>
+    </linearGradient>
+    <linearGradient id="clock" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A86FF"/>
+      <stop offset="100%" stop-color="#1C39BB"/>
+    </linearGradient>
+    <linearGradient id="warm" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#D97706"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Calendar grid (left side) -->
+  <rect x="80" y="80" width="250" height="200" rx="10" fill="#F8FAFC" fill-opacity="0.8" stroke="#1C39BB" stroke-width="2" stroke-opacity="0.2"/>
+  <rect x="80" y="80" width="250" height="40" rx="10" fill="url(#clock)" fill-opacity="0.3"/>
+  <!-- Calendar cells (7 columns, some highlighted) -->
+  <rect x="95" y="135" width="28" height="24" rx="4" fill="#3A86FF" fill-opacity="0.2"/>
+  <rect x="130" y="135" width="28" height="24" rx="4" fill="#3A86FF" fill-opacity="0.2"/>
+  <rect x="165" y="135" width="28" height="24" rx="4" fill="#3A86FF" fill-opacity="0.2"/>
+  <rect x="200" y="135" width="28" height="24" rx="4" fill="#3A86FF" fill-opacity="0.2"/>
+  <rect x="235" y="135" width="28" height="24" rx="4" fill="#1EC88A" fill-opacity="0.4"/>
+  <rect x="270" y="135" width="28" height="24" rx="4" fill="#1EC88A" fill-opacity="0.4"/>
+  <rect x="305" y="135" width="14" height="24" rx="4" fill="#1EC88A" fill-opacity="0.4"/>
+  <rect x="95" y="170" width="28" height="24" rx="4" fill="#3A86FF" fill-opacity="0.2"/>
+  <rect x="130" y="170" width="28" height="24" rx="4" fill="#3A86FF" fill-opacity="0.2"/>
+  <rect x="165" y="170" width="28" height="24" rx="4" fill="#3A86FF" fill-opacity="0.2"/>
+  <rect x="200" y="170" width="28" height="24" rx="4" fill="#3A86FF" fill-opacity="0.2"/>
+  <rect x="235" y="170" width="28" height="24" rx="4" fill="#1EC88A" fill-opacity="0.4"/>
+  <rect x="270" y="170" width="28" height="24" rx="4" fill="#1EC88A" fill-opacity="0.4"/>
+  <rect x="305" y="170" width="14" height="24" rx="4" fill="#1EC88A" fill-opacity="0.4"/>
+  <!-- Clock (center-right) -->
+  <circle cx="520" cy="190" r="90" fill="#F8FAFC" fill-opacity="0.7"/>
+  <circle cx="520" cy="190" r="85" fill="none" stroke="url(#clock)" stroke-width="4"/>
+  <!-- Clock markers -->
+  <line x1="520" y1="112" x2="520" y2="125" stroke="#1C39BB" stroke-width="3" stroke-linecap="round"/>
+  <line x1="520" y1="255" x2="520" y2="268" stroke="#1C39BB" stroke-width="3" stroke-linecap="round"/>
+  <line x1="598" y1="190" x2="611" y2="190" stroke="#1C39BB" stroke-width="3" stroke-linecap="round"/>
+  <line x1="429" y1="190" x2="442" y2="190" stroke="#1C39BB" stroke-width="3" stroke-linecap="round"/>
+  <!-- Clock hands (showing ~4pm = end of short day) -->
+  <line x1="520" y1="190" x2="520" y2="135" stroke="#1C39BB" stroke-width="4" stroke-linecap="round"/>
+  <line x1="520" y1="190" x2="565" y2="225" stroke="#D97706" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="520" cy="190" r="6" fill="#D97706"/>
+  <!-- Person relaxing (bottom right) -->
+  <circle cx="660" cy="310" r="18" fill="url(#warm)" fill-opacity="0.5"/>
+  <path d="M630 340 Q640 330 660 335 L690 345 Q700 355 690 370 L640 370 Q625 360 630 340 Z" fill="url(#warm)" fill-opacity="0.4"/>
+  <!-- Hammock/leisure curve -->
+  <path d="M620 370 Q660 390 700 370" fill="none" stroke="#D97706" stroke-width="3" stroke-opacity="0.4" stroke-linecap="round"/>
+  <!-- Sun rays (leisure) -->
+  <circle cx="700" cy="80" r="25" fill="#FBBF24" fill-opacity="0.2"/>
+  <circle cx="700" cy="80" r="15" fill="#FBBF24" fill-opacity="0.15"/>
+</svg>

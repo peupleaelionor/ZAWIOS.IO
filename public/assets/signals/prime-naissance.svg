@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FDF2F8"/>
+      <stop offset="100%" stop-color="#DBEAFE"/>
+    </linearGradient>
+    <linearGradient id="heart" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F472B6"/>
+      <stop offset="100%" stop-color="#EC4899"/>
+    </linearGradient>
+    <linearGradient id="gift" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3A86FF"/>
+      <stop offset="100%" stop-color="#1C39BB"/>
+    </linearGradient>
+    <linearGradient id="family" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6366F1"/>
+      <stop offset="100%" stop-color="#4F46E5"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Parent silhouettes -->
+  <circle cx="300" cy="150" r="28" fill="url(#family)" fill-opacity="0.5"/>
+  <path d="M270 185 Q300 175 330 185 L340 280 Q300 295 260 280 Z" fill="url(#family)" fill-opacity="0.4"/>
+  <circle cx="500" cy="150" r="28" fill="url(#family)" fill-opacity="0.5"/>
+  <path d="M470 185 Q500 175 530 185 L540 280 Q500 295 460 280 Z" fill="url(#family)" fill-opacity="0.4"/>
+  <!-- Baby (small circle between parents) -->
+  <circle cx="400" cy="240" r="18" fill="#F9A8D4" fill-opacity="0.7"/>
+  <ellipse cx="400" cy="268" rx="15" ry="22" fill="#F9A8D4" fill-opacity="0.5"/>
+  <!-- Hearts -->
+  <path d="M395 100 Q395 85 408 85 Q420 85 420 100 Q420 115 400 130 Q380 115 380 100 Q380 85 393 85 Q395 85 395 100 Z" fill="url(#heart)" fill-opacity="0.6" transform="translate(0,-10) scale(0.8)"/>
+  <path d="M560 80 Q560 68 570 68 Q580 68 580 80 Q580 92 570 100 Q560 92 560 80 Z" fill="url(#heart)" fill-opacity="0.35"/>
+  <path d="M220 90 Q220 78 230 78 Q240 78 240 90 Q240 102 230 110 Q220 102 220 90 Z" fill="url(#heart)" fill-opacity="0.35"/>
+  <!-- Gift box (right side) -->
+  <rect x="600" y="230" width="100" height="80" rx="6" fill="url(#gift)" fill-opacity="0.5"/>
+  <rect x="600" y="215" width="100" height="20" rx="4" fill="url(#gift)" fill-opacity="0.6"/>
+  <rect x="645" y="215" width="10" height="95" rx="2" fill="#F8FAFC" fill-opacity="0.4"/>
+  <rect x="600" y="260" width="100" height="8" rx="2" fill="#F8FAFC" fill-opacity="0.3"/>
+  <!-- Ribbon bow -->
+  <ellipse cx="650" cy="210" rx="18" ry="10" fill="#F472B6" fill-opacity="0.5"/>
+  <!-- Gift box (left, smaller) -->
+  <rect x="100" y="270" width="70" height="60" rx="5" fill="#F472B6" fill-opacity="0.3"/>
+  <rect x="100" y="260" width="70" height="15" rx="3" fill="#F472B6" fill-opacity="0.4"/>
+  <rect x="131" y="260" width="8" height="70" rx="2" fill="#F8FAFC" fill-opacity="0.3"/>
+  <!-- Soft decorative circles -->
+  <circle cx="120" cy="120" r="30" fill="#F472B6" fill-opacity="0.08"/>
+  <circle cx="680" cy="380" r="40" fill="#3A86FF" fill-opacity="0.08"/>
+  <circle cx="400" cy="400" r="25" fill="#F472B6" fill-opacity="0.1"/>
+  <!-- Stars -->
+  <polygon points="150,170 153,178 162,178 155,183 158,192 150,187 142,192 145,183 138,178 147,178" fill="#FBBF24" fill-opacity="0.4"/>
+  <polygon points="660,140 662,146 669,146 664,150 666,156 660,152 654,156 656,150 651,146 658,146" fill="#FBBF24" fill-opacity="0.3"/>
+</svg>
