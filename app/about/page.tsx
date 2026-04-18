@@ -1,3 +1,4 @@
+// Client component: required to access useLanguage() for i18n
 'use client'
 
 import { Navbar } from '@/components/layout/navbar'
