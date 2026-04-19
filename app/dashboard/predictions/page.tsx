@@ -49,7 +49,7 @@ export default function DashboardPredictionsPage() {
         <Link href="/predictions/create">
           <Button size="sm" className="gap-1.5">
             <IconPlus className="w-4 h-4" size={16} />
-            New prediction
+            New signal
           </Button>
         </Link>
       </div>

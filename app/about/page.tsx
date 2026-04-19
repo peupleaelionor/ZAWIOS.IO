@@ -8,7 +8,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'About',
-  description: 'Learn about ZAWIOS — the collective intelligence platform for predictions and reputation.',
+  description: 'Learn about ZAWIOS — the collective intelligence platform for signals and reputation.',
 }
 
 export default function AboutPage() {
@@ -40,7 +40,7 @@ export default function AboutPage() {
                 {
                   icon: <IconGlobe className="w-6 h-6" size={24} />,
                   title: 'Open & Global',
-                  description: 'No gatekeepers. Predictors from 94 countries participate on equal terms. The best ideas win, regardless of credential or location.',
+                  description: 'No gatekeepers. Analysts from 94 countries participate on equal terms. The best ideas win, regardless of credential or location.',
                 },
                 {
                   icon: <IconTarget className="w-6 h-6" size={24} />,
@@ -80,7 +80,7 @@ export default function AboutPage() {
               </p>
               <p>
                 We built ZAWIOS to fix that. A platform where anyone can take a position, compete on accuracy,
-                and build a verified track record. No money, no bets — just public predictions and a score that reflects reality.
+                and build a verified track record. No money — just public signals and a score that reflects reality.
               </p>
               <p>
                 We believe that collective intelligence, properly structured and measured, produces better forecasts
