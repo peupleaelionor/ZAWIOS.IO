@@ -3,8 +3,8 @@ import path from "node:path";
 import sharp from "sharp";
 
 const root = process.cwd();
-const src = path.join(root, "public", "brand", "logo", "zawios-mark.svg");
-const app = path.join(root, "public", "brand", "logo", "zawios-app-icon.svg");
+const src = path.join(root, "public", "brand", "logo", "zawios-mark-v2.svg");
+const app = path.join(root, "public", "brand", "logo", "zawios-app-icon-v2.svg");
 const outDir = path.join(root, "public", "icons");
 
 fs.mkdirSync(outDir, { recursive: true });

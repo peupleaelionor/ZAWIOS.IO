@@ -18,19 +18,19 @@ export default function manifest(): MetadataRoute.Manifest {
     id: '/',
     icons: [
       {
-        src: '/favicons/logo-mark.svg',
+        src: '/brand/logo/zawios-mark-v2.svg',
         sizes: 'any',
         type: 'image/svg+xml',
         purpose: 'any',
       },
       {
-        src: '/app-icons/icon-192.png',
+        src: '/icons/pwa-192.png',
         sizes: '192x192',
         type: 'image/png',
         purpose: 'any',
       },
       {
-        src: '/app-icons/icon-512.png',
+        src: '/icons/pwa-512.png',
         sizes: '512x512',
         type: 'image/png',
         purpose: 'maskable',
@@ -41,19 +41,19 @@ export default function manifest(): MetadataRoute.Manifest {
         name: 'Signaux du jour',
         short_name: 'Signaux',
         url: '/signals',
-        icons: [{ src: '/app-icons/icon-192.png', sizes: '192x192' }],
+        icons: [{ src: '/icons/pwa-192.png', sizes: '192x192' }],
       },
       {
         name: 'Classement',
         short_name: 'Classement',
         url: '/leaderboard',
-        icons: [{ src: '/app-icons/icon-192.png', sizes: '192x192' }],
+        icons: [{ src: '/icons/pwa-192.png', sizes: '192x192' }],
       },
       {
         name: 'Mon profil',
         short_name: 'Profil',
         url: '/dashboard',
-        icons: [{ src: '/app-icons/icon-192.png', sizes: '192x192' }],
+        icons: [{ src: '/icons/pwa-192.png', sizes: '192x192' }],
       },
     ],
   }
