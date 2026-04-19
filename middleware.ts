@@ -7,7 +7,7 @@ import { checkRateLimit, type RateLimitTier } from '@/lib/security/rate-limiter'
 /** Determine rate-limit tier based on request path */
 function getTierForPath(pathname: string): RateLimitTier {
   if (pathname.startsWith('/api/auth')) return 'auth'
-  if (pathname.startsWith('/api/vote') || pathname.startsWith('/api/signals/') && pathname.endsWith('/vote')) return 'vote'
+  if (pathname.startsWith('/api/vote') || (pathname.startsWith('/api/signals/') && pathname.endsWith('/vote'))) return 'vote'
   if (pathname.startsWith('/api/contact')) return 'contact'
   if (pathname.startsWith('/api/admin')) return 'admin'
   return 'api'
