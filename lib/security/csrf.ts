@@ -11,7 +11,7 @@
  * for state-changing mutations.
  */
 
-const CSRF_COOKIE_NAME = '__zawios_csrf'
+const CSRF_COOKIE_NAME = '__Host-zawios_csrf'
 const CSRF_HEADER_NAME = 'x-csrf-token'
 const TOKEN_LENGTH = 32
 

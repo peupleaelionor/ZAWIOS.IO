@@ -52,13 +52,13 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// ── Trim cache to limit ────────────────────────────────────────────────
+// ── Trim cache to limit (iterative) ────────────────────────────────────
 async function trimCache(cacheName, maxItems) {
   const cache = await caches.open(cacheName)
-  const keys = await cache.keys()
-  if (keys.length > maxItems) {
+  let keys = await cache.keys()
+  while (keys.length > maxItems) {
     await cache.delete(keys[0])
-    return trimCache(cacheName, maxItems)
+    keys = await cache.keys()
   }
 }
 
@@ -69,11 +69,16 @@ self.addEventListener('fetch', (event) => {
 
   // Skip non-GET and cross-origin (except trusted CDNs)
   if (request.method !== 'GET') return
+
+  const TRUSTED_ORIGINS = [
+    'https://media.giphy.com',
+    'https://fonts.googleapis.com',
+    'https://fonts.gstatic.com',
+  ]
+
   if (
     url.origin !== self.location.origin &&
-    !url.hostname.includes('giphy.com') &&
-    !url.hostname.includes('fonts.googleapis.com') &&
-    !url.hostname.includes('fonts.gstatic.com')
+    !TRUSTED_ORIGINS.some((origin) => url.origin === origin)
   ) {
     return
   }
@@ -133,7 +138,7 @@ self.addEventListener('fetch', (event) => {
   // Static assets (_next/static, fonts): cache-first
   if (
     url.pathname.startsWith('/_next/static') ||
-    url.hostname.includes('fonts.gstatic.com')
+    url.origin === 'https://fonts.gstatic.com'
   ) {
     event.respondWith(
       caches.match(request).then(

@@ -46,6 +46,15 @@ export interface RateLimitResult {
 
 export type RateLimitTier = 'api' | 'auth' | 'vote' | 'contact' | 'admin'
 
+/**
+ * Rate limit tier configuration.
+ *
+ * • api:     General API — 60 req/min, 1 min block
+ * • auth:    Login/signup — 5 req/min, 5 min block (brute-force protection)
+ * • vote:    Signal voting — 30 req/min, 1 min block
+ * • contact: Contact form — 3 req/min, 2 min block (abuse prevention)
+ * • admin:   Admin panel — 30 req/min, 1 min block
+ */
 const TIER_CONFIG: Record<RateLimitTier, { maxRequests: number; windowMs: number; blockDurationMs: number }> = {
   api:     { maxRequests: 60, windowMs: 60_000, blockDurationMs: 60_000 },
   auth:    { maxRequests: 5,  windowMs: 60_000, blockDurationMs: 300_000 },

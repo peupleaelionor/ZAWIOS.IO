@@ -23,9 +23,16 @@ export function escapeHtml(input: string): string {
     .replace(/\//g, '&#x2F;')
 }
 
-/** Strip all HTML tags from a string */
+/** Strip all HTML tags from a string (iterative to handle nested tags) */
 export function stripHtml(input: string): string {
-  return input.replace(/<[^>]*>/g, '')
+  let result = input
+  let previous = ''
+  // Iterate until no more tags are found (prevents nested tag bypass like <<script>script>)
+  while (result !== previous) {
+    previous = result
+    result = result.replace(/<[^>]*>/g, '')
+  }
+  return result
 }
 
 /** Normalize Unicode to NFC form (mitigates homoglyph attacks) */
@@ -63,8 +70,9 @@ export function containsPathTraversal(input: string): boolean {
 export function isSafeUrl(url: string): boolean {
   const lower = url.toLowerCase().trim()
   if (lower.startsWith('javascript:')) return false
-  if (lower.startsWith('data:text/html')) return false
+  if (lower.startsWith('data:')) return false
   if (lower.startsWith('vbscript:')) return false
+  if (lower.startsWith('blob:')) return false
   try {
     const parsed = new URL(url, 'https://zawios.io')
     return parsed.protocol === 'https:' || parsed.protocol === 'http:'

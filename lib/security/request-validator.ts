@@ -113,13 +113,25 @@ export function validateApiRequest(
 /**
  * Parse and sanitize a JSON body from a request.
  * Returns the parsed object or a NextResponse error.
+ * Enforces an actual body-size limit (not just header-based).
  */
 export async function parseJsonBody<T extends Record<string, unknown>>(
   request: NextRequest,
   requiredFields: string[] = [],
+  maxBodySize = 100_000,
 ): Promise<T | NextResponse> {
   try {
-    const body = (await request.json()) as T
+    const text = await request.text()
+
+    // Actual body size enforcement (defense-in-depth beyond Content-Length header)
+    if (text.length > maxBodySize) {
+      return NextResponse.json(
+        { error: 'Request body too large' },
+        { status: 413 },
+      )
+    }
+
+    const body = JSON.parse(text) as T
 
     // Check required fields
     for (const field of requiredFields) {

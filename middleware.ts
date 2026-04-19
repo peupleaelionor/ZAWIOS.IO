@@ -2,7 +2,16 @@ import { type NextRequest, NextResponse } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 import { applySecurityHeaders, buildCsp } from '@/lib/security/headers'
 import { getClientIp, isMaliciousBot } from '@/lib/security/request-validator'
-import { checkRateLimit } from '@/lib/security/rate-limiter'
+import { checkRateLimit, type RateLimitTier } from '@/lib/security/rate-limiter'
+
+/** Determine rate-limit tier based on request path */
+function getTierForPath(pathname: string): RateLimitTier {
+  if (pathname.startsWith('/api/auth')) return 'auth'
+  if (pathname.startsWith('/api/vote') || pathname.startsWith('/api/signals/') && pathname.endsWith('/vote')) return 'vote'
+  if (pathname.startsWith('/api/contact')) return 'contact'
+  if (pathname.startsWith('/api/admin')) return 'admin'
+  return 'api'
+}
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -16,10 +25,7 @@ export async function middleware(request: NextRequest) {
   // ── Rate limit API routes at middleware level ───────────────────────────
   if (pathname.startsWith('/api/')) {
     const ip = getClientIp(request)
-    const tier = pathname.startsWith('/api/auth') ? 'auth' as const
-      : pathname.startsWith('/api/vote') ? 'vote' as const
-      : pathname.startsWith('/api/contact') ? 'contact' as const
-      : 'api' as const
+    const tier = getTierForPath(pathname)
     const result = checkRateLimit(ip, tier)
     if (!result.allowed) {
       return NextResponse.json(
