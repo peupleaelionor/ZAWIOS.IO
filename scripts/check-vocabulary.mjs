@@ -9,7 +9,7 @@
  * Skips: code variables, imports, types, comments, internal routes (api/, admin/, dashboard/predictions/)
  */
 
-import { readFileSync, readdirSync, statSync } from 'node:fs'
+import { readFileSync, readdirSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 const ROOT = process.cwd()

@@ -3,12 +3,13 @@ import { Metadata } from 'next'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { SignalsFeed } from '@/components/signals/signals-feed'
+import { copy } from '@/lib/i18n.copy'
 import { SignalSkeleton } from '@/components/skeletons'
 import { SignalsFeedErrorBoundary } from '@/components/signals/signals-feed-error-boundary'
 
 export const metadata: Metadata = {
-  title: 'Signaux',
-  description: 'Explorez les signaux stratégiques mondiaux. Votez, analysez et construisez votre réputation.',
+  title: copy.fr.signalPage.label,
+  description: copy.fr.signalPage.subtitle,
 }
 
 export default function SignalsPage() {
@@ -23,7 +24,7 @@ export default function SignalsPage() {
             className="section-label mb-3"
             style={{ fontFamily: 'var(--mono)' }}
           >
-            Signaux stratégiques
+            {copy.fr.signalPage.label}
           </p>
           <h1
             className="text-3xl md:text-4xl font-bold mb-3"
@@ -33,13 +34,13 @@ export default function SignalsPage() {
               color: 'var(--text-strong)',
             }}
           >
-            Mesurez le futur.
+            {copy.fr.signalPage.title}
           </h1>
           <p
             className="text-lg leading-relaxed max-w-[600px]"
             style={{ color: 'var(--text-muted)' }}
           >
-            Analysez les tendances mondiales. Votez sur les hypothèses stratégiques. Construisez votre signal.
+            {copy.fr.signalPage.subtitle}
           </p>
         </div>
 

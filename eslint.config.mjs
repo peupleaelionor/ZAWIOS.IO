@@ -88,8 +88,42 @@ export default [
         __filename: "readonly",
         process: "readonly",
         console: "readonly",
+        Buffer: "readonly",
       },
       sourceType: "commonjs",
+    },
+  },
+  {
+    files: ["scripts/**/*.mjs"],
+    languageOptions: {
+      globals: {
+        process: "readonly",
+        console: "readonly",
+        Buffer: "readonly",
+        __dirname: "readonly",
+        __filename: "readonly",
+        URL: "readonly",
+        fetch: "readonly",
+      },
+      sourceType: "module",
+    },
+  },
+  {
+    files: ["tests/**/*.ts", "tests/**/*.tsx", "vitest.config.ts"],
+    languageOptions: {
+      globals: {
+        describe: "readonly",
+        test: "readonly",
+        it: "readonly",
+        expect: "readonly",
+        beforeEach: "readonly",
+        afterEach: "readonly",
+        beforeAll: "readonly",
+        afterAll: "readonly",
+        vi: "readonly",
+        __dirname: "readonly",
+        Buffer: "readonly",
+      },
     },
   },
   {

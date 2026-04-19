@@ -145,8 +145,8 @@ interface AnalysesProps {
   onLike: (id: string) => void
 }
 
-function voteLabel(voteType: VoteType): string {
-  return voteType === 'yes' ? 'OUI' : voteType === 'no' ? 'NON' : 'NEUTRE'
+function voteLabel(voteType: VoteType, t: { vote: { yes: string; no: string; neutral: string } }): string {
+  return voteType === 'yes' ? t.vote.yes.toUpperCase() : voteType === 'no' ? t.vote.no.toUpperCase() : t.vote.neutral.toUpperCase()
 }
 
 function voteColor(voteType: VoteType): string {
@@ -209,7 +209,7 @@ export function StrategicAnalyses({
                     background: `${voteColor(ctx.voteType)}15`,
                   }}
                 >
-                  {voteLabel(ctx.voteType)}
+                  {voteLabel(ctx.voteType, t)}
                 </span>
               </div>
               <span

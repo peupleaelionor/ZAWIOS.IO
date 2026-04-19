@@ -3,6 +3,7 @@ import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { SignalDetailView } from '@/components/signals/signal-detail-view'
 import { mockSignals } from '@/lib/signals-data'
+import { copy } from '@/lib/i18n.copy'
 import type { Metadata } from 'next'
 
 interface PageProps {
@@ -12,7 +13,7 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params
   const signal = mockSignals.find((s) => s.id === id)
-  if (!signal) return { title: 'Signal introuvable' }
+  if (!signal) return { title: copy.fr.signal.notFound }
   return {
     title: signal.title,
     description: signal.description,

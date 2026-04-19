@@ -100,12 +100,12 @@ export function WorldViewSection() {
 
   // Safe-by-default: only "Ma région" + "Global" visible. Others behind opt-in.
   const SAFE_REGIONS = [
-    { id: 'global', label: t.worldView.globalSummary, votes: '2M' },
+    { id: 'global', label: t.worldView.regionGlobal, votes: '2M' },
   ]
   const COMPARE_REGIONS = [
-    { id: 'africa', label: 'Afrique', votes: '980K' },
-    { id: 'europe', label: 'Europe', votes: '540K' },
-    { id: 'usa', label: 'USA', votes: '430K' },
+    { id: 'africa', label: t.worldView.regionAfrica, votes: '980K' },
+    { id: 'europe', label: t.worldView.regionEurope, votes: '540K' },
+    { id: 'usa', label: t.worldView.regionUSA, votes: '430K' },
   ]
 
   const visibleRegions = compareOptIn
@@ -167,7 +167,7 @@ export function WorldViewSection() {
                     border: '1px dashed var(--border3)',
                   }}
                 >
-                  Comparer Afrique / Europe / USA
+                  {t.worldView.compareLabel}
                 </button>
               )}
             </div>
@@ -227,13 +227,13 @@ export function WorldViewSection() {
 
               // Safe-by-default: only show "Global" + "Ma région" rows unless opt-in
               const safeRows = [
-                { label: 'Global', value: bd.global, highlight: false },
+                { label: t.worldView.regionGlobal, value: bd.global, highlight: false },
               ]
               const compareRows = [
-                { label: 'Afrique', value: bd.africa, highlight: activeRegion === 'africa' },
-                { label: 'France', value: bd.france, highlight: activeRegion === 'europe' },
-                { label: 'Europe', value: bd.europe, highlight: activeRegion === 'europe' },
-                { label: 'USA', value: bd.usa, highlight: activeRegion === 'usa' },
+                { label: t.worldView.regionAfrica, value: bd.africa, highlight: activeRegion === 'africa' },
+                { label: t.worldView.regionFrance, value: bd.france, highlight: activeRegion === 'europe' },
+                { label: t.worldView.regionEurope, value: bd.europe, highlight: activeRegion === 'europe' },
+                { label: t.worldView.regionUSA, value: bd.usa, highlight: activeRegion === 'usa' },
               ]
               const rows = compareOptIn ? [...safeRows, ...compareRows] : safeRows
 
@@ -290,12 +290,12 @@ export function WorldViewSection() {
                         const spread = max - min
                         if (spread < 10) return (
                           <span className="text-[9px] px-2 py-0.5 rounded-full bg-[var(--teal)]/10 text-[var(--teal)]" style={{ fontFamily: 'var(--mono)' }}>
-                            consensus ({spread}pts d&apos;écart)
+                            {t.worldView.consensus} ({spread}pts)
                           </span>
                         )
                         return (
                           <span className="text-[9px] px-2 py-0.5 rounded-full bg-[var(--amber)]/10 text-[var(--amber)]" style={{ fontFamily: 'var(--mono)' }}>
-                            divergence ({spread}pts d&apos;écart)
+                            {t.worldView.divergence} ({spread}pts)
                           </span>
                         )
                       })()}
