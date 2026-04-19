@@ -12,7 +12,8 @@
     "organize-assets": "node scripts/organize-assets.js",
     "icons:gen": "node scripts/generate-icons.mjs",
     "layout:check": "node scripts/check-layout.mjs",
-    "qa:all": "npm run lint && npm run typecheck && npm run layout:check && npm run build"
+    "vocab:check": "node scripts/check-vocabulary.mjs",
+    "qa:all": "npm run lint && npm run typecheck && npm run layout:check && npm run vocab:check && npm run build"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.2",

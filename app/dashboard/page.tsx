@@ -142,7 +142,7 @@ export default async function DashboardPage() {
             <h2 className="text-lg font-semibold text-[var(--text)]">Trending predictions</h2>
             <p className="text-sm text-[var(--text3)]">Most active in the last 24 hours</p>
           </div>
-          <Link href="/predictions">
+          <Link href="/signals">
             <Button variant="ghost" size="sm" className="gap-1">
               View all <IconArrows className="w-3.5 h-3.5" size={14} />
             </Button>

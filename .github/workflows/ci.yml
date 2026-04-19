@@ -32,5 +32,8 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Vocabulary guard
+        run: npm run vocab:check
+
       - name: Build
         run: npm run build

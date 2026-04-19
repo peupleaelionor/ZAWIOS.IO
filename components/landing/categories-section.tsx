@@ -258,7 +258,7 @@ export function CategoriesSection() {
             return (
               <Link
                 key={cat.id}
-                href={`/predictions?category=${cat.id}`}
+                href={`/signals?category=${cat.id}`}
                 className="group flex items-center justify-between px-5 py-4 transition-colors duration-150 hover:bg-white/[0.025]"
                 style={{
                   borderBottom: isLast ? 'none' : '1px solid var(--border)',
@@ -306,7 +306,7 @@ export function CategoriesSection() {
         {/* CTA */}
         <div className="mt-6">
           <Link
-            href="/predictions"
+            href="/signals"
             className="flex items-center justify-center gap-2 w-full py-4 rounded-xl text-sm font-bold transition-all duration-150 hover:brightness-110 active:scale-[0.98]"
             style={{
               background: 'var(--teal)',
