@@ -105,10 +105,11 @@ interface ImpactBadgeProps {
 }
 
 export function ImpactBadge({ level, className }: ImpactBadgeProps) {
-  const labels: Record<string, { fr: string; color: string }> = {
-    faible: { fr: 'Impact faible', color: 'var(--text3)' },
-    structurel: { fr: 'Impact structurel', color: ROYAL_BLUE },
-    civilisationnel: { fr: 'Impact civilisationnel', color: 'var(--accent)' },
+  const { t } = useLanguage()
+  const labels: Record<string, { label: string; color: string }> = {
+    faible: { label: t.signalIntelligence.impactLow, color: 'var(--text3)' },
+    structurel: { label: t.signalIntelligence.impactStructural, color: ROYAL_BLUE },
+    civilisationnel: { label: t.signalIntelligence.impactCivilizational, color: 'var(--accent)' },
   }
   const meta = labels[level]
 
@@ -128,7 +129,7 @@ export function ImpactBadge({ level, className }: ImpactBadgeProps) {
         className="w-1.5 h-1.5 rounded-full"
         style={{ background: meta.color }}
       />
-      {meta.fr}
+      {meta.label}
     </span>
   )
 }
@@ -148,13 +149,14 @@ export function ConvictionSelector({
   onChange,
   className,
 }: ConvictionSelectorProps) {
+  const { t } = useLanguage()
   return (
     <div className={cn('', className)}>
       <p
         className="text-[10px] font-semibold mb-1.5 uppercase tracking-wider"
         style={{ fontFamily: 'var(--mono)', color: 'var(--text3)' }}
       >
-        Conviction
+        {t.signalIntelligence.conviction}
       </p>
       <div className="flex gap-1.5">
         {CONVICTION_LEVELS.map((level) => (
@@ -198,13 +200,14 @@ export function ReasonSelector({
   onSelect,
   className,
 }: ReasonSelectorProps) {
+  const { t } = useLanguage()
   return (
     <div className={cn('', className)}>
       <p
         className="text-[10px] font-semibold mb-1.5 uppercase tracking-wider"
         style={{ fontFamily: 'var(--mono)', color: 'var(--text3)' }}
       >
-        Pourquoi ?
+        {t.signalIntelligence.why}
       </p>
       <div className="flex flex-col gap-1">
         {reasons.map((reason) => (
@@ -246,13 +249,14 @@ export function PersonalProjectionPrompt({
   onChange,
   className,
 }: PersonalProjectionProps) {
+  const { t } = useLanguage()
   return (
     <div className={cn('', className)}>
       <p
         className="text-[10px] font-semibold mb-1.5"
         style={{ fontFamily: 'var(--mono)', color: 'var(--text3)' }}
       >
-        Cette hypothèse impactera-t-elle votre vie ?
+        {t.signalIntelligence.personalImpactQuestion}
       </p>
       <div className="flex gap-1.5">
         {PERSONAL_IMPACT_OPTIONS.map((opt) => (
@@ -325,6 +329,7 @@ export function AccelerationBadge({
   ratio,
   className,
 }: AccelerationBadgeProps) {
+  const { t } = useLanguage()
   if (!accelerating) return null
 
   return (
@@ -340,7 +345,7 @@ export function AccelerationBadge({
       }}
     >
       <IconTrending size={10} className="w-2.5 h-2.5" />
-      En accélération{ratio ? ` ×${ratio}` : ''}
+      {t.signalIntelligence.accelerating}{ratio ? ` ×${ratio}` : ''}
     </span>
   )
 }
@@ -355,11 +360,12 @@ interface SignalScoreRadarProps {
 }
 
 export function SignalScoreRadar({ score, className }: SignalScoreRadarProps) {
+  const { t } = useLanguage()
   const dimensions = [
-    { label: 'Clarté', value: score.clarity },
-    { label: 'Impact', value: score.impact },
-    { label: 'Divergence', value: score.divergence },
-    { label: 'Participation', value: score.participation },
+    { label: t.signalIntelligence.clarity, value: score.clarity },
+    { label: t.signalIntelligence.impact, value: score.impact },
+    { label: t.signalIntelligence.divergenceLabel, value: score.divergence },
+    { label: t.signalIntelligence.participation, value: score.participation },
   ]
 
   return (
@@ -374,7 +380,7 @@ export function SignalScoreRadar({ score, className }: SignalScoreRadarProps) {
         className="text-[10px] font-bold uppercase tracking-wider mb-2"
         style={{ fontFamily: 'var(--mono)', color: ROYAL_BLUE, letterSpacing: '0.1em' }}
       >
-        Signal Score
+        {t.signalIntelligence.signalScore}
       </p>
       <div className="grid grid-cols-4 gap-2">
         {dimensions.map((d) => (
@@ -441,6 +447,7 @@ export function GreyZoneOption({
   onSelect,
   className,
 }: GreyZoneOptionProps) {
+  const { t } = useLanguage()
   return (
     <button
       onClick={onSelect}
@@ -456,7 +463,7 @@ export function GreyZoneOption({
         opacity: selected ? 1 : 0.7,
       }}
     >
-      Trop tôt pour conclure
+      {t.signalIntelligence.tooEarly}
     </button>
   )
 }

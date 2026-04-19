@@ -37,6 +37,9 @@ export const copy = {
       signin: 'Connexion',
       join: 'Commencer',
       joinMobile: 'Commencer',
+      intelligence: 'Intelligence',
+      support: 'Soutenir',
+      dashboard: 'Tableau de bord',
     },
 
     /* ── Hero ── */
@@ -50,6 +53,11 @@ export const copy = {
       ctaSecondary: 'Voir les signaux',
       liveIndicator: '47 000 actifs · 94 pays',
       featuredSignal: 'Signal du moment',
+      sectionLabel: 'Intelligence Collective',
+      headline1: 'Analyse collective\n mondiale.',
+      headline2: 'Compare. Décide. Anticipe.',
+      description:
+        'Infrastructure stratégique fondée sur la réputation et la précision des signaux collectifs.',
     },
 
     /* ── Tri-state vote ── */
@@ -152,6 +160,11 @@ export const copy = {
       moderateGap: 'écart modéré',
       divergence: 'divergence',
       howWorldThinks: 'Comment le monde pense',
+      regionGlobal: 'Global',
+      regionAfrica: 'Afrique',
+      regionFrance: 'France',
+      regionEurope: 'Europe',
+      regionUSA: 'USA',
     },
 
     /* ── Categories ── */
@@ -215,6 +228,28 @@ export const copy = {
       liveSignals: 'Signaux en direct',
       results: 'Résultats',
       resolvedSignals: 'Signaux résolus',
+      all: 'Tous',
+      worldViewLabel: 'Vision Monde',
+      worldViewQuestion: 'Comment le monde pense ?',
+      worldViewDesc:
+        "Signaux cross-régionaux — compare l'opinion de l'Afrique, la France, l'Europe et les USA.",
+      viewWorldView: 'Voir tous les signaux Vision Monde →',
+      trends: 'Tendances',
+      recent: 'Récents',
+      popular: 'Populaires',
+      following: 'Suivis',
+      consensus: 'Consensus',
+      divergence: 'Divergence',
+      viewWorld: 'Voir Monde',
+      compareRegions: 'Comparer régions',
+      allRegions: 'Toutes régions',
+      noResults: 'Aucun signal pour ces filtres.',
+      resetFilters: 'Réinitialiser les filtres',
+      sortBy: 'Trier par',
+      categoryLabel: 'Catégorie',
+      regionLabel: 'Région',
+      world: 'Monde',
+      noMatch: 'Aucun signal ne correspond à vos critères.',
     },
 
     /* ── Signal card ── */
@@ -226,6 +261,10 @@ export const copy = {
       false: 'FAUX',
       trending: 'tendance',
       votes: 'votes',
+      horizonShort: '1-3 ans',
+      horizonMedium: '5-10 ans',
+      horizonLong: '15-30 ans',
+      notFound: 'Signal introuvable',
     },
 
     /* ── Steps ── */
@@ -262,7 +301,7 @@ export const copy = {
         Legal: 'Légal',
       },
       links: {
-        Predictions: 'Signaux',
+        Signals: 'Signaux',
         Leaderboard: 'Classement',
         Insights: 'Analyses',
         Système: 'Système produit',
@@ -277,6 +316,107 @@ export const copy = {
         'Terms of Service': "Conditions d'utilisation",
         Methodology: 'Méthodologie',
       },
+    },
+
+    /* ── Home page ── */
+    page: {
+      methodology: 'Méthodologie',
+      methodologyTitle: 'Trois piliers.',
+      methodologyReadMore: 'Lire la méthodologie complète →',
+      pillarTitle1: 'Signal structuré',
+      pillarDesc1:
+        "Chaque vote est accompagné d'un contexte analytique. Les données brutes deviennent une position argumentée, traçable et comparable.",
+      pillarTitle2: 'Réputation pondérée',
+      pillarDesc2:
+        "La précision historique de chaque analyste pondère l'impact de son signal. Plus tu es exact, plus ton vote compte.",
+      pillarTitle3: 'Corrélation comparative mondiale',
+      pillarDesc3:
+        'Les signaux sont agrégés par région, catégorie et période. La divergence entre zones géographiques est mesurée et exposée.',
+      statsAnalysts: 'Analystes',
+      statsCountries: 'Pays',
+      statsAccuracy: 'Précision moy.',
+      feedLabel: 'Signal du moment',
+      feedTitle: 'En direct',
+      viewAll: 'Voir tout →',
+      leaderboardLabel: 'Classement',
+      leaderboardTitle: 'Top analystes',
+      leaderboardSignals: 'signaux',
+    },
+
+    /* ── About ── */
+    about: {
+      metaTitle: 'À propos',
+      metaDescription:
+        "Découvrez ZAWIOS — la plateforme d'intelligence collective pour les signaux et la réputation.",
+      mission: 'Notre mission',
+      missionHeadline:
+        "L'intelligence est collective.\nLa réputation doit être vérifiable.",
+      missionDesc:
+        "ZAWIOS repose sur un constat : agréger de nombreuses perspectives indépendantes produit de meilleures analyses que n'importe quel analyste isolé. Nous avons conçu la plateforme pour mesurer cela — et pour reconnaître ceux qui voient juste, régulièrement.",
+      openGlobal: 'Ouvert et mondial',
+      openGlobalDesc:
+        "Pas de gardiens. Des analystes de 94 pays participent sur un pied d'égalité. Les meilleures idées gagnent, indépendamment du diplôme ou du lieu.",
+      accuracyFirst: 'Précision avant tout',
+      accuracyFirstDesc:
+        'Nous mesurons ce qui compte : aviez-vous raison ? Pas la force de votre conviction, ni votre notoriété — seulement votre historique dans le temps.',
+      transparentData: 'Données transparentes',
+      transparentDataDesc:
+        "Chaque signal est public. Chaque vote est enregistré. Chaque indice de réputation est calculé de manière transparente. Aucune boîte noire.",
+      story: 'Notre histoire',
+      storyP1:
+        "ZAWIOS est né d'une frustration : les analyses les plus précieuses étaient réservées à des rapports coûteux, des modèles propriétaires et des réseaux fermés. Pendant ce temps, des millions de personnes informées avaient des intuitions justes sur le monde — sans aucun moyen de le prouver.",
+      storyP2:
+        "Nous avons créé ZAWIOS pour changer cela. Une plateforme où chacun peut prendre position, rivaliser en précision et construire un historique vérifiable. Pas d'argent, pas de paris — juste des signaux publics et un indice qui reflète la réalité.",
+      storyP3:
+        "Nous croyons que l'intelligence collective, correctement structurée et mesurée, produit de meilleures analyses que n'importe quel expert isolé. Et nous croyons que ceux qui ont régulièrement raison méritent d'être reconnus.",
+      readyCta: 'Prêt à construire ta réputation ?',
+      joinCta: 'Rejoindre ZAWIOS (gratuit)',
+    },
+
+    /* ── Signal detail ── */
+    detail: {
+      backToSignals: 'Retour aux signaux',
+      regionalComparison: 'Comparaison régionale',
+      published: 'Publié',
+      horizon: 'Horizon',
+    },
+
+    /* ── Signal create ── */
+    signalCreate: {
+      label: 'Créer',
+      title: 'Proposez un signal.',
+      subtitle:
+        'Partagez votre hypothèse stratégique avec la communauté mondiale.',
+      comingSoon:
+        "Le formulaire de création de signal sera bientôt disponible. Pour l'instant, veuillez contacter l'équipe ZAWIOS.",
+      backToSignals: 'Retour aux signaux',
+      contact: 'Contacter',
+    },
+
+    /* ── Signal listing page ── */
+    signalPage: {
+      label: 'Signaux stratégiques',
+      title: 'Mesurez le futur.',
+      subtitle:
+        'Analysez les tendances mondiales. Votez sur les hypothèses stratégiques. Construisez votre signal.',
+    },
+
+    /* ── Signal intelligence ── */
+    signalIntelligence: {
+      impactLow: 'Impact faible',
+      impactStructural: 'Impact structurel',
+      impactCivilizational: 'Impact civilisationnel',
+      conviction: 'Conviction',
+      why: 'Pourquoi ?',
+      personalImpactQuestion:
+        'Cette hypothèse impactera-t-elle votre vie ?',
+      accelerating: 'En accélération',
+      signalScore: 'Signal Score',
+      clarity: 'Clarté',
+      impact: 'Impact',
+      divergenceLabel: 'Divergence',
+      participation: 'Participation',
+      tooEarly: 'Trop tôt pour conclure',
     },
   },
 
@@ -303,6 +443,9 @@ export const copy = {
       signin: 'Sign in',
       join: 'Get started',
       joinMobile: 'Start',
+      intelligence: 'Intelligence',
+      support: 'Support',
+      dashboard: 'Dashboard',
     },
 
     /* ── Hero ── */
@@ -316,6 +459,11 @@ export const copy = {
       ctaSecondary: 'Browse signals',
       liveIndicator: '47,000 active · 94 countries',
       featuredSignal: 'Featured signal',
+      sectionLabel: 'Collective Intelligence',
+      headline1: 'Global collective\n analysis.',
+      headline2: 'Compare. Decide. Anticipate.',
+      description:
+        'Strategic infrastructure built on the reputation and accuracy of collective signals.',
     },
 
     /* ── Tri-state vote ── */
@@ -418,6 +566,11 @@ export const copy = {
       moderateGap: 'moderate gap',
       divergence: 'divergence',
       howWorldThinks: 'How the world thinks',
+      regionGlobal: 'Global',
+      regionAfrica: 'Africa',
+      regionFrance: 'France',
+      regionEurope: 'Europe',
+      regionUSA: 'USA',
     },
 
     /* ── Categories ── */
@@ -481,6 +634,28 @@ export const copy = {
       liveSignals: 'Live signals',
       results: 'Results',
       resolvedSignals: 'Resolved signals',
+      all: 'All',
+      worldViewLabel: 'World View',
+      worldViewQuestion: 'How does the world think?',
+      worldViewDesc:
+        'Cross-regional signals — compare opinions from Africa, France, Europe, and the USA.',
+      viewWorldView: 'View all World View signals →',
+      trends: 'Trending',
+      recent: 'Recent',
+      popular: 'Popular',
+      following: 'Following',
+      consensus: 'Consensus',
+      divergence: 'Divergence',
+      viewWorld: 'View World',
+      compareRegions: 'Compare regions',
+      allRegions: 'All regions',
+      noResults: 'No signals match these filters.',
+      resetFilters: 'Reset filters',
+      sortBy: 'Sort by',
+      categoryLabel: 'Category',
+      regionLabel: 'Region',
+      world: 'World',
+      noMatch: 'No signals match your criteria.',
     },
 
     /* ── Signal card ── */
@@ -492,6 +667,10 @@ export const copy = {
       false: 'FALSE',
       trending: 'trending',
       votes: 'votes',
+      horizonShort: '1-3 years',
+      horizonMedium: '5-10 years',
+      horizonLong: '15-30 years',
+      notFound: 'Signal not found',
     },
 
     /* ── Steps ── */
@@ -528,7 +707,7 @@ export const copy = {
         Legal: 'Legal',
       },
       links: {
-        Predictions: 'Signals',
+        Signals: 'Signals',
         Leaderboard: 'Leaderboard',
         Insights: 'Insights',
         Système: 'Product System',
@@ -543,6 +722,107 @@ export const copy = {
         'Terms of Service': 'Terms of Service',
         Methodology: 'Methodology',
       },
+    },
+
+    /* ── Home page ── */
+    page: {
+      methodology: 'Methodology',
+      methodologyTitle: 'Three pillars.',
+      methodologyReadMore: 'Read full methodology →',
+      pillarTitle1: 'Structured signal',
+      pillarDesc1:
+        'Every vote includes analytical context. Raw data becomes a traceable, comparable, argued position.',
+      pillarTitle2: 'Weighted reputation',
+      pillarDesc2:
+        "Each analyst's historical accuracy weighs the impact of their signal. The more accurate you are, the more your vote counts.",
+      pillarTitle3: 'Global comparative correlation',
+      pillarDesc3:
+        'Signals are aggregated by region, category, and period. Divergence between geographical zones is measured and exposed.',
+      statsAnalysts: 'Analysts',
+      statsCountries: 'Countries',
+      statsAccuracy: 'Avg. accuracy',
+      feedLabel: 'Featured signal',
+      feedTitle: 'Live',
+      viewAll: 'View all →',
+      leaderboardLabel: 'Leaderboard',
+      leaderboardTitle: 'Top analysts',
+      leaderboardSignals: 'signals',
+    },
+
+    /* ── About ── */
+    about: {
+      metaTitle: 'About',
+      metaDescription:
+        'Learn about ZAWIOS — the collective intelligence platform for signals and reputation.',
+      mission: 'Our mission',
+      missionHeadline:
+        'Intelligence is collective.\nReputation should be verifiable.',
+      missionDesc:
+        'ZAWIOS was built on one premise: aggregating many independent perspectives produces better forecasts than any single analyst. We built the platform to measure that — and to recognize the people who get it right, consistently.',
+      openGlobal: 'Open & Global',
+      openGlobalDesc:
+        'No gatekeepers. Predictors from 94 countries participate on equal terms. The best ideas win, regardless of credential or location.',
+      accuracyFirst: 'Accuracy First',
+      accuracyFirstDesc:
+        'We measure what matters: were you right? Not how loud you were, not how confident you sounded — just your track record over time.',
+      transparentData: 'Transparent Data',
+      transparentDataDesc:
+        'Every signal is public. Every vote is recorded. Every reputation score is calculated transparently. No black boxes.',
+      story: 'The story',
+      storyP1:
+        'ZAWIOS started from a frustration: the most valuable forecasting insights were reserved for expensive research reports, proprietary models, and private networks. Meanwhile, millions of informed people had accurate intuitions about the world — and no way to prove it.',
+      storyP2:
+        'We built ZAWIOS to fix that. A platform where anyone can take a position, compete on accuracy, and build a verified track record. No money, no bets — just public predictions and a score that reflects reality.',
+      storyP3:
+        'We believe that collective intelligence, properly structured and measured, produces better forecasts than any single expert. And we believe that the people who are consistently right deserve recognition.',
+      readyCta: 'Ready to start building your reputation?',
+      joinCta: 'Join ZAWIOS free',
+    },
+
+    /* ── Signal detail ── */
+    detail: {
+      backToSignals: 'Back to signals',
+      regionalComparison: 'Regional comparison',
+      published: 'Published',
+      horizon: 'Horizon',
+    },
+
+    /* ── Signal create ── */
+    signalCreate: {
+      label: 'Create',
+      title: 'Propose a signal.',
+      subtitle:
+        'Share your strategic hypothesis with the global community.',
+      comingSoon:
+        'The signal creation form will be available soon. In the meantime, please contact the ZAWIOS team.',
+      backToSignals: 'Back to signals',
+      contact: 'Contact',
+    },
+
+    /* ── Signal listing page ── */
+    signalPage: {
+      label: 'Strategic signals',
+      title: 'Measure the future.',
+      subtitle:
+        'Analyze global trends. Vote on strategic hypotheses. Build your signal.',
+    },
+
+    /* ── Signal intelligence ── */
+    signalIntelligence: {
+      impactLow: 'Low impact',
+      impactStructural: 'Structural impact',
+      impactCivilizational: 'Civilizational impact',
+      conviction: 'Conviction',
+      why: 'Why?',
+      personalImpactQuestion:
+        'Will this hypothesis impact your life?',
+      accelerating: 'Accelerating',
+      signalScore: 'Signal Score',
+      clarity: 'Clarity',
+      impact: 'Impact',
+      divergenceLabel: 'Divergence',
+      participation: 'Participation',
+      tooEarly: 'Too early to conclude',
     },
   },
 } as const

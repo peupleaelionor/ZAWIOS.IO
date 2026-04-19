@@ -32,7 +32,7 @@ export function HeroSection() {
         >
           {/* Label */}
           <motion.p variants={staggerItem} className="section-label mb-5">
-            Intelligence Collective
+            {t.hero.sectionLabel}
           </motion.p>
 
           {/* Headline */}
@@ -46,11 +46,10 @@ export function HeroSection() {
                 letterSpacing: '-0.028em',
                 lineHeight: 1.07,
                 color: 'var(--text-strong)',
+                whiteSpace: 'pre-line',
               }}
             >
-              Analyse collective
-              <br className="hidden sm:block" />
-              {' '}mondiale.
+              {t.hero.headline1}
             </span>
             <span
               style={{
@@ -64,7 +63,7 @@ export function HeroSection() {
                 color: 'var(--primary)',
               }}
             >
-              Compare. Décide. Anticipe.
+              {t.hero.headline2}
             </span>
           </motion.h1>
 
@@ -79,8 +78,7 @@ export function HeroSection() {
               marginBottom: '2rem',
             }}
           >
-            Infrastructure stratégique fondée sur la réputation
-            et la précision des signaux collectifs.
+            {t.hero.description}
           </motion.p>
 
           {/* CTAs */}

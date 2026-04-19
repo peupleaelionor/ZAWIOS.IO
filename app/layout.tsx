@@ -4,6 +4,7 @@ import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
 import { UserContextProvider } from '@/components/providers/user-context-provider'
 import { ThemeProvider } from '@/components/providers/theme-provider'
+import { QueryProvider } from '@/components/providers/query-provider'
 import { NetworkStatus } from '@/components/layout/network-status'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
@@ -125,17 +126,19 @@ export default function RootLayout({
           }}
         />
         <ThemeProvider>
-          <AnalyticsProvider>
-            <LanguageProvider>
-              <UserContextProvider>
-                <NetworkStatus />
-                <main>
-                  {children}
-                </main>
-                <BottomNav />
-              </UserContextProvider>
-            </LanguageProvider>
-          </AnalyticsProvider>
+          <QueryProvider>
+            <AnalyticsProvider>
+              <LanguageProvider>
+                <UserContextProvider>
+                  <NetworkStatus />
+                  <main>
+                    {children}
+                  </main>
+                  <BottomNav />
+                </UserContextProvider>
+              </LanguageProvider>
+            </AnalyticsProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

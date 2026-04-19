@@ -1,17 +1,17 @@
+// Client component: required to access useLanguage() for i18n
+'use client'
+
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
 import { GridBackground, Orb } from '@/components/ui/effects'
-import { IconGlobe, IconTarget, IconTrending, IconArrows, IconShield, IconUsers, IconCheck } from '@/components/ui/icons'
+import { IconGlobe, IconTarget, IconTrending, IconArrows } from '@/components/ui/icons'
 import Link from 'next/link'
-import type { Metadata } from 'next'
-
-export const metadata: Metadata = {
-  title: 'About',
-  description: 'Learn about ZAWIOS — the collective intelligence platform for predictions and reputation.',
-}
+import { useLanguage } from '@/components/providers/language-provider'
 
 export default function AboutPage() {
+  const { t } = useLanguage()
+
   return (
     <div className="min-h-screen bg-[var(--bg)]">
       <Navbar />
@@ -21,13 +21,12 @@ export default function AboutPage() {
           <GridBackground />
           <Orb color="var(--accent)" size={350} top="-10%" left="10%" />
           <div className="container max-w-3xl relative">
-            <p className="section-label">Our mission</p>
-            <h1 className="text-4xl font-bold text-[var(--text)] mb-6">
-              Intelligence is collective. <br />Reputation should be verifiable.
+            <p className="section-label">{t.about.mission}</p>
+            <h1 className="text-4xl font-bold text-[var(--text)] mb-6" style={{ whiteSpace: 'pre-line' }}>
+              {t.about.missionHeadline}
             </h1>
             <p className="text-lg text-[var(--text2)] leading-relaxed">
-              ZAWIOS was built on one premise: aggregating many independent perspectives produces better forecasts
-              than any single analyst. We built the platform to measure that — and to recognize the people who get it right, consistently.
+              {t.about.missionDesc}
             </p>
           </div>
         </section>
@@ -39,18 +38,18 @@ export default function AboutPage() {
               {[
                 {
                   icon: <IconGlobe className="w-6 h-6" size={24} />,
-                  title: 'Open & Global',
-                  description: 'No gatekeepers. Predictors from 94 countries participate on equal terms. The best ideas win, regardless of credential or location.',
+                  title: t.about.openGlobal,
+                  description: t.about.openGlobalDesc,
                 },
                 {
                   icon: <IconTarget className="w-6 h-6" size={24} />,
-                  title: 'Accuracy First',
-                  description: 'We measure what matters: were you right? Not how loud you were, not how confident you sounded — just your track record over time.',
+                  title: t.about.accuracyFirst,
+                  description: t.about.accuracyFirstDesc,
                 },
                 {
                   icon: <IconTrending className="w-6 h-6" size={24} />,
-                  title: 'Transparent Data',
-                  description: 'Every signal is public. Every vote is recorded. Every reputation score is calculated transparently. No black boxes.',
+                  title: t.about.transparentData,
+                  description: t.about.transparentDataDesc,
                 },
               ].map((value) => (
                 <div key={value.title} className="text-center rv">
@@ -71,21 +70,11 @@ export default function AboutPage() {
         {/* Story */}
         <section className="py-16 bg-[var(--bg)]">
           <div className="container max-w-3xl">
-            <h2 className="text-2xl font-bold text-[var(--text)] mb-6">The story</h2>
+            <h2 className="text-2xl font-bold text-[var(--text)] mb-6">{t.about.story}</h2>
             <div className="space-y-4 text-[var(--text2)] leading-relaxed">
-              <p>
-                ZAWIOS started from a frustration: the most valuable forecasting insights were reserved for expensive
-                research reports, proprietary models, and private networks. Meanwhile, millions of informed people
-                had accurate intuitions about the world — and no way to prove it.
-              </p>
-              <p>
-                We built ZAWIOS to fix that. A platform where anyone can take a position, compete on accuracy,
-                and build a verified track record. No money, no bets — just public predictions and a score that reflects reality.
-              </p>
-              <p>
-                We believe that collective intelligence, properly structured and measured, produces better forecasts
-                than any single expert. And we believe that the people who are consistently right deserve recognition.
-              </p>
+              <p>{t.about.storyP1}</p>
+              <p>{t.about.storyP2}</p>
+              <p>{t.about.storyP3}</p>
             </div>
           </div>
         </section>
@@ -94,11 +83,11 @@ export default function AboutPage() {
         <section className="py-16 bg-[var(--bg2)]">
           <div className="container text-center">
             <h2 className="text-2xl font-bold text-[var(--text)] mb-4">
-              Ready to start building your reputation?
+              {t.about.readyCta}
             </h2>
             <Link href="/auth/signup">
               <Button size="lg" className="gap-2">
-                Join ZAWIOS free <IconArrows className="w-4 h-4" size={16} />
+                {t.about.joinCta} <IconArrows className="w-4 h-4" size={16} />
               </Button>
             </Link>
           </div>

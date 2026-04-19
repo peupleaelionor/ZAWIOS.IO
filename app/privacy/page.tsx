@@ -20,15 +20,15 @@ export default function PrivacyPage() {
             {[
               {
                 title: '1. Information we collect',
-                content: 'We collect information you provide directly: your name, email address, and username when you create an account. We also collect your predictions, votes, and interactions on the platform. Technical data includes IP addresses, browser type, and usage analytics to improve the product.',
+                content: 'We collect information you provide directly: your name, email address, and username when you create an account. We also collect your signals, votes, and interactions on the platform. Technical data includes IP addresses, browser type, and usage analytics to improve the product.',
               },
               {
                 title: '2. How we use your information',
-                content: 'We use your data to provide the ZAWIOS service, calculate your reputation score, display your public profile, send you notifications about predictions, and improve the platform. We never sell your personal data to third parties.',
+                content: 'We use your data to provide the ZAWIOS service, calculate your reputation score, display your public profile, send you notifications about signals, and improve the platform. We never sell your personal data to third parties.',
               },
               {
                 title: '3. Public profile data',
-                content: 'Your username, prediction history, votes, and reputation score are public by default. This transparency is fundamental to the integrity of the platform. You can control some visibility settings in your account preferences.',
+                content: 'Your username, signal history, votes, and reputation score are public by default. This transparency is fundamental to the integrity of the platform. You can control some visibility settings in your account preferences.',
               },
               {
                 title: '4. Data retention',

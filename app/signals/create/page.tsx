@@ -3,10 +3,11 @@ import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import { copy } from '@/lib/i18n.copy'
 
 export const metadata: Metadata = {
-  title: 'Créer un signal',
-  description: 'Proposez un nouveau signal stratégique.',
+  title: copy.fr.signalCreate.label,
+  description: copy.fr.signalCreate.subtitle,
 }
 
 export default function CreateSignalPage() {
@@ -22,7 +23,7 @@ export default function CreateSignalPage() {
               className="section-label mb-3"
               style={{ fontFamily: 'var(--mono)' }}
             >
-              Créer
+              {copy.fr.signalCreate.label}
             </p>
             <h1
               className="text-3xl md:text-4xl font-bold mb-4"
@@ -32,13 +33,13 @@ export default function CreateSignalPage() {
                 color: 'var(--text-strong)',
               }}
             >
-              Proposez un signal.
+              {copy.fr.signalCreate.title}
             </h1>
             <p
               className="text-lg leading-relaxed"
               style={{ color: 'var(--text-muted)' }}
             >
-              Partagez votre hypothèse stratégique avec la communauté mondiale.
+              {copy.fr.signalCreate.subtitle}
             </p>
           </div>
 
@@ -51,18 +52,18 @@ export default function CreateSignalPage() {
             }}
           >
             <p style={{ color: 'var(--text-muted)' }} className="mb-6">
-              Le formulaire de création de signal sera bientôt disponible. Pour l'instant, veuillez contacter l'équipe ZAWIOS.
+              {copy.fr.signalCreate.comingSoon}
             </p>
             
             <div className="flex gap-3">
               <Link href="/signals" className="flex-1">
                 <Button variant="outline" className="w-full">
-                  Retour aux signaux
+                  {copy.fr.signalCreate.backToSignals}
                 </Button>
               </Link>
               <Link href="/support" className="flex-1">
                 <Button className="w-full">
-                  Contacter
+                  {copy.fr.signalCreate.contact}
                 </Button>
               </Link>
             </div>

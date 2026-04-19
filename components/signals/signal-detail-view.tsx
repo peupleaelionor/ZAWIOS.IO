@@ -17,13 +17,18 @@ import {
   OfficialDoubtBadge,
 } from '@/components/signals/signal-intelligence-ui'
 import { useLanguage } from '@/components/providers/language-provider'
+import type { Lang } from '@/lib/i18n'
 
 type TriVote = 'yes' | 'neutral' | 'no'
 
-const getCategoryLabel = (id: string) =>
-  SIGNAL_CATEGORIES.find((c) => c.id === id)?.labelFr ?? id
-const getRegionLabel = (id: string) =>
-  SIGNAL_REGIONS.find((r) => r.id === id)?.labelFr ?? id
+const getCategoryLabel = (id: string, lang: Lang) => {
+  const cat = SIGNAL_CATEGORIES.find((c) => c.id === id)
+  return lang === 'fr' ? (cat?.labelFr ?? id) : (cat?.label ?? id)
+}
+const getRegionLabel = (id: string, lang: Lang) => {
+  const region = SIGNAL_REGIONS.find((r) => r.id === id)
+  return lang === 'fr' ? (region?.labelFr ?? id) : (region?.label ?? id)
+}
 
 interface SignalDetailViewProps {
   signal: Signal
@@ -36,7 +41,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
   const neutralPercent = Math.round((signal.totalVotes * 0.08) / (signal.totalVotes || 1) * 100) || 8
   const isResolved = signal.status === 'resolved'
   const catStyle = CATEGORY_COLORS[signal.category]
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
 
   const handleVote = (choice: TriVote) => {
     if (voted || isResolved) return
@@ -65,7 +70,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
             <path d="M19 12H5" /><path d="M12 19l-7-7 7-7" />
           </svg>
-          Retour aux signaux
+          {t.detail.backToSignals}
         </Link>
       </div>
 
@@ -100,7 +105,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
                 fontFamily: 'var(--mono)',
               }}
             >
-              {getCategoryLabel(signal.category)}
+              {getCategoryLabel(signal.category, lang)}
             </span>
             <span
               className="inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-semibold"
@@ -110,7 +115,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
                 fontFamily: 'var(--mono)',
               }}
             >
-              {getRegionLabel(signal.region)}
+              {getRegionLabel(signal.region, lang)}
             </span>
             {signal.horizon && (
               <span
@@ -121,7 +126,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
                   fontFamily: 'var(--mono)',
                 }}
               >
-                {signal.horizon === 'court' ? '1-3 ans' : signal.horizon === 'moyen' ? '5-10 ans' : '15-30 ans'}
+                {signal.horizon === 'court' ? t.signal.horizonShort : signal.horizon === 'moyen' ? t.signal.horizonMedium : t.signal.horizonLong}
               </span>
             )}
           </div>
@@ -163,7 +168,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
                     {yesPercent}%
                   </span>
                   <span className="text-xs font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--positive)', opacity: 0.7 }}>
-                    OUI
+                    {t.vote.yes.toUpperCase()}
                   </span>
                 </div>
                 <div className="flex items-baseline gap-1">
@@ -177,7 +182,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
                     {noPercent}%
                   </span>
                   <span className="text-xs font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--negative)', opacity: 0.7 }}>
-                    NON
+                    {t.vote.no.toUpperCase()}
                   </span>
                 </div>
               </div>
@@ -267,7 +272,7 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
           {/* Regional breakdown */}
           {signal.regionalBreakdown && (
             <div className="signal-detail-section">
-              <h2 className="signal-detail-section-title">Comparaison régionale</h2>
+              <h2 className="signal-detail-section-title">{t.detail.regionalComparison}</h2>
               <WorldViewComparison breakdown={signal.regionalBreakdown} />
             </div>
           )}
@@ -276,12 +281,12 @@ export function SignalDetailView({ signal }: SignalDetailViewProps) {
           <div className="signal-detail-meta">
             <div className="flex items-center gap-6 flex-wrap">
               <div>
-                <span className="signal-detail-meta-label">Publie</span>
+                <span className="signal-detail-meta-label">{t.detail.published}</span>
                 <span className="signal-detail-meta-value">{signal.timeAgo}</span>
               </div>
               {signal.expiresIn && (
                 <div>
-                  <span className="signal-detail-meta-label">Horizon</span>
+                  <span className="signal-detail-meta-label">{t.detail.horizon}</span>
                   <span className="signal-detail-meta-value">{signal.expiresIn}</span>
                 </div>
               )}

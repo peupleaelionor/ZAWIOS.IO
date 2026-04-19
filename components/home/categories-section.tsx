@@ -42,7 +42,7 @@ export function CategoriesSection() {
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.value}
-              href={`/predictions`}
+              href={`/signals`}
               className="group block rounded-xl overflow-hidden card-hover"
               style={{ border: '1px solid var(--border)', background: 'var(--surface)' }}
             >

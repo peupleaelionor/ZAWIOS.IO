@@ -9,30 +9,21 @@ import { Avatar } from '@/components/ui/avatar'
 import { getTrendingSignals } from '@/lib/signals-data'
 import { mockLeaderboard, PLATFORM_STATS } from '@/lib/mock-data'
 import { formatNumber } from '@/lib/utils'
+import { copy } from '@/lib/i18n.copy'
 import Link from 'next/link'
 
+const t = copy.fr
+
 const PILLARS = [
-  {
-    n: '01',
-    title: 'Signal structuré',
-    desc: 'Chaque vote est accompagné d\'un contexte analytique. Les données brutes deviennent une position argumentée, traçable et comparable.',
-  },
-  {
-    n: '02',
-    title: 'Réputation pondérée',
-    desc: 'La précision historique de chaque analyste pondère l\'impact de son signal. Plus tu es exact, plus ton vote compte.',
-  },
-  {
-    n: '03',
-    title: 'Corrélation comparative mondiale',
-    desc: 'Les signaux sont agrégés par région, catégorie et période. La divergence entre zones géographiques est mesurée et exposée.',
-  },
+  { n: '01', title: t.page.pillarTitle1, desc: t.page.pillarDesc1 },
+  { n: '02', title: t.page.pillarTitle2, desc: t.page.pillarDesc2 },
+  { n: '03', title: t.page.pillarTitle3, desc: t.page.pillarDesc3 },
 ]
 
 const STATS = [
-  { value: () => formatNumber(PLATFORM_STATS.total_users), label: 'Analystes' },
-  { value: () => '94',                                      label: 'Pays' },
-  { value: () => `${PLATFORM_STATS.avg_accuracy}%`,        label: 'Précision moy.' },
+  { value: () => formatNumber(PLATFORM_STATS.total_users), label: t.page.statsAnalysts },
+  { value: () => '94',                                      label: t.page.statsCountries },
+  { value: () => `${PLATFORM_STATS.avg_accuracy}%`,        label: t.page.statsAccuracy },
 ]
 
 export default function HomePage() {
@@ -72,20 +63,20 @@ export default function HomePage() {
         <div className="container">
           <div className="flex items-end justify-between mb-6 gap-4">
             <div>
-              <p className="section-label mb-2">Signal du moment</p>
+              <p className="section-label mb-2">{t.page.feedLabel}</p>
               <h2
                 className="font-bold"
                 style={{ fontFamily: 'var(--display-font)', fontSize: 'clamp(1.25rem, 3vw, 1.75rem)', letterSpacing: '-0.02em', color: 'var(--text-strong)' }}
               >
-                En direct
+                {t.page.feedTitle}
               </h2>
             </div>
             <Link
-              href="/predictions"
+              href="/signals"
               className="text-sm font-medium shrink-0"
               style={{ color: 'var(--primary)', fontFamily: 'var(--mono)', letterSpacing: '0.02em' }}
             >
-              Voir tout →
+              {t.page.viewAll}
             </Link>
           </div>
 
@@ -112,12 +103,12 @@ export default function HomePage() {
       <section className="py-16 md:py-24" style={{ background: 'var(--background)', borderBottom: '1px solid var(--border)' }}>
         <div className="container">
           <div className="max-w-[680px] mx-auto lg:mx-0">
-            <p className="section-label mb-4">Méthodologie</p>
+            <p className="section-label mb-4">{t.page.methodology}</p>
             <h2
               className="font-bold mb-10"
               style={{ fontFamily: 'var(--display-font)', fontSize: 'clamp(1.5rem, 3.5vw, 2.25rem)', letterSpacing: '-0.02em', color: 'var(--text-strong)' }}
             >
-              Trois piliers.
+              {t.page.methodologyTitle}
             </h2>
 
             <div className="divide-y" style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
@@ -146,7 +137,7 @@ export default function HomePage() {
               className="inline-block mt-7 text-sm font-medium"
               style={{ color: 'var(--primary)', fontFamily: 'var(--mono)', letterSpacing: '0.02em' }}
             >
-              Lire la méthodologie complète →
+              {t.page.methodologyReadMore}
             </Link>
           </div>
         </div>
@@ -158,12 +149,12 @@ export default function HomePage() {
           <div className="max-w-[680px] mx-auto lg:mx-0">
             <div className="flex items-end justify-between mb-7 gap-4">
               <div>
-                <p className="section-label mb-2">Classement</p>
+                <p className="section-label mb-2">{t.page.leaderboardLabel}</p>
                 <h2
                   className="font-bold"
                   style={{ fontFamily: 'var(--display-font)', fontSize: 'clamp(1.25rem, 3vw, 1.75rem)', letterSpacing: '-0.02em', color: 'var(--text-strong)' }}
                 >
-                  Top analystes
+                  {t.page.leaderboardTitle}
                 </h2>
               </div>
               <Link
@@ -171,7 +162,7 @@ export default function HomePage() {
                 className="text-sm font-medium shrink-0"
                 style={{ color: 'var(--primary)', fontFamily: 'var(--mono)', letterSpacing: '0.02em' }}
               >
-                Voir tout →
+                {t.page.viewAll}
               </Link>
             </div>
 
@@ -195,7 +186,7 @@ export default function HomePage() {
                       {entry.user.full_name}
                     </p>
                     <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                      {formatNumber(entry.prediction_count)} signaux
+                      {formatNumber(entry.prediction_count)} {t.page.leaderboardSignals}
                     </p>
                   </div>
                   <span

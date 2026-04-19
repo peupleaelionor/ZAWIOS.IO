@@ -12,17 +12,17 @@ interface WorldViewComparisonProps {
   className?: string
 }
 
-// Safe-by-default regions (always visible)
-const SAFE_REGIONS: { key: keyof RegionalBreakdown; label: string }[] = [
-  { key: 'global',  label: 'Global' },
+// Safe-by-default regions (always visible) — labels resolved at render time
+const SAFE_REGION_KEYS: { key: keyof RegionalBreakdown }[] = [
+  { key: 'global' },
 ]
 
 // Opt-in regions (hidden by default)
-const COMPARE_REGIONS: { key: keyof RegionalBreakdown; label: string }[] = [
-  { key: 'africa',  label: 'Afrique' },
-  { key: 'france',  label: 'France' },
-  { key: 'europe',  label: 'Europe' },
-  { key: 'usa',     label: 'USA' },
+const COMPARE_REGION_KEYS: { key: keyof RegionalBreakdown }[] = [
+  { key: 'africa' },
+  { key: 'france' },
+  { key: 'europe' },
+  { key: 'usa' },
 ]
 
 export function WorldViewComparison({
@@ -31,8 +31,19 @@ export function WorldViewComparison({
   className,
 }: WorldViewComparisonProps) {
   const [showCompare, setShowCompare] = useState(false)
-  const regions = showCompare ? [...SAFE_REGIONS, ...COMPARE_REGIONS] : SAFE_REGIONS
   const { t } = useLanguage()
+
+  const regionLabelMap: Record<string, string> = {
+    global: t.worldView.regionGlobal,
+    africa: t.worldView.regionAfrica,
+    france: t.worldView.regionFrance,
+    europe: t.worldView.regionEurope,
+    usa: t.worldView.regionUSA,
+  }
+
+  const SAFE_REGIONS = SAFE_REGION_KEYS.map((r) => ({ ...r, label: regionLabelMap[r.key] ?? r.key }))
+  const COMPARE_REGIONS = COMPARE_REGION_KEYS.map((r) => ({ ...r, label: regionLabelMap[r.key] ?? r.key }))
+  const regions = showCompare ? [...SAFE_REGIONS, ...COMPARE_REGIONS] : SAFE_REGIONS
 
   // Compute divergence label
   const vals = [breakdown.global, breakdown.africa, breakdown.france, breakdown.europe, breakdown.usa]

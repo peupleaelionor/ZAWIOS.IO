@@ -36,6 +36,8 @@ import { getDefaultReasons } from '@/lib/signal-intelligence'
 import type { ConvictionLevel } from '@/lib/editorial-calendar'
 import type { PersonalImpact } from '@/lib/signal-intelligence'
 
+import type { Lang } from '@/lib/i18n'
+
 export type TriVote = 'yes' | 'neutral' | 'no'
 
 interface SignalCardProps {
@@ -45,11 +47,15 @@ interface SignalCardProps {
   onNext?: () => void
 }
 
-const getCategoryLabel = (id: string) =>
-  SIGNAL_CATEGORIES.find((c) => c.id === id)?.labelFr ?? id
+const getCategoryLabel = (id: string, lang: Lang) => {
+  const cat = SIGNAL_CATEGORIES.find((c) => c.id === id)
+  return lang === 'fr' ? (cat?.labelFr ?? id) : (cat?.label ?? id)
+}
 
-const getRegionLabel = (id: string) =>
-  SIGNAL_REGIONS.find((r) => r.id === id)?.labelFr ?? id
+const getRegionLabel = (id: string, lang: Lang) => {
+  const region = SIGNAL_REGIONS.find((r) => r.id === id)
+  return lang === 'fr' ? (region?.labelFr ?? id) : (region?.label ?? id)
+}
 
 export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCardProps) {
   const [voted, setVoted] = useState<TriVote | null>(null)
@@ -58,7 +64,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
   const [neutralPercent] = useState(Math.round(signal.totalVotes * 0.08 / (signal.totalVotes || 1) * 100) || 8)
   const isResolved = signal.status === 'resolved'
   const catStyle = CATEGORY_COLORS[signal.category]
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
 
   // Structured context hook
   const {
@@ -113,7 +119,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
 
   return (
     <div
-      className="card-hover relative overflow-hidden flex flex-col h-full"
+      className="card-hover relative overflow-hidden flex flex-col h-full min-w-0"
       style={{
         background: 'var(--surface)',
         border: '1px solid var(--border)',
@@ -147,11 +153,11 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 fontFamily: 'var(--mono)' 
               }}
             >
-              {getCategoryLabel(signal.category)}
+              {getCategoryLabel(signal.category, lang)}
             </span>
             
             {/* Horizon badge if present */}
-            {signal.horizon && (
+              {signal.horizon && (
               <span
                 className="text-[10px] font-semibold uppercase tracking-wide px-2 py-1 rounded-lg"
                 style={{
@@ -160,7 +166,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                   fontFamily: 'var(--mono)',
                 }}
               >
-                {signal.horizon === 'court' ? '1-3 ans' : signal.horizon === 'moyen' ? '5-10 ans' : '15-30 ans'}
+                {signal.horizon === 'court' ? t.signal.horizonShort : signal.horizon === 'moyen' ? t.signal.horizonMedium : t.signal.horizonLong}
               </span>
             )}
           </div>
@@ -259,7 +265,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 {yesPercent}%
               </span>
               <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--positive)', opacity: 0.7 }}>
-                OUI
+                {t.vote.yes.toUpperCase()}
               </span>
             </div>
             <div className="flex items-baseline gap-1">
@@ -278,7 +284,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
                 {noPercent}%
               </span>
               <span className="text-[10px] font-semibold" style={{ fontFamily: 'var(--mono)', color: 'var(--negative)', opacity: 0.7 }}>
-                NON
+                {t.vote.no.toUpperCase()}
               </span>
             </div>
           </div>
@@ -308,17 +314,17 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             />
           </div>
 
-          {/* Vote buttons — minimal */}
-          <div className="flex gap-2">
+          {/* Vote buttons — mobile-first, always visible */}
+          <div className="flex gap-2 w-full">
             <button
               onClick={() => handleVote('yes')}
               disabled={voted !== null || isResolved}
-              className="flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all"
+              className="flex-1 py-2.5 px-3 rounded-lg font-semibold text-sm transition-all min-w-0"
               style={{
-                background: voted === 'yes' ? 'var(--positive)' : 'transparent',
+                background: voted === 'yes' ? 'var(--positive)' : 'rgba(30, 200, 138, 0.08)',
                 color: voted === 'yes' ? 'white' : 'var(--positive)',
-                border: `1px solid ${voted === 'yes' ? 'var(--positive)' : 'var(--border)'}`,
-                opacity: voted !== null && voted !== 'yes' ? 0.5 : 1,
+                border: `1.5px solid ${voted === 'yes' ? 'var(--positive)' : 'rgba(30, 200, 138, 0.3)'}`,
+                opacity: voted !== null && voted !== 'yes' ? 0.4 : 1,
               }}
             >
               {t.vote.yes}
@@ -326,12 +332,13 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             <button
               onClick={() => handleVote('neutral')}
               disabled={voted !== null || isResolved}
-              className="flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all"
+              className="py-2.5 px-3 rounded-lg font-semibold text-sm transition-all shrink-0"
               style={{
                 background: voted === 'neutral' ? 'var(--surface-alt)' : 'transparent',
                 color: 'var(--text-muted)',
-                border: `1px solid ${voted === 'neutral' ? 'var(--border2)' : 'var(--border)'}`,
-                opacity: voted !== null && voted !== 'neutral' ? 0.5 : 1,
+                border: `1.5px solid ${voted === 'neutral' ? 'var(--border2)' : 'var(--border)'}`,
+                opacity: voted !== null && voted !== 'neutral' ? 0.4 : 1,
+                minWidth: '44px',
               }}
             >
               —
@@ -339,12 +346,12 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             <button
               onClick={() => handleVote('no')}
               disabled={voted !== null || isResolved}
-              className="flex-1 py-2 px-3 rounded-lg font-semibold text-sm transition-all"
+              className="flex-1 py-2.5 px-3 rounded-lg font-semibold text-sm transition-all min-w-0"
               style={{
-                background: voted === 'no' ? 'var(--negative)' : 'transparent',
+                background: voted === 'no' ? 'var(--negative)' : 'rgba(229, 72, 77, 0.08)',
                 color: voted === 'no' ? 'white' : 'var(--negative)',
-                border: `1px solid ${voted === 'no' ? 'var(--negative)' : 'var(--border)'}`,
-                opacity: voted !== null && voted !== 'no' ? 0.5 : 1,
+                border: `1.5px solid ${voted === 'no' ? 'var(--negative)' : 'rgba(229, 72, 77, 0.3)'}`,
+                opacity: voted !== null && voted !== 'no' ? 0.4 : 1,
               }}
             >
               {t.vote.no}

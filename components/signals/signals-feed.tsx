@@ -6,15 +6,16 @@ import { SignalCard } from '@/components/signals/signal-card'
 import { mockSignals, SIGNAL_CATEGORIES, SIGNAL_REGIONS } from '@/lib/signals-data'
 import { useLanguage } from '@/components/providers/language-provider'
 
-const SORT_OPTIONS = [
-  { id: 'trending', label: 'Tendances' },
-  { id: 'latest', label: 'Récents' },
-  { id: 'consensus', label: 'Consensus' },
-  { id: 'divergence', label: 'Divergence' },
-]
-
 export function SignalsFeed() {
-  const { t } = useLanguage()
+  const { t, lang } = useLanguage()
+
+  const SORT_OPTIONS = [
+    { id: 'trending', label: t.feed.trends },
+    { id: 'latest', label: t.feed.recent },
+    { id: 'consensus', label: t.feed.consensus },
+    { id: 'divergence', label: t.feed.divergence },
+  ]
+
   const [sortBy, setSortBy] = useState('trending')
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [selectedRegion, setSelectedRegion] = useState<string | null>(null)
@@ -78,7 +79,7 @@ export function SignalsFeed() {
             className="text-[11px] font-semibold uppercase tracking-wide mb-3"
             style={{ fontFamily: 'var(--mono)', color: 'var(--text-subtle)' }}
           >
-            Trier par
+            {t.feed.sortBy}
           </p>
           <div className="flex gap-2 flex-wrap">
             {SORT_OPTIONS.map((option) => (
@@ -104,7 +105,7 @@ export function SignalsFeed() {
             className="text-[11px] font-semibold uppercase tracking-wide mb-3"
             style={{ fontFamily: 'var(--mono)', color: 'var(--text-subtle)' }}
           >
-            Catégorie
+            {t.feed.categoryLabel}
           </p>
           <div className="flex gap-2 flex-wrap">
             <button
@@ -116,7 +117,7 @@ export function SignalsFeed() {
                 border: `1px solid ${selectedCategory === null ? 'var(--primary)' : 'var(--border)'}`,
               }}
             >
-              Tous
+              {t.feed.all}
             </button>
             {SIGNAL_CATEGORIES.slice(0, 6).map((cat) => (
               <button
@@ -129,7 +130,7 @@ export function SignalsFeed() {
                   border: `1px solid ${selectedCategory === cat.id ? 'var(--primary)' : 'var(--border)'}`,
                 }}
               >
-                {cat.labelFr}
+                {lang === 'fr' ? cat.labelFr : cat.label}
               </button>
             ))}
           </div>
@@ -141,7 +142,7 @@ export function SignalsFeed() {
             className="text-[11px] font-semibold uppercase tracking-wide mb-3"
             style={{ fontFamily: 'var(--mono)', color: 'var(--text-subtle)' }}
           >
-            Région
+            {t.feed.regionLabel}
           </p>
           <div className="flex gap-2 flex-wrap">
             <button
@@ -153,7 +154,7 @@ export function SignalsFeed() {
                 border: `1px solid ${selectedRegion === null ? 'var(--primary)' : 'var(--border)'}`,
               }}
             >
-              Monde
+              {t.feed.world}
             </button>
             {SIGNAL_REGIONS.slice(1, 5).map((region) => (
               <button
@@ -166,7 +167,7 @@ export function SignalsFeed() {
                   border: `1px solid ${selectedRegion === region.id ? 'var(--primary)' : 'var(--border)'}`,
                 }}
               >
-                {region.labelFr}
+                {lang === 'fr' ? region.labelFr : region.label}
               </button>
             ))}
           </div>
@@ -197,7 +198,7 @@ export function SignalsFeed() {
           style={{ background: 'var(--surface)', borderRadius: 'var(--radius)' }}
         >
           <p style={{ color: 'var(--text-muted)' }}>
-            Aucun signal ne correspond à vos critères.
+            {t.feed.noMatch}
           </p>
         </div>
       )}

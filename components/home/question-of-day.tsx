@@ -172,14 +172,14 @@ export function QuestionOfDay() {
                 </p>
               )}
               <div className="flex flex-wrap gap-3">
-                <Link href={`/predictions/${q.id}`}>
+                <Link href={`/signals/${q.id}`}>
                   <Button size="md" className="gap-2">
                     Vote now <IconArrows size={14} />
                   </Button>
                 </Link>
-                <Link href="/predictions">
+                <Link href="/signals">
                   <Button variant="outline" size="md">
-                    All predictions
+                    All signals
                   </Button>
                 </Link>
               </div>

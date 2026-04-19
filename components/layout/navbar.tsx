@@ -19,19 +19,19 @@ export function Navbar() {
     try {
       const supabase = createClient()
       supabase.auth.getUser().then(({ data }) => setUser(data.user))
-    } catch {}
+    } catch { /* Supabase may not be configured */ }
   }, [])
 
   // Primary: always visible on desktop
   const primaryLinks = [
     { href: '/signals',      label: t.nav.signals },
     { href: '/leaderboard',  label: t.nav.leaderboard },
-    { href: '/intelligence', label: 'Intelligence' },
+    { href: '/intelligence', label: t.nav.intelligence },
   ]
   // Secondary: visible on lg+, always in mobile menu
   const secondaryLinks = [
     { href: '/insights',     label: t.nav.insights },
-    { href: '/support',      label: 'Soutenir' },
+    { href: '/support',      label: t.nav.support },
     { href: '/about',        label: t.nav.about },
   ]
   const navLinks = [...primaryLinks, ...secondaryLinks]
@@ -90,7 +90,7 @@ export function Navbar() {
                   name={user.user_metadata?.full_name || user.email || ''}
                   size="xs"
                 />
-                <Button variant="ghost" size="sm">Dashboard</Button>
+                <Button variant="ghost" size="sm">{t.nav.dashboard}</Button>
               </Link>
             ) : (
               <>
@@ -159,7 +159,7 @@ export function Navbar() {
             <div className="flex gap-2 mt-2 pt-2" style={{ borderTop: '1px solid var(--border)' }}>
               {user ? (
                 <Link href="/dashboard" className="flex-1">
-                  <Button size="sm" className="w-full">Dashboard</Button>
+                  <Button size="sm" className="w-full">{t.nav.dashboard}</Button>
                 </Link>
               ) : (
                 <>

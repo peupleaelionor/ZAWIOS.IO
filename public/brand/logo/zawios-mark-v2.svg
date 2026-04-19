@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64" fill="none">
+  <!-- ZAWIOS Mark v2 — Globe Signal Convergence -->
+  <defs>
+    <linearGradient id="zawios-grad-left" x1="8" y1="16" x2="32" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#E2E8F0" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="zawios-grad-right" x1="56" y1="16" x2="32" y2="48" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6B8EF8"/>
+      <stop offset="1" stop-color="#1C39BB"/>
+    </linearGradient>
+    <radialGradient id="zawios-core" cx="32" cy="32" r="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6B8EF8" stop-opacity="0.9"/>
+      <stop offset="0.6" stop-color="#1C39BB" stop-opacity="0.4"/>
+      <stop offset="1" stop-color="#1C39BB" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Globe arc (subtle) -->
+  <ellipse cx="32" cy="32" rx="24" ry="24" stroke="#FFFFFF" stroke-width="0.5" stroke-opacity="0.12" fill="none"/>
+  <ellipse cx="32" cy="32" rx="12" ry="24" stroke="#FFFFFF" stroke-width="0.4" stroke-opacity="0.08" fill="none"/>
+  <path d="M8 32 Q32 24 56 32" stroke="#FFFFFF" stroke-width="0.4" stroke-opacity="0.08" fill="none"/>
+  <path d="M8 32 Q32 40 56 32" stroke="#FFFFFF" stroke-width="0.4" stroke-opacity="0.08" fill="none"/>
+
+  <!-- Left wing — signal convergence (white/silver gradient) -->
+  <g stroke="url(#zawios-grad-left)" stroke-width="1.8" stroke-linecap="round">
+    <path d="M32 32 C27.8 30.4 23.6 26.6 18.4 20.2"/>
+    <path d="M32 32 C27.2 31.0 22.4 28.4 16.0 24.0"/>
+    <path d="M32 32 C26.8 31.6 21.6 30.4 13.6 28.0"/>
+    <path d="M32 32 C26.8 32.0 21.2 32.0 12.8 32.0"/>
+    <path d="M32 32 C26.8 32.4 21.6 33.6 13.6 36.0"/>
+    <path d="M32 32 C27.2 33.0 22.4 35.6 16.0 40.0"/>
+    <path d="M32 32 C27.8 33.6 23.6 37.4 18.4 43.8"/>
+    <path d="M32 32 C29.4 34.6 27.0 38.4 24.8 44.8"/>
+  </g>
+
+  <!-- Right wing — signal convergence (Royal Blue gradient) -->
+  <g stroke="url(#zawios-grad-right)" stroke-width="1.8" stroke-linecap="round">
+    <path d="M32 32 C36.2 30.4 40.4 26.6 45.6 20.2"/>
+    <path d="M32 32 C36.8 31.0 41.6 28.4 48.0 24.0"/>
+    <path d="M32 32 C37.2 31.6 42.4 30.4 50.4 28.0"/>
+    <path d="M32 32 C37.2 32.0 42.8 32.0 51.2 32.0"/>
+    <path d="M32 32 C37.2 32.4 42.4 33.6 50.4 36.0"/>
+    <path d="M32 32 C36.8 33.0 41.6 35.6 48.0 40.0"/>
+    <path d="M32 32 C36.2 33.6 40.4 37.4 45.6 43.8"/>
+    <path d="M32 32 C34.6 34.6 37.0 38.4 39.2 44.8"/>
+  </g>
+
+  <!-- Core convergence point -->
+  <circle cx="32" cy="32" r="5" fill="url(#zawios-core)"/>
+  <circle cx="32" cy="32" r="1.6" fill="#FFFFFF"/>
+</svg>
