@@ -679,3 +679,84 @@ h3, .h3 {
   border-radius: 12px 12px 0 0;
   display: block;
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MABELE Design Tokens
+   Royal Blue / Golden / Midnight palette
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  --mb-royal:        218 70% 35%;
+  --mb-royal-deep:   222 76% 25%;
+  --mb-royal-glow:   218 70% 55%;
+  --mb-golden:       38 92% 55%;
+  --mb-golden-deep:  30 85% 35%;
+  --mb-midnight:     228 50% 8%;
+  --mb-brand-red:    0 75% 55%;
+}
+
+/* ── Gradients ── */
+.gradient-hero     { background: linear-gradient(135deg, hsl(var(--mb-royal)/0.04) 0%, hsl(var(--mb-golden)/0.06) 50%, hsl(var(--mb-royal)/0.02) 100%); }
+.gradient-golden   { background: linear-gradient(135deg, hsl(38 92% 55%) 0%, hsl(30 85% 45%) 100%); }
+.gradient-royal    { background: linear-gradient(135deg, hsl(var(--mb-royal)) 0%, hsl(var(--mb-royal-deep)) 100%); }
+.gradient-midnight { background: linear-gradient(135deg, hsl(228 50% 10%) 0%, hsl(228 50% 6%) 100%); }
+.gradient-royal-vivid { background: linear-gradient(135deg, hsl(218 70% 40%) 0%, hsl(222 76% 28%) 100%); }
+
+/* ── Text gradients ── */
+.text-gradient-brand  { background: linear-gradient(135deg, hsl(var(--mb-royal)) 0%, hsl(218 70% 50%) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.text-gradient-golden { background: linear-gradient(135deg, hsl(var(--mb-golden)) 0%, hsl(30 85% 42%) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* ── Mabele color utilities ── */
+.bg-royal       { background-color: hsl(var(--mb-royal)); }
+.bg-golden      { background-color: hsl(var(--mb-golden)); }
+.bg-midnight    { background-color: hsl(var(--mb-midnight)); }
+.bg-brand-red   { background-color: hsl(var(--mb-brand-red)); }
+.bg-surface-blue { background-color: hsl(var(--mb-royal)/0.04); }
+.text-royal      { color: hsl(var(--mb-royal)); }
+.text-golden     { color: hsl(var(--mb-golden)); }
+.text-golden-deep { color: hsl(var(--mb-golden-deep)); }
+.text-brand-red  { color: hsl(var(--mb-brand-red)); }
+.ring-royal      { --tw-ring-color: hsl(var(--mb-royal)); }
+.border-royal    { border-color: hsl(var(--mb-royal)); }
+.shadow-golden   { box-shadow: 0 4px 16px hsl(var(--mb-golden)/0.25); }
+.shadow-royal    { box-shadow: 0 4px 16px hsl(var(--mb-royal)/0.25); }
+
+/* ── Mabele cards ── */
+.card-premium {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+.card-premium:hover {
+  border-color: hsl(var(--mb-royal)/0.2);
+  box-shadow: 0 8px 32px hsl(var(--mb-royal)/0.08);
+  transform: translateY(-2px);
+}
+.card-premium-dark {
+  background: hsl(var(--mb-midnight));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  color: white;
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+.card-premium-dark:hover {
+  border-color: hsl(var(--mb-golden)/0.3);
+  box-shadow: 0 8px 32px hsl(var(--mb-golden)/0.12);
+  transform: translateY(-2px);
+}
+
+/* ── Mabele shadows ── */
+.shadow-premium-lg { box-shadow: 0 8px 30px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.04); }
+.shadow-premium-xl { box-shadow: 0 16px 48px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06); }
+
+/* ── Mabele animations ── */
+@keyframes mb-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+.animate-float { animation: mb-float 6s ease-in-out infinite; }
+
+/* ── Mabele font heading ── */
+.font-heading { font-family: var(--display-font); }
+
+/* ── Mabele surface ── */
+.bg-surface { background: var(--surface-alt); }
+.surface-blue { background: hsl(var(--mb-royal)/0.04); }
