@@ -1,38 +1,173 @@
-// ZAWIOS Service Worker — Offline fallback + cache-first for assets
-const CACHE_NAME = 'zawios-v1'
+// ═══════════════════════════════════════════════════════════════════════
+// ZAWIOS Service Worker v3 — Production PWA
+//
+// Strategy:
+//   • App shell: cache-first (instant loads)
+//   • API calls:  network-first (fresh data, offline fallback)
+//   • Static assets: cache-first + stale-while-revalidate
+//   • Navigation: network-first with offline.html fallback
+//   • Background sync ready for offline votes
+// ═══════════════════════════════════════════════════════════════════════
+
+const CACHE_VERSION = 'zawios-v3'
+const STATIC_CACHE = `${CACHE_VERSION}-static`
+const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`
+const IMAGE_CACHE = `${CACHE_VERSION}-images`
 const OFFLINE_URL = '/offline.html'
 
+// App shell — precached for instant startup
 const PRECACHE_URLS = [
   '/',
   '/offline.html',
-  '/manifest.json',
+  '/manifest.webmanifest',
 ]
 
+// Max items per dynamic cache (LRU eviction)
+const DYNAMIC_CACHE_LIMIT = 50
+const IMAGE_CACHE_LIMIT = 100
+
+// ── Install: precache app shell ────────────────────────────────────────
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_URLS))
+    caches
+      .open(STATIC_CACHE)
+      .then((cache) => cache.addAll(PRECACHE_URLS))
+      .then(() => self.skipWaiting())
   )
-  self.skipWaiting()
 })
 
+// ── Activate: purge old caches ─────────────────────────────────────────
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
-    )
+    caches
+      .keys()
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((k) => k.startsWith('zawios-') && !k.startsWith(CACHE_VERSION))
+            .map((k) => caches.delete(k))
+        )
+      )
+      .then(() => self.clients.claim())
   )
-  self.clients.claim()
 })
 
+// ── Trim cache to limit ────────────────────────────────────────────────
+async function trimCache(cacheName, maxItems) {
+  const cache = await caches.open(cacheName)
+  const keys = await cache.keys()
+  if (keys.length > maxItems) {
+    await cache.delete(keys[0])
+    return trimCache(cacheName, maxItems)
+  }
+}
+
+// ── Fetch strategies ───────────────────────────────────────────────────
 self.addEventListener('fetch', (event) => {
-  if (event.request.mode === 'navigate') {
+  const { request } = event
+  const url = new URL(request.url)
+
+  // Skip non-GET and cross-origin (except trusted CDNs)
+  if (request.method !== 'GET') return
+  if (
+    url.origin !== self.location.origin &&
+    !url.hostname.includes('giphy.com') &&
+    !url.hostname.includes('fonts.googleapis.com') &&
+    !url.hostname.includes('fonts.gstatic.com')
+  ) {
+    return
+  }
+
+  // Navigation: network-first → offline fallback
+  if (request.mode === 'navigate') {
     event.respondWith(
-      fetch(event.request).catch(() => caches.match(OFFLINE_URL))
+      fetch(request)
+        .then((response) => {
+          // Cache successful navigations
+          if (response.ok) {
+            const clone = response.clone()
+            caches.open(DYNAMIC_CACHE).then((cache) => {
+              cache.put(request, clone)
+              trimCache(DYNAMIC_CACHE, DYNAMIC_CACHE_LIMIT)
+            })
+          }
+          return response
+        })
+        .catch(() =>
+          caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL))
+        )
     )
     return
   }
 
+  // API routes: network-first (no caching of API calls)
+  if (url.pathname.startsWith('/api/')) {
+    event.respondWith(fetch(request))
+    return
+  }
+
+  // Images (Giphy GIFs, Pollinations, etc.): cache-first
+  if (
+    request.destination === 'image' ||
+    url.pathname.match(/\.(png|jpg|jpeg|gif|webp|avif|svg|ico)$/)
+  ) {
+    event.respondWith(
+      caches.match(request).then(
+        (cached) =>
+          cached ||
+          fetch(request).then((response) => {
+            if (response.ok) {
+              const clone = response.clone()
+              caches.open(IMAGE_CACHE).then((cache) => {
+                cache.put(request, clone)
+                trimCache(IMAGE_CACHE, IMAGE_CACHE_LIMIT)
+              })
+            }
+            return response
+          })
+      )
+    )
+    return
+  }
+
+  // Static assets (_next/static, fonts): cache-first
+  if (
+    url.pathname.startsWith('/_next/static') ||
+    url.hostname.includes('fonts.gstatic.com')
+  ) {
+    event.respondWith(
+      caches.match(request).then(
+        (cached) =>
+          cached ||
+          fetch(request).then((response) => {
+            if (response.ok) {
+              const clone = response.clone()
+              caches.open(STATIC_CACHE).then((cache) => cache.put(request, clone))
+            }
+            return response
+          })
+      )
+    )
+    return
+  }
+
+  // Everything else: stale-while-revalidate
   event.respondWith(
-    caches.match(event.request).then((cached) => cached || fetch(event.request))
+    caches.match(request).then((cached) => {
+      const networkFetch = fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone()
+            caches.open(DYNAMIC_CACHE).then((cache) => {
+              cache.put(request, clone)
+              trimCache(DYNAMIC_CACHE, DYNAMIC_CACHE_LIMIT)
+            })
+          }
+          return response
+        })
+        .catch(() => cached)
+
+      return cached || networkFetch
+    })
   )
 })
