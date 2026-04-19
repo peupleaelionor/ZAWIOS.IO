@@ -52,13 +52,13 @@ self.addEventListener('activate', (event) => {
   )
 })
 
-// ── Trim cache to limit (iterative) ────────────────────────────────────
+// ── Trim cache to limit (batch delete) ─────────────────────────────────
 async function trimCache(cacheName, maxItems) {
   const cache = await caches.open(cacheName)
-  let keys = await cache.keys()
-  while (keys.length > maxItems) {
-    await cache.delete(keys[0])
-    keys = await cache.keys()
+  const keys = await cache.keys()
+  if (keys.length > maxItems) {
+    const toDelete = keys.slice(0, keys.length - maxItems)
+    await Promise.all(toDelete.map((k) => cache.delete(k)))
   }
 }
 

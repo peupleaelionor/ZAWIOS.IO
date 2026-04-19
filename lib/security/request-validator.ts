@@ -153,7 +153,8 @@ export async function parseJsonBody<T extends Record<string, unknown>>(
             { status: 400 },
           )
         }
-        ;(body as Record<string, unknown>)[key] = sanitized
+        const mutable = body as Record<string, unknown>
+        mutable[key] = sanitized
       }
     }
 
