@@ -9,35 +9,35 @@ import { cn } from '@/lib/utils'
 const faqs = [
   {
     question: 'What is ZAWIOS?',
-    answer: "ZAWIOS is a collective intelligence platform where you predict future events, vote on questions, and build a public reputation based on your accuracy over time. It's not gambling — there's no money involved. It's about signal, data, and reputation.",
+    answer: "ZAWIOS is a collective intelligence platform where you vote on future events, analyze questions, and build a public reputation based on your accuracy over time. There's no money involved — it's about signal, data, and reputation.",
   },
   {
     question: 'How does the reputation system work?',
-    answer: "Your reputation score is based on your prediction accuracy over time. When a prediction resolves, users who predicted correctly receive score points. The weight of each point depends on the question's difficulty and the number of voters. Your global rank updates in real-time.",
+    answer: "Your reputation score is based on your signal accuracy over time. When a signal resolves, users who voted correctly receive score points. The weight of each point depends on the question's difficulty and the number of voters. Your global rank updates in real-time.",
   },
   {
     question: 'Is there any real money involved?',
-    answer: 'No. ZAWIOS is not a betting platform. There is no real money, no cryptocurrency, no tokens, and no financial prizes. You earn points, reputation, badges, and ranking — but no monetary value.',
+    answer: 'No. ZAWIOS is not a financial platform. There is no real money, no cryptocurrency, no tokens, and no financial prizes. You earn points, reputation, badges, and ranking — but no monetary value.',
   },
   {
-    question: 'How are predictions resolved?',
-    answer: 'Predictions are resolved by our moderation team when the resolution date arrives or when the outcome becomes clear. We use public verifiable sources. The resolution process and sources are always made transparent.',
+    question: 'How are signals resolved?',
+    answer: 'Signals are resolved by our moderation team when the resolution date arrives or when the outcome becomes clear. We use public verifiable sources. The resolution process and sources are always made transparent.',
   },
   {
-    question: 'Can I create my own predictions?',
-    answer: 'Yes! Any registered user can create predictions. All predictions go through a brief moderation check before going live to ensure quality and clarity.',
+    question: 'Can I create my own signals?',
+    answer: 'Yes! Any registered user can create signals. All signals go through a brief moderation check before going live to ensure quality and clarity.',
   },
   {
     question: 'What is Premium?',
-    answer: 'Premium unlocks advanced stats, full history exports, detailed analytics, custom alerts, and priority support. The core prediction and voting experience is always free.',
+    answer: 'Premium unlocks advanced stats, full history exports, detailed analytics, custom alerts, and priority support. The core signal and voting experience is always free.',
   },
   {
     question: 'How do I improve my accuracy score?',
-    answer: 'Focus on predictions in areas where you have genuine knowledge. Take time to research before voting. Be willing to update your views as new evidence emerges. Consistency and discipline over many predictions will naturally improve your track record.',
+    answer: 'Focus on signals in areas where you have genuine knowledge. Take time to research before voting. Be willing to update your views as new evidence emerges. Consistency and discipline over many signals will naturally improve your track record.',
   },
   {
     question: 'Is my profile public?',
-    answer: 'Yes, by default. Your predictions, vote history, and reputation score are public so others can evaluate your track record. You can control specific aspects of your privacy in account settings.',
+    answer: 'Yes, by default. Your signals, vote history, and reputation score are public so others can evaluate your track record. You can control specific aspects of your privacy in account settings.',
   },
 ]
 

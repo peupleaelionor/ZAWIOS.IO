@@ -28,7 +28,7 @@ export function useStreak(): StreakData {
         isStreakActive: hoursDiff < 24,
         streakAtRisk: hoursDiff >= 20 && hoursDiff < 48,
       })
-    } catch {}
+    } catch { /* localStorage unavailable */ }
   }, [])
 
   return data

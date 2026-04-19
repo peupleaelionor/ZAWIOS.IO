@@ -56,7 +56,7 @@ export function WorldViewPreview() {
               ))}
             </div>
 
-            <Link href="/predictions">
+            <Link href="/signals">
               <Button size="sm" className="gap-1.5">
                 Explorer World View <IconArrows size={14} />
               </Button>
@@ -66,7 +66,7 @@ export function WorldViewPreview() {
           {/* Right: signal cards preview */}
           <div className="space-y-3">
             {preview.map((signal) => (
-              <Link key={signal.id} href={`/predictions/${signal.id}`} className="block group">
+              <Link key={signal.id} href={`/signals/${signal.id}`} className="block group">
                 <div
                   className="rounded-xl overflow-hidden card-hover"
                   style={{ border: '1px solid var(--border)', background: 'var(--surface)' }}

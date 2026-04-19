@@ -22,48 +22,64 @@ export default function OGImage() {
           overflow: 'hidden',
         }}
       >
-        {/* Ambient glow */}
+        {/* Ambient glow — royal blue radial */}
         <div
           style={{
             position: 'absolute',
-            top: '50%',
+            top: '40%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 600,
-            height: 600,
+            width: 700,
+            height: 700,
             borderRadius: '50%',
-            background: 'radial-gradient(ellipse at center, rgba(107,110,248,0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(ellipse at center, rgba(28,57,187,0.2) 0%, rgba(107,142,248,0.06) 40%, transparent 70%)',
           }}
         />
 
-        {/* Logo mark */}
-        <svg width="80" height="80" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <g stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M32 32 C27.8 30.6 23.6 26.8 18.8 20.6" />
-            <path d="M32 32 C27.4 31.2 22.8 28.8 16.8 24.6" />
-            <path d="M32 32 C27.2 32.0 22.0 32.0 13.0 32.0" />
-            <path d="M32 32 C27.4 32.8 22.8 35.2 16.8 39.4" />
-            <path d="M32 32 C27.8 33.4 23.6 37.2 18.8 43.4" />
-            <path d="M32 32 C29.6 34.8 27.4 38.8 25.6 45.6" />
+        {/* Globe grid (subtle background) */}
+        <svg width="200" height="200" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -60%)', opacity: 0.04 }}>
+          <ellipse cx="32" cy="32" rx="28" ry="28" stroke="#FFFFFF" strokeWidth="0.5" />
+          <ellipse cx="32" cy="32" rx="14" ry="28" stroke="#FFFFFF" strokeWidth="0.4" />
+          <path d="M4 32 Q32 22 60 32" stroke="#FFFFFF" strokeWidth="0.4" />
+          <path d="M4 32 Q32 42 60 32" stroke="#FFFFFF" strokeWidth="0.4" />
+        </svg>
+
+        {/* Logo mark — v2 globe convergence */}
+        <svg width="88" height="88" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {/* Left wing (white → silver) */}
+          <g stroke="#FFFFFF" strokeWidth="1.8" strokeLinecap="round">
+            <path d="M32 32 C27.8 30.4 23.6 26.6 18.4 20.2" />
+            <path d="M32 32 C27.2 31.0 22.4 28.4 16.0 24.0" />
+            <path d="M32 32 C26.8 31.6 21.6 30.4 13.6 28.0" />
+            <path d="M32 32 C26.8 32.0 21.2 32.0 12.8 32.0" />
+            <path d="M32 32 C26.8 32.4 21.6 33.6 13.6 36.0" />
+            <path d="M32 32 C27.2 33.0 22.4 35.6 16.0 40.0" />
+            <path d="M32 32 C27.8 33.6 23.6 37.4 18.4 43.8" />
+            <path d="M32 32 C29.4 34.6 27.0 38.4 24.8 44.8" />
           </g>
-          <g stroke="#6B6EF8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M32 32 C36.2 30.6 40.4 26.8 45.2 20.6" />
-            <path d="M32 32 C36.6 31.2 41.2 28.8 47.2 24.6" />
-            <path d="M32 32 C36.8 32.0 42.0 32.0 51.0 32.0" />
-            <path d="M32 32 C36.6 32.8 41.2 35.2 47.2 39.4" />
-            <path d="M32 32 C36.2 33.4 40.4 37.2 45.2 43.4" />
-            <path d="M32 32 C34.4 34.8 36.6 38.8 38.4 45.6" />
+          {/* Right wing (Royal Blue) */}
+          <g stroke="#6B8EF8" strokeWidth="1.8" strokeLinecap="round">
+            <path d="M32 32 C36.2 30.4 40.4 26.6 45.6 20.2" />
+            <path d="M32 32 C36.8 31.0 41.6 28.4 48.0 24.0" />
+            <path d="M32 32 C37.2 31.6 42.4 30.4 50.4 28.0" />
+            <path d="M32 32 C37.2 32.0 42.8 32.0 51.2 32.0" />
+            <path d="M32 32 C37.2 32.4 42.4 33.6 50.4 36.0" />
+            <path d="M32 32 C36.8 33.0 41.6 35.6 48.0 40.0" />
+            <path d="M32 32 C36.2 33.6 40.4 37.4 45.6 43.8" />
+            <path d="M32 32 C34.6 34.6 37.0 38.4 39.2 44.8" />
           </g>
-          <path d="M31.2 32 L32.8 32" stroke="#FFFFFF" strokeWidth="2" strokeLinecap="round" />
+          {/* Core */}
+          <circle cx="32" cy="32" r="5" fill="#1C39BB" opacity="0.2" />
+          <circle cx="32" cy="32" r="1.8" fill="#FFFFFF" />
         </svg>
 
         {/* Wordmark */}
         <div
           style={{
-            marginTop: 24,
-            fontSize: 72,
+            marginTop: 28,
+            fontSize: 76,
             fontWeight: 800,
-            letterSpacing: '-0.03em',
+            letterSpacing: '-0.04em',
             color: '#F4F4FF',
             lineHeight: 1,
           }}
@@ -74,7 +90,7 @@ export default function OGImage() {
         {/* Tagline */}
         <div
           style={{
-            marginTop: 16,
+            marginTop: 18,
             fontSize: 22,
             fontWeight: 400,
             color: '#B8BAD0',
@@ -86,7 +102,7 @@ export default function OGImage() {
           Intelligence Collective · Vote · Réputation
         </div>
 
-        {/* Bottom accent line */}
+        {/* Accent line — gradient bottom */}
         <div
           style={{
             position: 'absolute',
@@ -94,9 +110,24 @@ export default function OGImage() {
             left: 0,
             right: 0,
             height: 3,
-            background: 'linear-gradient(90deg, transparent, #6B6EF8 50%, transparent)',
+            background: 'linear-gradient(90deg, transparent 10%, #1C39BB 35%, #6B8EF8 50%, #1C39BB 65%, transparent 90%)',
           }}
         />
+
+        {/* Corner globe indicator */}
+        <div
+          style={{
+            position: 'absolute',
+            bottom: 20,
+            right: 28,
+            fontSize: 13,
+            fontWeight: 500,
+            color: '#7C7E96',
+            letterSpacing: '0.04em',
+          }}
+        >
+          94 PAYS · GLOBAL SIGNAL PLATFORM
+        </div>
       </div>
     ),
     { ...size },

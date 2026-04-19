@@ -5,7 +5,7 @@ import { useLanguage } from '@/components/providers/language-provider'
 
 const footerStructure = {
   Product: [
-    { href: '/predictions', key: 'Predictions' },
+    { href: '/signals', key: 'Signals' },
     { href: '/leaderboard', key: 'Leaderboard' },
     { href: '/insights', key: 'Insights' },
     { href: '/product-system', key: 'Système' },

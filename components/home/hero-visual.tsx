@@ -224,7 +224,7 @@ export function HeroVisual() {
             }}
           >
             <p style={{ fontSize: 8, fontFamily: 'var(--mono)', fontWeight: 700, color: 'var(--violet3)', letterSpacing: '0.12em', marginBottom: 12, textTransform: 'uppercase' }}>
-              Top Predictors
+              Top Analysts
             </p>
             {top3.map((entry, i) => (
               <div

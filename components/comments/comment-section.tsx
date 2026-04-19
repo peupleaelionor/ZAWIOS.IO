@@ -867,7 +867,7 @@ export function CommentSection({ predictionId, commentCount }: CommentSectionPro
             >
               Join ZAWIOS
             </Link>{' '}
-            — link comments to your reputation and track prediction accuracy.
+            — link comments to your reputation and track signal accuracy.
           </p>
         </div>
       )}

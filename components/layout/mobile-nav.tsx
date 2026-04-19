@@ -15,7 +15,7 @@ const navItems = [
     ),
   },
   {
-    href: '/predictions',
+    href: '/signals',
     label: 'Explorer',
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width={22} height={22} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
@@ -25,8 +25,8 @@ const navItems = [
   },
   // Centre: bouton créer
   {
-    href: '/predictions/create',
-    label: 'Créer',
+    href: '/propositions',
+    label: 'Proposer',
     center: true,
     icon: <IconPlus size={22} />,
   },

@@ -19,7 +19,7 @@ export function Navbar() {
     try {
       const supabase = createClient()
       supabase.auth.getUser().then(({ data }) => setUser(data.user))
-    } catch {}
+    } catch { /* Supabase may not be configured */ }
   }, [])
 
   // Primary: always visible on desktop
