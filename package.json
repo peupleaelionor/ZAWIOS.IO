@@ -9,7 +9,10 @@
     "lint": "eslint .",
     "format": "prettier --write .",
     "organize-assets": "node scripts/organize-assets.js",
-    "icons:gen": "node scripts/generate-icons.mjs"
+    "icons:gen": "node scripts/generate-icons.mjs",
+    "check-layout": "node scripts/check-layout.mjs",
+    "typecheck": "tsc --noEmit",
+    "qa:all": "npm run lint && npm run typecheck && npm run build && npm run check-layout"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
