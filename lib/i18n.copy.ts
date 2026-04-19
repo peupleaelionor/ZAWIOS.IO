@@ -262,7 +262,7 @@ export const copy = {
         Legal: 'Légal',
       },
       links: {
-        Predictions: 'Signaux',
+        Signals: 'Signaux',
         Leaderboard: 'Classement',
         Insights: 'Analyses',
         Système: 'Système produit',
@@ -528,7 +528,7 @@ export const copy = {
         Legal: 'Legal',
       },
       links: {
-        Predictions: 'Signals',
+        Signals: 'Signals',
         Leaderboard: 'Leaderboard',
         Insights: 'Insights',
         Système: 'Product System',

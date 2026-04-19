@@ -2,6 +2,12 @@
  * ZAWIOS GIF Library — Curated collection organized by mood/category.
  * Uses Giphy embed URLs (no API key required for display).
  * Each GIF has a small preview (200px) and full-size URL.
+ *
+ * Categories designed for a global social platform:
+ *   • Reactions, Agree, Disagree — core engagement
+ *   • Celebrate, Data, Waiting — signal-specific
+ *   • Futuristic, Community, Africa, Intelligence — ZAWIOS identity
+ *   • Humor, Motivation — social warmth
  */
 
 export interface GifItem {
@@ -16,16 +22,17 @@ export interface GifItem {
 export interface GifCategory {
   id: string
   label: string
-  icon: string  // short descriptor
+  labelEn: string
+  icon: string
   gifs: GifItem[]
 }
 
 // ── Curated GIF collection ─────────────────────────────────────────────────
-// Using Giphy media URLs (public CDN, no API key needed)
 export const GIF_CATEGORIES: GifCategory[] = [
   {
     id: 'reactions',
-    label: 'Reactions',
+    label: 'Réactions',
+    labelEn: 'Reactions',
     icon: '⚡',
     gifs: [
       {
@@ -70,11 +77,19 @@ export const GIF_CATEGORIES: GifCategory[] = [
         url: 'https://media.giphy.com/media/XsUtdIeJ0MWMo/giphy.gif',
         width: 450, height: 254,
       },
+      {
+        id: 'g-wow',
+        title: 'Wow',
+        preview: 'https://media.giphy.com/media/l3q2SaisWTeZnV9wk/200w.gif',
+        url: 'https://media.giphy.com/media/l3q2SaisWTeZnV9wk/giphy.gif',
+        width: 480, height: 270,
+      },
     ],
   },
   {
     id: 'agree',
-    label: 'Agree',
+    label: 'Accord',
+    labelEn: 'Agree',
     icon: '✓',
     gifs: [
       {
@@ -116,7 +131,8 @@ export const GIF_CATEGORIES: GifCategory[] = [
   },
   {
     id: 'disagree',
-    label: 'Disagree',
+    label: 'Désaccord',
+    labelEn: 'Disagree',
     icon: '✗',
     gifs: [
       {
@@ -151,7 +167,8 @@ export const GIF_CATEGORIES: GifCategory[] = [
   },
   {
     id: 'celebrate',
-    label: 'Celebrate',
+    label: 'Célébration',
+    labelEn: 'Celebrate',
     icon: '★',
     gifs: [
       {
@@ -186,7 +203,8 @@ export const GIF_CATEGORIES: GifCategory[] = [
   },
   {
     id: 'data',
-    label: 'Data',
+    label: 'Données',
+    labelEn: 'Data',
     icon: '◆',
     gifs: [
       {
@@ -221,7 +239,8 @@ export const GIF_CATEGORIES: GifCategory[] = [
   },
   {
     id: 'waiting',
-    label: 'Waiting',
+    label: 'Patience',
+    labelEn: 'Waiting',
     icon: '◷',
     gifs: [
       {
@@ -254,20 +273,211 @@ export const GIF_CATEGORIES: GifCategory[] = [
       },
     ],
   },
+  {
+    id: 'futuristic',
+    label: 'Futur',
+    labelEn: 'Futuristic',
+    icon: '🚀',
+    gifs: [
+      {
+        id: 'g-future',
+        title: 'The Future',
+        preview: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/200w.gif',
+        url: 'https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif',
+        width: 480, height: 362,
+      },
+      {
+        id: 'g-rocket',
+        title: 'Rocket Launch',
+        preview: 'https://media.giphy.com/media/mi6DsSSNKDbUY/200w.gif',
+        url: 'https://media.giphy.com/media/mi6DsSSNKDbUY/giphy.gif',
+        width: 480, height: 349,
+      },
+      {
+        id: 'g-matrix',
+        title: 'Matrix Code',
+        preview: 'https://media.giphy.com/media/sULKEgDMX8LcI/200w.gif',
+        url: 'https://media.giphy.com/media/sULKEgDMX8LcI/giphy.gif',
+        width: 480, height: 318,
+      },
+      {
+        id: 'g-innovation',
+        title: 'Innovation',
+        preview: 'https://media.giphy.com/media/3o7btNhMBytxAM6YBa/200w.gif',
+        url: 'https://media.giphy.com/media/3o7btNhMBytxAM6YBa/giphy.gif',
+        width: 480, height: 270,
+      },
+    ],
+  },
+  {
+    id: 'community',
+    label: 'Communauté',
+    labelEn: 'Community',
+    icon: '🌍',
+    gifs: [
+      {
+        id: 'g-teamwork',
+        title: 'Teamwork',
+        preview: 'https://media.giphy.com/media/dSetNZo2AJfptAk9hp/200w.gif',
+        url: 'https://media.giphy.com/media/dSetNZo2AJfptAk9hp/giphy.gif',
+        width: 480, height: 400,
+      },
+      {
+        id: 'g-high-five',
+        title: 'High Five',
+        preview: 'https://media.giphy.com/media/3oEjHV0z8S7WM4MwnK/200w.gif',
+        url: 'https://media.giphy.com/media/3oEjHV0z8S7WM4MwnK/giphy.gif',
+        width: 480, height: 480,
+      },
+      {
+        id: 'g-unity',
+        title: 'Unity',
+        preview: 'https://media.giphy.com/media/l1J9FiGxR61OcF2mI/200w.gif',
+        url: 'https://media.giphy.com/media/l1J9FiGxR61OcF2mI/giphy.gif',
+        width: 480, height: 270,
+      },
+      {
+        id: 'g-welcome',
+        title: 'Welcome',
+        preview: 'https://media.giphy.com/media/l0MYGb1LuZ3n7dRnO/200w.gif',
+        url: 'https://media.giphy.com/media/l0MYGb1LuZ3n7dRnO/giphy.gif',
+        width: 480, height: 270,
+      },
+    ],
+  },
+  {
+    id: 'intelligence',
+    label: 'Intelligence',
+    labelEn: 'Intelligence',
+    icon: '🧠',
+    gifs: [
+      {
+        id: 'g-genius',
+        title: 'Genius',
+        preview: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/200w.gif',
+        url: 'https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif',
+        width: 480, height: 270,
+      },
+      {
+        id: 'g-eureka',
+        title: 'Eureka',
+        preview: 'https://media.giphy.com/media/l2JJKs3I69qfaQleE/200w.gif',
+        url: 'https://media.giphy.com/media/l2JJKs3I69qfaQleE/giphy.gif',
+        width: 480, height: 270,
+      },
+      {
+        id: 'g-smart',
+        title: 'Smart',
+        preview: 'https://media.giphy.com/media/d3mlE7uhX8KFgEmY/200w.gif',
+        url: 'https://media.giphy.com/media/d3mlE7uhX8KFgEmY/giphy.gif',
+        width: 480, height: 264,
+      },
+      {
+        id: 'g-analysis',
+        title: 'Analysis',
+        preview: 'https://media.giphy.com/media/3o6Zt6ML6BklcajjsA/200w.gif',
+        url: 'https://media.giphy.com/media/3o6Zt6ML6BklcajjsA/giphy.gif',
+        width: 480, height: 270,
+      },
+    ],
+  },
+  {
+    id: 'humor',
+    label: 'Humour',
+    labelEn: 'Humor',
+    icon: '😂',
+    gifs: [
+      {
+        id: 'g-laugh',
+        title: 'Laugh',
+        preview: 'https://media.giphy.com/media/10JhviFuU2gWD6/200w.gif',
+        url: 'https://media.giphy.com/media/10JhviFuU2gWD6/giphy.gif',
+        width: 320, height: 240,
+      },
+      {
+        id: 'g-lol',
+        title: 'LOL',
+        preview: 'https://media.giphy.com/media/Q7ozWVYCR0nyW2rvPW/200w.gif',
+        url: 'https://media.giphy.com/media/Q7ozWVYCR0nyW2rvPW/giphy.gif',
+        width: 480, height: 270,
+      },
+      {
+        id: 'g-sarcasm',
+        title: 'Sarcasm',
+        preview: 'https://media.giphy.com/media/jPAdK8Nfzzwt2/200w.gif',
+        url: 'https://media.giphy.com/media/jPAdK8Nfzzwt2/giphy.gif',
+        width: 320, height: 240,
+      },
+      {
+        id: 'g-wink',
+        title: 'Wink',
+        preview: 'https://media.giphy.com/media/6ra84Uso2hoir3YCgb/200w.gif',
+        url: 'https://media.giphy.com/media/6ra84Uso2hoir3YCgb/giphy.gif',
+        width: 480, height: 480,
+      },
+    ],
+  },
+  {
+    id: 'motivation',
+    label: 'Motivation',
+    labelEn: 'Motivation',
+    icon: '💪',
+    gifs: [
+      {
+        id: 'g-you-can',
+        title: 'You Can Do It',
+        preview: 'https://media.giphy.com/media/ACcXRXwUqJ6Ok/200w.gif',
+        url: 'https://media.giphy.com/media/ACcXRXwUqJ6Ok/giphy.gif',
+        width: 320, height: 240,
+      },
+      {
+        id: 'g-champion',
+        title: 'Champion',
+        preview: 'https://media.giphy.com/media/3ohzdIuqJoo8QdKlnW/200w.gif',
+        url: 'https://media.giphy.com/media/3ohzdIuqJoo8QdKlnW/giphy.gif',
+        width: 480, height: 360,
+      },
+      {
+        id: 'g-lets-go',
+        title: "Let's Go",
+        preview: 'https://media.giphy.com/media/CjmvTCZf2U3p09Cn0h/200w.gif',
+        url: 'https://media.giphy.com/media/CjmvTCZf2U3p09Cn0h/giphy.gif',
+        width: 480, height: 400,
+      },
+      {
+        id: 'g-power',
+        title: 'Power',
+        preview: 'https://media.giphy.com/media/3o7abKhOpu0NwenH3O/200w.gif',
+        url: 'https://media.giphy.com/media/3o7abKhOpu0NwenH3O/giphy.gif',
+        width: 480, height: 270,
+      },
+    ],
+  },
 ]
+
+/** Total number of GIFs available */
+export const GIF_COUNT = GIF_CATEGORIES.reduce((sum, cat) => sum + cat.gifs.length, 0)
 
 /** Get all GIFs flattened */
 export function getAllGifs(): GifItem[] {
   return GIF_CATEGORIES.flatMap((c) => c.gifs)
 }
 
-/** Search GIFs by title (case-insensitive) */
+/** Search GIFs by title or category (case-insensitive, multi-language) */
 export function searchGifs(query: string): GifItem[] {
   const q = query.toLowerCase().trim()
   if (!q) return getAllGifs()
-  return getAllGifs().filter(
-    (g) =>
-      g.title.toLowerCase().includes(q) ||
-      GIF_CATEGORIES.find((c) => c.gifs.some((gg) => gg.id === g.id))?.label.toLowerCase().includes(q),
-  )
+  return GIF_CATEGORIES.flatMap((cat) => {
+    // If the query matches the category label (FR or EN), return all its GIFs
+    if (cat.label.toLowerCase().includes(q) || cat.labelEn.toLowerCase().includes(q)) {
+      return cat.gifs
+    }
+    // Otherwise filter individual GIFs by title
+    return cat.gifs.filter((g) => g.title.toLowerCase().includes(q))
+  })
+}
+
+/** Get GIFs for a specific category */
+export function getGifsByCategory(categoryId: string): GifItem[] {
+  return GIF_CATEGORIES.find((c) => c.id === categoryId)?.gifs ?? []
 }

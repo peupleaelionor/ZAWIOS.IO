@@ -1,7 +1,10 @@
+import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { SignalsFeed } from '@/components/signals/signals-feed'
+import { SignalSkeleton } from '@/components/skeletons'
+import { SignalsFeedErrorBoundary } from '@/components/signals/signals-feed-error-boundary'
 
 export const metadata: Metadata = {
   title: 'Signaux',
@@ -40,8 +43,12 @@ export default function SignalsPage() {
           </p>
         </div>
 
-        {/* Feed */}
-        <SignalsFeed />
+        {/* Feed with error boundary + suspense */}
+        <SignalsFeedErrorBoundary>
+          <Suspense fallback={<SignalSkeleton />}>
+            <SignalsFeed />
+          </Suspense>
+        </SignalsFeedErrorBoundary>
       </main>
 
       <Footer />

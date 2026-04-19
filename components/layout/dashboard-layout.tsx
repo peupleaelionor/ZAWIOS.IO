@@ -8,7 +8,7 @@ import { createClient } from '@/lib/supabase/client'
 
 const sidebarLinks = [
   { href: '/dashboard', label: 'Home', icon: IconTarget },
-  { href: '/dashboard/predictions', label: 'Predictions', icon: IconTrending },
+  { href: '/signals', label: 'Signals', icon: IconTrending },
   { href: '/dashboard/insights', label: 'Insights', icon: IconChart },
   { href: '/leaderboard', label: 'Leaderboard', icon: IconTrophy },
   { href: '/dashboard/profile', label: 'Profile', icon: IconUsers },
@@ -59,11 +59,11 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
         <div className="px-4 py-4 space-y-1" style={{ borderTop: '1px solid var(--border)' }}>
           <Link
-            href="/predictions/create"
+            href="/propositions"
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-[var(--accent)] hover:bg-[var(--accent)]/10 transition-colors"
           >
             <IconPlus className="w-4 h-4" size={16} />
-            New prediction
+            New signal
           </Link>
           <Link
             href="/dashboard/settings"
