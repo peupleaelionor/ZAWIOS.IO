@@ -7,9 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "organize-assets": "node scripts/organize-assets.js",
-    "icons:gen": "node scripts/generate-icons.mjs"
+    "icons:gen": "node scripts/generate-icons.mjs",
+    "layout:check": "node scripts/check-layout.mjs",
+    "vocab:check": "node scripts/check-vocabulary.mjs",
+    "qa:all": "npm run lint && npm run typecheck && npm run layout:check && npm run vocab:check && npm run build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
