@@ -9,10 +9,12 @@
 
 /* ── Light (default) ── */
 :root {
-  /* Fonds — Blanc profond */
-  --background:   #FFFFFF;
+  /* Fonds — Blanc profond institutionnel */
+  --background:   #F7F8FC;
   --surface:      #FFFFFF;
-  --surface-alt:  #F8FAFC;
+  --surface-alt:  #F1F3FA;
+  --surface-elevated: #FFFFFF;
+  --surface-inset: #EAECF5;
 
   /* Bordures */
   --border:   #E2E8F0;
@@ -36,10 +38,21 @@
   --text-subtle:  #64748B;
 
   /* Sémantique */
-  --positive: #1EC88A;
-  --negative: #E5484D;
-  --win:      #16A34A;
-  --warn:     #D97706;
+  --positive:      #1EC88A;
+  --positive-soft: #E0F8EF;
+  --negative:      #E5484D;
+  --negative-soft: #FEECEE;
+  --win:           #16A34A;
+  --warn:          #D97706;
+  --warn-soft:     #FFF3E0;
+
+  /* Ombres multi-couches */
+  --shadow-xs:    0 1px 2px rgba(11,16,32,0.04);
+  --shadow-sm:    0 1px 3px rgba(11,16,32,0.06), 0 1px 2px rgba(11,16,32,0.04);
+  --shadow-md:    0 4px 12px rgba(11,16,32,0.08), 0 1px 3px rgba(11,16,32,0.05);
+  --shadow-lg:    0 8px 28px rgba(11,16,32,0.10), 0 2px 6px rgba(11,16,32,0.06);
+  --shadow-xl:    0 16px 48px rgba(11,16,32,0.12), 0 4px 12px rgba(11,16,32,0.07);
+  --shadow-brand: 0 4px 20px rgba(28,57,187,0.18);
 
   /* Typographie — Sora only */
   --font:         'Sora', system-ui, -apple-system, sans-serif;
@@ -163,7 +176,7 @@ body {
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  overflow-x: clip;
   line-height: 1.6;
   letter-spacing: -0.02em;
   min-height: 100dvh;
