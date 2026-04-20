@@ -34,7 +34,7 @@ async function fetchMyProfile(): Promise<ProfileData | null> {
 /** Fetch the authenticated user's profile */
 export function useMyProfile() {
   return useQuery({
-    queryKey: queryKeys.profile.me,
+    queryKey: queryKeys.users.me(),
     queryFn:  fetchMyProfile,
     staleTime: 5 * 60_000,    // 5 min — profile data changes rarely
     retry: 1,
@@ -53,7 +53,7 @@ async function fetchPublicProfile(username: string): Promise<ProfileData | null>
 /** Fetch a public user profile by username */
 export function usePublicProfile(username: string) {
   return useQuery({
-    queryKey: queryKeys.profile.user(username),
+    queryKey: queryKeys.users.profile(username),
     queryFn:  () => fetchPublicProfile(username),
     staleTime: 5 * 60_000,
     enabled:   Boolean(username),

@@ -58,6 +58,7 @@ export default [
         JSX: "readonly",
         NodeJS: "readonly",
         RequestInit: "readonly",
+        URLSearchParams: "readonly",
       },
     },
     rules: {

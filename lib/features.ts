@@ -1,59 +1,53 @@
-/**
- * ZAWIOS Feature Flags — Plan-based access control
- * Monetize depth, analytics, and infrastructure. Not participation.
- */
-
 import type { PlanTier } from '@/types'
 
-/** Canonical plan type — use PlanTier from @/types everywhere */
-export type Plan = PlanTier
+export type Feature =
+  | 'advanced-filters'
+  | 'api-access'
+  | 'export-data'
+  | 'priority-support'
+  | 'custom-reports'
+  | 'team-workspace'
+  | 'white-label'
+  | 'regional-breakdown'
+  | 'signal-history'
+  | 'reputation-insights'
 
-// Feature → which plans have access
-export const FEATURES = {
-  // Analytics (Pro+)
-  deepRegionalDivergence:   ['pro', 'creator', 'business'] as Plan[],
-  historicalTrends:         ['pro', 'creator', 'business'] as Plan[],
-  voteEvolution:            ['pro', 'creator', 'business'] as Plan[],
-  polarizationIndex:        ['pro', 'creator', 'business'] as Plan[],
-  neutralTrendChart:        ['pro', 'creator', 'business'] as Plan[],
-  accuracyDashboard:        ['pro', 'creator', 'business'] as Plan[],
-  regionalHeatmap:          ['pro', 'creator', 'business'] as Plan[],
-  advancedReputation:       ['pro', 'creator', 'business'] as Plan[],
-
-  // Creator (Creator+)
-  publishSignals:           ['creator', 'business'] as Plan[],
-  creatorDashboard:         ['creator', 'business'] as Plan[],
-  featuredInRankings:       ['creator', 'business'] as Plan[],
-
-  // Intelligence (Business only)
-  apiAccess:                ['business'] as Plan[],
-  dataExport:               ['business'] as Plan[],
-  regionalSentimentDataset: ['business'] as Plan[],
-  customReports:            ['business'] as Plan[],
-  globalSignalIndex:        ['business'] as Plan[],
-} as const
-
-export type Feature = keyof typeof FEATURES
-
-/** Check if a user's plan has access to a feature */
-export function hasAccess(plan: Plan | null | undefined, feature: Feature): boolean {
-  if (!plan) return false
-  return (FEATURES[feature] as readonly string[]).includes(plan)
+const FEATURE_GATES: Record<Feature, PlanTier[]> = {
+  'advanced-filters':   ['premium', 'creator', 'business'],
+  'api-access':         ['creator', 'business'],
+  'export-data':        ['premium', 'creator', 'business'],
+  'priority-support':   ['business'],
+  'custom-reports':     ['business'],
+  'team-workspace':     ['business'],
+  'white-label':        ['business'],
+  'regional-breakdown': ['premium', 'creator', 'business'],
+  'signal-history':     ['premium', 'creator', 'business'],
+  'reputation-insights':['creator', 'business'],
 }
 
-/** Get upgrade prompt text — never "Upgrade now", always analytical */
+const FEATURE_LABELS: Record<Feature, string> = {
+  'advanced-filters':    'Filtres avancés',
+  'api-access':          'Accès API',
+  'export-data':         'Export de données',
+  'priority-support':    'Support prioritaire',
+  'custom-reports':      'Rapports personnalisés',
+  'team-workspace':      'Espace équipe',
+  'white-label':         'White-label',
+  'regional-breakdown':  'Répartition régionale',
+  'signal-history':      'Historique complet',
+  'reputation-insights': 'Insights réputation',
+}
+
+export function hasAccess(feature: Feature, plan: PlanTier): boolean {
+  return FEATURE_GATES[feature].includes(plan)
+}
+
 export function getAccessPrompt(feature: Feature): { label: string; href: string } {
-  const businessFeatures: Feature[] = ['apiAccess', 'dataExport', 'regionalSentimentDataset', 'customReports', 'globalSignalIndex']
-  if (businessFeatures.includes(feature)) {
-    return { label: 'Contacter pour accès', href: '/intelligence' }
+  const tiers = FEATURE_GATES[feature]
+  const name = FEATURE_LABELS[feature]
+  const minTier = tiers[0]
+  return {
+    label: `${name} — plan ${minTier}+`,
+    href: '/pricing',
   }
-  return { label: 'Accéder à l\'analyse complète', href: '/pro' }
-}
-
-export const PLAN_LABELS: Record<Plan, string> = {
-  free:     'Gratuit',
-  pro:      'Pro',
-  creator:  'Créateur',
-  premium:  'Premium',
-  business: 'Intelligence',
 }
