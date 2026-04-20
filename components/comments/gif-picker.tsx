@@ -184,7 +184,6 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
               e.currentTarget.style.transform = 'scale(1)'
             }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
             {failedPreviews.has(gif.id) ? (
               <span
                 style={{
@@ -203,7 +202,6 @@ export function GifPicker({ open, onClose, onSelect }: GifPickerProps) {
                 {gif.title}
               </span>
             ) : (
-              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={gif.preview}
                 alt={gif.title}

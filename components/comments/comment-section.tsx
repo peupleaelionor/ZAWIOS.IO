@@ -50,7 +50,6 @@ function GifImage({ src, alt, maxWidth = 280, minHeight = 80 }: { src: string; a
         background: 'var(--surface2)',
       }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={src}
         alt={alt}
@@ -285,7 +284,6 @@ function ComposeBox({
               GIF: {selectedGif.title}
             </div>
           ) : (
-            // eslint-disable-next-line @next/next/no-img-element
             <img
               src={selectedGif.preview}
               alt={selectedGif.title}
