@@ -90,7 +90,7 @@ export default async function ProfilePage({ params }: Props) {
                 <p className="section-label mb-5">Réputation</p>
                 <div className="space-y-4">
                   {[
-                    { icon: IconAward, label: 'Score', value: formatNumber(leaderboardEntry.score), color: 'var(--warn)' },
+                    { icon: IconAward, label: 'Score', value: formatNumber(leaderboardEntry.score), color: 'var(--primary)' },
                     { icon: IconTarget, label: 'Précision', value: `${leaderboardEntry.accuracy_rate}%`, color: leaderboardEntry.accuracy_rate >= 70 ? 'var(--positive)' : 'var(--text-muted)' },
                     { icon: IconTrending, label: 'Signaux', value: String(leaderboardEntry.prediction_count), color: 'var(--primary)' },
                     { icon: IconTrophy, label: 'Rang global', value: `#${leaderboardEntry.rank}`, color: 'var(--primary)' },
