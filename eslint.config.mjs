@@ -53,6 +53,8 @@ export default [
         File: "readonly",
         React: "readonly",
         localStorage: "readonly",
+        sessionStorage: "readonly",
+        Node: "readonly",
         JSX: "readonly",
         NodeJS: "readonly",
         RequestInit: "readonly",

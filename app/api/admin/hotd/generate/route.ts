@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
   }
 
   let body: { date?: string; force_signal_id?: string } = {}
-  try { body = await req.json() } catch {}
+  try { body = await req.json() } catch { /* no body */ }
 
   const supabase = createAdminClient()
   const date = body.date ?? new Date().toISOString().slice(0, 10)
