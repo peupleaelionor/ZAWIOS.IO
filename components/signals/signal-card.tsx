@@ -315,11 +315,11 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
           </div>
 
           {/* Vote buttons — mobile-first, always visible */}
-          <div className="flex gap-2 w-full">
+          <div className="flex gap-2 w-full" style={{ flexWrap: 'nowrap' }}>
             <button
               onClick={() => handleVote('yes')}
               disabled={voted !== null || isResolved}
-              className="flex-1 py-2.5 px-3 rounded-lg font-semibold text-sm transition-all min-w-0"
+              className="flex-1 py-2.5 px-2 rounded-lg font-semibold text-sm transition-all min-w-0"
               style={{
                 background: voted === 'yes' ? 'var(--positive)' : 'rgba(30, 200, 138, 0.08)',
                 color: voted === 'yes' ? 'white' : 'var(--positive)',
@@ -332,13 +332,13 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             <button
               onClick={() => handleVote('neutral')}
               disabled={voted !== null || isResolved}
-              className="py-2.5 px-3 rounded-lg font-semibold text-sm transition-all shrink-0"
+              className="py-2.5 px-2 rounded-lg font-semibold text-sm transition-all shrink-0"
               style={{
                 background: voted === 'neutral' ? 'var(--surface-alt)' : 'transparent',
                 color: 'var(--text-muted)',
                 border: `1.5px solid ${voted === 'neutral' ? 'var(--border2)' : 'var(--border)'}`,
                 opacity: voted !== null && voted !== 'neutral' ? 0.4 : 1,
-                minWidth: '44px',
+                minWidth: '40px',
               }}
             >
               —
@@ -346,7 +346,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
             <button
               onClick={() => handleVote('no')}
               disabled={voted !== null || isResolved}
-              className="flex-1 py-2.5 px-3 rounded-lg font-semibold text-sm transition-all min-w-0"
+              className="flex-1 py-2.5 px-2 rounded-lg font-semibold text-sm transition-all min-w-0"
               style={{
                 background: voted === 'no' ? 'var(--negative)' : 'rgba(229, 72, 77, 0.08)',
                 color: voted === 'no' ? 'white' : 'var(--negative)',

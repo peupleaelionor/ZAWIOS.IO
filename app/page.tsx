@@ -22,8 +22,8 @@ const PILLARS = [
 
 const STATS = [
   { value: () => formatNumber(PLATFORM_STATS.total_users), label: t.page.statsAnalysts },
-  { value: () => '94',                                      label: t.page.statsCountries },
-  { value: () => `${PLATFORM_STATS.avg_accuracy}%`,        label: t.page.statsAccuracy },
+  { value: () => '0',                                       label: t.page.statsCountries },
+  { value: () => PLATFORM_STATS.avg_accuracy > 0 ? `${PLATFORM_STATS.avg_accuracy}%` : '—', label: t.page.statsAccuracy },
 ]
 
 export default function HomePage() {

@@ -3,10 +3,9 @@ import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Avatar } from '@/components/ui/avatar'
 import { Badge } from '@/components/ui/badge'
-import { PredictionCard } from '@/components/predictions/prediction-card'
-import { mockProfiles, mockPredictions, mockLeaderboard } from '@/lib/mock-data'
+import { mockProfiles, mockLeaderboard } from '@/lib/mock-data'
 import { formatNumber } from '@/lib/utils'
-import { IconPin, IconLink, IconCalendar, IconTrophy, IconTrending, IconTarget, IconAward } from '@/components/ui/icons'
+import { IconPin, IconCalendar, IconTrophy, IconTrending, IconTarget, IconAward } from '@/components/ui/icons'
 import type { Metadata } from 'next'
 
 interface Props {
@@ -16,11 +15,18 @@ interface Props {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { username } = await params
   const profile = mockProfiles.find((p) => p.username === username)
-  if (!profile) return { title: 'Profile not found' }
+  if (!profile) return { title: 'Profil introuvable' }
   return {
-    title: `${profile.full_name} (@${profile.username})`,
-    description: profile.bio || `${profile.full_name}'s prediction profile on ZAWIOS`,
+    title: `${profile.full_name} (@${profile.username}) — ZAWIOS`,
+    description: profile.bio || `Profil de ${profile.full_name} sur ZAWIOS`,
   }
+}
+
+const PLAN_LABELS: Record<string, string> = {
+  free: 'Gratuit',
+  premium: 'Premium',
+  creator: 'Créateur',
+  business: 'Business',
 }
 
 export default async function ProfilePage({ params }: Props) {
@@ -29,67 +35,70 @@ export default async function ProfilePage({ params }: Props) {
   if (!profile) notFound()
 
   const leaderboardEntry = mockLeaderboard.find((e) => e.user.username === username)
-  const userPredictions = mockPredictions.filter((p) => p.created_by === profile.user_id)
 
   return (
-    <div className="min-h-screen bg-[var(--bg)]">
+    <div className="min-h-screen" style={{ background: 'var(--background)' }}>
       <Navbar />
-      <main className="container py-12">
-        <div className="grid lg:grid-cols-3 gap-8">
+      <main className="container py-8 md:py-12">
+        <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
 
-          {/* ── Profile sidebar ─────────────────────────── */}
+          {/* ── Sidebar profil ─────────────────────────── */}
           <div className="space-y-5">
-            <div className="surface rounded-2xl p-7 text-center relative overflow-hidden">
+            <div
+              className="rounded-2xl p-6 md:p-7 text-center relative overflow-hidden"
+              style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+            >
               <div
                 className="absolute top-0 left-0 right-0 h-px"
-                style={{ background: 'linear-gradient(90deg, transparent, var(--accent), transparent)', opacity: 0.5 }}
+                style={{ background: 'linear-gradient(90deg, transparent, var(--primary), transparent)', opacity: 0.4 }}
               />
               <Avatar src={profile.avatar_url} name={profile.full_name} size="xl" className="mx-auto mb-4" />
-              <h1 className="text-lg font-bold text-[var(--text)]">{profile.full_name}</h1>
-              <p className="text-sm text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>@{profile.username}</p>
-              {profile.is_premium && (
-                <Badge variant="default" className="mt-3">Premium</Badge>
-              )}
+              <h1 className="text-lg font-bold" style={{ color: 'var(--text-strong)' }}>{profile.full_name}</h1>
+              <p className="text-sm" style={{ color: 'var(--text-muted)', fontFamily: 'var(--mono)' }}>@{profile.username}</p>
+
+              {/* Plan badge */}
+              <div className="mt-3 flex items-center justify-center gap-2">
+                <Badge variant={profile.is_premium ? 'default' : 'outline'}>
+                  {PLAN_LABELS[profile.plan ?? 'free'] ?? 'Gratuit'}
+                </Badge>
+              </div>
+
               {profile.bio && (
-                <p className="mt-4 text-sm text-[var(--text2)] leading-relaxed">{profile.bio}</p>
+                <p className="mt-4 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>{profile.bio}</p>
               )}
-              <div className="flex flex-col gap-2.5 mt-5 text-sm text-[var(--text3)]">
+
+              <div className="flex flex-col gap-2.5 mt-5 text-sm" style={{ color: 'var(--text-muted)' }}>
                 {profile.location && (
                   <span className="flex items-center justify-center gap-1.5">
                     <IconPin size={14} />
                     {profile.location}
                   </span>
                 )}
-                {profile.website && (
-                  <a
-                    href={profile.website}
-                    className="flex items-center justify-center gap-1.5 hover:text-[var(--accent2)] transition-colors"
-                  >
-                    <IconLink size={14} />
-                    {profile.website.replace(/^https?:\/\//, '')}
-                  </a>
-                )}
                 <span className="flex items-center justify-center gap-1.5">
                   <IconCalendar size={14} />
-                  Joined {new Date(profile.created_at).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                  Membre depuis {new Date(profile.created_at).toLocaleDateString('fr-FR', { month: 'long', year: 'numeric' })}
                 </span>
               </div>
             </div>
 
+            {/* Reputation card */}
             {leaderboardEntry && (
-              <div className="surface rounded-2xl p-6">
-                <p className="section-label mb-5">Reputation</p>
+              <div
+                className="rounded-2xl p-5 md:p-6"
+                style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+              >
+                <p className="section-label mb-5">Réputation</p>
                 <div className="space-y-4">
                   {[
-                    { icon: IconAward, label: 'Score', value: formatNumber(leaderboardEntry.score), color: 'var(--amber)' },
-                    { icon: IconTarget, label: 'Accuracy', value: `${leaderboardEntry.accuracy_rate}%`, color: leaderboardEntry.accuracy_rate >= 70 ? 'var(--teal)' : 'var(--text2)' },
-                    { icon: IconTrending, label: 'Predictions', value: String(leaderboardEntry.prediction_count), color: 'var(--accent2)' },
-                    { icon: IconTrophy, label: 'Global rank', value: `#${leaderboardEntry.rank}`, color: 'var(--accent)' },
+                    { icon: IconAward, label: 'Score', value: formatNumber(leaderboardEntry.score), color: 'var(--warn)' },
+                    { icon: IconTarget, label: 'Précision', value: `${leaderboardEntry.accuracy_rate}%`, color: leaderboardEntry.accuracy_rate >= 70 ? 'var(--positive)' : 'var(--text-muted)' },
+                    { icon: IconTrending, label: 'Signaux', value: String(leaderboardEntry.prediction_count), color: 'var(--primary)' },
+                    { icon: IconTrophy, label: 'Rang global', value: `#${leaderboardEntry.rank}`, color: 'var(--primary)' },
                   ].map((item) => (
                     <div key={item.label} className="flex items-center justify-between">
                       <div className="flex items-center gap-2.5">
                         <item.icon size={15} style={{ color: item.color }} />
-                        <span className="text-sm text-[var(--text2)]">{item.label}</span>
+                        <span className="text-sm" style={{ color: 'var(--text-muted)' }}>{item.label}</span>
                       </div>
                       <span className="text-sm font-bold" style={{ color: item.color, fontFamily: 'var(--mono)' }}>
                         {item.value}
@@ -101,36 +110,29 @@ export default async function ProfilePage({ params }: Props) {
             )}
           </div>
 
-          {/* ── Predictions ─────────────────────────────── */}
+          {/* ── Activité ─────────────────────────────── */}
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-[var(--text)]" style={{ letterSpacing: '-0.01em' }}>
-                Predictions
+              <h2 className="text-xl font-semibold" style={{ color: 'var(--text-strong)', letterSpacing: '-0.01em' }}>
+                Activité
               </h2>
-              {userPredictions.length > 0 && (
-                <span className="text-sm text-[var(--text3)]" style={{ fontFamily: 'var(--mono)' }}>
-                  {userPredictions.length} total
-                </span>
-              )}
             </div>
 
-            {userPredictions.length > 0 ? (
-              <div className="grid gap-4">
-                {userPredictions.map((prediction) => (
-                  <PredictionCard key={prediction.id} prediction={prediction} />
-                ))}
+            <div
+              className="rounded-2xl p-8 md:p-12 text-center"
+              style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+            >
+              <div
+                className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4"
+                style={{ background: 'color-mix(in srgb, var(--primary) 10%, transparent)', color: 'var(--primary)' }}
+              >
+                <IconTrending size={22} />
               </div>
-            ) : (
-              <div className="surface rounded-2xl p-12 text-center">
-                <div
-                  className="w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-4"
-                  style={{ background: 'color-mix(in srgb, var(--accent) 10%, transparent)', color: 'var(--accent2)' }}
-                >
-                  <IconTrending size={22} />
-                </div>
-                <p className="text-sm text-[var(--text3)]">No predictions yet</p>
-              </div>
-            )}
+              <p className="text-sm font-medium mb-1" style={{ color: 'var(--text-strong)' }}>Aucun signal pour le moment</p>
+              <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                Les signaux soumis par cet utilisateur apparaîtront ici.
+              </p>
+            </div>
           </div>
         </div>
       </main>
