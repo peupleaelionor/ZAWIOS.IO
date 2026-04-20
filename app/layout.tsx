@@ -2,9 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
-import { UserContextProvider } from '@/components/providers/user-context-provider'
-import { ThemeProvider } from '@/components/providers/theme-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
+import { UserContextProvider } from '@/components/providers/user-context-provider'
 import { NetworkStatus } from '@/components/layout/network-status'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
@@ -12,7 +11,7 @@ import './globals.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'ZAWIOS — Intelligence Collective',
+    default:  'ZAWIOS — Intelligence Collective',
     template: '%s | ZAWIOS',
   },
   description:
@@ -20,126 +19,121 @@ export const metadata: Metadata = {
   keywords: ['prédiction', 'intelligence collective', 'vote', 'réputation', 'signaux', 'actualité', 'analyse', 'forecasting', 'crowd wisdom'],
   authors: [{ name: 'ZAWIOS' }],
   creator: 'ZAWIOS',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.io'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app'),
   openGraph: {
-    type: 'website',
-    locale: 'fr_FR',
+    type:            'website',
+    locale:          'fr_FR',
     alternateLocale: 'en_US',
-    url: 'https://zawios.io',
-    siteName: 'ZAWIOS',
-    title: 'ZAWIOS — Intelligence Collective',
-    description: 'Vote sur les signaux du monde. Compare avec la foule. Construis ta réputation.',
+    url:             'https://zawios.netlify.app',
+    siteName:        'ZAWIOS',
+    title:           'ZAWIOS — Intelligence Collective',
+    description:     'Vote sur les signaux du monde. Compare avec la foule. Construis ta réputation.',
     images: [
       {
-        url: '/social-cards/og-image.png',
-        width: 1200,
+        url:    '/social-cards/og-image.png',
+        width:  1200,
         height: 630,
-        alt: 'ZAWIOS — Intelligence Collective',
+        alt:    'ZAWIOS — Intelligence Collective',
       },
     ],
   },
   twitter: {
-    card: 'summary_large_image',
-    title: 'ZAWIOS — Intelligence Collective',
+    card:        'summary_large_image',
+    title:       'ZAWIOS — Intelligence Collective',
     description: 'Vote sur les signaux du monde. Compare avec la foule.',
     images: ['/social-cards/twitter-image.png'],
   },
   robots: {
-    index: true,
+    index:  true,
     follow: true,
     googleBot: { index: true, follow: true },
     'max-snippet': -1,
     'max-image-preview': 'large',
     'max-video-preview': -1,
   },
-  icons: {
-    icon: [
-      { url: '/icons/favicon-32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icons/favicon-16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/icons/favicon-48.png', sizes: '48x48', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/icons/apple-touch-180.png', sizes: '180x180', type: 'image/png' },
-    ],
-  },
   appleWebApp: {
-    capable: true,
+    capable:        true,
     statusBarStyle: 'black-translucent',
-    title: 'ZAWIOS',
+    title:          'ZAWIOS',
   },
   formatDetection: {
     telephone: false,
   },
+  manifest: '/manifest.webmanifest',
 }
 
 export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
-  viewportFit: 'cover',
+  width:          'device-width',
+  initialScale:   1,
+  maximumScale:   5,
+  userScalable:   true,
+  viewportFit:    'cover',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" suppressHydrationWarning>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://plausible.io" />
-        <meta name="theme-color" content="#1C39BB" />
-        <meta name="color-scheme" content="light dark" />
-        <link rel="manifest" href="/manifest.webmanifest" />
-        {/* Anti-flash: set theme before first paint */}
-        <script dangerouslySetInnerHTML={{ __html: `(function(){try{var t=localStorage.getItem('zawios-theme')||'light';document.documentElement.setAttribute('data-theme',t)}catch(e){}})()` }} />
+        <meta name="theme-color" content="#1de4de" />
+        <meta name="color-scheme" content="dark" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="icon" href="/favicons/favicon.ico" />
+        <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
-        {/* Plausible — single global script, no duplicates */}
+        {/* PWA meta */}
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+
+        {/* Plausible */}
         <Script
           defer
-          data-domain="zawios.io"
+          data-domain="zawios.netlify.app"
           src="https://plausible.io/js/script.js"
           strategy="afterInteractive"
         />
-        <Script id="sw-register" strategy="afterInteractive">
-          {`if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js')}`}
-        </Script>
+        {/* Service Worker registration */}
+        <Script id="sw-register" strategy="afterInteractive">{`
+          if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+              navigator.serviceWorker.register('/sw.js', { scope: '/' })
+                .catch(function() { /* SW optional */ });
+            });
+          }
+        `}</Script>
       </head>
-      <body className="antialiased has-bottom-nav" style={{ fontFamily: "var(--font)" }} role="application">
+      <body className="antialiased has-bottom-nav" style={{ fontFamily: 'var(--font)' }} role="application">
         <Toaster
-          theme="system"
+          theme="dark"
           position="top-center"
           toastOptions={{
             style: {
-              background: 'var(--surface)',
-              border: '1px solid var(--border2)',
-              color: 'var(--text-strong)',
-              fontFamily: 'var(--font)',
-              fontSize: '13px',
+              background:  'var(--surface2)',
+              border:      '1px solid var(--border2)',
+              color:       'var(--text)',
+              fontFamily:  'var(--font)',
+              fontSize:    '13px',
             },
           }}
         />
-        <ThemeProvider>
-          <QueryProvider>
-            <AnalyticsProvider>
-              <LanguageProvider>
-                <UserContextProvider>
-                  <NetworkStatus />
-                  <main>
-                    {children}
-                  </main>
-                  <BottomNav />
-                </UserContextProvider>
-              </LanguageProvider>
-            </AnalyticsProvider>
-          </QueryProvider>
-        </ThemeProvider>
+        <QueryProvider>
+          <AnalyticsProvider>
+            <LanguageProvider>
+              <UserContextProvider>
+                <NetworkStatus />
+                {children}
+                <BottomNav />
+              </UserContextProvider>
+            </LanguageProvider>
+          </AnalyticsProvider>
+        </QueryProvider>
       </body>
     </html>
   )

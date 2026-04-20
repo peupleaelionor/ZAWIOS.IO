@@ -4,150 +4,99 @@ import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 
 export const metadata: Metadata = {
-  title: 'Intelligence',
-  description: 'Infrastructure de données stratégiques pour équipes, organisations et médias. API Signal, datasets régionaux, rapports sur-mesure.',
+  title: 'ZAWIOS Intelligence — Accès institutionnel',
+  description: 'API, datasets sentiment régional, rapports personnalisés. Pour les équipes, organisations et médias.',
 }
 
 const CAPABILITIES = [
   {
-    n: '01',
+    id: 'api',
     name: 'API Signal',
-    desc: 'Accès programmatique à l\'ensemble des signaux actifs et résolus. Format JSON structuré. Rate limiting adapté à votre usage.',
+    desc: 'Accès programmatique à l\'ensemble des signaux actifs et résolus. Format JSON structuré. Rate limiting adapté.',
   },
   {
-    n: '02',
+    id: 'dataset',
     name: 'Regional Sentiment Dataset',
-    desc: 'Export complet des distributions de vote par région, catégorie et période. Formats CSV et Parquet disponibles.',
+    desc: 'Export complet des distributions de vote par région, catégorie, période. Format CSV / Parquet.',
   },
   {
-    n: '03',
+    id: 'reports',
     name: 'Rapports personnalisés',
-    desc: 'Analyse sur-mesure sur des thématiques spécifiques. Livrables PDF ou JSON selon les besoins de votre organisation.',
+    desc: 'Analyse sur-mesure sur des thématiques spécifiques. Livrables PDF ou JSON selon les besoins.',
   },
   {
-    n: '04',
+    id: 'gsi',
     name: 'Global Signal Index',
-    desc: 'Indice synthétique de sentiment mondial agrégé sur 30+ catégories. Mise à jour quotidienne. Série historique complète.',
+    desc: 'Indice synthétique de sentiment mondial agrégé sur 30+ catégories. Mise à jour quotidienne.',
   },
   {
-    n: '05',
+    id: 'embed',
     name: 'Widgets embarquables',
-    desc: 'Intégrez les signaux ZAWIOS dans vos plateformes éditoriales ou dashboards internes. Personnalisables.',
+    desc: 'Intégrez les signaux ZAWIOS dans vos plateformes éditoriales ou dashboards internes.',
   },
   {
-    n: '06',
+    id: 'sla',
     name: 'SLA & Support dédié',
-    desc: 'Accord de niveau de service, accès prioritaire et interlocuteur technique dédié. Disponible pour les plans organisationnels.',
+    desc: 'Accord de niveau de service, accès prioritaire et interlocuteur technique dédié.',
   },
 ]
 
 const USE_CASES = [
-  {
-    label: 'Médias & Journalisme',
-    desc: 'Enrichissez vos articles avec des données d\'opinion régionale en temps réel. Source citée, méthodologie transparente.',
-  },
-  {
-    label: 'Think tanks & Recherche',
-    desc: 'Données quantitatives sur les perceptions collectives. Protocole de collecte documenté. Export structuré.',
-  },
-  {
-    label: 'Organisations internationales',
-    desc: 'Suivi du sentiment par zone géographique sur des sujets géopolitiques et sociaux. Granularité régionale.',
-  },
-  {
-    label: 'Équipes stratégiques',
-    desc: 'Intelligence collective structurée pour éclairer des décisions à fort enjeu. Tableaux de bord dédiés.',
-  },
+  { label: 'Médias & Journalisme', desc: 'Enrichissez vos articles avec des données d\'opinion régionale en temps réel.' },
+  { label: 'Think tanks & Recherche', desc: 'Données quantitatives sur les perceptions collectives. Méthodologie transparente.' },
+  { label: 'Organisations internationales', desc: 'Suivi du sentiment par région géographique sur des sujets géopolitiques.' },
+  { label: 'Équipes stratégiques', desc: 'Intelligence collective structurée pour éclairer des décisions à fort enjeu.' },
 ]
 
 export default function IntelligencePage() {
   return (
-    <div className="min-h-screen w-full overflow-x-hidden" style={{ background: 'var(--background)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
       <main>
 
         {/* Hero */}
-        <section className="pt-20 pb-16" style={{ borderBottom: '1px solid var(--border)' }}>
-          <div className="container max-w-[720px]">
-            <p className="section-label mb-5">ZAWIOS Intelligence</p>
-            <h1
-              className="font-bold mb-5"
-              style={{
-                fontFamily: 'var(--display-font)',
-                fontSize: 'clamp(2rem, 5vw, 3.25rem)',
-                letterSpacing: '-0.02em',
-                color: 'var(--text-strong)',
-                lineHeight: 1.1,
-              }}
-            >
-              Infrastructure de données
-              <br />
-              pour les organisations.
+        <section className="pt-20 pb-12" style={{ borderBottom: '1px solid var(--border)' }}>
+          <div className="container max-w-2xl">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-1.5 h-1.5 rounded-full" style={{ background: 'var(--accent2)' }} />
+              <span className="text-[10px] font-bold uppercase tracking-wider" style={{ fontFamily: 'var(--mono)', color: 'var(--accent2)' }}>
+                ZAWIOS Intelligence
+              </span>
+            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-[var(--text)] mb-4" style={{ letterSpacing: '-0.03em' }}>
+              Infrastructure de données<br />pour les organisations.
             </h1>
-            <p className="text-lg leading-relaxed mb-8" style={{ color: 'var(--text-muted)', maxWidth: 520 }}>
+            <p className="text-base text-[var(--text2)] leading-relaxed mb-8 max-w-md">
               Accès API, datasets régionaux, rapports sur-mesure.
               Pour les équipes qui ont besoin d&apos;intelligence collective
               à grande échelle.
             </p>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold transition-all"
-                style={{
-                  background: 'var(--primary)',
-                  color: '#FFFFFF',
-                  fontFamily: 'var(--font)',
-                }}
-              >
-                Nous contacter
-              </Link>
-              <Link
-                href="/methodology"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-all"
-                style={{
-                  background: 'var(--surface-alt)',
-                  color: 'var(--text-muted)',
-                  border: '1px solid var(--border)',
-                  fontFamily: 'var(--font)',
-                }}
-              >
-                Voir la méthodologie
-              </Link>
-            </div>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all hover:brightness-110"
+              style={{ background: 'var(--surface2)', color: 'var(--text)', border: '1px solid var(--border2)', fontFamily: 'var(--font)' }}
+            >
+              Nous contacter
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </Link>
           </div>
         </section>
 
         {/* Capabilities */}
-        <section className="py-16 md:py-24">
-          <div className="container max-w-[720px]">
-            <p className="section-label mb-4">Capacités</p>
-            <h2
-              className="text-2xl md:text-3xl font-bold mb-12"
-              style={{ color: 'var(--text-strong)', letterSpacing: '-0.02em', fontFamily: 'var(--display-font)' }}
-            >
-              Ce que vous obtenez.
-            </h2>
-
-            <div className="space-y-0 divide-y" style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+        <section className="py-14">
+          <div className="container max-w-3xl">
+            <p className="section-label mb-6">Capacités</p>
+            <div className="grid md:grid-cols-2 gap-3">
               {CAPABILITIES.map((cap) => (
-                <div key={cap.n} className="py-7 grid grid-cols-[48px_1fr] gap-5 items-start">
-                  <span
-                    className="text-xs font-bold mt-0.5"
-                    style={{ fontFamily: 'var(--mono)', color: 'var(--primary)', opacity: 0.6 }}
-                  >
-                    {cap.n}
-                  </span>
-                  <div>
-                    <h3
-                      className="font-semibold mb-1.5"
-                      style={{ fontSize: '0.975rem', color: 'var(--text-strong)', letterSpacing: '-0.01em' }}
-                    >
-                      {cap.name}
-                    </h3>
-                    <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                      {cap.desc}
-                    </p>
-                  </div>
+                <div
+                  key={cap.id}
+                  className="p-5 rounded-xl"
+                  style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
+                >
+                  <p className="text-sm font-semibold text-[var(--text)] mb-2">{cap.name}</p>
+                  <p className="text-xs text-[var(--text2)] leading-relaxed">{cap.desc}</p>
                 </div>
               ))}
             </div>
@@ -155,56 +104,48 @@ export default function IntelligencePage() {
         </section>
 
         {/* Use cases */}
-        <section
-          className="py-16 md:py-20 section-alt"
-          style={{ borderTop: '1px solid var(--border)' }}
-        >
-          <div className="container max-w-[720px]">
-            <p className="section-label mb-4">Cas d&apos;usage</p>
-            <h2
-              className="text-xl md:text-2xl font-bold mb-10"
-              style={{ color: 'var(--text-strong)', letterSpacing: '-0.02em', fontFamily: 'var(--display-font)' }}
-            >
-              Pour qui.
-            </h2>
-
-            <div className="grid sm:grid-cols-2 gap-4">
+        <section className="py-12" style={{ background: 'var(--bg2)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
+          <div className="container max-w-3xl">
+            <p className="section-label mb-6">Cas d'usage</p>
+            <div className="space-y-2">
               {USE_CASES.map((uc) => (
                 <div
                   key={uc.label}
-                  className="p-5 rounded-xl"
+                  className="flex items-start gap-4 p-4 rounded-xl"
                   style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
                 >
-                  <h3
-                    className="font-semibold mb-2 text-sm"
-                    style={{ color: 'var(--primary)', fontFamily: 'var(--mono)', letterSpacing: '0.02em', textTransform: 'uppercase', fontSize: '11px' }}
-                  >
-                    {uc.label}
-                  </h3>
-                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
-                    {uc.desc}
-                  </p>
+                  <div className="w-1.5 h-1.5 rounded-full mt-1.5 shrink-0" style={{ background: 'var(--accent2)' }} />
+                  <div>
+                    <p className="text-sm font-semibold text-[var(--text)]">{uc.label}</p>
+                    <p className="text-xs text-[var(--text2)] mt-0.5 leading-relaxed">{uc.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CTA strip */}
-        <section className="py-14" style={{ borderTop: '1px solid var(--border)' }}>
-          <div className="container max-w-[720px]">
-            <p className="text-lg font-semibold mb-2" style={{ color: 'var(--text-strong)' }}>
-              Vous avez un besoin spécifique ?
+        {/* Contact CTA */}
+        <section className="py-16">
+          <div className="container max-w-xl text-center">
+            <h2 className="text-2xl font-bold text-[var(--text)] mb-3" style={{ letterSpacing: '-0.025em' }}>
+              Discutons de vos besoins
+            </h2>
+            <p className="text-sm text-[var(--text2)] mb-2">
+              Tarification sur devis selon le volume et les cas d&apos;usage.
             </p>
-            <p className="text-sm mb-6" style={{ color: 'var(--text-muted)' }}>
-              Décrivez votre cas d&apos;usage. Nous répondons sous 48 heures ouvrées.
+            <p
+              className="text-[10px] text-[var(--text3)] mb-6"
+              style={{ fontFamily: 'var(--mono)' }}
+            >
+              Pas de tarif public affiché — chaque accès institutionnel est structuré selon les besoins spécifiques.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all"
-              style={{ background: 'var(--primary)', color: '#FFFFFF' }}
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-sm font-bold transition-all hover:brightness-110"
+              style={{ background: 'var(--surface2)', color: 'var(--text)', border: '1px solid var(--border2)', fontFamily: 'var(--font)' }}
             >
-              Nous contacter →
+              Contacter l&apos;équipe Intelligence
             </Link>
           </div>
         </section>

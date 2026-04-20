@@ -1,8 +1,6 @@
 // ZAWIOS SVG Icon System — Zero emojis, all custom inline SVG
 // Consistent 24x24 viewBox, strokeWidth 1.5, currentColor
 
-import Image from 'next/image'
-
 interface IconProps {
   className?: string
   size?: number
@@ -268,15 +266,15 @@ export function IconCheckCircle(props: IconProps) {
 }
 
 /**
- * IconMark — the raw ZAWIOS convergence mark (no background).
- * 8 lines per wing converging at center. viewBox 64×64.
- * Source of truth: /public/brand/logo/zawios-mark.svg
+ * IconMark — the raw ZAWIOS butterfly mark (no background).
+ * Two fans of lines converging at center: left = light, right = accent.
+ * viewBox 56×34, aspect ratio preserved. Pass `width` to control size.
  */
 export function IconMark({
   className,
-  width = 64,
-  leftColor = '#FFFFFF',
-  rightColor = '#17D5CF',
+  width = 56,
+  leftColor = '#F2F2F7', // Blanc légèrement grisé
+  rightColor = '#4169E1', // Bleu Roi (Royal Blue)
   style,
 }: {
   className?: string
@@ -285,46 +283,60 @@ export function IconMark({
   rightColor?: string
   style?: React.CSSProperties
 }) {
+  const n = 11
+  const ys = Array.from({ length: n }, (_, i) => (i / (n - 1)) * 34)
+  const h = (width * 34) / 56
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
-      height={width}
-      viewBox="0 0 64 64"
+      height={h}
+      viewBox="0 0 56 34"
       fill="none"
       className={className}
       style={style}
     >
-      {/* Left wing */}
-      <g stroke={leftColor} strokeWidth="2" strokeLinecap="round">
-        <path d="M8 18 L30 31"/><path d="M8 22 L30 32"/><path d="M8 26 L30 33"/><path d="M8 30 L30 34"/>
-        <path d="M8 34 L30 35"/><path d="M8 38 L30 36"/><path d="M8 42 L30 37"/><path d="M8 46 L30 38"/>
-      </g>
-      {/* Right wing */}
-      <g stroke={rightColor} strokeWidth="2" strokeLinecap="round">
-        <path d="M56 18 L34 31"/><path d="M56 22 L34 32"/><path d="M56 26 L34 33"/><path d="M56 30 L34 34"/>
-        <path d="M56 34 L34 35"/><path d="M56 38 L34 36"/><path d="M56 42 L34 37"/><path d="M56 46 L34 38"/>
-      </g>
-      <circle cx="32" cy="34" r="2.2" fill={rightColor}/>
+      {ys.map((y, i) => (
+        <line key={`L${i}`} x1={28} y1={17} x2={0} y2={y} stroke={leftColor} strokeWidth="0.9" strokeLinecap="round" />
+      ))}
+      {ys.map((y, i) => (
+        <line key={`R${i}`} x1={28} y1={17} x2={56} y2={y} stroke={rightColor} strokeWidth="0.9" strokeLinecap="round" />
+      ))}
     </svg>
   )
 }
 
 /**
- * IconLogo — ZAWIOS mark rendered from the canonical SVG.
- * Used in dashboard sidebar, auth pages, etc.
+ * IconLogo — square app icon: dark background + butterfly mark.
+ * Used in navbar, footer, auth pages, and as the favicon placeholder.
  */
 export function IconLogo({ className, size = 32, style }: IconProps) {
+  const n = 11
+  // y positions for mark endpoints, centered vertically in the icon with padding
+  const pad = size * 0.23
+  const ys = Array.from({ length: n }, (_, i) => pad + (i / (n - 1)) * (size - 2 * pad))
+  const cx = size / 2
+  const cy = size / 2
+  const xL = size * 0.06
+  const xR = size * 0.94
   return (
-    <Image
-      src="/brand/logo/zawios-mark.svg"
-      alt=""
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
-      aria-hidden
+      viewBox={`0 0 ${size} ${size}`}
+      fill="none"
       className={className}
-      style={{ display: 'block', ...style }}
-    />
+      style={style}
+    >
+      <rect width={size} height={size} rx={size * 0.22} fill="#0C0D10" />
+      {ys.map((y, i) => (
+        <line key={`L${i}`} x1={cx} y1={cy} x2={xL} y2={y} stroke="#F2F2F7" strokeWidth={size * 0.026} strokeLinecap="round" />
+      ))}
+      {ys.map((y, i) => (
+        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#4169E1" strokeWidth={size * 0.026} strokeLinecap="round" />
+      ))}
+    </svg>
   )
 }
 
@@ -467,6 +479,31 @@ export function IconHome(props: IconProps) {
   )
 }
 
+export function IconBookmark(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
+    </svg>
+  )
+}
+
+export function IconHeart(props: IconProps) {
+  return (
+    <svg {...iconProps(props)}>
+      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+    </svg>
+  )
+}
+
+export function IconFire(props: IconProps) {
+  // Filled flame shape using fill
+  return (
+    <svg {...iconProps(props)} fill="currentColor" stroke="none">
+      <path d="M17.66 11.2c-.23-.3-.51-.56-.77-.82-.67-.6-1.43-1.03-2.07-1.67-.64-.63-1.14-1.65-.93-2.61.17-.78.67-1.45 1.09-2.12-.26.09-.53.2-.77.32-.94.48-1.8 1.18-2.46 2.02-.69.88-1.13 1.94-1.18 3.05-.02.26-.05.51-.14.74-.06.17-.14.33-.22.49a3.17 3.17 0 01-.66-.56c-.73-.83-1.07-1.91-.93-2.97-.54.47-1.03 1-.42 1.44.3.23.65.38 1.03.44-.37.54-.65 1.12-.84 1.71-.23.71-.26 1.48-.11 2.2.14.66.45 1.29.88 1.82.43.53.98.98 1.59 1.29.62.32 1.3.49 1.99.49s1.37-.17 1.99-.49c.61-.31 1.16-.76 1.59-1.29.43-.53.74-1.16.88-1.82.15-.72.12-1.49-.11-2.2-.18-.56-.43-1.09-.77-1.57z" />
+    </svg>
+  )
+}
+
 export function IconSend(props: IconProps) {
   return (
     <svg {...iconProps(props)}>
@@ -476,11 +513,11 @@ export function IconSend(props: IconProps) {
   )
 }
 
-export function IconReply(props: IconProps) {
+export function IconThumbUp(props: IconProps) {
   return (
     <svg {...iconProps(props)}>
-      <polyline points="9 17 4 12 9 7" />
-      <path d="M20 18v-2a4 4 0 00-4-4H4" />
+      <path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3H14z" />
+      <path d="M7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3" />
     </svg>
   )
 }
@@ -488,26 +525,18 @@ export function IconReply(props: IconProps) {
 export function IconMoreHoriz(props: IconProps) {
   return (
     <svg {...iconProps(props)}>
-      <circle cx="5" cy="12" r="1" fill="currentColor" />
-      <circle cx="12" cy="12" r="1" fill="currentColor" />
-      <circle cx="19" cy="12" r="1" fill="currentColor" />
+      <circle cx="5" cy="12" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" stroke="none" />
+      <circle cx="19" cy="12" r="1.5" fill="currentColor" stroke="none" />
     </svg>
   )
 }
 
-export function IconBookmark(props: IconProps) {
+export function IconReply(props: IconProps) {
   return (
     <svg {...iconProps(props)}>
-      <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z" />
-    </svg>
-  )
-}
-
-export function IconFire(props: IconProps) {
-  return (
-    <svg {...iconProps(props)}>
-      <path d="M12 2c0 0-5 4-5 9a5 5 0 0010 0c0-5-5-9-5-9z" />
-      <path d="M12 12c0 0-2 1.5-2 3a2 2 0 004 0c0-1.5-2-3-2-3z" />
+      <polyline points="9 17 4 12 9 7" />
+      <path d="M20 18v-2a4 4 0 00-4-4H4" />
     </svg>
   )
 }

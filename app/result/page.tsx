@@ -37,6 +37,7 @@ export default function ResultPage() {
     status: 'resolved',
     yesPercent: 38,
     noPercent: 62,
+    neutralPercent: 0,
     totalVotes: 24301,
     createdBy: null,
     resolvedResult: false, // NO was correct

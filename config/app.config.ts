@@ -7,7 +7,7 @@ export const APP_CONFIG = {
   name: 'ZAWIOS',
   tagline: "Intelligence Collective",
   description: "Vote YES · NO · NEUTRE sur les signaux du monde.",
-  url: process.env.NEXT_PUBLIC_APP_URL ?? 'https://zawios.io',
+  url: process.env.NEXT_PUBLIC_APP_URL ?? 'https://zawios.netlify.app',
   locale: 'fr' as const,
   defaultRegion: 'global' as const,
 

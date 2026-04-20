@@ -1,178 +1,118 @@
-// ═══════════════════════════════════════════════════════════════════════
-// ZAWIOS Service Worker v3 — Production PWA
-//
-// Strategy:
-//   • App shell: cache-first (instant loads)
-//   • API calls:  network-first (fresh data, offline fallback)
-//   • Static assets: cache-first + stale-while-revalidate
-//   • Navigation: network-first with offline.html fallback
-//   • Background sync ready for offline votes
-// ═══════════════════════════════════════════════════════════════════════
+/**
+ * ZAWIOS Service Worker
+ * Strategy:
+ *   - Static assets (JS/CSS/images): cache-first, stale-while-revalidate
+ *   - API routes (/api/*): network-first, fall back to cache if offline
+ *   - Pages (HTML): network-first, fall back to offline shell
+ *   - Font requests: cache-first (long TTL)
+ */
 
-const CACHE_VERSION = 'zawios-v3'
-const STATIC_CACHE = `${CACHE_VERSION}-static`
-const DYNAMIC_CACHE = `${CACHE_VERSION}-dynamic`
-const IMAGE_CACHE = `${CACHE_VERSION}-images`
-const OFFLINE_URL = '/offline.html'
+const CACHE_VERSION = 'zawios-v1'
+const STATIC_CACHE  = `${CACHE_VERSION}-static`
+const API_CACHE     = `${CACHE_VERSION}-api`
 
-// App shell — precached for instant startup
-const PRECACHE_URLS = [
-  '/',
-  '/offline.html',
-  '/manifest.webmanifest',
+const STATIC_PATTERNS = [
+  /\/_next\/static\//,
+  /\.(?:woff2?|ttf|otf)$/,
+  /\.(?:png|jpg|jpeg|webp|svg|ico)$/,
+  /\.(?:css)$/,
 ]
 
-// Max items per dynamic cache (LRU eviction)
-const DYNAMIC_CACHE_LIMIT = 50
-const IMAGE_CACHE_LIMIT = 100
+const PRECACHE_URLS = [
+  '/',
+  '/offline',
+]
 
-// ── Install: precache app shell ────────────────────────────────────────
+// ── Install: precache shell ───────────────────────────────────────────────────
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches
-      .open(STATIC_CACHE)
-      .then((cache) => cache.addAll(PRECACHE_URLS))
-      .then(() => self.skipWaiting())
+    caches.open(STATIC_CACHE).then((cache) =>
+      cache.addAll(PRECACHE_URLS).catch(() => { /* non-fatal */ }),
+    ).then(() => self.skipWaiting()),
   )
 })
 
-// ── Activate: purge old caches ─────────────────────────────────────────
+// ── Activate: clean up old caches ────────────────────────────────────────────
+
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches
-      .keys()
-      .then((keys) =>
-        Promise.all(
-          keys
-            .filter((k) => k.startsWith('zawios-') && !k.startsWith(CACHE_VERSION))
-            .map((k) => caches.delete(k))
-        )
-      )
-      .then(() => self.clients.claim())
+    caches.keys().then((keys) =>
+      Promise.all(
+        keys
+          .filter((k) => k.startsWith('zawios-') && k !== STATIC_CACHE && k !== API_CACHE)
+          .map((k) => caches.delete(k)),
+      ),
+    ).then(() => self.clients.claim()),
   )
 })
 
-// ── Trim cache to limit (batch delete) ─────────────────────────────────
-async function trimCache(cacheName, maxItems) {
-  const cache = await caches.open(cacheName)
-  const keys = await cache.keys()
-  if (keys.length > maxItems) {
-    const toDelete = keys.slice(0, keys.length - maxItems)
-    await Promise.all(toDelete.map((k) => cache.delete(k)))
-  }
-}
+// ── Fetch ─────────────────────────────────────────────────────────────────────
 
-// ── Fetch strategies ───────────────────────────────────────────────────
 self.addEventListener('fetch', (event) => {
   const { request } = event
   const url = new URL(request.url)
 
-  // Skip non-GET and cross-origin (except trusted CDNs)
+  // Only handle same-origin + Google Fonts
+  if (url.origin !== self.location.origin && !url.hostname.includes('fonts.g')) return
+  // Skip non-GET requests
   if (request.method !== 'GET') return
 
-  const TRUSTED_ORIGINS = [
-    'https://media.giphy.com',
-    'https://fonts.googleapis.com',
-    'https://fonts.gstatic.com',
-  ]
-
-  if (
-    url.origin !== self.location.origin &&
-    !TRUSTED_ORIGINS.some((origin) => url.origin === origin)
-  ) {
+  // Static assets → cache-first
+  if (STATIC_PATTERNS.some((p) => p.test(url.pathname) || p.test(url.href))) {
+    event.respondWith(cacheFirst(request, STATIC_CACHE))
     return
   }
 
-  // Navigation: network-first → offline fallback
-  if (request.mode === 'navigate') {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          // Cache successful navigations
-          if (response.ok) {
-            const clone = response.clone()
-            caches.open(DYNAMIC_CACHE).then((cache) => {
-              cache.put(request, clone)
-              trimCache(DYNAMIC_CACHE, DYNAMIC_CACHE_LIMIT)
-            })
-          }
-          return response
-        })
-        .catch(() =>
-          caches.match(request).then((cached) => cached || caches.match(OFFLINE_URL))
-        )
-    )
-    return
-  }
-
-  // API routes: network-first (no caching of API calls)
+  // API routes → network-first, short cache
   if (url.pathname.startsWith('/api/')) {
-    event.respondWith(fetch(request))
+    event.respondWith(networkFirst(request, API_CACHE, 30))
     return
   }
 
-  // Images (Giphy GIFs, Pollinations, etc.): cache-first
-  if (
-    request.destination === 'image' ||
-    url.pathname.match(/\.(png|jpg|jpeg|gif|webp|avif|svg|ico)$/)
-  ) {
-    event.respondWith(
-      caches.match(request).then(
-        (cached) =>
-          cached ||
-          fetch(request).then((response) => {
-            if (response.ok) {
-              const clone = response.clone()
-              caches.open(IMAGE_CACHE).then((cache) => {
-                cache.put(request, clone)
-                trimCache(IMAGE_CACHE, IMAGE_CACHE_LIMIT)
-              })
-            }
-            return response
-          })
-      )
-    )
-    return
-  }
-
-  // Static assets (_next/static, fonts): cache-first
-  if (
-    url.pathname.startsWith('/_next/static') ||
-    url.origin === 'https://fonts.gstatic.com'
-  ) {
-    event.respondWith(
-      caches.match(request).then(
-        (cached) =>
-          cached ||
-          fetch(request).then((response) => {
-            if (response.ok) {
-              const clone = response.clone()
-              caches.open(STATIC_CACHE).then((cache) => cache.put(request, clone))
-            }
-            return response
-          })
-      )
-    )
-    return
-  }
-
-  // Everything else: stale-while-revalidate
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      const networkFetch = fetch(request)
-        .then((response) => {
-          if (response.ok) {
-            const clone = response.clone()
-            caches.open(DYNAMIC_CACHE).then((cache) => {
-              cache.put(request, clone)
-              trimCache(DYNAMIC_CACHE, DYNAMIC_CACHE_LIMIT)
-            })
-          }
-          return response
-        })
-        .catch(() => cached)
-
-      return cached || networkFetch
-    })
-  )
+  // Pages → network-first, fall back to offline
+  event.respondWith(networkFirst(request, STATIC_CACHE, 0))
 })
+
+// ── Strategies ────────────────────────────────────────────────────────────────
+
+async function cacheFirst(request, cacheName) {
+  const cached = await caches.match(request)
+  if (cached) return cached
+  try {
+    const response = await fetch(request)
+    if (response.ok) {
+      const cache = await caches.open(cacheName)
+      cache.put(request, response.clone())
+    }
+    return response
+  } catch {
+    return new Response('Offline', { status: 503 })
+  }
+}
+
+async function networkFirst(request, cacheName, maxAgeSeconds) {
+  try {
+    const response = await fetch(request)
+    if (response.ok && cacheName) {
+      const cache = await caches.open(cacheName)
+      cache.put(request, response.clone())
+    }
+    return response
+  } catch {
+    const cached = await caches.match(request)
+    if (cached) {
+      if (maxAgeSeconds > 0) {
+        const dateHeader = cached.headers.get('date')
+        if (dateHeader) {
+          const age = (Date.now() - new Date(dateHeader).getTime()) / 1000
+          if (age > maxAgeSeconds) return new Response('Stale', { status: 503 })
+        }
+      }
+      return cached
+    }
+    // Last resort: offline shell
+    const shell = await caches.match('/')
+    return shell ?? new Response('Offline', { status: 503 })
+  }
+}
