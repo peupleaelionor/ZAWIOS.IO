@@ -40,20 +40,31 @@ export default function HomePage() {
       {/* ── 2. Credibility bar ─────────────────────────────────────── */}
       <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', background: 'var(--surface)' }}>
         <div className="container">
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 py-4">
-            {STATS.map((s) => (
-              <div key={s.label} className="flex items-baseline gap-1.5">
-                <span
-                  className="font-bold"
-                  style={{ fontFamily: 'var(--mono)', fontSize: '1.05rem', color: 'var(--primary)', letterSpacing: '-0.02em' }}
-                >
-                  {s.value()}
-                </span>
-                <span className="text-sm" style={{ color: 'var(--text-muted)' }}>
-                  {s.label}
-                </span>
-              </div>
-            ))}
+          <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 py-4">
+            <div className="flex items-center gap-2">
+              <span
+                className="inline-block w-2 h-2 rounded-full"
+                style={{ background: 'var(--positive)', boxShadow: '0 0 6px var(--positive)' }}
+              />
+              <span className="text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
+                Plateforme en lancement
+              </span>
+            </div>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+              {STATS.map((s) => (
+                <div key={s.label} className="flex items-baseline gap-1.5">
+                  <span
+                    className="font-bold"
+                    style={{ fontFamily: 'var(--mono)', fontSize: '1rem', color: 'var(--primary)', letterSpacing: '-0.02em' }}
+                  >
+                    {s.value()}
+                  </span>
+                  <span className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                    {s.label}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
