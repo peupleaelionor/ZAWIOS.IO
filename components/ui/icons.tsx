@@ -1,8 +1,6 @@
 // ZAWIOS SVG Icon System — Zero emojis, all custom inline SVG
 // Consistent 24x24 viewBox, strokeWidth 1.5, currentColor
 
-import Image from 'next/image'
-
 interface IconProps {
   className?: string
   size?: number
@@ -268,15 +266,15 @@ export function IconCheckCircle(props: IconProps) {
 }
 
 /**
- * IconMark — the raw ZAWIOS convergence mark (no background).
- * 8 lines per wing converging at center. viewBox 64×64.
- * Source of truth: /public/brand/logo/zawios-mark.svg
+ * IconMark — the raw ZAWIOS butterfly mark (no background).
+ * Two fans of lines converging at center: left = light, right = accent.
+ * viewBox 56×34, aspect ratio preserved. Pass `width` to control size.
  */
 export function IconMark({
   className,
-  width = 64,
-  leftColor = '#FFFFFF',
-  rightColor = '#17D5CF',
+  width = 56,
+  leftColor = '#F2F2F7', // Blanc légèrement grisé
+  rightColor = '#4169E1', // Bleu Roi (Royal Blue)
   style,
 }: {
   className?: string
@@ -285,46 +283,60 @@ export function IconMark({
   rightColor?: string
   style?: React.CSSProperties
 }) {
+  const n = 11
+  const ys = Array.from({ length: n }, (_, i) => (i / (n - 1)) * 34)
+  const h = (width * 34) / 56
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width={width}
-      height={width}
-      viewBox="0 0 64 64"
+      height={h}
+      viewBox="0 0 56 34"
       fill="none"
       className={className}
       style={style}
     >
-      {/* Left wing */}
-      <g stroke={leftColor} strokeWidth="2" strokeLinecap="round">
-        <path d="M8 18 L30 31"/><path d="M8 22 L30 32"/><path d="M8 26 L30 33"/><path d="M8 30 L30 34"/>
-        <path d="M8 34 L30 35"/><path d="M8 38 L30 36"/><path d="M8 42 L30 37"/><path d="M8 46 L30 38"/>
-      </g>
-      {/* Right wing */}
-      <g stroke={rightColor} strokeWidth="2" strokeLinecap="round">
-        <path d="M56 18 L34 31"/><path d="M56 22 L34 32"/><path d="M56 26 L34 33"/><path d="M56 30 L34 34"/>
-        <path d="M56 34 L34 35"/><path d="M56 38 L34 36"/><path d="M56 42 L34 37"/><path d="M56 46 L34 38"/>
-      </g>
-      <circle cx="32" cy="34" r="2.2" fill={rightColor}/>
+      {ys.map((y, i) => (
+        <line key={`L${i}`} x1={28} y1={17} x2={0} y2={y} stroke={leftColor} strokeWidth="0.9" strokeLinecap="round" />
+      ))}
+      {ys.map((y, i) => (
+        <line key={`R${i}`} x1={28} y1={17} x2={56} y2={y} stroke={rightColor} strokeWidth="0.9" strokeLinecap="round" />
+      ))}
     </svg>
   )
 }
 
 /**
- * IconLogo — ZAWIOS mark rendered from the canonical SVG.
- * Used in dashboard sidebar, auth pages, etc.
+ * IconLogo — square app icon: dark background + butterfly mark.
+ * Used in navbar, footer, auth pages, and as the favicon placeholder.
  */
 export function IconLogo({ className, size = 32, style }: IconProps) {
+  const n = 11
+  // y positions for mark endpoints, centered vertically in the icon with padding
+  const pad = size * 0.23
+  const ys = Array.from({ length: n }, (_, i) => pad + (i / (n - 1)) * (size - 2 * pad))
+  const cx = size / 2
+  const cy = size / 2
+  const xL = size * 0.06
+  const xR = size * 0.94
   return (
-    <Image
-      src="/brand/logo/zawios-mark.svg"
-      alt=""
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
-      aria-hidden
+      viewBox={`0 0 ${size} ${size}`}
+      fill="none"
       className={className}
-      style={{ display: 'block', ...style }}
-    />
+      style={style}
+    >
+      <rect width={size} height={size} rx={size * 0.22} fill="#0C0D10" />
+      {ys.map((y, i) => (
+        <line key={`L${i}`} x1={cx} y1={cy} x2={xL} y2={y} stroke="#F2F2F7" strokeWidth={size * 0.026} strokeLinecap="round" />
+      ))}
+      {ys.map((y, i) => (
+        <line key={`R${i}`} x1={cx} y1={cy} x2={xR} y2={y} stroke="#4169E1" strokeWidth={size * 0.026} strokeLinecap="round" />
+      ))}
+    </svg>
   )
 }
 

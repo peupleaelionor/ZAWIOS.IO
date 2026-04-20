@@ -18,7 +18,6 @@ const STATIC_PATTERNS = [
   /\.(?:css)$/,
 ]
 
-// App shell — precached for instant startup
 const PRECACHE_URLS = [
   '/',
   '/offline',

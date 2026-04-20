@@ -13,13 +13,7 @@ export type Category =
   | 'africa'
   | 'future'
 
-export type Region = 'Global' | 'Africa' | 'France' | 'Europe' | 'USA' | 'Asia' | 'LatAm' | 'MENA'
-
-export interface RegionalBreakdown {
-  region: Region
-  yes_percent: number
-  vote_count: number
-}
+export type Region = 'Global' | 'Africa' | 'France' | 'Europe' | 'USA'
 
 export type PredictionType = 'yes_no' | 'multiple_choice' | 'probability'
 
@@ -124,10 +118,16 @@ export interface Prediction {
   view_count: number
   featured: boolean
   tags: string[]
-  options?: PredictionOption[]
   regional_data?: RegionalBreakdown[]
+  options?: PredictionOption[]
   created_at: string
   updated_at: string
+}
+
+export interface RegionalBreakdown {
+  region: string
+  yes_percent: number
+  vote_count: number
 }
 
 export interface PredictionOption {

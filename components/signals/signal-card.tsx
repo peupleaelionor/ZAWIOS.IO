@@ -25,10 +25,8 @@ interface SignalCardProps {
   onNext?:  () => void
 }
 
-const getCategoryLabel = (id: string, lang: Lang) => {
-  const cat = SIGNAL_CATEGORIES.find((c) => c.id === id)
-  return lang === 'fr' ? (cat?.labelFr ?? id) : (cat?.label ?? id)
-}
+const getCategoryLabel = (id: string) =>
+  SIGNAL_CATEGORIES.find((c) => c.id === id)?.labelFr ?? id
 
 const getRegionLabel = (id: string) =>
   SIGNAL_REGIONS.find((r) => r.id === id)?.labelFr ?? id
@@ -81,14 +79,6 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
     const majority =
       choice === 'neutral' ? null :
       (choice === 'yes' && yes > 50) || (choice === 'no' && no > 50)
-
-    const feedbackMap: Record<string, string> = {
-      'yes-majority': t.vote.alignedMajority,
-      'yes-minority': t.vote.againstMajority,
-      'no-majority': t.vote.alignedMajority,
-      'no-minority': t.vote.againstMajority,
-      'neutral': t.vote.abstentionCounted,
-    }
 
     toast.success(
       choice === 'yes'     ? 'Signal YES enregistré'
@@ -294,7 +284,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
 
       {/* Resolved result */}
       {isResolved && signal.resolvedResult !== undefined && (
-        <div className="mt-4 mb-4 flex items-center gap-4">
+        <div className="mt-4 flex items-center gap-4">
           <div>
             <span className="text-[9px] uppercase tracking-wider block mb-0.5" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
               Prédiction foule
@@ -322,7 +312,7 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
               )}
               style={{ fontFamily: 'var(--mono)' }}
             >
-              {signal.resolvedResult ? t.signal.true : t.signal.false}
+              {signal.resolvedResult ? 'VRAI' : 'FAUX'}
             </span>
           </div>
         </div>

@@ -5,7 +5,6 @@
    Sora + IBM Plex Mono · Vibrant · Global
    ═══════════════════════════════════════════ */
 
-/* ── Light (default) ── */
 :root {
   /* ── Base surfaces — elevated for social warmth ── */
   --bg:       #0d0e14;
@@ -116,6 +115,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  /* Fix iOS 100vh issue with address bar */
   height: -webkit-fill-available;
 }
 
@@ -131,31 +131,9 @@ body {
   min-height:               -webkit-fill-available;
 }
 
-::selection { background: rgba(29, 78, 216, 0.14); color: var(--text-strong); }
-[data-theme="dark"] ::selection { background: rgba(107, 142, 248, 0.3); color: #fff; }
-:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-
-/* ─── Typography Strict Hierarchy ─── */
-h1, .h1 {
-  font-size: 40px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-  font-family: var(--font);
-}
-h2, .h2 {
-  font-size: 28px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
-  font-family: var(--font);
-}
-h3, .h3 {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.3;
-  font-family: var(--font);
+::selection {
+  background: var(--accent);
+  color: #fff;
 }
 
 :focus-visible {
@@ -471,55 +449,13 @@ h3, .h3 {
   border-top:      1px solid var(--border2);
   padding-bottom:  env(safe-area-inset-bottom, 0px);
 }
-[data-theme="dark"] .bottom-nav {
-  background: rgba(5, 5, 10, 0.94);
-  border-top-color: rgba(255, 255, 255, 0.06);
-}
 
 /* ─── iOS SAFE AREA ────────────────────────────────── */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 }
 
-/* ─── App shell ─── */
-.app-shell { max-width: 480px; margin: 0 auto; min-height: 100dvh; display: flex; flex-direction: column; background: var(--background); }
-.app-content { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding-bottom: 80px; }
-
-/* ─── Mobile padding bottom nav ─── */
-@media (max-width: 767px) { .has-bottom-nav { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); } }
-
-/* ─── Desktop ─── */
-@media (min-width: 768px) {
-  body { background: var(--background); }
-  .bottom-nav { max-width: 480px; left: 50%; transform: translateX(-50%); border-radius: 16px 16px 0 0; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
-}
-
-/* ─── Feed grid — mobile first: 1 → 2 → 3 → 4 columns ─── */
-.feed-grid { display: grid; gap: 24px; }
-@media (max-width: 639px)  { .feed-grid { grid-template-columns: 1fr; } }
-@media (min-width: 640px) and (max-width: 1023px) { .feed-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .feed-grid { grid-template-columns: repeat(3, 1fr); }
-  .desktop-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
-  .desktop-side-panel { position: sticky; top: 80px; }
-}
-@media (min-width: 1280px) {
-  .feed-grid { grid-template-columns: repeat(4, 1fr); }
-  .desktop-layout { display: grid; grid-template-columns: 1fr 300px; gap: 32px; align-items: start; }
-  .desktop-side-panel { position: sticky; top: 80px; }
-}
-@media (max-width: 767px) { .desktop-side-panel { display: none; } }
-
-/* ─── Offline banner ─── */
-.network-offline-banner {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: var(--negative); color: white; text-align: center;
-  padding: 6px 16px; font-size: 11px; font-weight: 600;
-  font-family: var(--mono); letter-spacing: 0.06em;
-  animation: revealUp 0.3s ease;
-}
-
-/* ─── Reduce motion ─── */
+/* ─── PERFORMANCE: reduce motion ─── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -528,27 +464,14 @@ h3, .h3 {
   }
 }
 
-/* ─── Touch targets — WCAG min 44px ─── */
-@media (pointer: coarse) { .touch-target { min-height: 44px; min-width: 44px; } }
-
-/* ─── Admin 12-col grid ─── */
-.admin-grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 24px;
-  max-width: 1440px;
+/* ─── APP SHELL (mobile standalone) ─── */
+.app-shell {
+  max-width: 480px;
   margin: 0 auto;
-  padding: 0 32px;
-}
-@media (max-width: 767px) { .admin-grid { padding: 0 24px; gap: 16px; } }
-
-/* ─── Signal card title clamp ─── */
-.signal-title {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
 }
 
 .app-content {

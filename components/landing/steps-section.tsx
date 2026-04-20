@@ -1,11 +1,6 @@
-'use client'
-
 import { IconTrending, IconChart, IconTrophy } from '@/components/ui/icons'
-import { useLanguage } from '@/components/providers/language-provider'
 
 export function StepsSection() {
-  const { t } = useLanguage()
-
   const steps = [
     {
       step:        '01',

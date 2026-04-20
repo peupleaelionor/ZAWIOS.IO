@@ -4,8 +4,6 @@ import { AnalyticsProvider } from '@/components/providers/analytics-provider'
 import { LanguageProvider } from '@/components/providers/language-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { UserContextProvider } from '@/components/providers/user-context-provider'
-import { ThemeProvider } from '@/components/providers/theme-provider'
-import { QueryProvider } from '@/components/providers/query-provider'
 import { NetworkStatus } from '@/components/layout/network-status'
 import { BottomNav } from '@/components/layout/bottom-nav'
 import { Toaster } from 'sonner'
@@ -21,7 +19,7 @@ export const metadata: Metadata = {
   keywords: ['prédiction', 'intelligence collective', 'vote', 'réputation', 'signaux', 'actualité', 'analyse', 'forecasting', 'crowd wisdom'],
   authors: [{ name: 'ZAWIOS' }],
   creator: 'ZAWIOS',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.io'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://zawios.netlify.app'),
   openGraph: {
     type:            'website',
     locale:          'fr_FR',
@@ -52,16 +50,6 @@ export const metadata: Metadata = {
     'max-snippet': -1,
     'max-image-preview': 'large',
     'max-video-preview': -1,
-  },
-  icons: {
-    icon: [
-      { url: '/icons/favicon-32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/icons/favicon-16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/icons/favicon-48.png', sizes: '48x48', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/icons/apple-touch-180.png', sizes: '180x180', type: 'image/png' },
-    ],
   },
   appleWebApp: {
     capable:        true,
@@ -95,7 +83,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/favicons/favicon.ico" />
         <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
           rel="stylesheet"
         />
         {/* PWA meta */}
@@ -107,7 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Plausible */}
         <Script
           defer
-          data-domain="zawios.io"
+          data-domain="zawios.netlify.app"
           src="https://plausible.io/js/script.js"
           strategy="afterInteractive"
         />
@@ -123,7 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="antialiased has-bottom-nav" style={{ fontFamily: 'var(--font)' }} role="application">
         <Toaster
-          theme="system"
+          theme="dark"
           position="top-center"
           toastOptions={{
             style: {

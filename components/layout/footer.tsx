@@ -64,7 +64,7 @@ export function Footer() {
                       href={link.href}
                       className="text-sm text-[var(--text3)] hover:text-[var(--text)] transition-colors"
                     >
-                      {t.footer.links[link.key as LinkKey]}
+                      {(t.footer.links as Record<string, string>)[link.key] ?? link.key}
                     </Link>
                   </li>
                 ))}

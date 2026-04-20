@@ -26,13 +26,7 @@ interface LeaderboardRow {
   global_rank:     number
 }
 
-const rankColors = ['var(--warn)', 'var(--text2)', '#A0724A']
-
-function accuracyColor(rate: number) {
-  if (rate >= 72) return 'var(--win)'
-  if (rate >= 60) return 'var(--warn)'
-  return 'var(--text2)'
-}
+const rankColors = ['var(--amber)', 'var(--text3)', '#cd7f32']
 
 export default async function LeaderboardPage() {
   // Try to fetch real data from Supabase RPC
@@ -107,11 +101,8 @@ export default async function LeaderboardPage() {
               Analystes classés par précision et score de réputation
             </p>
 
-            {/* Stats */}
-            <div
-              className="flex items-center gap-5 mt-5 py-3 px-4 rounded-xl"
-              style={{ background: 'var(--surface)', border: '1px solid var(--border)' }}
-            >
+            {/* Quick stats */}
+            <div className="flex items-center justify-center gap-4 md:gap-6 mt-5 md:mt-6 flex-wrap">
               {[
                 { icon: IconUsers,   value: formatNumber(totalUsers),       label: 'Analystes' },
                 { icon: IconChart,   value: `${avgAccuracy}%`,              label: 'Précision moy.' },
@@ -139,9 +130,9 @@ export default async function LeaderboardPage() {
                 key={entry.user_id}
                 className="surface rounded-xl p-4 flex items-center gap-3 card-hover block"
               >
-                <div className="w-7 text-center shrink-0">
+                <div className="flex-shrink-0 w-8 text-center">
                   {index < 3 ? (
-                    <IconMedal size={16} style={{ color: rankColors[index] }} />
+                    <IconMedal className="w-5 h-5 mx-auto" size={20} style={{ color: rankColors[index] }} />
                   ) : (
                     <span
                       className="text-sm font-bold"
@@ -204,7 +195,7 @@ export default async function LeaderboardPage() {
               >
                 <div className="col-span-1">
                   {index < 3 ? (
-                    <IconMedal size={16} style={{ color: rankColors[index] }} />
+                    <IconMedal className="w-5 h-5" size={20} style={{ color: rankColors[index] }} />
                   ) : (
                     <span
                       className="text-sm font-bold"

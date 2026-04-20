@@ -26,19 +26,12 @@ export function Navbar() {
   useEffect(() => { setIsOpen(false) }, [pathname])
 
   const navLinks = [
-    { href: '/predictions', label: t.nav.predictions },
+    { href: '/signals',     label: t.nav.signals },
     { href: '/leaderboard', label: t.nav.leaderboard },
     { href: '/methodology', label: 'Méthodo' },
-    { href: '/pricing',     label: t.nav.pricing },
+    { href: '/pricing',     label: lang === 'en' ? 'Pricing' : 'Tarifs' },
     { href: '/about',       label: t.nav.about },
   ]
-  // Secondary: visible on lg+, always in mobile menu
-  const secondaryLinks = [
-    { href: '/insights',     label: t.nav.insights },
-    { href: '/support',      label: t.nav.support },
-    { href: '/about',        label: t.nav.about },
-  ]
-  const navLinks = [...primaryLinks, ...secondaryLinks]
 
   const isActive = (href: string) =>
     pathname === href || (href !== '/' && pathname.startsWith(href))
@@ -107,7 +100,8 @@ export function Navbar() {
                 letterSpacing: '0.05em',
                 background:    'transparent',
               }}
-              aria-label={`Langue : passer en ${lang === 'en' ? 'français' : 'anglais'}`}
+              aria-label={`Switch language to ${lang === 'en' ? 'French' : 'English'}`}
+              title={`Current language: ${lang === 'en' ? 'English' : 'French'}`}
             >
               {lang === 'en' ? 'FR' : 'EN'}
             </button>
@@ -119,14 +113,12 @@ export function Navbar() {
                   name={user.user_metadata?.full_name || user.email || ''}
                   size="xs"
                 />
-                <Button variant="ghost" size="sm">{t.nav.dashboard}</Button>
+                <Button variant="ghost" size="sm">Dashboard</Button>
               </Link>
             ) : (
               <>
                 <Link href="/auth/login">
-                  <Button variant="ghost" size="sm" style={{ color: 'var(--text-subtle)' }}>
-                    {t.nav.signin}
-                  </Button>
+                  <Button variant="ghost" size="sm">{t.nav.signin}</Button>
                 </Link>
                 <Link href="/auth/signup">
                   <Button size="sm">{t.nav.join}</Button>
@@ -206,7 +198,7 @@ export function Navbar() {
             >
               {user ? (
                 <Link href="/dashboard" className="flex-1">
-                  <Button size="sm" className="w-full">{t.nav.dashboard}</Button>
+                  <Button size="sm" className="w-full">Dashboard</Button>
                 </Link>
               ) : (
                 <>

@@ -1,13 +1,8 @@
-'use client'
-
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { IconArrows } from '@/components/ui/icons'
-import { useLanguage } from '@/components/providers/language-provider'
 
 export function CTASection() {
-  const { t } = useLanguage()
-
   return (
     <section
       className="py-16 md:py-24 relative overflow-hidden"

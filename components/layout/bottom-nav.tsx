@@ -3,7 +3,6 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { IconHome, IconTrending, IconCreate, IconLeaderboard, IconProfile } from '@/components/ui/icons'
-import { useLanguage } from '@/components/providers/language-provider'
 import { cn } from '@/lib/utils'
 
 const navItems = [
@@ -16,18 +15,9 @@ const navItems = [
 
 export function BottomNav() {
   const pathname = usePathname()
-  const { t } = useLanguage()
-
-  const navItems = [
-    { href: '/',              label: t.nav.home,        icon: IconHome },
-    { href: '/signals',       label: t.nav.signals,     icon: IconTrending },
-    { href: '/signals/create',label: t.nav.create,      icon: IconCreate },
-    { href: '/leaderboard',   label: t.nav.leaderboard, icon: IconLeaderboard },
-    { href: '/profile',       label: t.nav.profile,     icon: IconProfile },
-  ]
 
   return (
-    <nav className="bottom-nav safe-bottom md:hidden" aria-label="Mobile navigation">
+    <nav className="bottom-nav safe-bottom" aria-label="Mobile navigation">
       <div className="flex items-center justify-around h-16">
         {navItems.map(({ href, label, icon: Icon, color }) => {
           const isActive = pathname === href || (href !== '/' && pathname.startsWith(href))

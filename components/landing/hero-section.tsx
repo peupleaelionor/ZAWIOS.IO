@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { IconArrows, IconLogo } from '@/components/ui/icons'
 import { SignalCard } from '@/components/signals/signal-card'
@@ -69,7 +68,7 @@ function OrbBackground() {
 }
 
 export function HeroSection() {
-  const { t } = useLanguage()
+  const heroSignal = getTrendingSignals(1)[0]
 
   return (
     <section className="relative pt-20 pb-10 md:pt-28 md:pb-20 overflow-hidden">
