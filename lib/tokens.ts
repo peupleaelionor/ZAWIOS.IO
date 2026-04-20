@@ -88,3 +88,15 @@ export const tokens = {
 
 export type TokenColors = keyof typeof tokens.colors
 export type TokenDarkColors = keyof typeof tokens.dark
+
+/* ── Named exports for tailwind.config.ts compatibility ── */
+export const COLORS  = tokens.colors
+export const SHADOWS = {
+  xs:    '0 1px 2px rgba(11,16,32,0.04)',
+  sm:    '0 1px 3px rgba(11,16,32,0.06), 0 1px 2px rgba(11,16,32,0.04)',
+  md:    '0 4px 12px rgba(11,16,32,0.07), 0 1px 3px rgba(11,16,32,0.04)',
+  lg:    '0 8px 24px rgba(11,16,32,0.09), 0 2px 8px rgba(11,16,32,0.05)',
+  xl:    '0 12px 40px rgba(11,16,32,0.11), 0 4px 12px rgba(11,16,32,0.06)',
+  royal: '0 2px 12px rgba(28,57,187,0.14)',
+} as const
+export const RADIUS  = tokens.radii
