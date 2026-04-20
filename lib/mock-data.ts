@@ -353,11 +353,11 @@ export const mockCategoryInsights: CategoryInsight[] = [
 ]
 
 export const PLATFORM_STATS = {
-  total_users: 47832,
-  total_predictions: 1353,
-  total_votes: 542379,
-  avg_accuracy: 64,
-  resolved_predictions: 287,
+  total_users: 0,
+  total_predictions: 0,
+  total_votes: 0,
+  avg_accuracy: 0,
+  resolved_predictions: 0,
 }
 
 export { worldViewSignals } from './world-view-data'

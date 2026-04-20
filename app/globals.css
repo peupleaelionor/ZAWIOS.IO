@@ -583,10 +583,12 @@ h3, .h3 {
 /* Vote buttons — large touch targets, mobile-first */
 .signal-detail-vote-buttons {
   display: flex;
-  gap: 12px;
+  flex-wrap: nowrap;
+  gap: 10px;
 }
 .signal-detail-vote-btn {
   flex: 1;
+  min-width: 0;
   min-height: 52px;
   border-radius: 12px;
   font-weight: 600;

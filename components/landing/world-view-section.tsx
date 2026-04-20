@@ -13,7 +13,7 @@ function MinimalWorldMap({ activeRegion }: { activeRegion: string }) {
     <svg
       viewBox="0 0 360 180"
       className="w-full"
-      style={{ maxHeight: '180px', opacity: 0.6 }}
+      style={{ maxHeight: '140px', opacity: 0.6 }}
       fill="none"
     >
       {/* North America */}
@@ -131,10 +131,10 @@ export function WorldViewSection() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 items-start">
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6 items-start">
           {/* Left: map + region tabs */}
           <div
-            className="rounded-xl p-5 overflow-hidden"
+            className="rounded-xl p-4 md:p-5 overflow-hidden"
             style={{ background: 'var(--surface)', border: '1px solid var(--border2)' }}
           >
             {/* Region tabs: safe-by-default */}

@@ -23,10 +23,10 @@ export function VoteButtons({ predictionId, className }: VoteButtonsProps) {
   }
 
   const btnBase: React.CSSProperties = {
-    flex: '1 1 100px',
+    flex: '1 1 0',
     minWidth: 0,
     minHeight: '44px',
-    padding: '10px 12px',
+    padding: '10px 8px',
     borderRadius: 'var(--radius)',
     fontFamily: 'var(--mono)',
     fontWeight: 600,
@@ -35,6 +35,7 @@ export function VoteButtons({ predictionId, className }: VoteButtonsProps) {
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     transition: 'all 150ms ease',
+    cursor: 'pointer',
   }
 
   return (
@@ -42,7 +43,7 @@ export function VoteButtons({ predictionId, className }: VoteButtonsProps) {
       className={cn('w-full min-w-0', className)}
       onClick={(e) => e.preventDefault()}
     >
-      <div style={{ display: 'flex', gap: '8px', width: '100%', minWidth: 0, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', gap: '8px', width: '100%', minWidth: 0 }}>
         <button
           onClick={() => handleVote('yes')}
           disabled={voted !== null}
