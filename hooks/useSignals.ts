@@ -5,6 +5,11 @@ import { queryKeys } from '@/lib/query-keys'
 import { mockSignals } from '@/lib/signals-data'
 import type { Signal } from '@/lib/signals-data'
 
+/**
+ * SignalFeedParams — defined locally because the restored query-keys.ts
+ * does not export this type. Kept here to avoid modifying the centralized
+ * query key file.
+ */
 export interface SignalFeedParams {
   category?: string
   region?:   string
