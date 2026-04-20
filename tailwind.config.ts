@@ -1,5 +1,8 @@
 import type { Config } from 'tailwindcss'
-import { COLORS, SHADOWS, RADIUS } from './lib/tokens'
+import { tokens, SHADOWS } from './lib/tokens'
+
+const c = tokens.colors
+const r = tokens.radii
 
 const config: Config = {
   content: [
@@ -10,21 +13,18 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        /* Map tokens → Tailwind utilities */
-        bg:       COLORS.bg,
-        surface:  COLORS.surface,
-        border:   COLORS.border,
-        royal:    COLORS.royal,
-        'royal-hover': COLORS.royalHover,
-        'royal-soft':  COLORS.royalSoft,
-        teal:     COLORS.teal,
-        positive: COLORS.positive,
-        negative: COLORS.negative,
-        warn:     COLORS.warn,
-        /* Text */
-        'text-primary':   COLORS.text,
-        'text-secondary': COLORS.text2,
-        'text-muted':     COLORS.text3,
+        bg:           c.background,
+        surface:      c.surface,
+        border:       c.border,
+        royal:        c.primary,
+        'royal-hover': c.primaryHover,
+        'royal-soft':  c.primarySoft,
+        positive:     c.positive,
+        negative:     c.negative,
+        warn:         c.warn,
+        'text-primary':   c.textStrong,
+        'text-secondary': c.textMuted,
+        'text-muted':     c.textSubtle,
       },
       boxShadow: {
         xs:    SHADOWS.xs,
@@ -35,10 +35,10 @@ const config: Config = {
         royal: SHADOWS.royal,
       },
       borderRadius: {
-        sm: RADIUS.sm,
-        md: RADIUS.md,
-        lg: RADIUS.lg,
-        xl: RADIUS.xl,
+        sm: r.sm,
+        md: r.md,
+        lg: r.lg,
+        xl: '20px',
       },
       fontFamily: {
         display: ['Sora', 'system-ui', 'sans-serif'],
