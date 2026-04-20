@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E2E8F0"/>
+      <stop offset="100%" stop-color="#94A3B8"/>
+    </linearGradient>
+    <linearGradient id="suit" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C39BB"/>
+      <stop offset="100%" stop-color="#1E3A5F"/>
+    </linearGradient>
+    <linearGradient id="case" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Office building silhouette background -->
+  <rect x="50" y="80" width="120" height="370" fill="#CBD5E1" fill-opacity="0.5" rx="4"/>
+  <rect x="60" y="100" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <rect x="95" y="100" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <rect x="135" y="100" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <rect x="60" y="145" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <rect x="95" y="145" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <rect x="135" y="145" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <rect x="60" y="190" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <rect x="95" y="190" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <rect x="135" y="190" width="25" height="30" rx="2" fill="#94A3B8" fill-opacity="0.4"/>
+  <!-- Briefcase (center) -->
+  <rect x="310" y="220" width="180" height="120" rx="12" fill="url(#case)"/>
+  <rect x="360" y="200" width="80" height="30" rx="6" fill="none" stroke="#475569" stroke-width="6"/>
+  <rect x="370" y="270" width="60" height="8" rx="4" fill="#D97706"/>
+  <circle cx="400" cy="274" r="8" fill="#D97706"/>
+  <circle cx="400" cy="274" r="4" fill="#1E293B"/>
+  <!-- Tie (left side) -->
+  <path d="M240 140 L255 140 L260 180 L247 220 L234 180 Z" fill="#1C39BB"/>
+  <path d="M240 140 L255 140 L250 120 L245 120 Z" fill="#3A86FF"/>
+  <!-- Worker silhouettes (right side) -->
+  <circle cx="580" cy="160" r="25" fill="url(#suit)" fill-opacity="0.6"/>
+  <rect x="558" y="192" width="44" height="65" rx="8" fill="url(#suit)" fill-opacity="0.6"/>
+  <circle cx="650" cy="170" r="22" fill="url(#suit)" fill-opacity="0.4"/>
+  <rect x="630" y="198" width="40" height="60" rx="8" fill="url(#suit)" fill-opacity="0.4"/>
+  <circle cx="710" cy="165" r="23" fill="url(#suit)" fill-opacity="0.5"/>
+  <rect x="690" y="195" width="42" height="62" rx="8" fill="url(#suit)" fill-opacity="0.5"/>
+  <!-- Decorative lines -->
+  <line x1="300" y1="390" x2="500" y2="390" stroke="#1C39BB" stroke-width="2" stroke-opacity="0.15"/>
+  <line x1="280" y1="400" x2="520" y2="400" stroke="#1C39BB" stroke-width="2" stroke-opacity="0.1"/>
+</svg>

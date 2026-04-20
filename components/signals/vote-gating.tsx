@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { IconArrows } from '@/components/ui/icons'
+import { useLanguage } from '@/components/providers/language-provider'
 
 const VOTE_GATING_THRESHOLD = 3
 
@@ -20,6 +21,7 @@ interface VoteGatingProps {
 export function VoteGating({ voteCount, children }: VoteGatingProps) {
   const [dismissed, setDismissed] = useState(false)
   const [hasAccount, setHasAccount] = useState(false)
+  const { t } = useLanguage()
 
   useEffect(() => {
     // Check if already dismissed this session
@@ -69,15 +71,15 @@ export function VoteGating({ voteCount, children }: VoteGatingProps) {
           className="text-sm font-semibold text-[var(--text)] mb-1"
           style={{ letterSpacing: '-0.01em' }}
         >
-          Sauvegarde ton score
+          {t.gating.title}
         </p>
         <p className="text-xs text-[var(--text3)] mb-4 max-w-[260px] mx-auto">
-          Crée un compte pour garder tes votes, débloquer les streaks et créer des signaux.
+          {t.gating.body}
         </p>
         <div className="flex flex-col gap-2 max-w-[280px] mx-auto">
           <Link href="/auth/signup">
             <Button size="md" className="w-full gap-2">
-              Créer un compte <IconArrows size={14} className="w-3.5 h-3.5" />
+              {t.gating.cta} <IconArrows size={14} className="w-3.5 h-3.5" />
             </Button>
           </Link>
           <button
@@ -85,15 +87,9 @@ export function VoteGating({ voteCount, children }: VoteGatingProps) {
             className="text-[11px] text-[var(--text3)] hover:text-[var(--text2)] transition-colors py-1"
             style={{ fontFamily: 'var(--mono)' }}
           >
-            Continuer sans compte
+            {t.gating.dismiss}
           </button>
         </div>
-        <p
-          className="mt-3 text-[9px] text-[var(--text3)] opacity-50"
-          style={{ fontFamily: 'var(--mono)' }}
-        >
-          Sans compte: pas de streak, pas de création, pas d&apos;avis
-        </p>
       </div>
     </div>
   )

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { getWorldViewSignals } from '@/lib/signals-data'
+import { useLanguage } from '@/components/providers/language-provider'
 
 // Minimal SVG world map — continent silhouettes, very subtle
 function MinimalWorldMap({ activeRegion }: { activeRegion: string }) {
@@ -81,6 +82,7 @@ export function WorldViewSection() {
   const [activeRegion, setActiveRegion] = useState('global')
   const [compareOptIn, setCompareOptIn] = useState(false)
   const signals = getWorldViewSignals(3)
+  const { t } = useLanguage()
 
   const getRegionStats = (region: string) => {
     if (!signals.length || !signals[0].regionalBreakdown) return { yes: 54, no: 46 }
@@ -98,12 +100,12 @@ export function WorldViewSection() {
 
   // Safe-by-default: only "Ma région" + "Global" visible. Others behind opt-in.
   const SAFE_REGIONS = [
-    { id: 'global', label: 'Global résumé', votes: '2M' },
+    { id: 'global', label: t.worldView.regionGlobal, votes: '2M' },
   ]
   const COMPARE_REGIONS = [
-    { id: 'africa', label: 'Afrique', votes: '980K' },
-    { id: 'europe', label: 'Europe', votes: '540K' },
-    { id: 'usa', label: 'USA', votes: '430K' },
+    { id: 'africa', label: t.worldView.regionAfrica, votes: '980K' },
+    { id: 'europe', label: t.worldView.regionEurope, votes: '540K' },
+    { id: 'usa', label: t.worldView.regionUSA, votes: '430K' },
   ]
 
   const visibleRegions = compareOptIn
@@ -117,15 +119,15 @@ export function WorldViewSection() {
     >
       <div className="container">
         <div className="mb-8">
-          <p className="section-label">World View</p>
+          <p className="section-label">{t.worldView.title}</p>
           <h2
             className="text-2xl md:text-3xl font-bold text-[var(--text)] mt-1"
             style={{ letterSpacing: '-0.025em' }}
           >
-            Comment le monde pense
+            {t.worldView.howWorldThinks}
           </h2>
           <p className="mt-2 text-sm text-[var(--text2)]">
-            Résumé global agrégé — données anonymes et indicatives.
+            {t.worldView.sectionSubtitle}
           </p>
         </div>
 
@@ -165,7 +167,7 @@ export function WorldViewSection() {
                     border: '1px dashed var(--border3)',
                   }}
                 >
-                  Comparer Afrique / Europe / USA
+                  {t.worldView.compareLabel}
                 </button>
               )}
             </div>
@@ -183,7 +185,7 @@ export function WorldViewSection() {
                   {stats.yes}%
                 </p>
                 <p className="text-[10px] text-[var(--teal)] font-semibold mt-0.5" style={{ fontFamily: 'var(--mono)' }}>
-                  YES
+                  {t.vote.yes.toUpperCase()}
                 </p>
               </div>
               <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ background: 'var(--surface3)' }}>
@@ -203,7 +205,7 @@ export function WorldViewSection() {
                   {stats.no}%
                 </p>
                 <p className="text-[10px] text-[var(--text3)] font-semibold mt-0.5" style={{ fontFamily: 'var(--mono)' }}>
-                  NO
+                  {t.vote.no.toUpperCase()}
                 </p>
               </div>
             </div>
@@ -213,7 +215,7 @@ export function WorldViewSection() {
               className="mt-3 text-[9px] text-[var(--text3)] opacity-60"
               style={{ fontFamily: 'var(--mono)' }}
             >
-              Données agrégées, anonymes, indicatives.
+              {t.worldView.safetyNote}
             </p>
           </div>
 
@@ -225,13 +227,13 @@ export function WorldViewSection() {
 
               // Safe-by-default: only show "Global" + "Ma région" rows unless opt-in
               const safeRows = [
-                { label: 'Global', value: bd.global, highlight: false },
+                { label: t.worldView.regionGlobal, value: bd.global, highlight: false },
               ]
               const compareRows = [
-                { label: 'Afrique', value: bd.africa, highlight: activeRegion === 'africa' },
-                { label: 'France', value: bd.france, highlight: activeRegion === 'europe' },
-                { label: 'Europe', value: bd.europe, highlight: activeRegion === 'europe' },
-                { label: 'USA', value: bd.usa, highlight: activeRegion === 'usa' },
+                { label: t.worldView.regionAfrica, value: bd.africa, highlight: activeRegion === 'africa' },
+                { label: t.worldView.regionFrance, value: bd.france, highlight: activeRegion === 'europe' },
+                { label: t.worldView.regionEurope, value: bd.europe, highlight: activeRegion === 'europe' },
+                { label: t.worldView.regionUSA, value: bd.usa, highlight: activeRegion === 'usa' },
               ]
               const rows = compareOptIn ? [...safeRows, ...compareRows] : safeRows
 
@@ -288,12 +290,12 @@ export function WorldViewSection() {
                         const spread = max - min
                         if (spread < 10) return (
                           <span className="text-[9px] px-2 py-0.5 rounded-full bg-[var(--teal)]/10 text-[var(--teal)]" style={{ fontFamily: 'var(--mono)' }}>
-                            consensus ({spread}pts d&apos;écart)
+                            {t.worldView.consensus} ({spread}pts)
                           </span>
                         )
                         return (
                           <span className="text-[9px] px-2 py-0.5 rounded-full bg-[var(--amber)]/10 text-[var(--amber)]" style={{ fontFamily: 'var(--mono)' }}>
-                            divergence ({spread}pts d&apos;écart)
+                            {t.worldView.divergence} ({spread}pts)
                           </span>
                         )
                       })()}

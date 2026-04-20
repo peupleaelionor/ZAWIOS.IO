@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C39BB"/>
+      <stop offset="50%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#DC2626"/>
+    </linearGradient>
+    <linearGradient id="bgOverlay" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#F8FAFC" stop-opacity="0.7"/>
+    </linearGradient>
+    <linearGradient id="shield" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C39BB"/>
+      <stop offset="100%" stop-color="#3A86FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <rect width="800" height="450" fill="url(#bgOverlay)"/>
+  <!-- Tricolor accents (subtle vertical bars) -->
+  <rect x="0" y="0" width="8" height="450" fill="#1C39BB" fill-opacity="0.4"/>
+  <rect x="396" y="0" width="8" height="450" fill="#F8FAFC" fill-opacity="0.3"/>
+  <rect x="792" y="0" width="8" height="450" fill="#DC2626" fill-opacity="0.4"/>
+  <!-- Shield -->
+  <path d="M400 60 L480 95 L480 190 Q480 260 400 300 Q320 260 320 190 L320 95 Z" fill="url(#shield)" fill-opacity="0.8"/>
+  <path d="M400 80 L460 108 L460 185 Q460 245 400 278 Q340 245 340 185 L340 108 Z" fill="#F8FAFC" fill-opacity="0.3"/>
+  <!-- Star in shield -->
+  <polygon points="400,110 412,145 450,145 420,168 430,200 400,180 370,200 380,168 350,145 388,145" fill="#F8FAFC" fill-opacity="0.6"/>
+  <!-- Group of people silhouettes -->
+  <circle cx="180" cy="280" r="20" fill="#1C39BB" fill-opacity="0.4"/>
+  <rect x="164" y="305" width="32" height="50" rx="6" fill="#1C39BB" fill-opacity="0.4"/>
+  <circle cx="230" cy="270" r="22" fill="#1C39BB" fill-opacity="0.5"/>
+  <rect x="212" y="298" width="36" height="55" rx="6" fill="#1C39BB" fill-opacity="0.5"/>
+  <circle cx="285" cy="275" r="21" fill="#1C39BB" fill-opacity="0.45"/>
+  <rect x="268" y="302" width="34" height="52" rx="6" fill="#1C39BB" fill-opacity="0.45"/>
+  <circle cx="540" cy="275" r="21" fill="#DC2626" fill-opacity="0.35"/>
+  <rect x="523" y="302" width="34" height="52" rx="6" fill="#DC2626" fill-opacity="0.35"/>
+  <circle cx="595" cy="270" r="22" fill="#DC2626" fill-opacity="0.4"/>
+  <rect x="577" y="298" width="36" height="55" rx="6" fill="#DC2626" fill-opacity="0.4"/>
+  <circle cx="645" cy="280" r="20" fill="#DC2626" fill-opacity="0.35"/>
+  <rect x="629" y="305" width="32" height="50" rx="6" fill="#DC2626" fill-opacity="0.35"/>
+  <!-- Floor -->
+  <line x1="100" y1="380" x2="700" y2="380" stroke="#1C39BB" stroke-width="1" stroke-opacity="0.15"/>
+</svg>

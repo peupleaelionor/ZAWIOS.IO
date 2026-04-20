@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#F7FAFF"/>
+      <stop offset="1" stop-color="#EEF4FF"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 280) rotate(90) scale(220)">
+      <stop offset="0" stop-color="#17D5CF" stop-opacity="0.25"/>
+      <stop offset="1" stop-color="#17D5CF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect x="32" y="32" width="448" height="448" rx="96" fill="url(#bg)"/>
+  <rect x="32" y="32" width="448" height="448" rx="96" fill="url(#glow)"/>
+
+  <!-- mark centered -->
+  <g transform="translate(0,0) scale(6.5) translate(0,0)">
+    <g transform="translate(0,0)">
+      <!-- draw mark at 64x64 units then scale up -->
+    </g>
+  </g>
+
+  <!-- Inline the 64x64 mark scaled to ~70% of icon -->
+  <g transform="translate(0,0)">
+    <g transform="translate(0,0) scale(6) translate(21.3333, 21.3333)">
+      <g stroke="#0B1020" stroke-width="2" stroke-linecap="round" opacity="0.12">
+        <path d="M8 18 L30 31"/><path d="M8 22 L30 32"/><path d="M8 26 L30 33"/><path d="M8 30 L30 34"/>
+        <path d="M8 34 L30 35"/><path d="M8 38 L30 36"/><path d="M8 42 L30 37"/><path d="M8 46 L30 38"/>
+        <path d="M56 18 L34 31"/><path d="M56 22 L34 32"/><path d="M56 26 L34 33"/><path d="M56 30 L34 34"/>
+        <path d="M56 34 L34 35"/><path d="M56 38 L34 36"/><path d="M56 42 L34 37"/><path d="M56 46 L34 38"/>
+      </g>
+      <g stroke="#0B1020" stroke-width="2" stroke-linecap="round">
+        <path d="M8 18 L30 31"/>
+        <path d="M8 22 L30 32"/>
+        <path d="M8 26 L30 33"/>
+        <path d="M8 30 L30 34"/>
+        <path d="M8 34 L30 35"/>
+        <path d="M8 38 L30 36"/>
+        <path d="M8 42 L30 37"/>
+        <path d="M8 46 L30 38"/>
+      </g>
+      <g stroke="#17D5CF" stroke-width="2" stroke-linecap="round">
+        <path d="M56 18 L34 31"/>
+        <path d="M56 22 L34 32"/>
+        <path d="M56 26 L34 33"/>
+        <path d="M56 30 L34 34"/>
+        <path d="M56 34 L34 35"/>
+        <path d="M56 38 L34 36"/>
+        <path d="M56 42 L34 37"/>
+        <path d="M56 46 L34 38"/>
+      </g>
+      <circle cx="32" cy="34" r="2.2" fill="#17D5CF"/>
+    </g>
+  </g>
+</svg>

@@ -3,6 +3,24 @@
 import { useState } from 'react'
 import { cn, getInitials } from '@/lib/utils'
 
+/** Brand avatars available as fallbacks */
+const BRAND_AVATARS = [
+  '/avatars/avatar-01.svg',
+  '/avatars/avatar-02.svg',
+  '/avatars/avatar-03.svg',
+  '/avatars/avatar-04.svg',
+  '/avatars/avatar-05.svg',
+]
+
+/** Deterministic avatar pick based on name string */
+function getBrandAvatar(name: string): string {
+  let hash = 0
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash)
+  }
+  return BRAND_AVATARS[Math.abs(hash) % BRAND_AVATARS.length]
+}
+
 interface AvatarProps {
   src?: string | null
   name: string
@@ -11,12 +29,14 @@ interface AvatarProps {
 }
 
 /**
- * Robust avatar with automatic fallback to gradient initials.
- * If the image fails to load (404, network error, etc.) the component
- * silently switches to the initials view — no broken square "?".
+ * Robust avatar with automatic fallback:
+ * 1. Try user-provided src
+ * 2. Fall back to brand SVG avatar (deterministic per name)
+ * 3. Final fallback to gradient initials
  */
 export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
   const [imgError, setImgError] = useState(false)
+  const [brandError, setBrandError] = useState(false)
 
   const sizes = {
     xs: 'w-6 h-6 text-xs',
@@ -27,14 +47,25 @@ export function Avatar({ src, name, size = 'md', className }: AvatarProps) {
   }
 
   const showImage = src && !imgError
+  const showBrand = !showImage && !brandError
 
   if (showImage) {
     return (
-      /* eslint-disable-next-line */
       <img
         src={src}
         alt={name}
         onError={() => setImgError(true)}
+        className={cn('rounded-full object-cover', sizes[size], className)}
+      />
+    )
+  }
+
+  if (showBrand) {
+    return (
+      <img
+        src={getBrandAvatar(name)}
+        alt={name}
+        onError={() => setBrandError(true)}
         className={cn('rounded-full object-cover', sizes[size], className)}
       />
     )

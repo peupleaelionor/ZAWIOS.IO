@@ -1,11 +1,11 @@
 'use client'
 import Link from 'next/link'
-import { IconLogo } from '@/components/ui/icons'
+import { LogoLockup } from '@/components/ui/logo'
 import { useLanguage } from '@/components/providers/language-provider'
 
 const footerStructure = {
   Product: [
-    { href: '/predictions', key: 'Predictions' },
+    { href: '/signals', key: 'Signals' },
     { href: '/leaderboard', key: 'Leaderboard' },
     { href: '/insights', key: 'Insights' },
     { href: '/product-system', key: 'Système' },
@@ -40,9 +40,8 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 font-bold text-lg mb-3" aria-label="ZAWIOS Home">
-              <IconLogo size={28} aria-hidden="true" />
-              <span className="tracking-tighter text-white" style={{ fontFamily: 'var(--font)', fontWeight: 800, fontSize: '1.2rem', letterSpacing: '-0.02em' }}>ZAWIOS</span>
+            <Link href="/" className="inline-block mb-3" aria-label="ZAWIOS Home">
+              <LogoLockup className="text-lg" />
             </Link>
             <p className="text-sm text-[var(--text3)] max-w-xs leading-relaxed">
               {t.footer.tagline}
@@ -53,7 +52,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          {(Object.entries(footerStructure) as unknown as [SectionKey, typeof footerStructure[SectionKey]][]).map(([section, links]) => (
+          {(Object.entries(footerStructure) as unknown as [SectionKey, { href: string; key: string }[]][]).map(([section, links]) => (
             <nav key={section} aria-label={`${section} links`}>
               <h4 className="text-xs font-semibold text-[var(--text2)] mb-3 uppercase tracking-wider" style={{ fontFamily: 'var(--mono)' }}>
                 {t.footer.sections[section as keyof typeof t.footer.sections]}

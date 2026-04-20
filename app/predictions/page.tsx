@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: 'Predictions | ZAWIOS',
     description: 'Browse all predictions on ZAWIOS. Vote, predict, and compare your views with the crowd.',
     type: 'website',
-    url: 'https://zawios.netlify.app/predictions',
+    url: 'https://zawios.io/predictions',
   },
 }
 

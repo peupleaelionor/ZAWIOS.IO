@@ -8,7 +8,7 @@ type TranslationSet = typeof translations.en | typeof translations.fr
 interface LanguageContextValue {
   lang: Lang
   setLang: (lang: Lang) => void
-  t: TranslationSet
+  t: (typeof translations)[Lang]
 }
 
 const LanguageContext = createContext<LanguageContextValue>({

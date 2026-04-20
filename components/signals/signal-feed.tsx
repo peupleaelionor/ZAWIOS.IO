@@ -203,7 +203,7 @@ export function SignalFeed() {
               className="text-xs font-semibold hover:underline"
               style={{ color: 'var(--teal)', fontFamily: 'var(--mono)' }}
             >
-              Voir tous les signaux World View →
+              {t.feed.viewWorldView}
             </button>
           </div>
         )}
@@ -238,7 +238,7 @@ export function SignalFeed() {
             className="text-xs font-semibold hover:underline"
             style={{ color: 'var(--teal)', fontFamily: 'var(--mono)' }}
           >
-            Réinitialiser les filtres
+            {t.feed.resetFilters}
           </button>
         </div>
       )}

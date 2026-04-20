@@ -10,16 +10,16 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, children, disabled, ...props }, ref) => {
     const baseStyles =
-      'inline-flex items-center justify-center font-medium transition-all duration-150 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)] disabled:opacity-50 disabled:cursor-not-allowed select-none'
+      'inline-flex items-center justify-center font-medium transition-all duration-150 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--background)] disabled:opacity-50 disabled:cursor-not-allowed select-none'
 
     const variants = {
-      primary: 'bg-[var(--accent)] text-white hover:brightness-110 focus-visible:ring-[var(--accent)] shadow-lg shadow-blue-600/20',
+      primary: 'bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] focus-visible:ring-[var(--primary)]',
       secondary:
-        'bg-[var(--surface2)] text-[var(--text2)] hover:bg-[var(--surface3)] border border-[var(--border2)]',
+        'bg-[var(--surface-alt)] text-[var(--text-muted)] hover:bg-[var(--surface)] border border-[var(--border)]',
       outline:
-        'border border-[var(--border2)] bg-transparent text-[var(--text2)] hover:bg-white/[0.04] hover:text-white',
-      ghost: 'bg-transparent hover:bg-white/[0.04] text-[var(--text2)] hover:text-white',
-      danger: 'bg-[var(--zred)] text-white hover:brightness-110 focus-visible:ring-[var(--zred)]',
+        'border border-[var(--border2)] bg-transparent text-[var(--text-muted)] hover:bg-[var(--surface-alt)] hover:text-[var(--text-strong)]',
+      ghost: 'bg-transparent text-[var(--text-muted)] hover:bg-[var(--surface-alt)] hover:text-[var(--text-strong)]',
+      danger: 'bg-[var(--negative)] text-white hover:brightness-110 focus-visible:ring-[var(--negative)]',
     }
 
     const sizes = {

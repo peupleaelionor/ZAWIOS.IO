@@ -2,9 +2,12 @@ import { notFound } from 'next/navigation'
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import { Avatar } from '@/components/ui/avatar'
-import { mockPredictions } from '@/lib/mock-data'
+import { allPredictions } from '@/lib/mock-data'
+import { RegionalComparison } from '@/components/world-view/regional-comparison'
+import { PredictionImage } from '@/components/ui/prediction-image'
+import { VotePanel } from '@/components/predictions/vote-panel'
+import { CommentSection } from '@/components/comments/comment-section'
 import { formatDate, formatNumber } from '@/lib/utils'
 import {
   IconCalendar,
@@ -13,10 +16,7 @@ import {
   IconComment,
   IconTrending,
   IconCheck,
-  IconArrows,
 } from '@/components/ui/icons'
-import { CrowdSignalBar } from '@/components/crowd-signal-bar'
-import { CommentSection } from '@/components/predictions/comment-section'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
@@ -26,192 +26,131 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params
-  const prediction = mockPredictions.find((p) => p.id === id)
+  const prediction = allPredictions.find((p) => p.id === id)
   if (!prediction) return { title: 'Prediction not found' }
   return {
     title: prediction.title,
-    description: prediction.description,
+    description: prediction.description || `Vote and track this prediction on ZAWIOS.`,
+    openGraph: {
+      title: prediction.title,
+      description: prediction.description || 'Vote and track this prediction on ZAWIOS.',
+      type: 'article',
+    },
   }
 }
 
 export default async function PredictionPage({ params }: Props) {
   const { id } = await params
-  const prediction = mockPredictions.find((p) => p.id === id)
+  const prediction = allPredictions.find((p) => p.id === id)
   if (!prediction) notFound()
 
   const isResolved = prediction.status === 'resolved'
-  const totalVotes = prediction.options?.reduce((sum, o) => sum + o.vote_count, 0) ?? 0
-  const yesOption = prediction.options?.find((o) => o.label === 'Yes')
-  const yesPercent = yesOption?.percentage ?? 0
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg)' }}>
       <Navbar />
-      <main className="container py-12">
+
+      {/* ── Hero image ── */}
+      <div style={{ position: 'relative' }}>
+        <PredictionImage
+          predictionId={prediction.id}
+          title={prediction.title}
+          category={prediction.category}
+          height={320}
+          gradient
+          hero
+        />
+        {/* Badges overlaid */}
+        <div
+          className="absolute top-0 left-0 right-0 flex items-center gap-2 px-6 py-5 flex-wrap"
+          style={{ zIndex: 2 }}
+        >
+          <span
+            className="px-2.5 py-1 rounded-full text-xs font-semibold capitalize"
+            style={{
+              background: 'rgba(5,5,8,0.65)',
+              color: 'var(--accent)',
+              border: '1px solid rgba(23,213,207,0.25)',
+              backdropFilter: 'blur(8px)',
+            }}
+          >
+            {prediction.category}
+          </span>
+          {isResolved && (
+            <Badge variant="success" className="gap-1">
+              <IconCheck size={12} /> Resolved
+            </Badge>
+          )}
+          {prediction.featured && (
+            <Badge variant="default" className="gap-1">
+              <IconTrending size={12} /> Trending
+            </Badge>
+          )}
+        </div>
+      </div>
+
+      <main className="container py-10 md:max-w-3xl md:mx-auto">
+        {/* Back */}
         <Link
           href="/predictions"
-          className="inline-flex items-center gap-1.5 text-sm mb-6 transition-colors"
-          style={{ color: 'var(--text2)' }}
+          className="inline-flex items-center gap-1.5 text-sm mb-7 transition-colors"
+          style={{ color: 'var(--text3)' }}
         >
-          <IconArrows size={16} />
+          <svg xmlns="http://www.w3.org/2000/svg" width={15} height={15} viewBox="0 0 24 24"
+            fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" /><polyline points="12 19 5 12 12 5" />
+          </svg>
           Back to predictions
         </Link>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main content */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Header */}
-            <div className="surface rounded-2xl p-8">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="badge-mono capitalize" style={{ background: 'color-mix(in srgb, var(--accent) 15%, transparent)', color: 'var(--accent2)' }}>
-                  {prediction.category}
-                </span>
-                {isResolved && (
-                  <Badge variant="success" className="gap-1">
-                    <IconCheck size={12} />
-                    Resolved
-                  </Badge>
-                )}
-                {prediction.featured && (
-                  <Badge variant="default" className="gap-1">
-                    <IconTrending size={12} />
-                    Trending
-                  </Badge>
-                )}
-              </div>
+          {/* ── Main ── */}
+          <div className="lg:col-span-2 space-y-8">
 
-              <h1
-                className="text-2xl md:text-3xl font-bold leading-snug mb-4"
-                style={{ color: 'var(--text)' }}
-              >
+            {/* Title + meta */}
+            <div className="surface rounded-2xl p-8">
+              <h1 className="text-2xl md:text-3xl font-bold leading-snug mb-4" style={{ color: 'var(--text)' }}>
                 {prediction.title}
               </h1>
-
-              <p style={{ color: 'var(--text2)' }} className="leading-relaxed">
-                {prediction.description}
-              </p>
-
+              {prediction.description && (
+                <p className="leading-relaxed mb-6" style={{ color: 'var(--text3)' }}>
+                  {prediction.description}
+                </p>
+              )}
               <div
-                className="flex flex-wrap gap-4 mt-6 pt-6 text-sm"
-                style={{ borderTop: '1px solid var(--border)', color: 'var(--text2)' }}
+                className="flex flex-wrap gap-4 text-sm pt-4"
+                style={{ borderTop: '1px solid var(--border)', color: 'var(--text3)' }}
               >
                 <span className="flex items-center gap-1.5">
-                  <IconCalendar size={16} />
+                  <IconCalendar size={15} />
                   Resolves {formatDate(prediction.resolution_date)}
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <IconUsers size={16} />
+                  <IconUsers size={15} />
                   {formatNumber(prediction.vote_count)} votes
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <IconEye size={16} />
+                  <IconEye size={15} />
                   {formatNumber(prediction.view_count)} views
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <IconComment size={16} />
+                  <IconComment size={15} />
                   {prediction.comment_count} comments
                 </span>
               </div>
             </div>
 
-            {/* Voting */}
+            {/* ── Vote panel (interactive) ── */}
             <div className="surface rounded-2xl p-8">
-              <h2
-                className="text-lg font-semibold mb-6"
-                style={{ color: 'var(--text)' }}
-              >
-                Community vote · {formatNumber(totalVotes)} responses
-              </h2>
+              <VotePanel prediction={prediction} />
+            </div>
 
-              <div className="space-y-4">
-                {prediction.options?.map((option) => (
-                  <div key={option.id}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="text-sm font-medium" style={{ color: 'var(--text)' }}>{option.label}</span>
-                        {option.is_correct && (
-                          <IconCheck size={16} style={{ color: 'var(--teal)' }} />
-                        )}
-                      </div>
-                      <span
-                        className="text-sm font-bold"
-                        style={{ color: 'var(--text)', fontFamily: 'var(--mono)' }}
-                      >
-                        {option.percentage}%
-                      </span>
-                    </div>
-                    <div
-                      className="h-3 rounded-full overflow-hidden"
-                      style={{ background: 'var(--surface2)' }}
-                    >
-                      <div
-                        className="h-full rounded-full transition-all duration-700"
-                        style={{
-                          width: `${option.percentage}%`,
-                          background: option.is_correct
-                            ? 'var(--teal)'
-                            : option.label === 'Yes'
-                            ? 'var(--accent)'
-                            : option.label === 'No'
-                            ? 'var(--zred)'
-                            : 'var(--accent)',
-                        }}
-                      />
-                    </div>
-                    <p className="text-xs mt-1" style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
-                      {formatNumber(option.vote_count)} votes
-                    </p>
-                  </div>
-                ))}
+            {/* Regional comparison */}
+            {prediction.regional_data && prediction.regional_data.length > 0 && (
+              <div className="surface rounded-2xl p-8">
+                <RegionalComparison data={prediction.regional_data} />
               </div>
-
-              <CrowdSignalBar
-                yesPercent={yesPercent}
-                totalVotes={totalVotes}
-                className="mt-6"
-              />
-
-              {!isResolved && (
-                <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
-                  <p className="text-sm mb-4" style={{ color: 'var(--text2)' }}>Cast your vote</p>
-                  <div className="flex gap-3 flex-wrap">
-                    {prediction.options?.map((option) => (
-                      <Link href="/auth/login" key={option.id}>
-                        <Button variant="outline" size="sm">
-                          {option.label}
-                        </Button>
-                      </Link>
-                    ))}
-                  </div>
-                  <p className="text-xs mt-3" style={{ color: 'var(--text3)' }}>
-                    <Link href="/auth/login" className="underline">Sign in</Link> to cast your vote
-                  </p>
-                </div>
-              )}
-
-              {isResolved && prediction.resolution_notes && (
-                <div className="mt-6 pt-6" style={{ borderTop: '1px solid var(--border)' }}>
-                  <div
-                    className="flex items-start gap-2 p-4 rounded-xl"
-                    style={{ background: 'color-mix(in srgb, var(--teal) 10%, transparent)' }}
-                  >
-                    <IconCheck size={16} style={{ color: 'var(--teal)', flexShrink: 0, marginTop: '2px' }} />
-                    <div>
-                      <p className="text-sm font-medium" style={{ color: 'var(--teal)' }}>Resolution</p>
-                      <p className="text-sm mt-1" style={{ color: 'var(--teal2)' }}>{prediction.resolution_notes}</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Comments */}
-            <div className="surface rounded-2xl p-8">
-              <CommentSection
-                predictionId={id}
-                comments={[]}
-              />
-            </div>
+            )}
 
             {/* Tags */}
             {prediction.tags.length > 0 && (
@@ -222,44 +161,92 @@ export default async function PredictionPage({ params }: Props) {
                 ))}
               </div>
             )}
+
+            {/* ── Comments ── */}
+            <div className="surface rounded-2xl p-8">
+              <CommentSection
+                predictionId={prediction.id}
+                commentCount={prediction.comment_count}
+              />
+            </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-6">
+          {/* ── Sidebar ── */}
+          <div className="space-y-5">
+            {/* Creator */}
             {prediction.creator && (
               <div className="surface rounded-2xl p-6">
-                <h3 className="text-sm font-medium mb-4" style={{ color: 'var(--text2)' }}>Created by</h3>
+                <h3 className="text-xs font-bold mb-4 uppercase tracking-wider"
+                  style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
+                  Created by
+                </h3>
                 <Link href={`/profile/${prediction.creator.username}`} className="flex items-center gap-3 group">
                   <Avatar src={prediction.creator.avatar_url} name={prediction.creator.full_name} size="md" />
                   <div>
-                    <p className="font-semibold transition-colors" style={{ color: 'var(--text)' }}>
+                    <p className="font-semibold" style={{ color: 'var(--text)' }}>
                       {prediction.creator.full_name}
                     </p>
-                    <p className="text-sm" style={{ color: 'var(--text2)' }}>@{prediction.creator.username}</p>
+                    <p className="text-sm" style={{ color: 'var(--text3)' }}>
+                      @{prediction.creator.username}
+                    </p>
                   </div>
                 </Link>
                 {prediction.creator.bio && (
-                  <p className="text-sm mt-3 leading-relaxed" style={{ color: 'var(--text2)' }}>
+                  <p className="text-sm mt-3 leading-relaxed" style={{ color: 'var(--text3)' }}>
                     {prediction.creator.bio}
                   </p>
                 )}
               </div>
             )}
 
+            {/* Track accuracy CTA */}
             <div
               className="rounded-2xl p-6"
-              style={{
-                background: 'color-mix(in srgb, var(--accent) 10%, transparent)',
-                border: '1px solid color-mix(in srgb, var(--accent) 20%, transparent)',
-              }}
+              style={{ background: 'rgba(23,213,207,0.06)', border: '1px solid rgba(23,213,207,0.2)' }}
             >
-              <h3 className="text-sm font-semibold mb-2" style={{ color: 'var(--accent3)' }}>Want to vote?</h3>
-              <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--accent2)' }}>
-                Create a free account to cast your vote and track your prediction accuracy.
+              <h3 className="text-sm font-bold mb-2" style={{ color: 'var(--accent)' }}>
+                Track your accuracy
+              </h3>
+              <p className="text-sm mb-4 leading-relaxed" style={{ color: 'var(--text2)' }}>
+                Create a free account to link your vote to your reputation score and
+                track your forecast accuracy over time.
               </p>
               <Link href="/auth/signup" className="block">
-                <Button size="sm" className="w-full">Join free</Button>
+                <button
+                  className="w-full py-2.5 rounded-xl text-sm font-semibold transition-all duration-150 active:scale-[0.97]"
+                  style={{ background: 'var(--accent)', color: 'var(--bg)', border: 'none', cursor: 'pointer' }}
+                >
+                  Join free
+                </button>
               </Link>
+            </div>
+
+            {/* Stats */}
+            <div className="surface rounded-2xl p-5">
+              <h3 className="text-xs font-bold mb-4 uppercase tracking-wider"
+                style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}>
+                Signal stats
+              </h3>
+              <div className="space-y-3">
+                {[
+                  { label: 'Total votes', value: formatNumber(prediction.vote_count) },
+                  { label: 'Views', value: formatNumber(prediction.view_count) },
+                  { label: 'Comments', value: String(prediction.comment_count) },
+                  {
+                    label: 'Status',
+                    value: isResolved ? 'Resolved' : 'Open',
+                    accent: isResolved ? 'var(--teal)' : 'var(--amber)',
+                  },
+                ].map((s) => (
+                  <div key={s.label} className="flex justify-between items-center">
+                    <span className="text-xs" style={{ color: 'var(--text3)' }}>{s.label}</span>
+                    <span className="text-sm font-semibold"
+                      style={{ color: s.accent ?? 'var(--text)', fontFamily: 'var(--mono)' }}>
+                      {s.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

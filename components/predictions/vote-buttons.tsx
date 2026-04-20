@@ -10,85 +10,87 @@ interface VoteButtonsProps {
 }
 
 export function VoteButtons({ predictionId, className }: VoteButtonsProps) {
-  const [voted, setVoted] = useState<'yes' | 'no' | null>(null)
+  const [voted, setVoted] = useState<'yes' | 'no' | 'neutral' | null>(null)
 
-  const handleVote = (choice: 'yes' | 'no') => {
+  const handleVote = (choice: 'yes' | 'no' | 'neutral') => {
     if (voted) return
-
     setVoted(choice)
-    toast.success(`Vote recorded: ${choice === 'yes' ? 'Yes' : 'No'}`, {
-      description: 'Sign in to track your prediction accuracy.',
+    const labels = { yes: 'Oui', no: 'Non', neutral: 'Neutre' }
+    toast.success(`Vote enregistré : ${labels[choice]}`, {
+      description: 'Créez un compte pour suivre votre précision.',
     })
-
-    // In production, this would POST to the API
     void predictionId
+  }
+
+  const btnBase: React.CSSProperties = {
+    flex: '1 1 100px',
+    minWidth: 0,
+    minHeight: '44px',
+    padding: '10px 12px',
+    borderRadius: 'var(--radius)',
+    fontFamily: 'var(--mono)',
+    fontWeight: 600,
+    fontSize: '13px',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    transition: 'all 150ms ease',
   }
 
   return (
     <div
-      className={cn('flex items-center gap-2', className)}
+      className={cn('w-full min-w-0', className)}
       onClick={(e) => e.preventDefault()}
     >
-      <button
-        onClick={() => handleVote('yes')}
-        disabled={voted !== null}
-        className={cn(
-          'flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200',
-          voted === 'yes'
-            ? 'text-[var(--bg)] shadow-sm'
-            : voted === null
-              ? 'text-[var(--teal)] hover:text-[var(--bg)] hover:shadow-sm'
-              : 'text-[var(--text3)] cursor-not-allowed opacity-50',
-        )}
-        style={{
-          fontFamily: 'var(--mono)',
-          background:
-            voted === 'yes'
-              ? 'var(--teal)'
-              : voted === null
-                ? 'color-mix(in srgb, var(--teal) 12%, transparent)'
-                : 'var(--surface2)',
-          border: `1px solid ${
-            voted === 'yes'
-              ? 'var(--teal)'
-              : voted === null
-                ? 'color-mix(in srgb, var(--teal) 20%, transparent)'
-                : 'var(--border)'
-          }`,
-        }}
-      >
-        Yes
-      </button>
-      <button
-        onClick={() => handleVote('no')}
-        disabled={voted !== null}
-        className={cn(
-          'flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200',
-          voted === 'no'
-            ? 'text-[var(--bg)] shadow-sm'
-            : voted === null
-              ? 'text-[var(--zred)] hover:text-[var(--bg)] hover:shadow-sm'
-              : 'text-[var(--text3)] cursor-not-allowed opacity-50',
-        )}
-        style={{
-          fontFamily: 'var(--mono)',
-          background:
-            voted === 'no'
-              ? 'var(--zred)'
-              : voted === null
-                ? 'color-mix(in srgb, var(--zred) 12%, transparent)'
-                : 'var(--surface2)',
-          border: `1px solid ${
-            voted === 'no'
-              ? 'var(--zred)'
-              : voted === null
-                ? 'color-mix(in srgb, var(--zred) 20%, transparent)'
-                : 'var(--border)'
-          }`,
-        }}
-      >
-        No
-      </button>
+      <div style={{ display: 'flex', gap: '8px', width: '100%', minWidth: 0, flexWrap: 'wrap' }}>
+        <button
+          onClick={() => handleVote('yes')}
+          disabled={voted !== null}
+          aria-label="Voter Oui"
+          style={{
+            ...btnBase,
+            cursor: voted !== null ? 'default' : 'pointer',
+            color: voted === 'yes' ? '#fff' : voted === null ? 'var(--positive)' : 'var(--text-subtle)',
+            background: voted === 'yes' ? 'var(--positive)' : voted === null ? 'var(--positive-soft)' : 'var(--surface-alt)',
+            border: `1.5px solid ${voted === 'yes' ? 'var(--positive)' : voted === null ? 'color-mix(in srgb, var(--positive) 35%, transparent)' : 'var(--border)'}`,
+            opacity: voted !== null && voted !== 'yes' ? 0.45 : 1,
+          }}
+        >
+          Oui
+        </button>
+
+        <button
+          onClick={() => handleVote('no')}
+          disabled={voted !== null}
+          aria-label="Voter Non"
+          style={{
+            ...btnBase,
+            cursor: voted !== null ? 'default' : 'pointer',
+            color: voted === 'no' ? '#fff' : voted === null ? 'var(--negative)' : 'var(--text-subtle)',
+            background: voted === 'no' ? 'var(--negative)' : voted === null ? 'var(--negative-soft)' : 'var(--surface-alt)',
+            border: `1.5px solid ${voted === 'no' ? 'var(--negative)' : voted === null ? 'color-mix(in srgb, var(--negative) 35%, transparent)' : 'var(--border)'}`,
+            opacity: voted !== null && voted !== 'no' ? 0.45 : 1,
+          }}
+        >
+          Non
+        </button>
+
+        <button
+          onClick={() => handleVote('neutral')}
+          disabled={voted !== null}
+          aria-label="Voter Neutre"
+          style={{
+            ...btnBase,
+            cursor: voted !== null ? 'default' : 'pointer',
+            color: voted === 'neutral' ? '#fff' : voted === null ? 'var(--text-muted)' : 'var(--text-subtle)',
+            background: voted === 'neutral' ? 'var(--text-muted)' : 'var(--surface-alt)',
+            border: `1.5px solid ${voted === 'neutral' ? 'var(--text-muted)' : 'var(--border)'}`,
+            opacity: voted !== null && voted !== 'neutral' ? 0.45 : 1,
+          }}
+        >
+          Neutre
+        </button>
+      </div>
     </div>
   )
 }

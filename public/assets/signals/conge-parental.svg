@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F0FDFA"/>
+      <stop offset="100%" stop-color="#FDF2F8"/>
+    </linearGradient>
+    <linearGradient id="parent" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D9488"/>
+      <stop offset="100%" stop-color="#0F766E"/>
+    </linearGradient>
+    <linearGradient id="baby" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F9A8D4"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+    <linearGradient id="cal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1C39BB"/>
+      <stop offset="100%" stop-color="#3A86FF"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="450" fill="url(#bg)"/>
+  <!-- Parent 1 -->
+  <circle cx="280" cy="160" r="30" fill="url(#parent)" fill-opacity="0.6"/>
+  <path d="M248 198 Q280 185 312 198 L320 310 Q280 325 240 310 Z" fill="url(#parent)" fill-opacity="0.5"/>
+  <!-- Parent 2 -->
+  <circle cx="420" cy="160" r="30" fill="url(#parent)" fill-opacity="0.6"/>
+  <path d="M388 198 Q420 185 452 198 L460 310 Q420 325 380 310 Z" fill="url(#parent)" fill-opacity="0.5"/>
+  <!-- Baby (between parents, lower) -->
+  <circle cx="350" cy="260" r="20" fill="url(#baby)" fill-opacity="0.7"/>
+  <ellipse cx="350" cy="295" rx="18" ry="28" fill="url(#baby)" fill-opacity="0.5"/>
+  <!-- Connection arcs (parent arms holding baby) -->
+  <path d="M310 240 Q330 230 340 245" fill="none" stroke="#0D9488" stroke-width="3" stroke-opacity="0.3" stroke-linecap="round"/>
+  <path d="M390 240 Q370 230 360 245" fill="none" stroke="#0D9488" stroke-width="3" stroke-opacity="0.3" stroke-linecap="round"/>
+  <!-- Calendar (right side) -->
+  <rect x="560" y="100" width="180" height="160" rx="10" fill="#F8FAFC" fill-opacity="0.9" stroke="url(#cal)" stroke-width="2" stroke-opacity="0.3"/>
+  <rect x="560" y="100" width="180" height="35" rx="10" fill="url(#cal)" fill-opacity="0.25"/>
+  <!-- Calendar rings -->
+  <rect x="595" y="90" width="8" height="22" rx="4" fill="url(#cal)" fill-opacity="0.4"/>
+  <rect x="647" y="90" width="8" height="22" rx="4" fill="url(#cal)" fill-opacity="0.4"/>
+  <rect x="700" y="90" width="8" height="22" rx="4" fill="url(#cal)" fill-opacity="0.4"/>
+  <!-- Calendar days (some highlighted in teal = leave days) -->
+  <rect x="575" y="148" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="602" y="148" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="629" y="148" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="656" y="148" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="683" y="148" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="710" y="148" width="20" height="16" rx="3" fill="#CBD5E1" fill-opacity="0.3"/>
+  <rect x="575" y="172" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="602" y="172" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="629" y="172" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="656" y="172" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="683" y="172" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="710" y="172" width="20" height="16" rx="3" fill="#CBD5E1" fill-opacity="0.3"/>
+  <rect x="575" y="196" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="602" y="196" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="629" y="196" width="20" height="16" rx="3" fill="#0D9488" fill-opacity="0.3"/>
+  <rect x="656" y="196" width="20" height="16" rx="3" fill="#CBD5E1" fill-opacity="0.2"/>
+  <rect x="683" y="196" width="20" height="16" rx="3" fill="#CBD5E1" fill-opacity="0.2"/>
+  <rect x="710" y="196" width="20" height="16" rx="3" fill="#CBD5E1" fill-opacity="0.2"/>
+  <!-- Baby shapes (decorative) -->
+  <circle cx="120" cy="200" r="12" fill="url(#baby)" fill-opacity="0.2"/>
+  <circle cx="680" cy="350" r="10" fill="url(#baby)" fill-opacity="0.2"/>
+  <!-- Heart -->
+  <path d="M348 120 Q348 108 358 108 Q368 108 368 120 Q368 132 358 140 Q348 132 348 120 Z" fill="#F472B6" fill-opacity="0.4"/>
+  <!-- Soft decorative circles -->
+  <circle cx="100" cy="380" r="35" fill="#0D9488" fill-opacity="0.05"/>
+  <circle cx="700" cy="400" r="40" fill="#F472B6" fill-opacity="0.06"/>
+  <!-- Ground suggestion -->
+  <line x1="150" y1="370" x2="500" y2="370" stroke="#0D9488" stroke-width="1" stroke-opacity="0.1"/>
+</svg>

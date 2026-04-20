@@ -1,5 +1,8 @@
+'use client'
+
 import Link from 'next/link'
 import { SIGNAL_CATEGORIES, CATEGORY_COLORS } from '@/lib/signals-data'
+import { useLanguage } from '@/components/providers/language-provider'
 
 // Signal counts + emoji per category
 const CATEGORY_META: Record<string, { count: number; emoji: string; sub: string }> = {
@@ -36,7 +39,7 @@ export function CategoriesSection() {
 
         {/* ── Header ── */}
         <div className="mb-8 md:mb-10">
-          <p className="section-label">Catégories</p>
+          <p className="section-label">{t.categories.label}</p>
           <h2
             className="text-2xl md:text-4xl font-bold mt-1 leading-tight"
             style={{ color: 'var(--text)', letterSpacing: '-0.03em' }}

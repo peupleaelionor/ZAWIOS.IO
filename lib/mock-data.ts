@@ -359,3 +359,8 @@ export const PLATFORM_STATS = {
   avg_accuracy: 64,
   resolved_predictions: 287,
 }
+
+export { worldViewSignals } from './world-view-data'
+
+import { worldViewSignals } from './world-view-data'
+export const allPredictions = [...mockPredictions, ...worldViewSignals]
