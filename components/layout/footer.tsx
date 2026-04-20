@@ -9,17 +9,15 @@ const footerStructure = {
     { href: '/leaderboard', key: 'Leaderboard' },
     { href: '/insights', key: 'Insights' },
     { href: '/product-system', key: 'Système' },
-    { href: '/pro', key: 'Pro' },
-    { href: '/intelligence', key: 'Intelligence' },
-    { href: '/methodology', key: 'Méthodologie' },
     { href: '/pricing', key: 'Pricing' },
+    { href: '/premium', key: 'Premium' },
+    { href: '/creator', key: 'Creator' },
+    { href: '/business', key: 'Business' },
   ],
   Company: [
     { href: '/about', key: 'About' },
     { href: '/contact', key: 'Contact' },
     { href: '/faq', key: 'FAQ' },
-    { href: '/principles', key: 'Principes' },
-    { href: '/moderation-guidelines', key: 'Modération' },
   ],
   Legal: [
     { href: '/privacy', key: 'Privacy Policy' },
@@ -64,7 +62,7 @@ export function Footer() {
                       href={link.href}
                       className="text-sm text-[var(--text3)] hover:text-[var(--text)] transition-colors"
                     >
-                      {(t.footer.links as Record<string, string>)[link.key] ?? link.key}
+                      {t.footer.links[link.key as LinkKey]}
                     </Link>
                   </li>
                 ))}

@@ -1,9 +1,17 @@
 'use client'
 
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import { queryKeys, type SignalFeedParams } from '@/lib/query-keys'
+import { queryKeys } from '@/lib/query-keys'
 import { mockSignals } from '@/lib/signals-data'
 import type { Signal } from '@/lib/signals-data'
+
+export interface SignalFeedParams {
+  category?: string
+  region?:   string
+  sort?:     string
+  limit?:    number
+  offset?:   number
+}
 
 type ApiSignal = Signal & { user_vote?: string | null }
 
@@ -86,7 +94,7 @@ function formatTimeAgo(iso?: string): string {
 
 export function useSignals(params: SignalFeedParams = {}) {
   return useQuery({
-    queryKey:  queryKeys.signals.feed(params),
+    queryKey:  queryKeys.signals.list(params as Record<string, unknown>),
     queryFn:   () => fetchSignals(params),
     staleTime: 60_000,
   })
@@ -105,7 +113,7 @@ export function useSignalDetail(id: string) {
     },
     // Seed from feed cache if available
     initialData: () => {
-      const caches = qc.getQueriesData<ApiSignal[]>({ queryKey: queryKeys.signals.all })
+      const caches = qc.getQueriesData<ApiSignal[]>({ queryKey: queryKeys.signals.all() })
       for (const [, data] of caches) {
         if (!Array.isArray(data)) continue
         const found = data.find((s) => s.id === id)

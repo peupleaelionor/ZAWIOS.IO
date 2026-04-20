@@ -45,19 +45,19 @@ export function useSignalVote() {
 
     // Optimistic update: immediately reflect the vote in cached feed data
     onMutate: async ({ signalId, voteType }) => {
-      await qc.cancelQueries({ queryKey: queryKeys.signals.all })
+      await qc.cancelQueries({ queryKey: queryKeys.signals.all() })
 
       // Snapshot all feed caches for rollback
-      const snapshots = qc.getQueriesData<Signal[]>({ queryKey: queryKeys.signals.all })
+      const snapshots = qc.getQueriesData<Signal[]>({ queryKey: queryKeys.signals.all() })
 
-      qc.setQueriesData<Signal[]>({ queryKey: queryKeys.signals.all }, (old) => {
+      qc.setQueriesData<Signal[]>({ queryKey: queryKeys.signals.all() }, (old) => {
         if (!Array.isArray(old)) return old
         return old.map((s) => {
           if (s.id !== signalId) return s
           const votes = s.totalVotes + 1
           const newYes     = voteType === 'yes'     ? Math.min(97, s.yesPercent + 1)     : Math.max(1, s.yesPercent - 0.5)
           const newNo      = voteType === 'no'      ? Math.min(97, s.noPercent + 1)      : Math.max(1, s.noPercent - 0.5)
-          const newNeutral = voteType === 'neutral'  ? Math.min(30, s.neutralPercent + 1) : Math.max(0, s.neutralPercent - 0.5)
+          const newNeutral = voteType === 'neutral'  ? Math.min(30, (s.neutralPercent ?? 0) + 1) : Math.max(0, (s.neutralPercent ?? 0) - 0.5)
           return { ...s, yesPercent: newYes, noPercent: newNo, neutralPercent: newNeutral, totalVotes: votes }
         })
       })
@@ -75,7 +75,7 @@ export function useSignalVote() {
 
     // On success — sync with server's authoritative vote counts
     onSuccess: (data, { signalId }) => {
-      qc.setQueriesData<Signal[]>({ queryKey: queryKeys.signals.all }, (old) => {
+      qc.setQueriesData<Signal[]>({ queryKey: queryKeys.signals.all() }, (old) => {
         if (!Array.isArray(old)) return old
         return old.map((s) => {
           if (s.id !== signalId) return s

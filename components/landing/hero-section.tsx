@@ -1,170 +1,104 @@
 'use client'
 
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { IconArrows, IconLogo } from '@/components/ui/icons'
-import { SignalCard } from '@/components/signals/signal-card'
-import { getTrendingSignals } from '@/lib/signals-data'
-
-/** Animated orb background — vibrant, social-platform feel */
-function OrbBackground() {
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-      {/* Teal orb — top-left */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width:     '480px',
-          height:    '480px',
-          top:       '-120px',
-          left:      '-80px',
-          background:'radial-gradient(circle, rgba(29,228,222,0.12) 0%, rgba(29,228,222,0) 70%)',
-          animation: 'convergence-pulse 6s ease-in-out infinite',
-        }}
-      />
-      {/* Accent orb — right */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width:     '400px',
-          height:    '400px',
-          top:       '60px',
-          right:     '-80px',
-          background:'radial-gradient(circle, rgba(108,92,231,0.10) 0%, rgba(108,92,231,0) 70%)',
-          animation: 'convergence-pulse 8s ease-in-out infinite 2s',
-        }}
-      />
-      {/* Pink orb — bottom center */}
-      <div
-        className="absolute rounded-full"
-        style={{
-          width:     '320px',
-          height:    '320px',
-          bottom:    '0px',
-          left:      '50%',
-          transform: 'translateX(-50%)',
-          background:'radial-gradient(circle, rgba(255,107,157,0.07) 0%, rgba(255,107,157,0) 70%)',
-          animation: 'convergence-pulse 7s ease-in-out infinite 1s',
-        }}
-      />
-      {/* Subtle grid lines */}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)
-          `,
-          backgroundSize: '40px 40px',
-        }}
-      />
-      {/* Bottom fade */}
-      <div
-        className="absolute inset-0"
-        style={{ background: 'linear-gradient(180deg, rgba(13,14,20,0) 40%, rgba(13,14,20,1) 100%)' }}
-      />
-    </div>
-  )
-}
+import { useLanguage } from '@/components/providers/language-provider'
+import { staggerContainer, staggerItem } from '@/lib/motion'
 
 export function HeroSection() {
-  const heroSignal = getTrendingSignals(1)[0]
+  const { t } = useLanguage()
 
   return (
-    <section className="relative pt-20 pb-10 md:pt-28 md:pb-20 overflow-hidden">
-      <OrbBackground />
+    <section
+      className="relative overflow-hidden pt-14 pb-12 sm:pt-20 sm:pb-16 md:pt-24 md:pb-20"
+      style={{ background: 'var(--background)' }}
+    >
+      {/* Subtle background texture */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(28,57,187,0.06) 0%, transparent 70%)',
+        }}
+      />
 
       <div className="container relative">
-        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+        <motion.div
+          className="max-w-[680px]"
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+        >
+          {/* Label */}
+          <motion.p variants={staggerItem} className="section-label mb-5">
+            {t.hero.sectionLabel}
+          </motion.p>
 
-          {/* ── Text column ─────────────────────────────────────────── */}
-          <div className="flex-1 text-center lg:text-left max-w-xl mx-auto lg:mx-0">
-
-            {/* Logo mark */}
-            <div className="flex justify-center lg:justify-start mb-6">
-              <IconLogo size={48} />
-            </div>
-
-            {/* Live badge */}
-            <div className="flex justify-center lg:justify-start mb-4">
-              <span
-                className="inline-flex items-center gap-2 text-[11px] font-semibold px-3 py-1.5 rounded-full"
-                style={{
-                  background:    'rgba(29,228,222,0.08)',
-                  border:        '1px solid rgba(29,228,222,0.2)',
-                  color:         'var(--teal)',
-                  fontFamily:    'var(--mono)',
-                  letterSpacing: '0.05em',
-                }}
-              >
-                <span
-                  className="w-1.5 h-1.5 rounded-full inline-block"
-                  style={{ background: 'var(--teal)', animation: 'pulse-dot 2s ease-in-out infinite' }}
-                />
-                47 000+ signaux collectifs ce mois
-              </span>
-            </div>
-
-            <h1
-              className="text-3xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.08] tracking-tight mb-5"
-              style={{ color: 'var(--text)', letterSpacing: '-0.03em' }}
+          {/* Headline */}
+          <motion.h1 variants={staggerItem} className="mb-5 text-balance">
+            <span
+              style={{
+                display: 'block',
+                fontFamily: 'var(--display-font)',
+                fontWeight: 800,
+                fontSize: 'clamp(2rem, 5.5vw, 3.75rem)',
+                letterSpacing: '-0.028em',
+                lineHeight: 1.07,
+                color: 'var(--text-strong)',
+                whiteSpace: 'pre-line',
+              }}
             >
-              Vote sur l&apos;actu.<br />
-              <span className="gradient-text">Compare avec la foule.</span>
-            </h1>
-
-            <p
-              className="text-base md:text-lg leading-relaxed mb-7 max-w-md mx-auto lg:mx-0"
-              style={{ color: 'var(--text2)' }}
+              {t.hero.headline1}
+            </span>
+            <span
+              style={{
+                display: 'block',
+                marginTop: '0.25em',
+                fontFamily: 'var(--display-font)',
+                fontWeight: 800,
+                fontSize: 'clamp(1.75rem, 4.5vw, 3.25rem)',
+                letterSpacing: '-0.025em',
+                lineHeight: 1.1,
+                color: 'var(--primary)',
+              }}
             >
-              ZAWIOS est la couche sociale de l&apos;information.
-              Vote <strong style={{ color: 'var(--teal)' }}>YES</strong> ou{' '}
-              <strong style={{ color: 'var(--pink)' }}>NO</strong>, compare avec le monde,
-              construis ta réputation d&apos;analyste.
-            </p>
+              {t.hero.headline2}
+            </span>
+          </motion.h1>
 
-            <div className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
-              <Link href="/auth/signup" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto gap-2 px-8">
-                  Rejoindre la bêta <IconArrows className="w-4 h-4" size={16} />
-                </Button>
-              </Link>
-              <Link href="#feed" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto px-8">
-                  Voir les signaux
-                </Button>
-              </Link>
-            </div>
+          {/* Subheading */}
+          <motion.p
+            variants={staggerItem}
+            style={{
+              fontSize: 'clamp(0.9rem, 2vw, 1.05rem)',
+              color: 'var(--text-muted)',
+              lineHeight: 1.7,
+              maxWidth: 500,
+              marginBottom: '2rem',
+            }}
+          >
+            {t.hero.description}
+          </motion.p>
 
-            {/* Social proof micro */}
-            <p
-              className="mt-5 text-[12px]"
-              style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}
-            >
-              Afrique · Europe · Amériques · Asie — 94 pays
-            </p>
-          </div>
-
-          {/* ── Signal card preview — desktop right column ───────── */}
-          {heroSignal && (
-            <div className="w-full lg:w-[380px] xl:w-[420px] shrink-0">
-              <p
-                className="text-[10px] font-semibold uppercase tracking-wider mb-2 text-center lg:text-left"
-                style={{ color: 'var(--text3)', fontFamily: 'var(--mono)' }}
-              >
-                Signal en direct
-              </p>
-              <div className="relative">
-                {/* Glow behind card on desktop */}
-                <div
-                  className="absolute inset-0 rounded-2xl hidden lg:block"
-                  style={{ boxShadow: '0 0 40px rgba(29,228,222,0.1)' }}
-                />
-                <SignalCard signal={heroSignal} />
-              </div>
-            </div>
-          )}
-        </div>
+          {/* CTAs */}
+          <motion.div
+            variants={staggerItem}
+            className="flex flex-col xs:flex-row gap-3"
+            style={{ flexWrap: 'wrap' }}
+          >
+            <Link href="/onboarding">
+              <Button size="lg" style={{ minWidth: 140 }}>
+                {t.hero.cta}
+              </Button>
+            </Link>
+            <Link href="#feed">
+              <Button variant="outline" size="lg" style={{ minWidth: 140 }}>
+                {t.hero.ctaSecondary}
+              </Button>
+            </Link>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   )
