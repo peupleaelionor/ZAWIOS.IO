@@ -22,13 +22,13 @@ const PILLARS = [
 
 const STATS = [
   { value: () => formatNumber(PLATFORM_STATS.total_users), label: t.page.statsAnalysts },
-  { value: () => '0',                                       label: t.page.statsCountries },
+  { value: () => '0', label: t.page.statsCountries },
   { value: () => PLATFORM_STATS.avg_accuracy > 0 ? `${PLATFORM_STATS.avg_accuracy}%` : '—', label: t.page.statsAccuracy },
 ]
 
 export default function HomePage() {
-  const heroSignal   = getTrendingSignals(1)[0]
-  const topAnalysts  = mockLeaderboard.slice(0, 3)
+  const heroSignal = getTrendingSignals(1)[0]
+  const topAnalysts = mockLeaderboard.slice(0, 3)
 
   return (
     <div className="min-h-screen w-full overflow-x-hidden" style={{ background: 'var(--background)' }}>
@@ -72,8 +72,8 @@ export default function HomePage() {
       {/* ── 3. Signaux en direct ────────────────────────────────────── */}
       <section id="feed" className="py-12 md:py-16" style={{ background: 'var(--background)' }}>
         <div className="container">
-          <div className="flex items-end justify-between mb-6 gap-4">
-            <div>
+          <div className="flex items-end justify-between mb-6 gap-4 min-w-0">
+            <div className="min-w-0">
               <p className="section-label mb-2">{t.page.feedLabel}</p>
               <h2
                 className="font-bold"
@@ -91,15 +91,14 @@ export default function HomePage() {
             </Link>
           </div>
 
-          {/* Mobile: single column · Tablet: 2 col · Desktop: hero left + feed right */}
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 items-start min-w-0">
             {heroSignal && (
-              <div className="sm:col-span-1 lg:col-span-1">
+              <div className="sm:col-span-1 lg:col-span-1 min-w-0">
                 <SignalCard signal={heroSignal} />
               </div>
             )}
-            <div className={heroSignal ? 'sm:col-span-1 lg:col-span-2' : 'sm:col-span-2 lg:col-span-3'}>
-              <SignalFeed />
+            <div className={`${heroSignal ? 'sm:col-span-1 lg:col-span-2' : 'sm:col-span-2 lg:col-span-3'} min-w-0`}>
+              <SignalFeed excludedSignalIds={heroSignal ? [heroSignal.id] : []} />
             </div>
           </div>
         </div>
