@@ -14,12 +14,23 @@ export function HeroSection() {
       className="relative overflow-hidden pt-14 pb-12 sm:pt-20 sm:pb-16 md:pt-24 md:pb-20"
       style={{ background: 'var(--background)' }}
     >
-      {/* Subtle background texture */}
+      {/* Signal rays pattern — positioned right, visible md+ */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 hidden md:block"
+        style={{
+          backgroundImage: 'url(/brand/pattern-signal-rays.svg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          opacity: 0.55,
+        }}
+      />
+      {/* Radial gradient overlay to fade the pattern toward content */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          background: 'radial-gradient(ellipse 80% 50% at 50% -20%, rgba(28,57,187,0.06) 0%, transparent 70%)',
+          background: 'radial-gradient(ellipse 65% 80% at 0% 50%, var(--background) 30%, transparent 75%), radial-gradient(ellipse 80% 50% at 50% -20%, rgba(28,57,187,0.05) 0%, transparent 70%)',
         }}
       />
 
