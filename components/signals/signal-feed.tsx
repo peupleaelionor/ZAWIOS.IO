@@ -59,6 +59,18 @@ function getRegionLabelI18n(id: string, lang: Lang): string {
   return lang === 'fr' ? (r?.labelFr ?? id) : (r?.label ?? id)
 }
 
+// Deterministic shuffle using a seed — same seed = same order
+function seededShuffle<T>(arr: T[], seed: number): T[] {
+  const out = [...arr]
+  let s = seed
+  for (let i = out.length - 1; i > 0; i--) {
+    s = (s * 1664525 + 1013904223) & 0xffffffff
+    const j = Math.abs(s) % (i + 1)
+    ;[out[i], out[j]] = [out[j], out[i]]
+  }
+  return out
+}
+
 export function SignalFeed({ excludedSignalIds = [] }: SignalFeedProps) {
   const [sortTab, setSortTab] = useState('trending')
   const [category, setCategory] = useState<SignalCategory | 'all'>('all')
@@ -66,6 +78,9 @@ export function SignalFeed({ excludedSignalIds = [] }: SignalFeedProps) {
   const [showWorldView, setShowWV] = useState(false)
   const [voteCount, setVoteCount] = useState(0)
   const { t, lang } = useLanguage()
+
+  // Rotation seed: changes every 2 hours so the feed rotates without infinite re-renders
+  const rotationSeed = useMemo(() => Math.floor(Date.now() / (1000 * 60 * 120)), [])
 
   const SORT_TABS = [
     { id: 'trending', label: t.feed.trends },
@@ -103,15 +118,21 @@ export function SignalFeed({ excludedSignalIds = [] }: SignalFeedProps) {
       case 'popular':
         signals.sort((a, b) => b.totalVotes - a.totalVotes)
         break
+      case 'latest':
+        // Rotate the order every 2h so users see fresh questions each session
+        signals = seededShuffle(signals, rotationSeed)
+        break
       case 'following':
         signals = signals.filter((s) => s.createdBy !== null)
         break
       default:
+        // Default "all" view: rotate to avoid always showing the same signals first
+        signals = seededShuffle(signals, rotationSeed)
         break
     }
 
-    return signals.slice(0, 15)
-  }, [sortTab, category, region, excludedSignalIds])
+    return signals.slice(0, 20)
+  }, [sortTab, category, region, excludedSignalIds, rotationSeed])
 
   const catColor = (id: SignalCategory | 'all') =>
     id !== 'all' ? CATEGORY_COLORS[id] : { bg: 'rgba(255,255,255,0.08)', text: '#eaeaf0' }

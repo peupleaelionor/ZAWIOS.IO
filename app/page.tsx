@@ -1,10 +1,8 @@
 import { Navbar } from '@/components/layout/navbar'
 import { Footer } from '@/components/layout/footer'
 import { HeroSection } from '@/components/landing/hero-section'
-import { WorldViewSection } from '@/components/landing/world-view-section'
 import { CTASection } from '@/components/landing/cta-section'
-import { GlobeSection } from '@/components/home/globe-section'
-import { HotTopicCard } from '@/components/home/hot-topic-card'
+import { WorldSignalSection } from '@/components/home/world-signal-section'
 import { SignalFeed } from '@/components/signals/signal-feed'
 import { SignalCard } from '@/components/signals/signal-card'
 import { Avatar } from '@/components/ui/avatar'
@@ -106,16 +104,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 4. HOT TOPIC — signal du moment, dark card ─────────────── */}
-      <HotTopicCard />
-
-      {/* ── 5. Globe — How the World Thinks ────────────────────────── */}
-      <GlobeSection />
-
-      {/* ── 6. Vision mondiale (light, filtres région) ──────────────── */}
-      <div className="section-alt" style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
-        <WorldViewSection />
-      </div>
+      {/* ── 4. Vision mondiale — carte réelle, données régionales ──── */}
+      <WorldSignalSection />
 
       {/* ── 5. Méthodologie ────────────────────────────────────────── */}
       <section className="py-16 md:py-24" style={{ background: 'var(--background)', borderBottom: '1px solid var(--border)' }}>
