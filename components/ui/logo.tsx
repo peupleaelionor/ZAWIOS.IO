@@ -208,19 +208,19 @@ export function LogoAppIcon({ size = 32, className, style }: LogoProps & { size?
 export function LogoLockup({ className, style }: LogoProps) {
   return (
     <span
-      className={`inline-flex items-center gap-2.5 ${className ?? ''}`}
+      className={`inline-flex items-center gap-2 ${className ?? ''}`}
       style={{ color: 'var(--text-strong)', ...style }}
       aria-label="ZAWIOS"
     >
-      <span style={{ width: 28, height: 28, display: 'inline-block', flexShrink: 0, color: 'inherit' }}>
+      <span style={{ width: 34, height: 34, display: 'inline-block', flexShrink: 0, color: 'inherit' }}>
         <LogoMark style={{ width: '100%', height: '100%' }} />
       </span>
       <span
         style={{
           fontFamily: 'var(--display-font)',
           fontWeight: 800,
-          fontSize: 'inherit',
-          letterSpacing: '-0.03em',
+          fontSize: '1.125rem',
+          letterSpacing: '-0.035em',
           lineHeight: 1,
           color: 'var(--text-strong)',
         }}
