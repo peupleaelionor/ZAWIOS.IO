@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1456" height="816" viewBox="0 0 1456 816" fill="none">
+  <defs>
+    <radialGradient id="glow-tl" cx="0%" cy="0%" r="50%">
+      <stop offset="0%" stop-color="#1C39BB" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#1C39BB" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-tr" cx="100%" cy="0%" r="50%">
+      <stop offset="0%" stop-color="#3A86FF" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#3A86FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow-bl" cx="0%" cy="100%" r="50%">
+      <stop offset="0%" stop-color="#1C39BB" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#1C39BB" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Corner glows -->
+  <rect width="1456" height="816" fill="url(#glow-tl)"/>
+  <rect width="1456" height="816" fill="url(#glow-tr)"/>
+  <rect width="1456" height="816" fill="url(#glow-bl)"/>
+
+  <!-- Signal rays from center point (728, 408) -->
+  <g stroke="#1C39BB" stroke-opacity="0.065" stroke-width="0.8">
+    <!-- 72 rays every 5 degrees -->
+    <line x1="728" y1="408" x2="728" y2="-50"/>
+    <line x1="728" y1="408" x2="880" y2="-38"/>
+    <line x1="728" y1="408" x2="1028" y2="-8"/>
+    <line x1="728" y1="408" x2="1166" y2="40"/>
+    <line x1="728" y1="408" x2="1290" y2="106"/>
+    <line x1="728" y1="408" x2="1393" y2="187"/>
+    <line x1="728" y1="408" x2="1470" y2="282"/>
+    <line x1="728" y1="408" x2="1516" y2="386"/>
+    <line x1="728" y1="408" x2="1526" y2="496"/>
+    <line x1="728" y1="408" x2="1498" y2="604"/>
+    <line x1="728" y1="408" x2="1434" y2="703"/>
+    <line x1="728" y1="408" x2="1340" y2="786"/>
+    <line x1="728" y1="408" x2="1222" y2="848"/>
+    <line x1="728" y1="408" x2="1088" y2="884"/>
+    <line x1="728" y1="408" x2="944" y2="890"/>
+    <line x1="728" y1="408" x2="800" y2="866"/>
+    <line x1="728" y1="408" x2="728" y2="866"/>
+    <line x1="728" y1="408" x2="576" y2="866"/>
+    <line x1="728" y1="408" x2="432" y2="890"/>
+    <line x1="728" y1="408" x2="288" y2="884"/>
+    <line x1="728" y1="408" x2="154" y2="848"/>
+    <line x1="728" y1="408" x2="36" y2="786"/>
+    <line x1="728" y1="408" x2="-58" y2="703"/>
+    <line x1="728" y1="408" x2="-122" y2="604"/>
+    <line x1="728" y1="408" x2="-150" y2="496"/>
+    <line x1="728" y1="408" x2="-140" y2="386"/>
+    <line x1="728" y1="408" x2="-94" y2="282"/>
+    <line x1="728" y1="408" x2="-17" y2="187"/>
+    <line x1="728" y1="408" x2="86" y2="106"/>
+    <line x1="728" y1="408" x2="210" y2="40"/>
+    <line x1="728" y1="408" x2="348" y2="-8"/>
+    <line x1="728" y1="408" x2="496" y2="-38"/>
+    <!-- Secondary rays (thinner) -->
+    <line x1="728" y1="408" x2="804" y2="-50" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="954" y2="-23" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1098" y2="22" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1230" y2="88" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1346" y2="170" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1440" y2="270" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1502" y2="386" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1518" y2="500" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1480" y2="620" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1400" y2="726" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1288" y2="810" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1158" y2="866" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="1018" y2="892" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="874" y2="886" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="728" y2="866" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="584" y2="886" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="440" y2="892" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="300" y2="866" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="170" y2="810" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="58" y2="726" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="-22" y2="620" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="-60" y2="500" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="-46" y2="386" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="16" y2="270" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="110" y2="170" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="226" y2="88" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="358" y2="22" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="502" y2="-23" stroke-opacity="0.035"/>
+    <line x1="728" y1="408" x2="652" y2="-50" stroke-opacity="0.035"/>
+  </g>
+
+  <!-- Center dot -->
+  <circle cx="728" cy="408" r="2" fill="#1C39BB" fill-opacity="0.25"/>
+  <circle cx="728" cy="408" r="6" fill="#1C39BB" fill-opacity="0.07"/>
+  <circle cx="728" cy="408" r="14" fill="#1C39BB" fill-opacity="0.03"/>
+</svg>

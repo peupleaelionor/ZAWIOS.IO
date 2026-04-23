@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="360" viewBox="0 0 360 360">
+  <defs>
+    <!-- Bowtie mark path — two mirrored fan-shapes meeting at center -->
+    <path id="bow" d="M0,0 C-6,-3 -12,-1 -12,0 C-12,1 -6,3 0,0 C6,-3 12,-1 12,0 C12,1 6,3 0,0 Z"/>
+    <!-- Larger bowtie -->
+    <path id="bow-lg" d="M0,0 C-9,-4.5 -18,-1.5 -18,0 C-18,1.5 -9,4.5 0,0 C9,-4.5 18,-1.5 18,0 C18,1.5 9,4.5 0,0 Z"/>
+    <!-- Small bowtie -->
+    <path id="bow-sm" d="M0,0 C-4,-2 -8,-0.8 -8,0 C-8,0.8 -4,2 0,0 C4,-2 8,-0.8 8,0 C8,0.8 4,2 0,0 Z"/>
+  </defs>
+
+  <!-- Grid of bowtie marks at varying opacity and size -->
+  <!-- Row 1 -->
+  <use href="#bow-lg" transform="translate(36,36)"   fill="#1C39BB" fill-opacity="0.18"/>
+  <use href="#bow-sm" transform="translate(96,36)"   fill="#1C39BB" fill-opacity="0.08"/>
+  <use href="#bow"    transform="translate(180,36)"  fill="#1C39BB" fill-opacity="0.06"/>
+  <use href="#bow-sm" transform="translate(264,36)"  fill="#1C39BB" fill-opacity="0.12"/>
+  <use href="#bow-lg" transform="translate(324,36)"  fill="#1C39BB" fill-opacity="0.05"/>
+
+  <!-- Row 2 -->
+  <use href="#bow-sm" transform="translate(66,96)"   fill="#1C39BB" fill-opacity="0.07"/>
+  <use href="#bow-lg" transform="translate(150,96)"  fill="#1C39BB" fill-opacity="0.14"/>
+  <use href="#bow"    transform="translate(234,96)"  fill="#1C39BB" fill-opacity="0.09"/>
+  <use href="#bow-sm" transform="translate(300,96)"  fill="#1C39BB" fill-opacity="0.06"/>
+
+  <!-- Row 3 -->
+  <use href="#bow"    transform="translate(36,156)"  fill="#1C39BB" fill-opacity="0.10"/>
+  <use href="#bow-sm" transform="translate(120,156)" fill="#1C39BB" fill-opacity="0.05"/>
+  <use href="#bow-lg" transform="translate(180,156)" fill="#1C39BB" fill-opacity="0.20"/>
+  <use href="#bow"    transform="translate(264,156)" fill="#1C39BB" fill-opacity="0.07"/>
+  <use href="#bow-sm" transform="translate(336,156)" fill="#1C39BB" fill-opacity="0.11"/>
+
+  <!-- Row 4 -->
+  <use href="#bow-lg" transform="translate(60,216)"  fill="#1C39BB" fill-opacity="0.08"/>
+  <use href="#bow"    transform="translate(150,216)" fill="#1C39BB" fill-opacity="0.13"/>
+  <use href="#bow-sm" transform="translate(216,216)" fill="#1C39BB" fill-opacity="0.05"/>
+  <use href="#bow-lg" transform="translate(312,216)" fill="#1C39BB" fill-opacity="0.16"/>
+
+  <!-- Row 5 -->
+  <use href="#bow-sm" transform="translate(36,276)"  fill="#1C39BB" fill-opacity="0.09"/>
+  <use href="#bow"    transform="translate(108,276)" fill="#1C39BB" fill-opacity="0.06"/>
+  <use href="#bow-lg" transform="translate(192,276)" fill="#1C39BB" fill-opacity="0.12"/>
+  <use href="#bow-sm" transform="translate(270,276)" fill="#1C39BB" fill-opacity="0.07"/>
+  <use href="#bow"    transform="translate(336,276)" fill="#1C39BB" fill-opacity="0.10"/>
+
+  <!-- Row 6 -->
+  <use href="#bow"    transform="translate(66,324)"  fill="#1C39BB" fill-opacity="0.07"/>
+  <use href="#bow-lg" transform="translate(150,324)" fill="#1C39BB" fill-opacity="0.05"/>
+  <use href="#bow-sm" transform="translate(240,324)" fill="#1C39BB" fill-opacity="0.14"/>
+  <use href="#bow"    transform="translate(318,324)" fill="#1C39BB" fill-opacity="0.08"/>
+
+  <!-- Light connecting lines -->
+  <g stroke="#1C39BB" stroke-opacity="0.04" stroke-width="0.5">
+    <line x1="36" y1="36"  x2="180" y2="156"/>
+    <line x1="180" y1="36" x2="36"  y2="156"/>
+    <line x1="264" y1="36" x2="180" y2="156"/>
+    <line x1="180" y1="156" x2="312" y2="216"/>
+    <line x1="180" y1="156" x2="60"  y2="216"/>
+    <line x1="180" y1="156" x2="192" y2="276"/>
+    <line x1="36"  y1="156" x2="108" y2="276"/>
+    <line x1="264" y1="156" x2="270" y2="276"/>
+  </g>
+</svg>

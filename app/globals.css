@@ -762,3 +762,25 @@ h3, .h3 {
 /* ── Mabele surface ── */
 .bg-surface { background: var(--surface-alt); }
 .surface-blue { background: hsl(var(--mb-royal)/0.04); }
+
+/* ── Pattern utilities (ZAWIOS brand SVGs) ── */
+.pattern-signal-rays {
+  background-image: url(/brand/pattern-signal-rays.svg);
+  background-size: cover;
+  background-position: center;
+}
+.pattern-network {
+  background-image: url(/brand/pattern-network.svg);
+  background-size: cover;
+  background-position: center;
+}
+.pattern-bow-tile {
+  background-image: url(/brand/pattern-bow-tile.svg);
+  background-size: 360px 360px;
+  background-repeat: repeat;
+}
+.pattern-noise {
+  background-image: url(/brand/noise.svg);
+  background-size: 200px 200px;
+  background-repeat: repeat;
+}
