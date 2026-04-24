@@ -118,7 +118,7 @@ export default function HomePage() {
             backgroundSize: 'cover',
             backgroundPosition: 'center right',
             mixBlendMode: 'multiply',
-            opacity: 0.40,
+            opacity: 0.26,
           }}
         />
         <div className="container relative">
