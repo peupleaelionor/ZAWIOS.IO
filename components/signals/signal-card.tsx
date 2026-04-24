@@ -1,11 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { formatNumber } from '@/lib/utils'
+import { ReactionBar, type ReactionType, type ReactionCount } from '@/components/comments/reaction-bar'
+import { CommentSection } from '@/components/comments/comment-section'
 import {
   CATEGORY_COLORS,
   SIGNAL_CATEGORIES,
@@ -57,14 +59,39 @@ const getRegionLabel = (id: string, lang: Lang) => {
   return lang === 'fr' ? (region?.labelFr ?? id) : (region?.label ?? id)
 }
 
+// Deterministic mock reactions seeded from signal id+votes
+function seedReactions(signalId: string, totalVotes: number): ReactionCount[] {
+  const hash = signalId.split('').reduce((a, c) => (a * 31 + c.charCodeAt(0)) | 0, 0)
+  const base = Math.max(3, Math.floor(totalVotes * 0.008))
+  const types: ReactionType[] = ['fire', 'brain', 'bullseye', 'clap', 'diamond', 'eyes']
+  return types
+    .map((type, i) => ({ type, count: Math.max(0, Math.floor(base * ((Math.abs(hash >> (i * 4)) % 8) / 10)) ) }))
+    .filter((r) => r.count > 0)
+    .slice(0, 4)
+}
+
 export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCardProps) {
   const [voted, setVoted] = useState<TriVote | null>(null)
   const [yesPercent, setYesPercent] = useState(signal.yesPercent)
   const [noPercent, setNoPercent] = useState(signal.noPercent)
   const [neutralPercent] = useState(Math.round(signal.totalVotes * 0.08 / (signal.totalVotes || 1) * 100) || 8)
+  const [showComments, setShowComments] = useState(false)
+  const [userReaction, setUserReaction] = useState<ReactionType | null>(null)
+  const [reactions, setReactions] = useState<ReactionCount[]>(() => seedReactions(signal.id, signal.totalVotes))
+  const commentCount = useMemo(() => Math.max(2, Math.floor(signal.totalVotes * 0.012)), [signal.totalVotes])
   const isResolved = signal.status === 'resolved'
   const catStyle = CATEGORY_COLORS[signal.category]
   const { t, lang } = useLanguage()
+
+  const handleReact = (type: ReactionType) => {
+    setUserReaction((prev) => {
+      const removing = prev === type
+      setReactions((rs) => rs.map((r) =>
+        r.type === type ? { ...r, count: removing ? Math.max(0, r.count - 1) : r.count + 1 } : r
+      ).filter((r) => r.count > 0))
+      return removing ? null : type
+    })
+  }
 
   // Structured context hook
   const {
@@ -367,6 +394,48 @@ export function SignalCard({ signal, compact = false, onVote, onNext }: SignalCa
         </div>
       )}
       </div>
+
+      {/* ── SOCIAL FOOTER: reactions + comments toggle ── */}
+      <div
+        className="px-5 py-3 flex items-center gap-3 min-w-0"
+        style={{ borderTop: '1px solid var(--border)' }}
+      >
+        <ReactionBar
+          reactions={reactions}
+          userReaction={userReaction}
+          onReact={handleReact}
+          compact
+        />
+        <div style={{ flex: 1 }} />
+        <button
+          onClick={() => setShowComments((v) => !v)}
+          className="flex items-center gap-1.5 transition-colors"
+          style={{
+            fontSize: 12,
+            fontFamily: 'var(--mono)',
+            color: showComments ? 'var(--primary)' : 'var(--text-subtle)',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            padding: '2px 0',
+          }}
+        >
+          <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+          {formatNumber(commentCount)}
+        </button>
+      </div>
+
+      {/* ── INLINE COMMENT SECTION ── */}
+      {showComments && (
+        <div
+          className="px-5 pb-5"
+          style={{ borderTop: '1px solid var(--border)', paddingTop: 20 }}
+        >
+          <CommentSection predictionId={signal.id} commentCount={commentCount} />
+        </div>
+      )}
     </div>
   )
 }

@@ -23,7 +23,7 @@ export function HeroSection() {
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           mixBlendMode: 'multiply',
-          opacity: 0.85,
+          opacity: 0.65,
         }}
       />
       {/* Content readability: fade left side to white so text remains crisp */}
