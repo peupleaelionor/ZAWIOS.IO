@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1456" height="816" viewBox="0 0 1456 816" fill="none">
+  <defs>
+    <radialGradient id="diamond-fade" cx="50%" cy="50%" r="60%">
+      <stop offset="0%"   stop-color="#1C39BB" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#1C39BB" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1456" height="816" fill="url(#diamond-fade)"/>
+
+  <!-- Grid lines (very subtle) -->
+  <g stroke="#CBD5E1" stroke-opacity="0.35" stroke-width="0.5" fill="none">
+    <!-- Vertical grid -->
+    <line x1="364"  y1="0" x2="364"  y2="816"/>
+    <line x1="728"  y1="0" x2="728"  y2="816"/>
+    <line x1="1092" y1="0" x2="1092" y2="816"/>
+    <!-- Horizontal grid -->
+    <line x1="0" y1="204" x2="1456" y2="204"/>
+    <line x1="0" y1="408" x2="1456" y2="408"/>
+    <line x1="0" y1="612" x2="1456" y2="612"/>
+  </g>
+
+  <!-- Dot grid (very subtle) -->
+  <g fill="#1C39BB" fill-opacity="0.12">
+    <!-- Row 1 -->
+    <circle cx="182"  cy="102" r="1.2"/><circle cx="546"  cy="102" r="1.2"/><circle cx="910"  cy="102" r="1.2"/><circle cx="1274" cy="102" r="1.2"/>
+    <!-- Row 2 -->
+    <circle cx="182"  cy="306" r="1.2"/><circle cx="546"  cy="306" r="1.2"/><circle cx="910"  cy="306" r="1.2"/><circle cx="1274" cy="306" r="1.2"/>
+    <!-- Row 3 -->
+    <circle cx="182"  cy="510" r="1.2"/><circle cx="546"  cy="510" r="1.2"/><circle cx="910"  cy="510" r="1.2"/><circle cx="1274" cy="510" r="1.2"/>
+    <!-- Row 4 -->
+    <circle cx="182"  cy="714" r="1.2"/><circle cx="546"  cy="714" r="1.2"/><circle cx="910"  cy="714" r="1.2"/><circle cx="1274" cy="714" r="1.2"/>
+  </g>
+
+  <!-- Diamond diagonals -->
+  <g stroke="#1C39BB" stroke-opacity="0.09" stroke-width="0.6" fill="none">
+    <line x1="364" y1="0"   x2="1092" y2="816"/>
+    <line x1="728" y1="0"   x2="1456" y2="544"/>
+    <line x1="0"   y1="272" x2="728"  y2="816"/>
+    <line x1="1092" y1="0"  x2="364"  y2="816"/>
+    <line x1="728"  y1="0"  x2="0"    y2="544"/>
+    <line x1="1456" y1="272" x2="728" y2="816"/>
+  </g>
+
+  <!-- Convergence node: 728,408 (center) -->
+  <g stroke="#1C39BB" stroke-opacity="0.28" stroke-width="0.9" stroke-linecap="round" fill="none">
+    <path d="M728,408 C680,388 618,348 545,290"/>
+    <path d="M728,408 C675,398 606,370 525,340"/>
+    <path d="M728,408 C670,404 600,392 515,378"/>
+    <path d="M728,408 C670,408 600,408 515,408"/>
+    <path d="M728,408 C670,412 600,424 515,438"/>
+    <path d="M728,408 C676,418 608,442 528,472"/>
+    <path d="M728,408 C682,428 620,466 548,524"/>
+    <!-- Right -->
+    <path d="M728,408 C776,388 838,348 911,290"/>
+    <path d="M728,408 C781,398 850,370 931,340"/>
+    <path d="M728,408 C786,404 856,392 941,378"/>
+    <path d="M728,408 C786,408 856,408 941,408"/>
+    <path d="M728,408 C786,412 856,424 941,438"/>
+    <path d="M728,408 C780,418 848,442 928,472"/>
+    <path d="M728,408 C774,428 836,466 908,524"/>
+  </g>
+  <circle cx="728" cy="408" r="4"   fill="#1C39BB" fill-opacity="0.65"/>
+  <circle cx="728" cy="408" r="9"   fill="#1C39BB" fill-opacity="0.10"/>
+
+  <!-- Node: 364,204 (top-left intersection) -->
+  <g stroke="#1C39BB" stroke-opacity="0.17" stroke-width="0.7" stroke-linecap="round" fill="none">
+    <path d="M364,204 C318,186 258,152 185,100"/>
+    <path d="M364,204 C312,196 244,168 162,140"/>
+    <path d="M364,204 C308,200 238,188 154,174"/>
+    <path d="M364,204 C308,204 238,204 154,204"/>
+    <path d="M364,204 C310,208 241,219 158,234"/>
+    <path d="M364,204 C318,214 258,240 188,270"/>
+    <!-- Right fans -->
+    <path d="M364,204 C410,186 470,152 543,100"/>
+    <path d="M364,204 C414,196 482,168 564,140"/>
+    <path d="M364,204 C418,200 488,188 572,174"/>
+    <path d="M364,204 C418,208 488,220 572,234"/>
+    <path d="M364,204 C412,216 476,244 556,276"/>
+  </g>
+  <circle cx="364" cy="204" r="3"   fill="#1C39BB" fill-opacity="0.55"/>
+  <circle cx="364" cy="204" r="7"   fill="#1C39BB" fill-opacity="0.08"/>
+
+  <!-- Node: 1092,204 (top-right intersection) -->
+  <g stroke="#1C39BB" stroke-opacity="0.17" stroke-width="0.7" stroke-linecap="round" fill="none">
+    <path d="M1092,204 C1046,186 986,152 913,100"/>
+    <path d="M1092,204 C1040,196 972,168 890,140"/>
+    <path d="M1092,204 C1036,200 966,188 882,174"/>
+    <path d="M1092,204 C1036,204 966,204 882,204"/>
+    <path d="M1092,204 C1038,208 970,220 888,234"/>
+    <path d="M1092,204 C1046,216 990,244 920,276"/>
+    <!-- Right fans -->
+    <path d="M1092,204 C1138,186 1198,152 1271,100"/>
+    <path d="M1092,204 C1142,196 1210,168 1292,140"/>
+    <path d="M1092,204 C1146,200 1216,188 1300,174"/>
+    <path d="M1092,204 C1146,208 1216,220 1300,234"/>
+    <path d="M1092,204 C1140,218 1202,246 1278,278"/>
+  </g>
+  <circle cx="1092" cy="204" r="3"   fill="#1C39BB" fill-opacity="0.55"/>
+  <circle cx="1092" cy="204" r="7"   fill="#1C39BB" fill-opacity="0.08"/>
+
+  <!-- Node: 364,612 -->
+  <g stroke="#1C39BB" stroke-opacity="0.14" stroke-width="0.7" stroke-linecap="round" fill="none">
+    <path d="M364,612 C318,592 258,558 185,504"/>
+    <path d="M364,612 C310,604 240,578 155,550"/>
+    <path d="M364,612 C308,608 238,596 154,582"/>
+    <path d="M364,612 C308,612 238,612 154,612"/>
+    <path d="M364,612 C310,616 241,628 158,642"/>
+    <path d="M364,612 C318,626 260,658 190,698"/>
+    <!-- Right fans -->
+    <path d="M364,612 C410,592 470,558 543,504"/>
+    <path d="M364,612 C416,604 484,578 566,550"/>
+    <path d="M364,612 C420,608 492,594 578,580"/>
+    <path d="M364,612 C420,616 490,630 574,644"/>
+    <path d="M364,612 C412,626 474,654 552,684"/>
+  </g>
+  <circle cx="364" cy="612" r="3"   fill="#3A86FF" fill-opacity="0.55"/>
+  <circle cx="364" cy="612" r="7"   fill="#3A86FF" fill-opacity="0.08"/>
+
+  <!-- Node: 1092,612 -->
+  <g stroke="#1C39BB" stroke-opacity="0.14" stroke-width="0.7" stroke-linecap="round" fill="none">
+    <path d="M1092,612 C1046,592 986,558 913,504"/>
+    <path d="M1092,612 C1038,604 968,578 882,550"/>
+    <path d="M1092,612 C1034,608 964,596 878,582"/>
+    <path d="M1092,612 C1034,612 964,612 878,612"/>
+    <path d="M1092,612 C1036,616 966,630 882,644"/>
+    <path d="M1092,612 C1046,626 990,658 922,696"/>
+    <!-- Right fans -->
+    <path d="M1092,612 C1138,592 1198,558 1271,504"/>
+    <path d="M1092,612 C1144,604 1214,578 1298,550"/>
+    <path d="M1092,612 C1148,608 1220,594 1306,578"/>
+    <path d="M1092,612 C1148,616 1218,630 1302,644"/>
+    <path d="M1092,612 C1140,628 1200,658 1274,690"/>
+  </g>
+  <circle cx="1092" cy="612" r="3"   fill="#3A86FF" fill-opacity="0.55"/>
+  <circle cx="1092" cy="612" r="7"   fill="#3A86FF" fill-opacity="0.08"/>
+</svg>

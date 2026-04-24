@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1456" height="816" viewBox="0 0 1456 816" fill="none">
+  <defs>
+    <radialGradient id="arc-fade" cx="65%" cy="35%" r="40%">
+      <stop offset="0%"   stop-color="#1C39BB" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#1C39BB" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Subtle radial glow around main cluster -->
+  <rect width="1456" height="816" fill="url(#arc-fade)"/>
+
+  <!-- Connection lines between clusters (very light) -->
+  <g stroke="#1C39BB" stroke-opacity="0.08" stroke-width="0.6" fill="none">
+    <line x1="355" y1="415" x2="710" y2="300"/>
+    <line x1="355" y1="415" x2="520" y2="620"/>
+    <line x1="710" y1="300" x2="940" y2="245"/>
+    <line x1="710" y1="300" x2="1090" y2="420"/>
+    <line x1="520" y1="620" x2="1090" y2="420"/>
+    <line x1="940" y1="245" x2="1090" y2="420"/>
+    <!-- Scattered dots -->
+    <line x1="200" y1="180" x2="355" y2="415"/>
+    <line x1="600" y1="120" x2="710" y2="300"/>
+    <line x1="1280" y1="320" x2="1090" y2="420"/>
+    <line x1="780" y1="700" x2="520" y2="620"/>
+    <line x1="1200" y1="650" x2="1090" y2="420"/>
+  </g>
+
+  <!-- Concentric arcs around main cluster (top-right area) -->
+  <g stroke="#1C39BB" stroke-opacity="0.07" stroke-width="0.6" fill="none">
+    <circle cx="940" cy="245" r="55"/>
+    <circle cx="940" cy="245" r="95"/>
+    <circle cx="940" cy="245" r="145"/>
+    <circle cx="940" cy="245" r="205"/>
+    <circle cx="940" cy="245" r="275"/>
+  </g>
+
+  <!-- Cluster 1: node at 355,415 — dense convergence fan -->
+  <g stroke="#1C39BB" stroke-opacity="0.18" stroke-width="0.7" stroke-linecap="round" fill="none">
+    <path d="M355,415 C310,395 255,355 185,290"/>
+    <path d="M355,415 C305,405 245,375 165,345"/>
+    <path d="M355,415 C300,412 238,398 155,385"/>
+    <path d="M355,415 C300,415 238,415 155,415"/>
+    <path d="M355,415 C300,418 238,432 155,445"/>
+    <path d="M355,415 C305,425 248,448 170,485"/>
+    <path d="M355,415 C310,435 258,475 195,540"/>
+    <path d="M355,415 C325,440 298,470 280,510"/>
+    <!-- Right fans -->
+    <path d="M355,415 C400,395 445,360 500,310"/>
+    <path d="M355,415 C405,405 455,380 515,350"/>
+    <path d="M355,415 C408,412 462,400 520,388"/>
+    <path d="M355,415 C408,418 462,430 520,442"/>
+    <path d="M355,415 C405,425 455,450 512,480"/>
+  </g>
+  <circle cx="355" cy="415" r="3.5" fill="#1C39BB" fill-opacity="0.7"/>
+  <circle cx="355" cy="415" r="8"   fill="#1C39BB" fill-opacity="0.10"/>
+
+  <!-- Cluster 2: node at 710,300 -->
+  <g stroke="#1C39BB" stroke-opacity="0.15" stroke-width="0.7" stroke-linecap="round" fill="none">
+    <path d="M710,300 C665,280 610,240 545,185"/>
+    <path d="M710,300 C660,290 600,265 530,240"/>
+    <path d="M710,300 C655,295 595,283 522,268"/>
+    <path d="M710,300 C655,300 595,300 522,300"/>
+    <path d="M710,300 C655,305 597,317 524,332"/>
+    <path d="M710,300 C660,310 603,335 535,360"/>
+    <path d="M710,300 C665,320 612,358 550,415"/>
+    <!-- Right fans -->
+    <path d="M710,300 C756,280 800,245 860,195"/>
+    <path d="M710,300 C758,290 808,265 872,240"/>
+    <path d="M710,300 C760,296 812,284 880,268"/>
+    <path d="M710,300 C760,304 812,316 878,332"/>
+    <path d="M710,300 C757,312 803,338 862,368"/>
+  </g>
+  <circle cx="710" cy="300" r="3"   fill="#1C39BB" fill-opacity="0.65"/>
+  <circle cx="710" cy="300" r="7"   fill="#1C39BB" fill-opacity="0.09"/>
+
+  <!-- Cluster 3: node at 520,620 -->
+  <g stroke="#3A86FF" stroke-opacity="0.13" stroke-width="0.7" stroke-linecap="round" fill="none">
+    <path d="M520,620 C475,600 415,562 345,505"/>
+    <path d="M520,620 C468,610 402,588 325,564"/>
+    <path d="M520,620 C465,616 400,607 320,596"/>
+    <path d="M520,620 C465,620 400,620 320,620"/>
+    <path d="M520,620 C465,624 402,633 322,644"/>
+    <path d="M520,620 C470,630 407,652 332,678"/>
+    <path d="M520,620 C476,640 418,672 352,725"/>
+    <!-- Right fans -->
+    <path d="M520,620 C566,600 610,562 665,505"/>
+    <path d="M520,620 C568,610 616,586 676,560"/>
+    <path d="M520,620 C570,616 618,605 680,592"/>
+    <path d="M520,620 C570,624 618,635 678,648"/>
+    <path d="M520,620 C567,630 613,654 668,680"/>
+  </g>
+  <circle cx="520" cy="620" r="3"   fill="#3A86FF" fill-opacity="0.65"/>
+  <circle cx="520" cy="620" r="7"   fill="#3A86FF" fill-opacity="0.09"/>
+
+  <!-- Cluster 4: node at 940,245 — main cluster with arcs -->
+  <g stroke="#1C39BB" stroke-opacity="0.22" stroke-width="0.8" stroke-linecap="round" fill="none">
+    <path d="M940,245 C895,225 840,188 775,132"/>
+    <path d="M940,245 C888,235 825,212 752,188"/>
+    <path d="M940,245 C884,240 818,228 742,214"/>
+    <path d="M940,245 C882,245 815,245 738,245"/>
+    <path d="M940,245 C882,249 816,260 740,272"/>
+    <path d="M940,245 C888,256 828,280 758,306"/>
+    <path d="M940,245 C895,265 842,298 782,348"/>
+    <path d="M940,245 C912,268 882,300 860,340"/>
+    <!-- Right fans -->
+    <path d="M940,245 C986,225 1040,188 1105,132"/>
+    <path d="M940,245 C990,235 1050,210 1120,184"/>
+    <path d="M940,245 C994,240 1060,226 1138,210"/>
+    <path d="M940,245 C996,245 1068,245 1156,245"/>
+    <path d="M940,245 C994,249 1062,262 1140,278"/>
+    <path d="M940,245 C990,258 1052,284 1124,312"/>
+    <path d="M940,245 C986,268 1044,302 1108,352"/>
+  </g>
+  <circle cx="940" cy="245" r="4.5" fill="#1C39BB" fill-opacity="0.80"/>
+  <circle cx="940" cy="245" r="10"  fill="#1C39BB" fill-opacity="0.12"/>
+  <circle cx="940" cy="245" r="18"  fill="#1C39BB" fill-opacity="0.05"/>
+
+  <!-- Cluster 5: node at 1090,420 -->
+  <g stroke="#1C39BB" stroke-opacity="0.14" stroke-width="0.7" stroke-linecap="round" fill="none">
+    <path d="M1090,420 C1044,400 988,362 922,305"/>
+    <path d="M1090,420 C1038,410 976,385 904,358"/>
+    <path d="M1090,420 C1034,416 968,404 892,390"/>
+    <path d="M1090,420 C1034,420 968,420 892,420"/>
+    <path d="M1090,420 C1036,424 970,436 896,450"/>
+    <path d="M1090,420 C1040,432 980,458 910,488"/>
+    <path d="M1090,420 C1046,440 992,475 930,525"/>
+    <!-- Right fans -->
+    <path d="M1090,420 C1136,400 1184,362 1248,305"/>
+    <path d="M1090,420 C1138,410 1192,383 1262,354"/>
+    <path d="M1090,420 C1142,416 1202,402 1278,386"/>
+    <path d="M1090,420 C1142,420 1206,420 1290,420"/>
+    <path d="M1090,420 C1140,424 1202,438 1278,454"/>
+    <path d="M1090,420 C1136,432 1188,460 1252,492"/>
+  </g>
+  <circle cx="1090" cy="420" r="3.5" fill="#1C39BB" fill-opacity="0.70"/>
+  <circle cx="1090" cy="420" r="8"   fill="#1C39BB" fill-opacity="0.10"/>
+
+  <!-- Satellite dots -->
+  <circle cx="200"  cy="180"  r="1.8" fill="#1C39BB" fill-opacity="0.45"/>
+  <circle cx="600"  cy="120"  r="1.8" fill="#1C39BB" fill-opacity="0.40"/>
+  <circle cx="1280" cy="320"  r="1.5" fill="#1C39BB" fill-opacity="0.40"/>
+  <circle cx="780"  cy="700"  r="1.5" fill="#3A86FF" fill-opacity="0.38"/>
+  <circle cx="1200" cy="650"  r="1.5" fill="#1C39BB" fill-opacity="0.35"/>
+  <circle cx="100"  cy="650"  r="1.2" fill="#1C39BB" fill-opacity="0.28"/>
+  <circle cx="1380" cy="180"  r="1.2" fill="#1C39BB" fill-opacity="0.28"/>
+  <circle cx="850"  cy="750"  r="1.2" fill="#3A86FF" fill-opacity="0.28"/>
+</svg>

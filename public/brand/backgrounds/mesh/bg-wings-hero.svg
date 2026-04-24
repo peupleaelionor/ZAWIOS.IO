@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1456" height="816" viewBox="0 0 1456 816" fill="none">
+  <defs>
+    <!-- Left side blue glow -->
+    <radialGradient id="glow-left" cx="0%" cy="50%" r="55%">
+      <stop offset="0%"   stop-color="#3A56E8" stop-opacity="0.32"/>
+      <stop offset="40%"  stop-color="#1C39BB" stop-opacity="0.14"/>
+      <stop offset="100%" stop-color="#1C39BB" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Right side blue glow -->
+    <radialGradient id="glow-right" cx="100%" cy="50%" r="55%">
+      <stop offset="0%"   stop-color="#3A56E8" stop-opacity="0.28"/>
+      <stop offset="40%"  stop-color="#1C39BB" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#1C39BB" stop-opacity="0"/>
+    </radialGradient>
+    <!-- White center vignette -->
+    <radialGradient id="center-vignette" cx="50%" cy="50%" r="45%">
+      <stop offset="0%"   stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="70%"  stop-color="#FFFFFF" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Side glows -->
+  <rect width="1456" height="816" fill="url(#glow-left)"/>
+  <rect width="1456" height="816" fill="url(#glow-right)"/>
+  <!-- White center -->
+  <rect width="1456" height="816" fill="url(#center-vignette)"/>
+
+  <!-- Left wing — fan of curved lines converging at center (728,408) -->
+  <g stroke="#C8CEEA" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.70">
+    <path d="M728,408 C540,390 340,320 0,100"/>
+    <path d="M728,408 C530,396 310,345 0,195"/>
+    <path d="M728,408 C520,402 290,365 0,285"/>
+    <path d="M728,408 C510,406 268,388 0,370"/>
+    <path d="M728,408 C510,410 268,428 0,445"/>
+    <path d="M728,408 C520,416 290,452 0,535"/>
+    <path d="M728,408 C530,422 310,470 0,620"/>
+    <path d="M728,408 C540,428 340,498 0,715"/>
+  </g>
+
+  <!-- Right wing — mirror -->
+  <g stroke="#C8CEEA" stroke-width="0.9" stroke-linecap="round" fill="none" opacity="0.70">
+    <path d="M728,408 C916,390 1116,320 1456,100"/>
+    <path d="M728,408 C926,396 1146,345 1456,195"/>
+    <path d="M728,408 C936,402 1166,365 1456,285"/>
+    <path d="M728,408 C946,406 1188,388 1456,370"/>
+    <path d="M728,408 C946,410 1188,428 1456,445"/>
+    <path d="M728,408 C936,416 1166,452 1456,535"/>
+    <path d="M728,408 C926,422 1146,470 1456,620"/>
+    <path d="M728,408 C916,428 1116,498 1456,715"/>
+  </g>
+
+  <!-- Center convergence point -->
+  <circle cx="728" cy="408" r="2.5" fill="#1C39BB" fill-opacity="0.25"/>
+  <circle cx="728" cy="408" r="6" fill="#1C39BB" fill-opacity="0.06"/>
+</svg>
