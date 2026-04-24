@@ -1,100 +1,122 @@
 # ZAWIOS.IO
 
-> **See what the crowd thinks before it's right.**
+> **L'intelligence collective, là où le signal précède le bruit.**
 
-ZAWIOS is a collective intelligence and prediction platform — not a gambling site. Users take positions on future events, earn reputation based on accuracy, and contribute to crowd-sourced forecasting signals. No real money, no bets, no tokens.
-
----
-
-## Product Overview
-
-| Feature | Description |
-|---------|-------------|
-| Predictions | Open questions about the future, categorized and tracked |
-| Voting | Yes/No, Multiple Choice, or Probability (0–100%) |
-| Reputation | Accuracy-based scoring, global ranking, category mastery |
-| Leaderboard | Public rankings by score and accuracy rate |
-| Insights | Crowd analytics, trends, and category performance |
-| Admin | Moderation, CRUD, audit trail, user management |
-
-**No money, no bets, no tokens — just signal and reputation.**
+ZAWIOS est une plateforme d'intelligence collective de nouvelle génération — ni jeu, ni pari, ni spéculation. Les utilisateurs analysent des événements futurs, construisent leur réputation sur la précision, et alimentent un réseau de signaux collaboratifs d'une puissance inégalée. Zéro argent réel, zéro mise, zéro token.
 
 ---
 
-## Stack
+## Ce qui rend ZAWIOS incomparable
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 16 (App Router) |
-| Language | TypeScript (strict) |
-| Styling | Tailwind CSS v4 |
-| Database | Supabase (Postgres + Auth + Realtime) |
-| Validation | Zod |
-| Data fetching | TanStack Query |
-| Forms | React Hook Form |
-| Charts | Recharts |
-| State | Zustand |
-| Deployment | Netlify |
+ZAWIOS n'est pas une énième application web. C'est une architecture pensée pour résister à la copie, à l'exploitation et à l'obsolescence.
+
+- **Isolation totale des données** — chaque utilisateur ne voit et ne modifie que ce qui lui appartient, imposé au niveau base de données via Row-Level Security
+- **Authentification sans surface d'attaque côté client** — la session est gérée exclusivement server-side, aucune clé sensible n'atteint le navigateur
+- **Validation à double couche** — Zod côté client *et* serveur, aucune donnée non validée ne touche la base
+- **Middleware de protection de route** — chaque route protégée est vérifiée à l'edge avant tout rendu
+- **Signaux de réputation non falsifiables** — le score est recalculé côté serveur à chaque résolution, sans intervention utilisateur possible
+- **Headers de sécurité natifs** — CSP, X-Frame-Options, HSTS, configurés au niveau CDN
 
 ---
 
-## Project Structure
+## Fonctionnalités
+
+| Fonctionnalité | Description |
+|---|---|
+| Signaux | Questions ouvertes sur l'avenir, catégorisées et tracées en temps réel |
+| Votes | Oui/Non, Choix multiple, Probabilité (0–100 %) |
+| Réputation | Score de précision, classement mondial, maîtrise par catégorie |
+| Classement | Rankings publics par score et taux de précision |
+| Insights | Analytiques de foule, tendances, performance par catégorie |
+| Médias | Upload de photos de profil et d'images liées aux signaux |
+| Bibliothèque | Banque intégrée d'images et vidéos de référence |
+| Admin | Modération, CRUD complet, journal d'audit, gestion utilisateurs |
+
+**Aucun argent, aucun pari, aucun token — uniquement le signal et la réputation.**
+
+---
+
+## Stack technique
+
+| Couche | Technologie |
+|---|---|
+| Framework | Next.js 16 (App Router + Turbopack) |
+| Langage | TypeScript strict |
+| Styles | Tailwind CSS v4 |
+| Base de données | Supabase (Postgres + Auth + Realtime + Storage) |
+| Validation | Zod v4 |
+| Data fetching | TanStack Query v5 |
+| Formulaires | React Hook Form |
+| Graphiques | Recharts |
+| État global | Zustand |
+| Animations | Framer Motion |
+| Déploiement | Netlify (Edge Functions) |
+| Paiement | Stripe |
+
+---
+
+## Architecture du projet
 
 ```
-app/                    # Next.js App Router pages
-├── (public)/           # Marketing pages
-│   ├── page.tsx        # Landing page
+app/                        # Next.js App Router
+├── (public)/               # Pages marketing
+│   ├── page.tsx            # Landing page
 │   ├── about/
 │   ├── faq/
 │   ├── pricing/
 │   ├── contact/
 │   ├── privacy/
 │   └── terms/
-├── auth/               # Authentication
+├── auth/                   # Authentification SSR
 │   ├── login/
 │   ├── signup/
 │   └── forgot-password/
-├── predictions/        # Prediction pages
-│   ├── page.tsx        # Browse
-│   ├── [id]/           # Detail
-│   └── create/         # Create
+├── signals/                # Signaux collectifs
+│   ├── page.tsx            # Explorer
+│   ├── [id]/               # Détail signal
+│   └── create/             # Créer un signal
 ├── leaderboard/
 ├── insights/
 ├── profile/[username]/
-├── dashboard/          # Protected dashboard
+├── dashboard/              # Espace personnel protégé
 │   ├── page.tsx
-│   ├── predictions/
+│   ├── signals/
 │   ├── insights/
-│   ├── profile/
+│   ├── profile/            # Upload photo de profil
 │   └── settings/
-└── admin/              # Admin panel
+└── admin/                  # Panel d'administration
 
 components/
-├── ui/                 # Shared UI primitives
-├── layout/             # Navigation, footer, sidebar
-├── predictions/        # Prediction-specific components
-└── auth/               # Auth forms
+├── ui/                     # Primitives UI
+├── layout/                 # Navigation, footer, sidebar
+├── signals/                # Composants signaux
+├── media/                  # Upload, galerie, lecteur vidéo
+└── auth/                   # Formulaires d'authentification
 
 lib/
-├── utils.ts            # Utility functions
-├── mock-data.ts        # Demo data
-└── supabase/           # Supabase clients
+├── utils.ts
+├── brand.ts                # Design system tokens
+├── i18n.copy.ts            # Dictionnaire FR/EN
+├── http.ts                 # Client HTTP avec abort/retry
+├── telemetry.ts            # Télémétrie privacy-first
+└── supabase/               # Clients Supabase (browser + server)
 
-types/                  # TypeScript interfaces
-db/                     # SQL schema and seeds
+types/                      # Interfaces TypeScript
+db/                         # Schéma SQL, migrations, seeds
+scripts/                    # Outils QA (layout, vocabulaire, icônes)
 ```
 
 ---
 
-## Getting Started
+## Démarrage rapide
 
-### Prerequisites
+### Prérequis
 
 - Node.js 20+
 - npm 10+
-- A Supabase project
+- Un projet Supabase
 
-### 1. Clone & install
+### 1. Cloner et installer
 
 ```bash
 git clone https://github.com/peupleaelionor/ZAWIOS.IO.git
@@ -102,57 +124,57 @@ cd ZAWIOS.IO
 npm install
 ```
 
-### 2. Environment variables
+### 2. Variables d'environnement
 
 ```bash
 cp .env.example .env.local
 ```
 
-Edit `.env.local`:
+Renseigner `.env.local` :
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+NEXT_PUBLIC_SUPABASE_URL=https://votre-projet.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=votre-clé-anon
+SUPABASE_SERVICE_ROLE_KEY=votre-clé-service
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
 
-### 3. Set up the database
+### 3. Initialiser la base de données
 
-1. Go to your Supabase project → SQL Editor
-2. Run `db/schema.sql` to create all tables, indexes, RLS policies, and triggers
-3. Optionally run `db/seed.sql` for demo categories and badges
+1. Ouvrir le SQL Editor de votre projet Supabase
+2. Exécuter `db/schema.sql` — tables, index, politiques RLS, triggers
+3. Exécuter `db/seed.sql` (optionnel) — catégories et badges de démonstration
 
-### 4. Run locally
+### 4. Lancer en local
 
 ```bash
 npm run dev
 ```
 
-Visit [http://localhost:3000](http://localhost:3000)
+Accéder à [http://localhost:3000](http://localhost:3000)
 
 ---
 
-## Deployment on Netlify
+## Déploiement sur Netlify
 
-### 1. Connect repository
+### 1. Connecter le dépôt
 
-- Go to [app.netlify.com](https://app.netlify.com)
-- Click "Add new site" → "Import an existing project"
-- Select your GitHub repository
+- Aller sur [app.netlify.com](https://app.netlify.com)
+- Cliquer sur "Add new site" → "Import an existing project"
+- Sélectionner le dépôt GitHub
 
-### 2. Configure build settings
+### 2. Paramètres de build
 
-| Setting | Value |
-|---------|-------|
+| Paramètre | Valeur |
+|---|---|
 | Build command | `npm run build` |
 | Publish directory | `.next` |
 
-> The `netlify.toml` in the project root configures this automatically.
+> Le fichier `netlify.toml` à la racine configure tout automatiquement.
 
-### 3. Set environment variables
+### 3. Variables d'environnement
 
-In Netlify dashboard → Site settings → Environment variables, add:
+Dans Netlify → Site settings → Environment variables, ajouter :
 
 ```
 NEXT_PUBLIC_SUPABASE_URL
@@ -161,97 +183,121 @@ SUPABASE_SERVICE_ROLE_KEY
 NEXT_PUBLIC_APP_URL
 ```
 
-### 4. Deploy
+### 4. Déployer
 
-Push to `main` branch — Netlify will auto-deploy.
+Pousser sur la branche `main` — Netlify déploie automatiquement.
 
-### Required Netlify plugin
+---
 
-Make sure `@netlify/plugin-nextjs` is installed:
-```bash
-npm install -D @netlify/plugin-nextjs
+## Médias utilisateur
+
+ZAWIOS intègre une gestion native des médias via **Supabase Storage** :
+
+- Upload de photo de profil (JPEG, PNG, WebP — max 5 Mo)
+- Images attachées aux signaux et propositions
+- Banque d'images et vidéos de référence pour enrichir les signaux
+- Contrôle d'accès par politique RLS — chaque fichier est lié à son auteur
+
+Les fichiers sont servis via CDN avec URLs signées à durée limitée pour les contenus privés.
+
+---
+
+## Sécurité — Architecture à couches
+
+```
+Couche 1 · Edge       : Headers de sécurité (CSP, HSTS, X-Frame)
+Couche 2 · Middleware : Vérification de session avant tout rendu
+Couche 3 · API        : Auth server-side — aucune clé exposée au client
+Couche 4 · Validation : Zod — schémas stricts sur chaque entrée
+Couche 5 · Database   : RLS Supabase — isolation par user_id au niveau SQL
+Couche 6 · Rendu      : React — protection XSS par défaut
 ```
 
-Or add it in `netlify.toml` (already configured).
+- [x] RLS activé sur toutes les tables
+- [x] Données utilisateur isolées par `user_id`
+- [x] Clé service-role jamais exposée au navigateur
+- [x] Authentification gérée server-side (Supabase SSR)
+- [x] Routes protégées via middleware Edge
+- [x] Validation Zod sur toutes les entrées (client + serveur)
+- [x] Protection XSS par défaut (React)
+- [x] Headers de sécurité dans `netlify.toml`
+- [ ] Rate limiting (via Supabase Edge Functions)
+- [ ] CAPTCHA sur les formulaires d'authentification
 
 ---
 
-## Security Checklist
+## Système de réputation
 
-- [x] RLS enabled on all tables
-- [x] User data isolated by `user_id`
-- [x] No service role key exposed to client
-- [x] Auth handled server-side via Supabase SSR
-- [x] Protected routes via middleware
-- [x] Input validation with Zod (extendable)
-- [x] XSS prevention via React defaults
-- [x] Security headers in netlify.toml
-- [ ] Rate limiting (add via Supabase or edge function)
-- [ ] CAPTCHA on auth forms (add reCAPTCHA)
+Le score ZAWIOS est calculé de façon transparente et non manipulable :
 
----
+| Composant | Poids | Description |
+|---|---|---|
+| Précision de base | 50 % | Signaux corrects / total des signaux |
+| Bonus de volume | 20 % | Plus de signaux = signal plus fiable |
+| Poids de difficulté | 20 % | Les signaux à contre-courant du consensus rapportent plus |
+| Poids de récence | 10 % | Les signaux récents sont valorisés davantage |
 
-## Production Checklist
+**Formule (simplifiée) :**
 
-- [ ] Set all environment variables in production
-- [ ] Run `db/schema.sql` on production Supabase
-- [ ] Configure Supabase Auth providers (Google, email)
-- [ ] Set Supabase Auth redirect URLs to production domain
-- [ ] Enable Supabase Realtime for votes table
-- [ ] Set up email provider (Resend recommended)
-- [ ] Configure custom domain in Netlify
-- [ ] Enable HTTPS (automatic on Netlify)
-- [ ] Test all auth flows end-to-end
-- [ ] Verify RLS policies with different user roles
-- [ ] Set up error monitoring (Sentry recommended)
-- [ ] Configure analytics (Google Analytics or Plausible)
-
----
-
-## Reputation System
-
-The ZAWIOS reputation score is calculated transparently:
-
-| Component | Weight | Description |
-|-----------|--------|-------------|
-| Base accuracy | 50% | Correct predictions / total predictions |
-| Volume bonus | 20% | More predictions = more reliable signal |
-| Difficulty weight | 20% | Consensus-divergent correct predictions score higher |
-| Recency weight | 10% | Recent predictions weighted more heavily |
-
-**Formula (simplified):**
 ```
-score = (correct_predictions / total_predictions)
-        × log(total_predictions + 1)
-        × avg(difficulty_weight)
-        × recency_factor
+score = (signaux_corrects / total_signaux)
+        × log(total_signaux + 1)
+        × moy(poids_difficulté)
+        × facteur_récence
         × 1000
 ```
 
-All scores are recalculated when predictions resolve.
+Tous les scores sont recalculés côté serveur lors de chaque résolution.
 
 ---
 
-## Customization
+## Outils QA
 
-### Adding categories
-
-Edit `db/schema.sql` to add new category values to the CHECK constraint, then insert into the `categories` table.
-
-### Extending predictions
-
-Add new columns to the `predictions` table and update `types/index.ts` accordingly.
-
-### Adding payment (Premium)
-
-Integrate Stripe webhooks to update the `subscriptions` table when users upgrade. The `is_premium` field on profiles gates premium features.
+```bash
+npm run lint          # ESLint (flat config, TypeScript strict)
+npm run typecheck     # tsc --noEmit
+npm run layout:check  # Détection anti-débordement (100vw, w-screen)
+npm run vocab:check   # Garde vocabulaire (termes interdits)
+npm run qa:all        # lint + typecheck + layout + vocab + build
+```
 
 ---
 
-## License
+## Roadmap
 
-MIT — see LICENSE file.
+| Fonctionnalité | Statut |
+|---|---|
+| Upload photo de profil | ✅ Disponible |
+| Banque d'images de référence | 🔄 En cours |
+| Bibliothèque vidéo intégrée | 🔄 En cours |
+| Agent IA — génération de mini-vidéos de signal | 🗺 Planifié |
+| Agent clone — personnalisation dynamique du feed | 🗺 Planifié |
+| Animations dynamiques de signal en temps réel | 🗺 Planifié |
+| Abonnements Premium (Stripe) | 🗺 Planifié |
 
 ---
 
-*Built with ❤️ for the global forecasting community.*
+## Checklist de mise en production
+
+- [ ] Variables d'environnement configurées en production
+- [ ] `db/schema.sql` exécuté sur le Supabase de production
+- [ ] Providers Supabase Auth configurés (Google, email)
+- [ ] URLs de redirection Supabase Auth pointant sur le domaine de production
+- [ ] Supabase Realtime activé sur la table des votes
+- [ ] Fournisseur email configuré (Resend recommandé)
+- [ ] Domaine personnalisé configuré dans Netlify
+- [ ] HTTPS activé (automatique sur Netlify)
+- [ ] Tous les flux d'authentification testés de bout en bout
+- [ ] Politiques RLS vérifiées avec différents rôles utilisateur
+- [ ] Monitoring d'erreurs configuré (Sentry recommandé)
+- [ ] Analytics configurées (Plausible recommandé)
+
+---
+
+## Licence
+
+MIT — voir le fichier LICENSE.
+
+---
+
+*Construit avec ❤️ pour la communauté mondiale de l'intelligence collective.*
