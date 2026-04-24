@@ -33,8 +33,20 @@ export function Footer() {
   const { t } = useLanguage()
 
   return (
-    <footer style={{ borderTop: '1px solid var(--border)' }} className="bg-[var(--bg)]" role="contentinfo">
-      <div className="container py-8 md:py-12 lg:py-16">
+    <footer style={{ borderTop: '1px solid var(--border)' }} className="relative overflow-hidden bg-[var(--bg)]" role="contentinfo">
+      {/* Scattered bowtie watermark — subtle brand layer */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: 'url(/brand/backgrounds/patterns/bg-scatter.svg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          mixBlendMode: 'multiply',
+          opacity: 0.30,
+        }}
+      />
+      <div className="container relative py-8 md:py-12 lg:py-16">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
           {/* Brand */}
           <div className="col-span-2">

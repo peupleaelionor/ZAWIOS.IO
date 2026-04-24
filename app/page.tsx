@@ -108,8 +108,20 @@ export default function HomePage() {
       <WorldSignalSection />
 
       {/* ── 5. Méthodologie ────────────────────────────────────────── */}
-      <section className="py-16 md:py-24" style={{ background: 'var(--background)', borderBottom: '1px solid var(--border)' }}>
-        <div className="container">
+      <section className="relative overflow-hidden py-16 md:py-24" style={{ background: 'var(--background)', borderBottom: '1px solid var(--border)' }}>
+        {/* Diamond grid convergence — subtle behind pillars */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+          style={{
+            backgroundImage: 'url(/brand/backgrounds/patterns/bg-grid-diamond.svg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center right',
+            mixBlendMode: 'multiply',
+            opacity: 0.40,
+          }}
+        />
+        <div className="container relative">
           <div className="max-w-[680px] mx-auto lg:mx-0">
             <p className="section-label mb-4">{t.page.methodology}</p>
             <h2

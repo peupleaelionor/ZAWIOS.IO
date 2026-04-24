@@ -15,6 +15,19 @@ export function CTASection() {
           className="max-w-xl mx-auto text-center px-6 py-12 md:py-16 rounded-2xl relative overflow-hidden"
           style={{ background: 'var(--surface)', border: '1px solid var(--border2)' }}
         >
+          {/* Rose spiral — centered behind CTA card */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={{
+              backgroundImage: 'url(/brand/backgrounds/patterns/bg-rose.svg)',
+              backgroundSize: '85%',
+              backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
+              mixBlendMode: 'multiply',
+              opacity: 0.22,
+            }}
+          />
           <div
             aria-hidden="true"
             style={{

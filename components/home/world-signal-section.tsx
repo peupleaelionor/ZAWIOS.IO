@@ -147,10 +147,24 @@ export function WorldSignalSection() {
 
   return (
     <section
-      className="py-14 md:py-20"
+      className="relative overflow-hidden py-14 md:py-20"
       style={{ background: 'var(--surface-alt)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}
     >
-      <div className="container">
+      {/* Constellation — top-right accent, fades toward content */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: 'url(/brand/backgrounds/mesh/bg-constellation.svg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'top right',
+          mixBlendMode: 'multiply',
+          opacity: 0.35,
+          WebkitMaskImage: 'radial-gradient(ellipse 65% 75% at 100% 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 75%)',
+          maskImage: 'radial-gradient(ellipse 65% 75% at 100% 0%, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 75%)',
+        }}
+      />
+      <div className="container relative">
 
         {/* Section header */}
         <div className="mb-10">
